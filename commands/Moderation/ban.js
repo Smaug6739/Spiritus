@@ -19,6 +19,7 @@ module.exports.run = (client, message, args) => {
 module.exports.help = {
   name: "ban",
   aliases: ['ban'],
+  category : 'moderation',
   description: "Ban un utilisateur",
   cooldown: 10,
   usage: '<@user> <raison>',

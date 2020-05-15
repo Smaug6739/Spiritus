@@ -44,6 +44,7 @@ module.exports.run = async (client, message, args) => {
 module.exports.help = {
   name: "mute",
   aliases: ['mute'],
+  category : 'moderation',
   description: "Mute un utilisateur",
   cooldown: 10,
   usage: '<@user> <time>',

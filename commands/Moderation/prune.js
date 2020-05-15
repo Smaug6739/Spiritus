@@ -29,6 +29,7 @@ module.exports.run = async (client, message, args) => {
 module.exports.help = {
   name: "prune",
   aliases: ['prune'],
+  category : 'moderation',
   description: "Purge un nombre de message spécifié sur un utilisateur spécifié",
   cooldown: 10,
   usage: '<@user> <nbr_messages>',
