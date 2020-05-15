@@ -22,7 +22,7 @@ module.exports.help = {
   aliases: ['kick'],
   description: "Kick un utilisateur",
   cooldown: 10,
-  usage: '<user> <raison>',
+  usage: '<@user> <raison>',
   isUserAdmin: true,
   permissions: true,
   args: true
