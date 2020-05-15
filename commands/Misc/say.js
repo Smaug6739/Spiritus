@@ -7,6 +7,7 @@ module.exports.help = {
     
     name : 'say',
     aliases : ['repeat', 'rep'],
+    category : 'misc',
     description : 'Répète le message d\'un utilisateur',
     cooldown : 10,
     usage : '<votre_message>',
