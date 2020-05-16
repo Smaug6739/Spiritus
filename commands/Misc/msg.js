@@ -3,16 +3,23 @@ module.exports.run =(client, message, args) => {
 
         if(typeof message.mentions.users.first() !== 'undefined') {
             let attachments = message.attachments
-
             let user = message.mentions.users.first()
             let arrayMsg = message.content.split(/ +/g)
             arrayMsg.shift()
             arrayMsg.shift()
             let content = arrayMsg.join(" ")
-            user.send("**Message de l'administration : **"+content, message.attachments.first()).then(msg => {
-                message.delete()
-            })
-            .catch(console.error);
+                if(attachments) {
+                    user.send("**Message de l'administration : **"+content, message.attachments.first()).then(msg => {
+                    message.delete()
+                })
+                .catch(console.error);
+                
+                } else {
+                    user.send("**Message de l'administration : **"+content,attachments).then(msg => {
+                        message.delete()
+                    })
+                    .catch(console.error);
+                }
         }
     } else {
         

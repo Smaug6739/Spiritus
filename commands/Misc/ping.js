@@ -1,7 +1,7 @@
 const color = require('../../util/constants')
 module.exports.run =(client, message, args) => {
-    
-    message.channel.send('Pong !');
+    let debut = Date.now();
+    message.channel.send('Pong !').then(async(m) => await m.edit(`Pong ! \`${Date.now()-debut}ms\``));
     //console.log(color)
 }
 module.exports.help = {
