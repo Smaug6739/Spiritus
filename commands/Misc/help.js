@@ -25,22 +25,27 @@ module.exports.run = (client, message, args) => {
   
       const embed = new MessageEmbed()
         .setColor("#62b02e")
-        .setTitle(`\`${command.help.name}\``)
-        .addField("Description", `${command.help.description} (cd: ${command.help.cooldown}secs)`)
-        .addField("Utilisation", command.help.usage ? `${PREFIX}${command.help.name} ${command.help.usage}` : `${PREFIX}${command.help.name}`, true)
-  
-      if (command.help.aliases.length > 1) embed.addField("Alias", `${command.help.aliases.join(', ')}`, true);
+        //.setTitle(`\`${PREFIX}${command.help.name}\``)
+        .setAuthor(`Commande : ${PREFIX}${command.help.name}`, `${client.user.displayAvatarURL()}`)
+        .addField("Description :", `${command.help.description} (cd: ${command.help.cooldown}secs)`)
+        .addField("Utilisation :", command.help.usage ? `${PREFIX}${command.help.name} ${command.help.usage}` : `${PREFIX}${command.help.name}`, true)
+        .setTimestamp()
+        .setFooter('Some footers text here', 'https://i.imgur.com/wSTFkRM.png');
+      if (command.help.aliases.length > 1) embed.addField("Alias :", `${PREFIX}${command.help.aliases.join(`\r\n${PREFIX}`)}`);
+      if (command.help.exemple && command.help.exemple.length > 0) embed.addField("Exemples :", `${PREFIX}${command.help.exemple.join(`\r\n${PREFIX}`)}`);
+
       return message.channel.send(embed);
     }
   };
   
   module.exports.help = {
     name: "help",
-    aliases: ['help'],
+    aliases: ['help','commandes'],
     category: 'misc',
     description: "Renvoie une liste de commandes ou les informations sur une seule!",
     cooldown: 3,
     usage: '<command_name>',
+    exemple :["help","help ping"],
     isUserAdmin: false,
     permissions: false,
     args: false

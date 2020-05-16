@@ -10,8 +10,9 @@ module.exports.help = {
     aliases : ['ping'],
     category : 'misc',
     description : 'Renvoie un message avec des reactions !',
-    cooldown : 10,
+    cooldown : 5,
     usage : '',
+   // exemple :["ping"],
     permissions : false,
     isUserAdmin: false,
     args : false

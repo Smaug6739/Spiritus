@@ -48,6 +48,7 @@ module.exports.help = {
   description: "Mute un utilisateur",
   cooldown: 10,
   usage: '<@user> <time>',
+  exemple :["mute @Smaug 1h"],
   isUserAdmin: true,
   permissions: true,
   args: true

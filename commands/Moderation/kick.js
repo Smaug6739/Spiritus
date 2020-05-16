@@ -24,6 +24,7 @@ module.exports.help = {
   description: "Kick un utilisateur",
   cooldown: 10,
   usage: '<@user> <raison>',
+  exemple :["kick @Smaug spam"],
   isUserAdmin: true,
   permissions: true,
   args: true

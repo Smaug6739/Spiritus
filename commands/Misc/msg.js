@@ -71,7 +71,8 @@ module.exports.help = {
     category : 'misc',
     description : 'Répète le message d\'un utilisateur dans un channel spécifié ou dans les MP d\'une personne',
     cooldown : 10,
-    usage : '<#channel> <votre_message>  **ou**  <@user> <votre_message>',
+    usage : '<#channel> <votre_message>  ** ou **  <@user> <votre_message>',
+    exemple :["msg @Smaug Message","msg #spiritus Message"],
     isUserAdmin: false,
     permissions : false,
     args : true

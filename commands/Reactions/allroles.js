@@ -33,6 +33,7 @@ module.exports.help = {
   description: "Renvoie un message avec des réactions!",
   cooldown: 10,
   usage: '',
+  //exemple :["allroles"],
   permissions: true,
   isUserAdmin: false,
   args: false

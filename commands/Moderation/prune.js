@@ -33,6 +33,7 @@ module.exports.help = {
   description: "Purge un nombre de message spécifié sur un utilisateur spécifié",
   cooldown: 10,
   usage: '<@user> <nbr_messages>',
+  //exemple :["prune @Smaug 50"],
   isUserAdmin: true,
   permissions: true,
   args: true

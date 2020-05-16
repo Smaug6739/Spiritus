@@ -22,6 +22,7 @@ module.exports.help = {
     description: "Tester un code javascript",
     cooldown: 0.1,
     usage: '<code_to_test>',
+    //exemple :["eval 5 + 5"],
     isUserAdmin: false,
     permissions: true,
     args: true

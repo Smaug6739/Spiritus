@@ -24,6 +24,7 @@ module.exports.help = {
   description: "Unmute un utilisateur",
   cooldown: 10,
   usage: '<@user>',
+  exemple :["unmute @Smaug"],
   isUserAdmin: true,
   permissions: true,
   args: true

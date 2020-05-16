@@ -23,6 +23,7 @@ module.exports.help = {
   description: "Permet de supprimer le nombre de messages indiqués",
   cooldown: 10,
   usage: '<nb_messages>',
+  //exemple :["purge 50"],
   isUserAdmin: false,
   permissions: true,
   args: true

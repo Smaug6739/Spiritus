@@ -22,6 +22,7 @@ module.exports.help = {
   description: "Unban un utilisateur",
   cooldown: 10,
   usage: '<user_id>',
+  exemple :["unban 611468402263064577"],
   isUserAdmin: false,
   permissions: true,
   args: true

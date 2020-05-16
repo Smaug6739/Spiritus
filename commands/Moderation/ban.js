@@ -23,6 +23,7 @@ module.exports.help = {
   description: "Ban un utilisateur",
   cooldown: 10,
   usage: '<@user> <raison>',
+  exemple :["ban @Smaug spam"],
   isUserAdmin: true,
   permissions: true,
   args: true
