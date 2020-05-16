@@ -7,30 +7,33 @@ module.exports.run = (client, message, args) => {
     if (!args.length) {
       const embed = new MessageEmbed()
         .setColor("#62b02e")
+        
         .addField("Liste des commandes", `Une liste de toutes les sous-catégories disponibles et leurs commandes.\nPour plus d'informations sur une commande, tapez \`${PREFIX}help <command_name>\`.`)
-  
+        .setTimestamp()
+        .setFooter('BOT ID : 689210215488684044', `${message.guild.iconURL()}`);
       for (const category of categoryList) {
-     
+
         embed.addField(
           `${category}`,
-          `**${PREFIX}${client.commands.filter(cat => cat.help.category === category.toLowerCase()).map(cmd => cmd.help.name).join(`\r\n ${PREFIX}`)}**`
+          `${client.commands.filter(cat => cat.help.category === category.toLowerCase())
+            .map(cmd => '**'+`${PREFIX}`+cmd.help.name +' ** - '+ cmd.help.description).join(`\r\n`)}`
         );
       };
-  
       return message.channel.send(embed);
     } else {
       const command = client.commands.get(args[0]) || client.commands.find(cmd => cmd.help.aliases && cmd.help.aliases.includes(args[0]));
       console.log(command);
       if (!command) return message.reply("cette commande n'existe pas!");
-  
+      const logo = '<:15896389126821:711223108866015242>';
       const embed = new MessageEmbed()
+      
         .setColor("#62b02e")
         //.setTitle(`\`${PREFIX}${command.help.name}\``)
-        .setAuthor(`Commande : ${PREFIX}${command.help.name}`, `${client.user.displayAvatarURL()}`)
+        .setTitle(`${logo} **Commande :** ${PREFIX}${command.help.name}`)
         .addField("Description :", `${command.help.description} (cd: ${command.help.cooldown}secs)`)
         .addField("Utilisation :", command.help.usage ? `${PREFIX}${command.help.name} ${command.help.usage}` : `${PREFIX}${command.help.name}`, true)
         .setTimestamp()
-        .setFooter('Some footers text here', 'https://i.imgur.com/wSTFkRM.png');
+        .setFooter('BOT ID : 689210215488684044', `${message.guild.iconURL()}`);
       if (command.help.aliases.length > 1) embed.addField("Alias :", `${PREFIX}${command.help.aliases.join(`\r\n${PREFIX}`)}`);
       if (command.help.exemple && command.help.exemple.length > 0) embed.addField("Exemples :", `${PREFIX}${command.help.exemple.join(`\r\n${PREFIX}`)}`);
 

@@ -3,6 +3,7 @@ const { loadCommands, loadEvents } = require("./util/loader");
 const { TOKEN } = require('./config');
 
 const client = new Client();
+require('./util/functions')(client);
 client.mongoose = require("./util/mongoose");
 ["commands", "cooldowns"].forEach(x => client[x] = new Collection());
 
@@ -11,3 +12,4 @@ loadEvents(client);
 client.mongoose.init();
 
 client.login(TOKEN);
+
