@@ -12,6 +12,7 @@ module.exports.run = (client, message, args) => {
         .setTimestamp()
         .setFooter('BOT ID : 689210215488684044', `${message.guild.iconURL()}`);
       for (const category of categoryList) {
+        //console.log('Catégories chargées :'+category)
 
         embed.addField(
           `${category}`,
