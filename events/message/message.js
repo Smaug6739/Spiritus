@@ -8,7 +8,6 @@ module.exports = async(client, message) => {
   const args = message.content.slice(PREFIX.length).split(/ +/);
   const commandName = args.shift().toLowerCase();
   const user = message.mentions.users.first();
-
   const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.help.aliases && cmd.help.aliases.includes(commandName));
   if (!command) return;
 

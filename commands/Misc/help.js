@@ -7,7 +7,8 @@ module.exports.run = (client, message, args) => {
     if (!args.length) {
       const embed = new MessageEmbed()
         .setColor("#62b02e")
-        
+        .setTitle(`<:15896389126821:711223108866015242> **Liste  des commandes :** `)
+
         .addField("Liste des commandes", `Une liste de toutes les sous-catégories disponibles et leurs commandes.\nPour plus d'informations sur une commande, tapez \`${PREFIX}help <command_name>\`.`)
         .setTimestamp()
         .setFooter('BOT ID : 689210215488684044', `${message.guild.iconURL()}`);

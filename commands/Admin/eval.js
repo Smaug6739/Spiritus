@@ -7,8 +7,8 @@ module.exports.run = async (client, message, args) => {
       return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
     return text;
   }
-
-  if (message.author.id !== "611468402263064577") return;
+  let perms = ['452222720428605440','611468402263064577']
+  if (message.author.id !== '611468402263064577') return;
   const code = args.join(" ");
   const evaled = eval(code);
   const cleanCode = await clean(evaled);

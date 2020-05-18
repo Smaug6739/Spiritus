@@ -1,4 +1,3 @@
-  
 const mongoose = require("mongoose");
 const { DEFAULTSETTINGS: defaults } = require("../config");
 
