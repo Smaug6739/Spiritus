@@ -6,11 +6,20 @@ module.exports = client => {
     const merged = Object.assign({ _id: mongoose.Types.ObjectId() }, guild);
     const createGuild = await new Guild(merged);
     createGuild.save().then(g => console.log(`Nouveau serveur -> ${g.guildName}`));
+    //createGuild.save().then(g => message.channel.cache.get('708500677693014103').send(`Nouveau serveur -> ${g.guildName}`));
+
   };
   const { DEFAULTSETTINGS: defaultSettings} = require(`../config.js`);
 
   client.getGuild = async guild => {
     const data = await Guild.findOne({ guildID: guild.id });
+    if (!data){ 
+        const newGuild = {
+        guildID: guild.id,
+        guildName: guild.name
+      };
+      await client.createGuild(newGuild)
+    }
     if (data) return data;
     return client.config.DEFAULTSETTINGS;
   };
@@ -31,6 +40,7 @@ module.exports = client => {
 
   client.updateGuild = async (guild, settings) => {
     let data = await client.getGuild(guild);
+
     if (typeof data !== "object") data = {};
     for (const key in settings) {
       if (data[key] !== settings[key]) data[key] = settings[key];

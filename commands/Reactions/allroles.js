@@ -20,9 +20,13 @@ module.exports.run = (client, message, args) => {
       `
     );
 
-    client.channels.cache.get('710840240570368053').send(embed).then(async msg => {
+    message.channel.messages.fetch('711966196626489467').then(async msg => {
       await msg.react(lapinEmoji);
       await msg.react(wahEmoji);
+    })
+    message.channel.messages.fetch('711966238406082654').then(async msg => {
+      await msg.react('👍');
+      await msg.react('👎');
     })
 };
 
