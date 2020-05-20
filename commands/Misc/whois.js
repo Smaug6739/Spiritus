@@ -22,7 +22,7 @@ module.exports.run = async (client, message, args) =>{
             .addField('User information:', `**> Status:** ${status}`)
             //.addField('User information:', `**> Plateforme :** ${message.author.ClientPresenceStatus}`)
             //.addField('A rejoin le serveur:', message.guild.members.find('id',memberToFind.id).joinedAt)
-            .addField('Compte crée le :', fetchedMembers.user.createdAt)
+            //.addField('Compte crée le :', fetchedMembers.user.createdAt)
 
           /*.addField('message.author information:', `**> Display name:** ${message.author.displayName}
             **> Joined at:** ${joined}

@@ -1,15 +1,14 @@
 const { MessageEmbed } = require("discord.js");
-const { PREFIX } = require("../../config");
 const { readdirSync } = require("fs");
 const categoryList = readdirSync('./commands');
-module.exports.run = (client, message, args) => {
+module.exports.run = (client, message, args, settings) => {
     
     if (!args.length) {
       const embed = new MessageEmbed()
         .setColor("#62b02e")
         .setTitle(`<:15896389126821:711223108866015242> **Liste  des commandes :** `)
 
-        .addField("Liste des commandes", `Une liste de toutes les sous-catégories disponibles et leurs commandes.\nPour plus d'informations sur une commande, tapez \`${PREFIX}help <command_name>\`.`)
+        .addField("Liste des commandes", `Une liste de toutes les sous-catégories disponibles et leurs commandes.\nPour plus d'informations sur une commande, tapez \`${settings.prefix}help <command_name>\`.`)
         .setTimestamp()
         .setFooter('BOT ID : 689210215488684044', `${message.guild.iconURL()}`);
       for (const category of categoryList) {
@@ -18,7 +17,7 @@ module.exports.run = (client, message, args) => {
         embed.addField(
           `${category}`,
           `${client.commands.filter(cat => cat.help.category === category.toLowerCase())
-            .map(cmd => '**'+`${PREFIX}`+cmd.help.name +' ** - '+ cmd.help.description).join(`\r\n`)}`
+            .map(cmd => '**'+`${settings.prefix}`+cmd.help.name +' ** - '+ cmd.help.description).join(`\r\n`)}`
         );
       };
       return message.channel.send(embed);
@@ -30,14 +29,14 @@ module.exports.run = (client, message, args) => {
       const embed = new MessageEmbed()
       
         .setColor("#62b02e")
-        //.setTitle(`\`${PREFIX}${command.help.name}\``)
-        .setTitle(`${logo} **Commande :** ${PREFIX}${command.help.name}`)
+        //.setTitle(`\`${settings.prefix}${command.help.name}\``)
+        .setTitle(`${logo} **Commande :** ${settings.prefix}${command.help.name}`)
         .addField("Description :", `${command.help.description} (cd: ${command.help.cooldown}secs)`)
-        .addField("Utilisation :", command.help.usage ? `${PREFIX}${command.help.name} ${command.help.usage}` : `${PREFIX}${command.help.name}`, true)
+        .addField("Utilisation :", command.help.usage ? `${settings.prefix}${command.help.name} ${command.help.usage}` : `${settings.prefix}${command.help.name}`, true)
         .setTimestamp()
         .setFooter('BOT ID : 689210215488684044', `${message.guild.iconURL()}`);
-      if (command.help.aliases.length > 1) embed.addField("Alias :", `${PREFIX}${command.help.aliases.join(`\r\n${PREFIX}`)}`);
-      if (command.help.exemple && command.help.exemple.length > 0) embed.addField("Exemples :", `${PREFIX}${command.help.exemple.join(`\r\n${PREFIX}`)}`);
+      if (command.help.aliases.length > 1) embed.addField("Alias :", `${settings.prefix}${command.help.aliases.join(`\r\n${settings.prefix}`)}`);
+      if (command.help.exemple && command.help.exemple.length > 0) embed.addField("Exemples :", `${settings.prefix}${command.help.exemple.join(`\r\n${settings.prefix}`)}`);
 
       return message.channel.send(embed);
     }
