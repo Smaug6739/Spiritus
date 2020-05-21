@@ -1,6 +1,8 @@
 const { MessageEmbed } = require("discord.js") 
 module.exports.run = async (client, message, args) => {
-    
+  if(message.member.hasPermission('MANAGE_EMOJIS')){
+
+    if(!message.content.includes('http') || args[1]=='undefined') return message.channel.send('une erreur s\'est produite assurez vous d\'utiliser correctement la commande :wink:')
    const embed = new MessageEmbed()
    .setTitle('Emoji create')
    .setThumbnail(args[0])
@@ -15,15 +17,17 @@ module.exports.run = async (client, message, args) => {
   .then(emoji => /*console.log(`Created new emoji with name ${emoji.name}!`)*/ message.channel.send(embed))
   .catch(console.error);
 
+   }else{
+     return message.channel.send('Vous devez avoir la permission de gérer les emojis pour utiliser cette commande !')
 
+   }
 
-   
 }
 module.exports.help = {
     
     name : 'emoji-create',
     aliases : ['emoji-cre'],
-    category : 'misc',
+    category : 'manangement',
     description : 'Crée un emoji',
     cooldown : 5,
     usage : 'emojicreate https://url-img.png name',

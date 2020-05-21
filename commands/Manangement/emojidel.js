@@ -2,13 +2,8 @@ const color = require('../../util/constants')
 const { MessageEmbed } = require("discord.js") 
 
 module.exports.run = async (client, message, args) => {
-    
-    //const emojiList = message.guild.emojis.cache.map(e=>e.toString()).join(" ");
-    //message.channel.send(emojiList);
-    /*
-    const emojiList = message.guild.emojis.cache.map((e, x) => ( e.toString() + x + ' = ' + e) + ' | ' +e.name ).join('\n');
-    message.channel.send(emojiList);
-    */
+    if(message.member.hasPermission('MANAGE_EMOJIS')){
+
     let emo = client.emojis.cache.find(emoji => emoji.name === args[0])
     if(emo){
         //emoji-nom
@@ -23,12 +18,12 @@ module.exports.run = async (client, message, args) => {
         .setFooter('BOT ID : 689210215488684044', `${message.guild.iconURL()}`);
         message.channel.send(embed)
         emo.delete()
-    }else{
+    }else if(args[0].includes('>','<')){
         //emoji-taper
         let emoo = args[0]
-    let emoji_string = emoo.replace(/<.*:/, '').slice(0, -1);
-    console.log(emoji_string)
-    const embed = new MessageEmbed()
+        let emoji_string = emoo.replace(/<.*:/, '').slice(0, -1);
+        console.log(emoji_string)
+        const embed = new MessageEmbed()
         .setTitle('Emoji delete')
         .setThumbnail(message.guild.emojis.cache.get(emoji_string).url)
         .setColor(0x00FF00)
@@ -38,14 +33,19 @@ module.exports.run = async (client, message, args) => {
         .setFooter('BOT ID : 689210215488684044', `${message.guild.iconURL()}`);
     message.channel.send(embed)
     message.guild.emojis.cache.get(emoji_string).delete()
+    }else{
+        message.channel.send('Je n\'ai pas trouver cet emot...\nEssayez de le coller :wink:')
     }
+    }else{
+        return message.channel.send('Vous devez avoir la permission de gérer les emojis pour utiliser cette commande !')
 
+    }
 }
 module.exports.help = {
     
     name : 'emoji-delete',
     aliases : ['emoji-del'],
-    category : 'misc',
+    category : 'manangement',
     description : 'Supprimer un emoji',
     cooldown : 5,
     usage : '',

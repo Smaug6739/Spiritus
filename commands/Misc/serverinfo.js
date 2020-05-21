@@ -7,12 +7,7 @@ module.exports.run = (client, message, args) => {
         owner = message.guild.owner,
         owner_id = message.guild.ownerID,
         region = message.guild.region.toUpperCase()
-    /*
-    var online = message.guild.members.cache.filter(m => m.presence.status == "online"),
-        offline = message.guild.members.cache.filter(m => m.presence.status == "offline"),
-        idle = message.guild.members.cache.filter(m => m.presence.status == "idle"),
-        dnd = message.guild.members.cache.filter(m => m.presence.status == "dnd")
-        */
+
     var boost = message.guild.premiumSubscriptionCount
         if (boost === 0) {
             boost = "Ce serveur n'est pas BOOST"
@@ -29,17 +24,14 @@ module.exports.run = (client, message, args) => {
         const channel_t = message.guild.channels.cache.filter(channel => channel.type === "text").size
         const channel_v = message.guild.channels.cache.filter(channel => channel.type === "voice").size
         const channel_c = message.guild.channels.cache.filter(channel => channel.type === "category").size
-        //const roles = message.guild.roles.fetch()
-        //.then(roles => console.log(`There are ${roles.cache.size} roles.`))
-        //const roles = message.guild.roles
-            const roles = message.guild.rolesCount;
-        //message.channel.send("Nombre de channels sur le serveur : " + channel);
+       
+        const roles = message.guild.rolesCount;
     
         
     let embed = new MessageEmbed()
     //.setDescription('Boosts du serveur : '+boost+'\r\n'+ 'Nom du serveur : '+guild_name+'\r\n Owner : <@'+owner +'>\r\n Région du serveur : '+region+'\r\nNombre de personnes sur le serveur : '+members+'\r\nNombre de membre en ligne :'+totalOnline+'\r\nNombres de channels textuels :'+channel)
     .setTitle(`**Informations sur le serveur :**`)
-    .setAuthor(`${guild_name}`, `${message.guild.iconURL()}`, 'https://discord.js.org')
+    .setAuthor(`${guild_name}`, `${message.guild.iconURL()}`)
     .setThumbnail(`${message.guild.iconURL()}`)
     .addFields(
         { name: 'Nom du serveur', value: `${guild_name}`, inline: true },
