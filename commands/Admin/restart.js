@@ -5,22 +5,19 @@ let OK = client.emojis.cache.find(emoji => emoji.name === "61100464854223562974"
 
 await message.channel.send(`${OK}OK .`)
 process.exit()
-
-
     
 }
-
 
 module.exports.help = {
     
     name : 'restart',
     aliases : ['restart'],
-    category : 'misc',
+    category : 'admin',
     description : 'Commandes pour le redemarage (avec pm2)',
     cooldown : 5,
     usage : '',
    // exemple :["ping"],
-    permissions : false,
+    permissions : true,
     isUserAdmin: false,
     args : false
 }
