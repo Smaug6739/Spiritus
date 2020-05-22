@@ -41,8 +41,8 @@ module.exports.run = (client, message, args) => {
         { name: 'Verification niveau', value: `${message.guild.verificationLevel}`, inline: true },
         //{ name: 'Roles du serveur', value: `${message.guild.roles.fetch().then(roles =>roles.cache.size)}`, inline: true },
         { name: '<:nitro4:711646757926207518>Nitro du serveur', value: `${boost}`, inline: true },
-        { name: 'Chanels', value: `<:Channel:711645995678826536>Texte :${channel_t}\n<:Voice:711646756357799958>Voice :${channel_v}\n<:etiquette:711652141772832819>${channel_c}`, inline: true },
-        { name: 'Status des membres', value: `<:651832398354317342:711643029999452171>Online : ${online}\n<:651832510870978573:711643030066692106>Idle : ${idle}\n<:651832449302659082:711643029731147910>Dnd : ${dnd}\n<:651832576025034764:711643030397911130>Offline : ${off}`, inline: true },
+        { name: 'Chanels', value: `<:X5channelX5:713120296697331782>Texte :${channel_t}\n<:X2voiceX2:713120217118539879>Voice :${channel_v}\n<:X6etiquetteX6:713455416289525851>${channel_c}`, inline: true },
+        { name: 'Status des membres', value: `<:Y66518398354317342Y6:713120853704966205>Online : ${online}\n<:Y56518325870978573Y5:713120840925053019>Idle : ${idle}\n<:Y46532449302659082Y4:713120827268268033>Dnd : ${dnd}\n<:Y31832576025034764Y3:713120675778265109>Offline : ${off}`, inline: true },
         //{ name: 'Category', value: `${channel_c}`, inline: true }
        
         //{ name: 'Owner', value: `${boost}`, inline: true },
