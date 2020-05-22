@@ -1,5 +1,5 @@
 module.exports = (client, messageReaction, user) => {
-    const message = messageReaction.message;
+    /*const message = messageReaction.message;
     const member = message.guild.members.cache.get(user.id);
     const emoji = messageReaction.emoji.name;
     const channel = message.guild.channels.cache.find(c => c.id === '710763401902686250');
@@ -29,5 +29,5 @@ module.exports = (client, messageReaction, user) => {
           message.channel.send(`Le rôle ${falser.name} a été ajouté avec succès!`);
           break;
       };
-    }
+    }*/
   }
