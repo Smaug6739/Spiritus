@@ -1,8 +1,8 @@
 const { Collection } = require('discord.js');
 
 module.exports = async(client, message) => {
-  const settings = await client.getGuild(message.guild);
   if (message.channel.type === "dm") return client.emit("directMessage", message);
+  const settings = await client.getGuild(message.guild);
   if (!message.content.startsWith(settings.prefix) || message.author.bot) return;
   const args = message.content.slice(settings.prefix.length).split(/ +/);
   const commandName = args.shift().toLowerCase();
