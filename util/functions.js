@@ -11,8 +11,10 @@ module.exports = async client => {
   };
   client.deleteGuild = async guild => {
     const data = await Guild.findOne({ guildID: guild.id });
+    if(data){
+      await data.delete()
+    }
 
-   await data.delete()
   // Guild.save()
     
   };
