@@ -21,26 +21,19 @@ module.exports = async client => {
 
   client.getGuild = async guild => {
     const data = await Guild.findOne({ guildID: guild.id });
-    
+    if (!data){ 
+      const newGuild = {
+      guildID: guild.id,
+      guildName: guild.name
+      
+      };
+
+    await client.createGuild(newGuild)
+    }
     if (data) return data;
     return client.config.DEFAULTSETTINGS;
   };
 
- 
-
-  /*client.getGuild = async guild => {
-    const data = await Guild.findOne({ guildID: guild.id });
-    if (data) return data;
-    if(client.config.DEFAULTSETTINGS === 'undefined'){
-    //condition dans la quel j'essaye de verifier si le serveur est dans la db.
-      client.createGuild = async guild => {
-        const merged = Object.assign({ _id: mongoose.Types.ObjectId() }, guild);
-        const createGuild = await new Guild(merged);
-        createGuild.save().then(g => console.log(`Nouveau serveur -> ${g.guildName}`));
-    }
-  };
-    return client.config.defaultSettings;
-  };*/
 
   client.updateGuild = async (guild, settings) => {
     let data = await client.getGuild(guild);

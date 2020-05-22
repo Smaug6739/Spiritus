@@ -14,11 +14,11 @@ module.exports.help = {
     name : 'clearrea',
     aliases : ['clearrea'],
     category : 'moderation',
-    description : 'Ping le bot et donne son temps de réaction',
+    description : 'Supprime toutes les reactions d\'un message ',
     cooldown : 5,
-    usage : '',
-   // exemple :["ping"],
-    permissions : false,
+    usage : 'id_message emoji',
+    exemple :["clearrea 713128046886125589 <:yo:712783546552680560>"],
+    permissions : true,
     isUserAdmin: false,
     args : false
 }

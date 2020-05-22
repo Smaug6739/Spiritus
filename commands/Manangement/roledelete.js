@@ -21,7 +21,7 @@ module.exports.help = {
     name : 'role-delete',
     aliases : ['role-delete'],
     category : 'manangement',
-    description : 'Mettre a jour le nom d\'un emoji',
+    description : 'Supprimer un role',
     cooldown : 5,
     usage : '',
     exemple :["emojiup name_emot new_name"],

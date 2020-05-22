@@ -25,7 +25,7 @@ module.exports.help = {
     name : 'role-create',
     aliases : ['role-create'],
     category : 'manangement',
-    description : 'Mettre a jour le nom d\'un emoji',
+    description : 'Crer un role',
     cooldown : 5,
     usage : '',
     exemple :["emojiup name_emot new_name"],
