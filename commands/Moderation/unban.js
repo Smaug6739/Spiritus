@@ -1,13 +1,14 @@
 const { MessageEmbed } = require("discord.js");
 
 module.exports.run = async (client, message, args) => {
+  let { ROUGE } = require('../../configstyle');
   let user = await client.users.fetch(args[0]);
   if (!user) return message.reply("l'utilisateur n'existe pas.");
   message.guild.members.unban(user);
 
   const embed = new MessageEmbed()
     .setAuthor(`${user.username} (${user.id})`, user.avatarURL())
-    .setColor("#dc143c")
+    .setColor(`${ROUGE}`)
     .setDescription(`**Action**: unban`)
     .setTimestamp()
     .setFooter(message.author.username, message.author.avatarURL());

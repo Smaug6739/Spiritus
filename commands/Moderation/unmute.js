@@ -1,5 +1,7 @@
 const { MessageEmbed } = require("discord.js");
 module.exports.run = (client, message, args) => {
+  let { ORANGE } = require('../../configstyle');
+
   let user = message.guild.member(message.mentions.users.first());
   let muteRole = message.guild.roles.cache.find(r => r.name === 'muted');
 
@@ -9,7 +11,7 @@ module.exports.run = (client, message, args) => {
 
   const embed = new MessageEmbed()
     .setAuthor(`${user.user.username} (${user.id})`, user.user.avatarURL())
-    .setColor("#ffa500")
+    .setColor(`${ORANGE}`)
     .setDescription(`**Action**: unmute`)
     .setTimestamp()
     .setFooter(message.author.username, message.author.avatarURL());

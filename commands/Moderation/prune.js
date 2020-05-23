@@ -1,6 +1,8 @@
 const { MessageEmbed } = require("discord.js");
 
 module.exports.run = async (client, message, args) => {
+  let { ROUGE } = require('../../configstyle');
+
   let user = message.guild.member(message.mentions.users.first());
   if (isNaN(args[1]) || (args[1] < 1 || args[1] > 100)) return message.reply('il faut spécifier un ***nombre*** entre 1 et 100!');
 
@@ -20,7 +22,7 @@ module.exports.run = async (client, message, args) => {
 
   const embed = new MessageEmbed()
     .setAuthor(message.author.username, message.author.avatarURL())
-    .setColor("#dc143c")
+    .setColor(`${ROUGE}`)
     .setDescription(`**Action**: prune\n**Nbr de messages**: ${args[1]}\n**Utilisateur**: ${args[0]}`)
     
   message.channel.send(embed);
