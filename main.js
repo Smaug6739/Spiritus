@@ -9,4 +9,3 @@ loadEvents(client);
 client.mongoose.init();
 client.config = require("./config")
 client.login(client.config.TOKEN);
-
