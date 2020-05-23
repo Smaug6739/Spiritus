@@ -1,4 +1,4 @@
-exports.VERT = '#35f092';
+exports.VERTCLAIR = '#35f092';
 exports.ROSE = '#fd7aff';
 exports.ORANGE = '#ffa500';
 exports.ROUGE = '#dc143c';
