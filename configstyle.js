@@ -1,7 +1,8 @@
-exports.VERTCLAIR = '#35f092';
-exports.ROSE = '#fd7aff';
-exports.ORANGE = '#ffa500';
-exports.ROUGE = '#dc143c';
+exports.VERTCLAIRE = '#35f092';
+exports.EMBED = '#36393F';//HELP;
+exports.ROSE = '#fd7aff';//LOGS;
+exports.ORANGE = '#ffa500';//TICKETS;
+exports.ROUGE = '#dc143c';//MEMBER_REMOVE;
 
 exports.TRUE = '<a:Z9Z9:712562703310258228>';
 exports.FALSE = '<a:Z8Z8:712562703318646844>';

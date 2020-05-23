@@ -1,9 +1,9 @@
 const { MessageEmbed } = require("discord.js");
 
 module.exports = (client, member) => {
-
+  let { ROUGE } = require('../../configstyle');
     const embed = new MessageEmbed()
-    .setColor('#dc143c')
+    .setColor(`${ROUGE}`)
     .setTitle('Member left')
     .setAuthor('Module d\'evenement', 'https://french-gaming-family.fr/public/spiritusavatar.png')
     .setDescription("**" + member.displayName +"** vient de nous quitter. A bientôt l'ami ! :wave:")

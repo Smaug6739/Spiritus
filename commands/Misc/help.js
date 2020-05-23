@@ -2,11 +2,11 @@ const { MessageEmbed } = require("discord.js");
 const { readdirSync } = require("fs");
 const categoryList = readdirSync('./commands');
 module.exports.run = (client, message, args, settings) => {
-  let { LOGOROUGE } = require('../../configstyle');
+  let { LOGOROUGE,EMBED } = require('../../configstyle');
 
     if (!args.length) {
       const embed = new MessageEmbed()
-        .setColor("#62b02e")
+        .setColor(`${EMBED}`)
         .setTitle(`${LOGOROUGE} **Liste  des commandes :** `)
 
         .addField("Liste des commandes", `Une liste de toutes les sous-catégories disponibles et leurs commandes.\nPour plus d'informations sur une commande, tapez \`${settings.prefix}help <command_name>\`.`)
@@ -28,7 +28,7 @@ module.exports.run = (client, message, args, settings) => {
       if (!command) return message.reply("cette commande n'existe pas!");
       const embed = new MessageEmbed()
       
-        .setColor("#62b02e")
+        .setColor(`${EMBED}`)
         //.setTitle(`\`${settings.prefix}${command.help.name}\``)
         .setTitle(`${LOGOROUGE} **Commande :** ${settings.prefix}${command.help.name}`)
         .addField("Description :", `${command.help.description} (cd: ${command.help.cooldown}secs)`)
