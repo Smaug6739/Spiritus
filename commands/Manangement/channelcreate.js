@@ -35,11 +35,11 @@ module.exports.help = {
     name : 'channel-create',
     aliases : ['channel-cre'],
     category : 'manangement',
-    description : 'Supprimer un emoji',
+    description : 'Permet de crée un channel ou une catégorie.',
     cooldown : 5,
-    usage : '',
-    exemple :["emojidel name_emot"],
-    permissions : false,
+    usage : '<type_channel> <name_channel>',
+    exemple :["channel-create text nom"],
+    permissions : true,
     isUserAdmin: false,
-    args : false
+    args : true
 }
