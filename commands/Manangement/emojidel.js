@@ -3,7 +3,7 @@ const { MessageEmbed } = require("discord.js")
 module.exports.run = async (client, message, args) => {
     let { FALSE } = require('../../configstyle');
 
-    if(message.member.hasPermission('MANAGE_EMOJIS')){
+ if(message.member.hasPermission('MANAGE_EMOJIS')){
 
     let emo = client.emojis.cache.find(emoji => emoji.name === args[0])
     if(emo){
@@ -19,6 +19,7 @@ module.exports.run = async (client, message, args) => {
         .setFooter('BOT ID : 689210215488684044', `${message.guild.iconURL()}`);
         message.channel.send(embed)
         emo.delete()
+        
     }else if(args[0].includes('>','<')){
         //emoji-taper
         let emoo = args[0]
@@ -29,7 +30,7 @@ module.exports.run = async (client, message, args) => {
         .setThumbnail(message.guild.emojis.cache.get(emoji_string).url)
         .setColor(0x00FF00)
         .addFields(
-         { name: 'URL : :', value: `${message.guild.emojis.cache.get(emoji_string).url}`, inline: true })
+         { name: 'URL :', value: `${message.guild.emojis.cache.get(emoji_string).url}`, inline: true })
         .setTimestamp()
         .setFooter('BOT ID : 689210215488684044', `${message.guild.iconURL()}`);
     message.channel.send(embed)
@@ -37,10 +38,10 @@ module.exports.run = async (client, message, args) => {
     }else{
         message.channel.send(`${FALSE}Je n\'ai pas trouver cet emoji... Essayez vérifiez son orthographe et qu'il est bien sur le serveur`)
     }
-    }else{
-        return message.channel.send(`${FALSE}Vous devez avoir la permission de gérer les emojis pour utiliser cette commande !`)
+ }else{
+    return message.channel.send(`${FALSE}Vous devez avoir la permission de gérer les emojis pour utiliser cette commande !`)
 
-    }
+ }
 }
 module.exports.help = {
     

@@ -4,25 +4,45 @@ module.exports.run = async (client, message, args) => {
 
   if(message.member.hasPermission('MANAGE_EMOJIS')){
 
-    if(!message.content.includes('http') || args[1]=='undefined') return message.channel.send('une erreur s\'est produite assurez vous d\'utiliser correctement la commande :wink:')
-   const embed = new MessageEmbed()
-   .setTitle('Emoji create')
-   .setThumbnail(args[0])
-   .setColor(0x00FF00)
-   .addFields(
-    { name: 'Nom :', value: `${args[1]}`, inline: true },
-    { name: 'Emoji URL :', value: `${args[0]}`, inline: true }
-   )
-   .setTimestamp()
-   .setFooter('BOT ID : 689210215488684044', `${message.guild.iconURL()}`);
-   message.guild.emojis.create(args[0], args[1])
-  .then(emoji => /*console.log(`Created new emoji with name ${emoji.name}!`)*/ message.channel.send(embed))
-  .catch(console.error);
+      if(message.attachments.first()){
+            //if(args[0].includes('-'))return message.reply('Le nom de l\'emoji n\'est pas valide.')
+            const embed = new MessageEmbed()
+            .setTitle('Emoji create')
+            .setThumbnail(message.attachments.first().url)
+            .setColor(0x00FF00)
+            .addFields(
+            { name: 'Nom :', value: `${args[0]}`, inline: true },
+            { name: 'Emoji URL :', value: `${message.attachments.first().url}`, inline: true }
+            )
+            .setTimestamp()
+            .setFooter('BOT ID : 689210215488684044', `${message.guild.iconURL()}`);
+            message.guild.emojis.create(message.attachments.first().url, args[0])
+          .then(emoji => /*console.log(`Created new emoji with name ${emoji.name}!`)*/ message.channel.send(embed))
+          .catch(console.error);
 
-   }else{
-     return message.channel.send(`${FALSE}Vous devez avoir la permission de gérer les emojis pour utiliser cette commande !`)
+      }else{
 
-   }
+        if(!args[0].includes('http')) return message.channel.send(`${FALSE}Une erreur s\'est produite assurez vous d\'utiliser correctement la commande`)
+        if(!args[1]) return message.channel.send(`${FALSE}Veuillez spécifier un nom à votre emoji.`)
+        const embed = new MessageEmbed()
+        .setTitle('Emoji create')
+        .setThumbnail(args[0])
+        .setColor(0x00FF00)
+        .addFields(
+        { name: 'Nom :', value: `${args[1]}`, inline: true },
+        { name: 'Emoji URL :', value: `${args[0]}`, inline: true }
+        )
+        .setTimestamp()
+        .setFooter('BOT ID : 689210215488684044', `${message.guild.iconURL()}`);
+        message.guild.emojis.create(args[0], args[1])
+      .then(emoji => /*console.log(`Created new emoji with name ${emoji.name}!`)*/ message.channel.send(embed))
+      .catch(console.error);
+
+      }    
+
+  }else{
+    return message.channel.send(`${FALSE}Vous devez avoir la permission de gérer les emojis pour utiliser cette commande !`)
+  }
 
 }
 module.exports.help = {

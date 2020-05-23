@@ -6,22 +6,21 @@ module.exports.run = async (client, message, args) => {
 
     let emo = client.emojis.cache.find(emoji => emoji.name === args[0])
 
-
     if(emo){
         let emoticon = client.emojis.cache.find(emoji => emoji.name === args[0])
         //emoji-nom
         const embed = new MessageEmbed()
-    .setTitle('Emoji update')
-    .setThumbnail(emo.url)
-    .setColor(0x00FF00)
-    .addFields(
+        .setTitle('Emoji update')
+        .setThumbnail(emo.url)
+        .setColor(0x00FF00)
+        .addFields(
         { name: 'Ancien nom :', value: `${args[0]}`, inline: true },
         { name: 'Nouveau nom', value: `${args[1]}`, inline: true },
         { name: 'Emoji', value: `${emo.url}`, inline: true }
 
-    )
-    .setTimestamp()
-    .setFooter('BOT ID : 689210215488684044', `${message.guild.iconURL()}`);
+        )
+        .setTimestamp()
+        .setFooter('BOT ID : 689210215488684044', `${message.guild.iconURL()}`);
     await emoticon.edit({ name: args[1] })
     message.channel.send(embed)
     }else if(args[0].includes('>','<')){
