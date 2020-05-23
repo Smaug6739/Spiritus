@@ -1,7 +1,7 @@
 const { MessageEmbed } = require("discord.js") 
-
 module.exports.run = async (client, message, args) => {
-    
+    let { FALSE } = require('../../configstyle');
+
  if(message.member.hasPermission('MANAGE_EMOJIS')){
 
     let emo = client.emojis.cache.find(emoji => emoji.name === args[0])
@@ -43,12 +43,12 @@ module.exports.run = async (client, message, args) => {
         message.guild.emojis.cache.get(emoji_string).edit({ name: args[1] })
         message.channel.send(embed)
      }else{
-        return message.channel.send('Une erreur s\'est produite...\n Verifiez que vous avez la permission de gérer les emojis ou que l\'emoji est correctement orthographier')
+        return message.channel.send(`${FALSE}Une erreur s\'est produite... Verifiez que vous avez la permission de gérer les emojis ou que l\'emoji est correctement orthographier`)
 
      }
 
  }else{
-    return message.channel.send('Vous devez avoir la permission de gérer les emojis pour utiliser cette commande !')
+    return message.channel.send(`${FALSE}Vous devez avoir la permission de gérer les emojis pour utiliser cette commande !`)
 }
 }
 module.exports.help = {

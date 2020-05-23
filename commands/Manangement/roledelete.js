@@ -1,17 +1,17 @@
 const { MessageEmbed } = require("discord.js") 
-
 module.exports.run = async (client, message, args) => {
-    
+    let { FALSE } = require('../../configstyle');
+
     let role = message.guild.roles.cache.find(r => r.name === args.toString()) || message.mentions.roles.first()
     if(message.member.hasPermission('MANAGE_ROLES')){
         if(role){
             message.channel.send(`J'ai bien supprimer le role ${role.name}`)
             role.delete()
         }else{
-            message.channel.send('Je n\'ai pas trouver ce role...\nEssayez de le mentionner :wink:')
+            message.channel.send(`${FALSE}Je n\'ai pas trouver ce role... Essayez de le mentionner`)
         }
     }else{
-        return message.channel.send('Vous devez avoir la permission de gérer les roles pour utiliser cette commande !')
+        return message.channel.send(`${FALSE}Vous devez avoir la permission de gérer les roles pour utiliser cette commande !`)
     }
     
     

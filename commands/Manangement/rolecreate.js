@@ -1,7 +1,7 @@
 const { MessageEmbed } = require("discord.js") 
-
 module.exports.run = async (client, message, args) => {
-    
+  let { FALSE } = require('../../configstyle');
+
         if(message.member.hasPermission('MANAGE_ROLES')){
            
                 message.guild.roles.create({
@@ -16,7 +16,7 @@ module.exports.run = async (client, message, args) => {
 
             
         }else{
-            return message.channel.send('Vous devez avoir la permission de gérer les roles pour utiliser cette commande !')
+            return message.channel.send(`${FALSE}Vous devez avoir la permission de gérer les roles pour utiliser cette commande !`)
         }
 
 }

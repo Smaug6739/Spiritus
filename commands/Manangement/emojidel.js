@@ -1,7 +1,8 @@
 const color = require('../../util/constants')
 const { MessageEmbed } = require("discord.js") 
-
 module.exports.run = async (client, message, args) => {
+    let { FALSE } = require('../../configstyle');
+
     if(message.member.hasPermission('MANAGE_EMOJIS')){
 
     let emo = client.emojis.cache.find(emoji => emoji.name === args[0])
@@ -34,10 +35,10 @@ module.exports.run = async (client, message, args) => {
     message.channel.send(embed)
     message.guild.emojis.cache.get(emoji_string).delete()
     }else{
-        message.channel.send('Je n\'ai pas trouver cet emot...\nEssayez de le coller :wink:')
+        message.channel.send(`${FALSE}Je n\'ai pas trouver cet emoji... Essayez vérifiez son orthographe et qu'il est bien sur le serveur`)
     }
     }else{
-        return message.channel.send('Vous devez avoir la permission de gérer les emojis pour utiliser cette commande !')
+        return message.channel.send(`${FALSE}Vous devez avoir la permission de gérer les emojis pour utiliser cette commande !`)
 
     }
 }
