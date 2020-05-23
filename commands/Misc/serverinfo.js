@@ -1,7 +1,7 @@
 const { MessageEmbed } = require("discord.js") 
 
 module.exports.run = (client, message, args) => {
-
+    const {CHANNEL,VOICE,ETIQUETTE,BOOST,ONLINE,IDLE,DND,OFFLINE} = require('../../configstyle')
     var guild_name = message.guild.name,
         guild_id = message.guild.id, 
         owner = message.guild.owner,
@@ -40,9 +40,9 @@ module.exports.run = (client, message, args) => {
         { name: 'Owner', value: `${owner}`, inline: true },
         { name: 'Verification niveau', value: `${message.guild.verificationLevel}`, inline: true },
         //{ name: 'Roles du serveur', value: `${message.guild.roles.fetch().then(roles =>roles.cache.size)}`, inline: true },
-        { name: '<:nitro4:711646757926207518>Nitro du serveur', value: `${boost}`, inline: true },
-        { name: 'Chanels', value: `<:X5channelX5:713120296697331782>Texte :${channel_t}\n<:X2voiceX2:713120217118539879>Voice :${channel_v}\n<:X6etiquetteX6:713455416289525851>${channel_c}`, inline: true },
-        { name: 'Status des membres', value: `<:Y66518398354317342Y6:713120853704966205>Online : ${online}\n<:Y56518325870978573Y5:713120840925053019>Idle : ${idle}\n<:Y46532449302659082Y4:713120827268268033>Dnd : ${dnd}\n<:Y31832576025034764Y3:713120675778265109>Offline : ${off}`, inline: true },
+        { name: `${BOOST}Nitro du serveur`, value: `${boost}`, inline: true },
+        { name: 'Chanels', value: `${CHANNEL}Texte :${channel_t}\n${VOICE}Voice :${channel_v}\n${ETIQUETTE}${channel_c}`, inline: true },
+        { name: 'Status des membres', value: `${ONLINE}Online : ${online}\n${IDLE}Idle : ${idle}\n${DND}Dnd : ${dnd}\n${OFFLINE}Offline : ${off}`, inline: true },
         //{ name: 'Category', value: `${channel_c}`, inline: true }
        
         //{ name: 'Owner', value: `${boost}`, inline: true },

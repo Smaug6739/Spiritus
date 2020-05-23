@@ -1,7 +1,13 @@
 const { Guild } = require("../../models/index");
 module.exports =async client => {
     console.log(`Logged in as ${client.user.tag}!`);
-    let sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+    //let emoji = client.emojis.cache.find(emoji => emoji.name === "Z9Z9");
+    //console.log(emoji)
+
+
+
+
+    //let sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
    /* function sleep(ms) {
       return new Promise(resolve => setTimeout(resolve, ms));
   }*/

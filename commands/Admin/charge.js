@@ -3,7 +3,7 @@ const { Guild } = require("../../models/index");
 module.exports.run = async (client, message, args) =>{
     if (message.author.id !== '611468402263064577') return message.channel.send('Vous n\'avez pas la permission d\'utiliser cette commande');
     let sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
-    let OK = client.emojis.cache.find(emoji => emoji.name === "61100464854223562974");
+    let { TRUE } = require('../../configstyle');
 
     async function verifierguild(){
         client.guilds.cache.forEach(async guild  => {
@@ -26,7 +26,7 @@ module.exports.run = async (client, message, args) =>{
      
   verifierguild()
 
-  message.channel.send(`${OK}Recharge lancée`)
+  message.channel.send(`${TRUE}Recharge lancée`)
 }
 module.exports.help = {
         
