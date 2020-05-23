@@ -28,7 +28,7 @@ module.exports.help = {
     description : 'Crer un role',
     cooldown : 5,
     usage : '',
-    exemple :["emojiup name_emot new_name"],
+    exemple :["role-create name"],
     permissions : false,
     isUserAdmin: false,
     args : true
