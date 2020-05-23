@@ -1,6 +1,8 @@
 const { MessageEmbed } = require("discord.js");
 
 module.exports = async (client, channel) => {
+  let { ROSE } = require('../../configstyle');
+
   if (channel.type === "dm") return;
   else {
     const fetchGuildAuditLogs = await channel.guild.fetchAuditLogs({
@@ -13,7 +15,7 @@ module.exports = async (client, channel) => {
   
     const embed = new MessageEmbed()
       .setAuthor("Création d'un nouveau salon")
-      .setColor("#fd7aff")
+      .setColor(`${ROSE}`)
       .setDescription(`**Action**: création de salon\n**Salon créé**: ${channel.name}`)
       .setTimestamp()
       .setFooter(executor.username, executor.displayAvatarURL());

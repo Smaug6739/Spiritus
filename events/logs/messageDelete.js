@@ -1,6 +1,8 @@
 const { MessageEmbed } = require("discord.js");
 
 module.exports = async (client, message) => {
+  let { ROSE } = require('../../configstyle');
+
   const fetchGuildAuditLogs = await message.guild.fetchAuditLogs({
     limit: 1,
     type: 'MESSAGE_DELETE'
@@ -13,7 +15,7 @@ module.exports = async (client, message) => {
 
   const embed = new MessageEmbed()
     .setAuthor("Suppression d'un message")
-    .setColor("#fd7aff")
+    .setColor(`${ROSE}`)
     .setDescription(`**Action**: suppression de messages\n**Message supprimé**: ${message.content}`)
     .setTimestamp()
     .setFooter(executor.username, executor.displayAvatarURL());
