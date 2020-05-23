@@ -2,7 +2,7 @@
 const { MessageEmbed } = require("discord.js");
 
 module.exports.run = (client, message, args) => {
-  let { FALSE } = require('../../configstyle');
+  let { FALSE,ORANGE } = require('../../configstyle');
 
   let user = message.mentions.users.first();
   let reason = (args.splice(1).join(' ') || 'Aucune raison spécifiée');
@@ -10,7 +10,7 @@ module.exports.run = (client, message, args) => {
 
   const embed = new MessageEmbed()
     .setAuthor(`${user.username} (${user.id})`)
-    .setColor("#ffa500")
+    .setColor(`${ORANGE}`)
     .setDescription(`**Action**: kick\n**Raison**: ${reason}`)
     .setThumbnail(user.displayAvatarURL())
     .setTimestamp()
