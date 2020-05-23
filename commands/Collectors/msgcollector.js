@@ -19,7 +19,7 @@ module.exports.help = {
     name: "msgcollector",
     aliases: ['msgcollector','mcol'],
     category: 'collectors',
-    description: "Renvoie une liste de commandes ou les informations sur une seule!",
+    description: "Initialise un collector de 10secondes",
     cooldown: 3,
     usage: '<message_to_collect>',
     exemple :["help","help ping"],
