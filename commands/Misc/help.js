@@ -2,12 +2,12 @@ const { MessageEmbed } = require("discord.js");
 const { readdirSync } = require("fs");
 const categoryList = readdirSync('./commands');
 module.exports.run = (client, message, args, settings) => {
-  let { LOGOROUGE,EMBED } = require('../../configstyle');
+  let { LOGOBOT,EMBED } = require('../../configstyle');
 
     if (!args.length) {
       const embed = new MessageEmbed()
         .setColor(`${EMBED}`)
-        .setTitle(`${LOGOROUGE} **Liste  des commandes :** `)
+        .setTitle(`${LOGOBOT} **Liste  des commandes :** `)
 
         .addField("Liste des commandes", `Une liste de toutes les sous-catégories disponibles et leurs commandes.\nPour plus d'informations sur une commande, tapez \`${settings.prefix}help <command_name>\`.`)
         .setTimestamp()
@@ -30,7 +30,7 @@ module.exports.run = (client, message, args, settings) => {
       
         .setColor(`${EMBED}`)
         //.setTitle(`\`${settings.prefix}${command.help.name}\``)
-        .setTitle(`${LOGOROUGE} **Commande :** ${settings.prefix}${command.help.name}`)
+        .setTitle(`${LOGOBOT} **Commande :** ${settings.prefix}${command.help.name}`)
         .addField("Description :", `${command.help.description} (cd: ${command.help.cooldown}secs)`)
         .addField("Utilisation :", command.help.usage ? `${settings.prefix}${command.help.name} ${command.help.usage}` : `${settings.prefix}${command.help.name}`, true)
         .setTimestamp()
