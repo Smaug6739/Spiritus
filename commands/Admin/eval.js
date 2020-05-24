@@ -17,7 +17,8 @@ module.exports.run = async (client, message, args, settings) => {
   */
  var owners = [
   "",
-  "611468402263064577"
+  "611468402263064577",
+  "452222720428605440"
   ]
  if(!owners.includes(message.author.id)) return message.channel.send(`${FALSE}Tu n'est pas admin du BOT `)
 
@@ -55,3 +56,10 @@ module.exports.help = {
     permissions: true,
     args: true
 }
+
+
+
+
+
+
+
