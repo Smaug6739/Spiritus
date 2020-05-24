@@ -1,6 +1,5 @@
 const { MessageEmbed, Presence } = require("discord.js");
-//const { stripIndents } = require("common-tags");
-//const { getMember, formatDate } = require("../../functions.js");
+
 const moment = require('moment');
 
 module.exports.run = async (client, message, args) =>{
@@ -12,12 +11,10 @@ module.exports.run = async (client, message, args) =>{
     if (user.presence.status === 'idle') status = `${IDLE}Idle`;
     if (user.presence.status === 'dnd') status = `${DND}Dnd`;
     if (user.presence.status === 'offline') status = `${OFFLINE}Offline`;
-    //if (message.author.ClientPresenceStatus === 'desktop')   platform = ':desktop: Desktop';
 
-    //const online = fetchedMembers.filter(member => member.presence.status === 'online').size;
 
         const embed = new MessageEmbed()
-        const joinServer = moment(message.member.joinedAt).format('llll');
+        //const joinServer = moment(message.member.joinedAt).format('llll');
         //const joinDiscord = moment(user.createdAt).format('llll');
 
         let member = message.mentions.members.first() || message.member
@@ -29,9 +26,7 @@ module.exports.run = async (client, message, args) =>{
             embed.addField('ID de la personne :', `${user.id}`, true)
             embed.addField('Status :', `${status}`, true)
             embed.addField('Tag :', `${user.tag}`, true)
-           // if(user.presence.activities){
-            //embed.addField('Presence :', `${user.presence.activities}`, true)
-           // }
+
             embed.addField('A rejoins :', `${moment.utc(user.joinedAt).format('dddd, MMMM Do YYYY')}`, true)
             //embed.addField('A rejoins :', `${moment.utc(message.member.joinedAt).format('dddd, MMMM Do YYYY, HH:mm:ss')}`, true)
 
@@ -43,10 +38,8 @@ module.exports.run = async (client, message, args) =>{
             permissions = permissions.replace(/\_/g,' ');        
             embed.addField('User information:', `**> Permissions:** ${permissions.toLowerCase()}`)
 
-            //console.log(user.roles); // it is undefined
 
 
-            //embed.addField('User information:', `**> Roles:** ${message.member.guild.roles.fetch().then(role => console.log${role.color}}`)
 
            
             //.addField('User information:', `**> Plateforme :** ${message.author.ClientPresenceStatus}`)
@@ -74,7 +67,7 @@ module.exports.help = {
     name : 'whois',
     aliases : ['whois'],
     category : 'misc',
-    description : 'Donne des infos sur une personne',
+    description : 'Donne des infos sur l\'auteur de la commande',
     cooldown : 5,
     usage : '',
    // exemple :["ping"],
