@@ -4,12 +4,14 @@ const { MessageEmbed, Presence } = require("discord.js");
 const moment = require('moment');
 
 module.exports.run = async (client, message, args) =>{
+    const {ONLINE,IDLE,DND,OFFLINE,EMBED} = require('../../configstyle')
+
     let user = /*message.mentions.users.first() || */message.author;
    
-    if (user.presence.status === 'online') status = '<:Status1:702554304539525308>  Online';
-    if (user.presence.status === 'idle') status = '<:651832510870978573:711643030066692106> Idle';
-    if (user.presence.status === 'dnd') status = '<:651832449302659082:711643029731147910> Dnd';
-    if (user.presence.status === 'offline') status = '<:651832576025034764:711643030397911130> offline';
+    if (user.presence.status === 'online') status = `${ONLINE}Online`  ;
+    if (user.presence.status === 'idle') status = `${IDLE}Idle`;
+    if (user.presence.status === 'dnd') status = `${DND}Dnd`;
+    if (user.presence.status === 'offline') status = `${OFFLINE}Offline`;
     //if (message.author.ClientPresenceStatus === 'desktop')   platform = ':desktop: Desktop';
 
     //const online = fetchedMembers.filter(member => member.presence.status === 'online').size;
@@ -21,7 +23,7 @@ module.exports.run = async (client, message, args) =>{
         let member = message.mentions.members.first() || message.member
             embed.setFooter(user.username, user.displayAvatarURL(), true)
             embed.setThumbnail(user.displayAvatarURL())
-            embed.setColor(user.displayHexColor === '#000000' ? '#ffffff' : user.displayHexColor)
+            embed.setColor(`${EMBED}`)
             embed.setTitle(`${user.username}`)
             
             embed.addField('ID de la personne :', `${user.id}`, true)

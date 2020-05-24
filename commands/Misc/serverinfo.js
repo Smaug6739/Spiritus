@@ -1,7 +1,7 @@
 const { MessageEmbed } = require("discord.js") 
 
 module.exports.run = (client, message, args) => {
-    const {CHANNEL,VOICE,ETIQUETTE,BOOST,ONLINE,IDLE,DND,OFFLINE} = require('../../configstyle')
+    const {CHANNEL,VOICE,ETIQUETTE,BOOST,ONLINE,IDLE,DND,OFFLINE,EMBED} = require('../../configstyle')
     var guild_name = message.guild.name,
         guild_id = message.guild.id, 
         owner = message.guild.owner,
@@ -31,6 +31,7 @@ module.exports.run = (client, message, args) => {
     let embed = new MessageEmbed()
     //.setDescription('Boosts du serveur : '+boost+'\r\n'+ 'Nom du serveur : '+guild_name+'\r\n Owner : <@'+owner +'>\r\n Région du serveur : '+region+'\r\nNombre de personnes sur le serveur : '+members+'\r\nNombre de membre en ligne :'+totalOnline+'\r\nNombres de channels textuels :'+channel)
     .setTitle(`**Informations sur le serveur :**`)
+    .setColor(EMBED)
     .setAuthor(`${guild_name}`, `${message.guild.iconURL()}`)
     .setThumbnail(`${message.guild.iconURL()}`)
     .addFields(

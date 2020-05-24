@@ -1,6 +1,8 @@
 const { MESSAGES } = require("../../util/constants");
 
 module.exports.run = async (client, message, args, settings) => {
+  let { FALSE } = require('../../configstyle');
+
   /*
   function clean(text) {
     if (typeof text === "string") 
@@ -13,7 +15,13 @@ module.exports.run = async (client, message, args, settings) => {
   const cleanCode = await clean(evaled);
   message.channel.send(cleanCode, { code: "js" });
   */
- if (message.author.id !== '611468402263064577') return;
+ var owners = [
+  "",
+  "611468402263064577"
+  ]
+ if(!owners.includes(message.author.id)) return message.channel.send(`${FALSE}Tu n'est pas admin du BOT `)
+
+// if (message.author.id !== '611468402263064577') return;
 
   function clean(text) {
     if (typeof(text) === "string")
