@@ -33,7 +33,7 @@ module.exports.help = {
     name : 'charge',
     aliases : ['charge'],
     category : 'admin',
-    description : 'Commandes pour la charge des guilds',
+    description : 'Commandes pour la charge les guilds',
     cooldown : 5,
     usage : '',
    // exemple :["ping"],
