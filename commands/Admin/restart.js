@@ -13,7 +13,7 @@ module.exports.help = {
     name : 'restart',
     aliases : ['restart'],
     category : 'admin',
-    description : 'Commandes pour le redemarage (avec pm2)',
+    description : 'Redemarage',
     cooldown : 5,
     usage : '',
    // exemple :["ping"],
