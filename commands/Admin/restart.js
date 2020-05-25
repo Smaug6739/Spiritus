@@ -5,7 +5,7 @@ let { TRUE } = require('../../configstyle');
 
 await message.channel.send(`${TRUE}OK .`)
 process.exit()
-    
+
 }
 
 module.exports.help = {
