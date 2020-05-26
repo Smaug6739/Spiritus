@@ -3,56 +3,22 @@ module.exports =async client => {
     console.log(`Logged in as ${client.user.tag}!`);
     //let emoji = client.emojis.cache.find(emoji => emoji.name === "Z9Z9");
     //console.log(emoji)
-
-
-
-
-    //let sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
-   /* function sleep(ms) {
-      return new Promise(resolve => setTimeout(resolve, ms));
-  }*/
-   /* async function verifierguild(){
-      client.guilds.cache.forEach(async guild  => {
-      
-        const data = await Guild.findOne({ guildID: guild.id });
-        if (!data){ 
-          const newGuild = {
-          guildID: guild.id,
-          guildName: guild.name
-          
-          };
-
-          await client.createGuild(newGuild)
-        }
-        console.log(guild.id)
-        await sleep(2000)
-
-
-      })
-
-    }
-   
-verifierguild() */         
-     /*   const data = await Guild.findOne({ guildID: guild.id });
-        if (!data){ 
-          const newGuild = {
-          guildID: guild.id,
-          guildName: guild.name
-        };
-        await client.createGuild(newGuild)
-      }
-        console.log(guild.id)
-  
-    })*/
-    
-   /*
-      if (!data){ 
-      const newGuild = {
-      guildID: guild.id,
-      guildName: guild.name
-    };
-    await client.createGuild(newGuild)
-  }
+    const Discord = require('discord.js');
+  /*
+  * Create a new webhook
+  * The Webbooks ID and token can be found in the URL, when you request that URL, or in the response body.
+  * https://discordapp.com/api/webhooks/12345678910/T0kEn0fw3Bh00K
+  *                                     ^^^^^^^^^^  ^^^^^^^^^^^^ 
+  *                                     Webhook ID  Webhook Token
   */
-    
+const webhookClient  = new Discord.WebhookClient('714730883625648178', 'VlRG7G3qzhkBSsHuPYCZNKgnPjnwM0TnrSms58W20qJk_48mdPvPbHQ2XT5kxdRmluPL');
+const embed = new Discord.MessageEmbed()
+	.setTitle('BOT 2.0 en démarer avec succès.')
+	.setColor('#0099ff');
+
+webhookClient.send('Webhook test', {
+	username: 'Démarage',
+	avatarURL: 'https://cdn.discordapp.com/attachments/714242633375023164/714879334879461476/1584471129028.png',
+	embeds: [embed],
+});
   }
