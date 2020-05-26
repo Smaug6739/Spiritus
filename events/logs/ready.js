@@ -11,7 +11,7 @@ module.exports =async client => {
   *                                     ^^^^^^^^^^  ^^^^^^^^^^^^ 
   *                                     Webhook ID  Webhook Token
   */
-const webhookClient  = new Discord.WebhookClient('714730883625648178', 'VlRG7G3qzhkBSsHuPYCZNKgnPjnwM0TnrSms58W20qJk_48mdPvPbHQ2XT5kxdRmluPL');
+const webhookClient  = new Discord.WebhookClient('714886315937759252', 'GtQPNjgyVAHQEaZAudHJ7TgpdhVrifSxp2jkEJVV8H5M0wQ9SEWJOUhMg94M2g_hpKZl');
 const embed = new Discord.MessageEmbed()
 	.setTitle('BOT 2.0 en démarer avec succès.')
 	.setColor('#0099ff');
