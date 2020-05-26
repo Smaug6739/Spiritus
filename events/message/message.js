@@ -2,6 +2,7 @@ const { Collection } = require('discord.js');
 
 module.exports = async(client, message) => {
   if (message.channel.type === "dm") return client.emit("directMessage", message);
+
   let { FALSE } = require('../../configstyle');
   const settings = await client.getGuild(message.guild);
   if (!message.content.startsWith(settings.prefix) || message.author.bot) return;

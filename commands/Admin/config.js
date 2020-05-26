@@ -28,6 +28,7 @@ module.exports.run = async (client, message, args, settings) => {
             message.channel.send(`welcomeMessage actuel : \`${settings.welcomeMessage}\``);
             break;
         }
+
      
     }
 };
