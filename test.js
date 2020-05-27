@@ -73,4 +73,4 @@ bot.on('message', message => {
 });
 
 
-const flyersapexEmbed = new Discord.MessageEmbed()
+const flyersapexEmbed = new Discord.MessageEmbed()*/

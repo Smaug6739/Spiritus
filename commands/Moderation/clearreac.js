@@ -1,5 +1,8 @@
 module.exports.run =async(client, message, args) => {
- 
+    let { FALSE } = require('../../configstyle');
+
+    if(!message.guild.me.hasPermission('MANAGE_MESSAGES')) return message.channel.send(`${FALSE}Je n'ai pas la permission de gérer les messages.`);
+
     message.channel.messages.fetch(args[0]).then(async msg => {
         let emoo = args[1]
         let emoji_string = emoo.replace(/<.*:/, '').slice(0, -1);

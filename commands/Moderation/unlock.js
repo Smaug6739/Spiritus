@@ -1,5 +1,6 @@
 module.exports.run = (client, message, args) => {
     let { TRUE,FALSE } = require('../../configstyle');
+    if(!message.guild.me.hasPermission('MANAGE_CHANNELS')) return message.channel.send(`${FALSE}Je n'ai pas la permission de modifier ce channel.`);
 
     let nom = message.guild.channels.cache.find(r => r.name === args.toString());
     let lien = message.guild.channels.cache.find(r => r.id === args[0].replace(/<.*#/, '').slice(0, -1));

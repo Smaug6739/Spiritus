@@ -1,5 +1,7 @@
 module.exports.run = (client, message, args) => {
-    let { TRUE } = require('../../configstyle');
+    let { TRUE,FALSE } = require('../../configstyle');
+    if(!message.guild.me.hasPermission('MANAGE_CHANNELS')) return message.channel.send(`${FALSE}Je n'ai pas la permission de modifier ce channel.`);
+
 
 
     message.channel.clone().then(message.channel.send(`${TRUE}J'ai bien cloner le channel ${message.channel.name}`))

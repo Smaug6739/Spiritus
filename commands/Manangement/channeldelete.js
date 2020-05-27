@@ -1,12 +1,14 @@
 module.exports.run =(client, message, args) => {
     let { FALSE,TRUE } = require('../../configstyle');
-   
-    let channelname = message.guild.channels.cache.find(r => r.name === args.toString()) || args[0].replace(/<.*#/, '').slice(0, -1);
+    if(!message.guild.me.hasPermission('MANAGE_CHANNELS')) return message.channel.send(`${FALSE}Je n'ai pas la permission de supprimer ce channel.`);
+
+    let channelname = message.guild.channels.cache.find(r => r.name === args.toString()) //|| args[0].replace(/<.*#/, '').slice(0, -1);
     let nom = message.guild.channels.cache.find(r => r.id === args[0].replace(/<.*#/, '').slice(0, -1));
     
     if(nom){
         let nomname = nom.name
-        message.guild.channels.cache.get(channelname).delete()
+        //console.log(nom)
+        message.guild.channels.cache.get(nom.id).delete()
         .then(message.channel.send(`${TRUE}J'ai bien supprimer le channel ${nomname}`))
         .catch(`${FALSE} Une erreur s'est produite. Merci de réessayer.`)
 

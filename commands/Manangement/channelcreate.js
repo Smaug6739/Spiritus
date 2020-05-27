@@ -1,5 +1,7 @@
 module.exports.run =(client, message, args) => {
     let { FALSE,TRUE } = require('../../configstyle');
+    if(!message.guild.me.hasPermission('MANAGE_CHANNELS')) return message.channel.send(`${FALSE}Je n'ai pas la permission de crée ce channel.`);
+
     var category = message.channel.parentID
 
     

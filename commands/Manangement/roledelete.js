@@ -1,6 +1,7 @@
 const { MessageEmbed } = require("discord.js") 
 module.exports.run = async (client, message, args) => {
     let { FALSE } = require('../../configstyle');
+    if(!message.guild.me.hasPermission('MANAGE_ROLES')) return message.channel.send(`${FALSE}Je n'ai pas la permission de modifier les roles.`);
 
     let role = message.guild.roles.cache.find(r => r.name === args.toString()) || message.mentions.roles.first()
     if(message.member.hasPermission('MANAGE_ROLES')){

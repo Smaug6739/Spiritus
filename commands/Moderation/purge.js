@@ -1,6 +1,10 @@
 const { MessageEmbed } = require("discord.js");
 
 module.exports.run = async (client, message, args) => {
+  let { FALSE } = require('../../configstyle');
+
+  if(!message.guild.me.hasPermission('MANAGE_MESSAGES')) return message.channel.send(`${FALSE}Je n'ai pas la permission de supprimer des messages.`);
+
   let { ROUGE } = require('../../configstyle');
 
   if(isNaN(args[0]) || (args[0] < 1 || args[0] > 100 )) return message.reply('Merci de spécifier un nombre valide !')

@@ -3,7 +3,6 @@ const { MessageEmbed } = require("discord.js");
 
 module.exports.run = async (client, message, args) => {
   let { FALSE,ORANGE } = require('../../configstyle');
-    if (!message.channel.permissionsFor(message.guild.me).has('SEND_MESSAGES')) return console.log('Je n\'ai pas la permission envoyer messages');
     if(!message.guild.me.hasPermission('KICK_MEMBERS')) return message.channel.send(`${FALSE}Je n'ai pas la permission pour kick un utilisateur.`);
 
   let user = message.mentions.users.first();
