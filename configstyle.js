@@ -1,3 +1,6 @@
+exports.ADMIN = ["611468402263064577 ","452222720428605440"]
+//smaug //noval
+
 exports.VERTCLAIRE = '#35f092';
 exports.EMBED = '#222427';//HELP;
 exports.ROSE = '#fd7aff';//LOGS;

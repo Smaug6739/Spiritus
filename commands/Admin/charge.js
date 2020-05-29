@@ -1,9 +1,10 @@
 const { Guild } = require("../../models/index");
 
 module.exports.run = async (client, message, args) =>{
-    if (message.author.id !== '611468402263064577') return message.channel.send('Vous n\'avez pas la permission d\'utiliser cette commande');
+    let {ADMIN,TRUE,FALSE} = require('./../../configstyle')
+
+    if(!ADMIN.includes(message.author.id)) return message.channel.send(`${FALSE}Tu n'est pas admin du BOT `)
     let sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
-    let { TRUE } = require('../../configstyle');
 
     async function verifierguild(){
         client.guilds.cache.forEach(async guild  => {

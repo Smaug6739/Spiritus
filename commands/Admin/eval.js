@@ -15,12 +15,9 @@ module.exports.run = async (client, message, args, settings) => {
   const cleanCode = await clean(evaled);
   message.channel.send(cleanCode, { code: "js" });
   */
- var owners = [
-  "",
-  "611468402263064577",
-  "452222720428605440"
-  ]
- if(!owners.includes(message.author.id)) return message.channel.send(`${FALSE}Tu n'est pas admin du BOT `)
+ let {ADMIN} = require('./../../configstyle')
+
+ if(!ADMIN.includes(message.author.id)) return message.channel.send(`${FALSE}Tu n'est pas admin du BOT `)
 
 // if (message.author.id !== '611468402263064577') return;
 

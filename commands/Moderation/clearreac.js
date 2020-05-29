@@ -14,13 +14,13 @@ module.exports.run =async(client, message, args) => {
 }
 module.exports.help = {
     
-    name : 'clearrea',
-    aliases : ['clearrea'],
+    name : 'clear-reactions',
+    aliases : ['clearrea','clear-rea'],
     category : 'moderation',
-    description : 'Supprime toutes les reactions d\'un message ',
+    description : 'Supprime une reaction d\'un message ',
     cooldown : 5,
-    usage : 'id_message emoji',
-    exemple :["clearrea 713128046886125589 <:yo:712783546552680560>"],
+    usage : '<id_message> <emoji>',
+    exemple :["clear-reactions 713128046886125589 <:yo:712783546552680560>"],
     permissions : true,
     isUserAdmin: false,
     args : false

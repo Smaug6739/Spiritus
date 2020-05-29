@@ -1,10 +1,11 @@
 module.exports.run = async (client, message, args) =>{
-if (message.author.id !== '611468402263064577') return message.channel.send('Vous n\'avez pas la permission d\'utiliser cette commande');
-console.log("Redemarage")
-let { TRUE } = require('../../configstyle');
+    let {ADMIN,TRUE,FALSE} = require('./../../configstyle')
 
-await message.channel.send(`${TRUE}OK .`)
-process.exit()
+    if(!ADMIN.includes(message.author.id)) return message.channel.send(`${FALSE}Tu n'est pas admin du BOT `)
+    console.log("Redemarage")
+
+    await message.channel.send(`${TRUE}OK .`)
+    process.exit()
 
 }
 
