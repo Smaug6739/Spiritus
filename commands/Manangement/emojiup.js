@@ -30,9 +30,9 @@ module.exports.run = async (client, message, args) => {
 
 
     }else if(args[0].includes('>','<')){
-    let nom_emoji_nouveau = args[1]
-    if(nom_emoji_nouveau.length < 2) return message.channel.send(`${FALSE}Le nom de l'emoji doit contenir au moins 2 caractères`)
-    //emoji-string <::>
+        let nom_emoji_nouveau = args[1]
+        if(nom_emoji_nouveau.length < 2) return message.channel.send(`${FALSE}Le nom de l'emoji doit contenir au moins 2 caractères`)
+        //emoji-string <::>
         let emoo = args[0]
         let emoji_string = emoo.replace(/<.*:/, '').slice(0, -1);
         
