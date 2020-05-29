@@ -19,7 +19,11 @@ module.exports.run = async (client, message, args) => {
     .setColor(`${ROUGE}`)
     .setDescription(`**Action**: purge\n**Nbr messages**: ${args[0]}\n**Salon**: ${message.channel}`)
     
-  message.channel.send(embed);
+  message.channel.send(embed).then(m => {
+    setTimeout(function() {
+      m.delete()
+    }, 3000)
+  })
 };
 
 module.exports.help = {
