@@ -66,7 +66,7 @@ module.exports.help = {
     category : 'manangement',
     description : 'Mettre a jour le nom d\'un emoji',
     cooldown : 5,
-    usage : '',
+    usage : '<emoji> <nouveau_nom>',
     exemple :["emojiup name_emot new_name"],
     permissions : false,
     isUserAdmin: false,
