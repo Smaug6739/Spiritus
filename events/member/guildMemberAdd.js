@@ -1,6 +1,6 @@
 const { MessageEmbed } = require("discord.js");
 
-module.exports = (client, member) => {
+module.exports = async(client, member) => {
   let { VERTCLAIRE } = require('../../configstyle');
 
   const embed = new MessageEmbed()
@@ -14,4 +14,13 @@ module.exports = (client, member) => {
     .setTimestamp();
 
   client.channels.cache.get('710763508425424897').send(embed);
+
+  const newUser = {
+    guildID: member.guild.id,
+    guildName: member.guild.name,
+    userID: member.id,
+    username: member.user.tag,
+  }
+
+  await client.createUser(newUser);
 }

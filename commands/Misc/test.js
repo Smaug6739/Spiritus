@@ -1,7 +1,7 @@
 const color = require('../../util/constants')
 module.exports.run =(client, message, args) => {
-    
-   console.log(args[0].length)
+    const emojiList = message.guild.emojis.map((e, x) => (x + ' = ' + e) + ' | ' +e.name).join('\n');
+   message.channel.send(emojiList);
    
 }
 module.exports.help = {

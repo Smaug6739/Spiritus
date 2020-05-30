@@ -4,7 +4,7 @@ module.exports.run =(client, message, args) => {
 
     let channelname = message.guild.channels.cache.find(r => r.name === args.toString()) //|| args[0].replace(/<.*#/, '').slice(0, -1);
     let nom = message.guild.channels.cache.find(r => r.id === args[0].replace(/<.*#/, '').slice(0, -1));
-    
+    let id = args[0]
     if(nom){
         let nomname = nom.name
         //console.log(nom)
@@ -17,7 +17,15 @@ module.exports.run =(client, message, args) => {
         .then(message.channel.send(`${TRUE}J'ai bien supprimer le channel ${args[0]}`))
         .catch(`${FALSE} Une erreur s'est produite. Merci de réessayer.`)
     }else{
-        message.channel.send(`${FALSE}Je n'ai pas trouver ce channel...`)
+        try {
+         message.guild.channels.cache.get(id).delete()
+          .then(message.channel.send(`${TRUE}J'ai bien supprimer le channel ${message.guild.channels.cache.get(id).name}`))
+
+          } catch (err) {
+            message.channel.send(`${FALSE}Je n'ai pas trouver ce channel...`)
+            //message.channel.send(`${FALSE}\`ERREUR :\`${err} `)
+
+          };
     }
     
     //channelname.delete()
