@@ -8,8 +8,8 @@ module.exports.run = (client, message, args) => {
 }
 
 module.exports.help = {
-    name: "clone",
-    aliases: ['clone'],
+    name: "channel-clone",
+    aliases: ['channel-clone','clone','channel-clo'],
     category : 'manangement',
     description: "Clone un channel et le supprime",
     cooldown: 0.1,
