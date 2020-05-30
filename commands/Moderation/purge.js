@@ -25,7 +25,7 @@ module.exports.run = async (client, message, args) => {
     }, 3000)
   })
 };
-
+ 
 module.exports.help = {
   name: "purge",
   aliases: ['purge'],
