@@ -11,7 +11,7 @@ module.exports.run = (client, message, args) => {
             SEND_MESSAGES: false
           })
           .then(message.channel.send(`${TRUE}J'ai bien lock le channel <#${nom}>`))
-          .catch(console.error)
+          .catch(console.error);
 
     }else if(lien){
         lien = lien.id;
@@ -19,10 +19,22 @@ module.exports.run = (client, message, args) => {
             SEND_MESSAGES: false
           })
           .then(message.channel.send(`${TRUE}J'ai bien lock le channel <#${lien}>`))
-          .catch(console.error)
+          .catch(console.error);
 
     }else{
-        return message.channel.send(`${FALSE}Je n'ai pas trouver ce channel...`)
+        try{
+            message.guild.channels.cache.get(args[0]).updateOverwrite(message.guild.roles.everyone, {
+                SEND_MESSAGES: false
+              })
+              .then(message.channel.send(`${TRUE}J'ai bien lock le channel <#${args[0]}>`))
+              .catch(console.error);
+        }catch(err){
+             //client.channels.cache.get('716624695205691513').send(`Une erreur sur la commande \`lock\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
+            return message.channel.send(`${FALSE}Je n'ai pas trouver ce channel...`);
+             
+            
+
+        }
     }
       
 }
@@ -34,8 +46,8 @@ module.exports.help = {
     description: "Lock un channel",
     cooldown: 10,
     usage: '',
-    //exemple :["kick @Smaug spam"],
+    exemple :["lock #general"],
     isUserAdmin: false,
     permissions: true,
-    args: false
+    args: true
   };
