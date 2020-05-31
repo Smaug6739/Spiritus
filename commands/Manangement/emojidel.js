@@ -4,7 +4,6 @@ module.exports.run = async (client, message, args) => {
     let { FALSE } = require('../../configstyle');
     if(!message.guild.me.hasPermission('MANAGE_EMOJIS')) return message.channel.send(`${FALSE}Je n'ai pas la permission de gérer les emojis.`);
 
-
  if(message.member.hasPermission('MANAGE_EMOJIS')){
 
     let emo = client.emojis.cache.find(emoji => emoji.name === args[0])
@@ -19,8 +18,15 @@ module.exports.run = async (client, message, args) => {
          )
         .setTimestamp()
         .setFooter('BOT ID : 689210215488684044', `${message.guild.iconURL()}`);
-        message.channel.send(embed)
-        emo.delete()
+        try{
+            message.channel.send(embed)
+            emo.delete()
+
+        }catch(err){
+            //message.channel.send(`${FALSE}Une erreur s'est produite merci de réessayer`);
+            client.channels.cache.get('716377260751454210').send(`Une erreur sur la commande \`channel-delete\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
+            return;
+        };
         
     }else if(args[0].includes('>','<')){
         //emoji-taper
@@ -35,8 +41,16 @@ module.exports.run = async (client, message, args) => {
          { name: 'URL :', value: `${message.guild.emojis.cache.get(emoji_string).url}`, inline: true })
         .setTimestamp()
         .setFooter('BOT ID : 689210215488684044', `${message.guild.iconURL()}`);
-    message.channel.send(embed)
-    message.guild.emojis.cache.get(emoji_string).delete()
+        try{
+            message.channel.send(embed)
+            message.guild.emojis.cache.get(emoji_string).delete()
+
+        }catch(err){
+            //message.channel.send(`${FALSE}Une erreur s'est produite merci de réessayer`);
+            client.channels.cache.get('716377260751454210').send(`Une erreur sur la commande \`channel-delete\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
+            return;
+        };
+        
     }else{
         message.channel.send(`${FALSE}Je n\'ai pas trouver cet emoji... Essayez vérifiez son orthographe et qu'il est bien sur le serveur`)
     }
@@ -56,5 +70,5 @@ module.exports.help = {
     exemple :["emojidel name_emot"],
     permissions : false,
     isUserAdmin: false,
-    args : false
+    args : true
 }

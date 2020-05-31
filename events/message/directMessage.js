@@ -63,7 +63,7 @@ module.exports = (client, message) => {
 
 
 }
- /* const user = message.author;
+  /*const user = message.author;
   if (user.bot) return;
 
   const embed = new MessageEmbed()

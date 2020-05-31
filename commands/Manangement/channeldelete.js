@@ -8,14 +8,27 @@ module.exports.run =(client, message, args) => {
     if(nom){
         let nomname = nom.name
         //console.log(nom)
+        try{
         message.guild.channels.cache.get(nom.id).delete()
         .then(message.channel.send(`${TRUE}J'ai bien supprimer le channel ${nomname}`))
         .catch(`${FALSE} Une erreur s'est produite. Merci de réessayer.`)
+        }catch(err){
+            message.channel.send(`${FALSE}Une erreur s'est produite merci de réessayer`);
+            client.channels.cache.get('716371683526836312').send(`Une erreur sur la commande \`channel-delete\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
+            return;
+        }
 
     }else if(channelname){
+        try{
         channelname.delete()
         .then(message.channel.send(`${TRUE}J'ai bien supprimer le channel ${args[0]}`))
-        .catch(`${FALSE} Une erreur s'est produite. Merci de réessayer.`)
+        //.catch(message.channel.send`${FALSE} Une erreur s'est produite. Merci de réessayer.`)
+        }catch(err){
+            message.channel.send(`${FALSE}Une erreur s'est produite merci de réessayer`);
+            client.channels.cache.get('716371683526836312').send(`Une erreur sur la commande \`channel-delete\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
+            return;
+        };
+        
     }else{
         try {
          message.guild.channels.cache.get(id).delete()

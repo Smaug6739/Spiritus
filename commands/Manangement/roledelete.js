@@ -6,8 +6,14 @@ module.exports.run = async (client, message, args) => {
     let role = message.guild.roles.cache.find(r => r.name === args.toString()) || message.mentions.roles.first()
     if(message.member.hasPermission('MANAGE_ROLES')){
         if(role){
-            message.channel.send(`J'ai bien supprimer le role ${role.name}`)
-            role.delete()
+            try{
+                message.channel.send(`J'ai bien supprimer le role ${role.name}`)
+                role.delete()
+
+            }catch(err){
+                client.channels.cache.get('716570229802663997').send(`Une erreur sur la commande \`role-delete\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
+
+            }
         }else{
             message.channel.send(`${FALSE}Je n\'ai pas trouver ce role... Essayez de le mentionner`)
         }
