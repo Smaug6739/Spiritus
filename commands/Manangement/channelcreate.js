@@ -8,16 +8,19 @@ module.exports.run =(client, message, args) => {
     if(!args[0]) return message.channel.send(`${FALSE}Veuillez donner en premier argument une valeur valide (\`text\` ou \`voice\ ou \`category\`)`)
         if(args[0] == 'text' || args[0] == 'voice') {
             try{
-                message.guild.channels.create(`${args[1]}`, {
+                let name_salon = args.splice(1).join('-')
+                if(name_salon.length > 99) return message.channel.send(`${FALSE}Le nom de la categorie doit etre inferieur a 100 caractères.`);
+
+                message.guild.channels.create(`${name_salon}`, {
                     type: `${args[0]}`,
                         
                     }).then(chan => {
                     chan.setParent(category).then(e => { // On met le nouveau channel dans la bonne catégorie
                 
-                  }).then(message.channel.send(`${TRUE}J'ai bien crée le salon ${args[1]}`))
-                  //.catch(console.error);
+                  }).then(message.channel.send(`${TRUE}J'ai bien crée le salon ${name_salon}`))
+                  .catch(console.error);
                 })
-                //.catch(console.error);
+                .catch(console.error);
 
             }catch(err){
                 message.channel.send(`${FALSE}Une erreur s'est produite merci de réessayer`);
@@ -29,13 +32,16 @@ module.exports.run =(client, message, args) => {
             
 
         }else if(args[0] == 'category'){
-            message.guild.channels.create(`${args[1]}`, {
+            let nom_category = args.splice(1).join(' ')
+            if(nom_category.length > 99) return message.channel.send(`${FALSE}Le nom de la categorie doit etre inferieur a 100 caractères.`);
+            message.guild.channels.create(`${nom_category}`, {
                 type: `${args[0]}`,
                 
-                }).then(message.channel.send(`${TRUE}J'ai bien crée la catégorie ${args[1]}`))
+                }).then(message.channel.send(`${TRUE}J'ai bien crée la catégorie ${nom_category}`))
+                .catch(console.error)
 
         }else{
-            return message.channel.send(`${FALSE}Veuillez donner en premier argument une valeur valide (\`text\` ou \`voice\`)`)
+            return message.channel.send(`${FALSE}Veuillez donner en premier argument une valeur valide (\`text\` ou \`voice\` ou \`category\`)`)
         }
 
     
