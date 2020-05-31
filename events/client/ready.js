@@ -7,7 +7,7 @@ module.exports =async client => {
  
   const webhookClient  = new WebhookClient('714886315937759252', 'GtQPNjgyVAHQEaZAudHJ7TgpdhVrifSxp2jkEJVV8H5M0wQ9SEWJOUhMg94M2g_hpKZl');
   const embed = new MessageEmbed()
-	.setTitle('BOT 2.0 en démarer avec succès.')
+	.setTitle('BOT 2.0 à démarer avec succès.')
   .setColor('#0099ff')
   .setTimestamp()
   .setFooter('BOT ID : 689210215488684044');
