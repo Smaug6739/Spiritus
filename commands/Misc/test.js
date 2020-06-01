@@ -1,6 +1,6 @@
 module.exports.run = async (client, message, args) => {
   const {TRUE} = require('./../../configstyle')
-  message.channell.send(`${TRUE}OK.`)
+  message.channel.send(`${TRUE}OK.`)
 }
 module.exports.help = {
     
