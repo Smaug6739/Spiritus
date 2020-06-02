@@ -5,7 +5,7 @@
 
 <h2>Spécialiser dans la gestion de serveurs avec discord mobile</h2>
 <p>Nombreuses sont les fonctions pour vous faciliter la vie sur mobile entre la gestion des salons, des roles, des emojis, vous ne pourez qu'avoir un magnifique serveur discord !
-<ul>
+<ul> 
 <li>Création, mise à jour et suppression d'emojis</li>
 <li>Création, mise à jour, clonage, et suppression de salons</li>
 <li>Création, mise à jour et suppression de role</li>
