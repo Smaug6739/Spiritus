@@ -2,9 +2,6 @@ const {MessageEmbed}=require('discord.js')
 const {PREFIX}=require('./config.js');
 module.exports = (bot) => {
 
-  
-  
-  
   /********************************************[EMOJIS]**********************************************************/
   
   const emojiEmbed = new MessageEmbed()
