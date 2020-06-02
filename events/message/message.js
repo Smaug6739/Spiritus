@@ -5,10 +5,10 @@ module.exports = async(client, message) => {
   if (!message.channel.permissionsFor(message.guild.me).has('SEND_MESSAGES')) return console.log('Je n\'ai pas la permission d\'envoyer messages');
 
   let { FALSE } = require('../../configstyle');
+  if (message.author.bot) return;
+
   const settings = await client.getGuild(message.guild);
   const dbUser = await client.getUser(message.member);
-  if (message.author.bot) return;
-  //dbUser
   if(!dbUser) await client.createUser({
     guildID: message.member.guild.id,
     guildName: message.member.guild.name,
@@ -19,10 +19,8 @@ module.exports = async(client, message) => {
   const expToAdd = Math.floor(Math.random() * 25) + 10; //  10 - 35
   if(expCd >= 8 && expCd  <= 11){
     message.reply(`tu viens de gagner ${expToAdd} points d'experience`)
-      await client.updateExp(client, message.member, expToAdd);
-
+    await client.updateExp(client, message.member, expToAdd);
   }
-  //await client.updateExp(client, message.member, expToAdd);
 
   if (!message.content.startsWith(settings.prefix)) return;
 

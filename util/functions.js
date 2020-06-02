@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { Guild,User } = require("../models/index");
 
-module.exports = async client => {
+module.exports = client => {
   
   client.createGuild = async guild => {
     const merged = Object.assign({ _id: mongoose.Types.ObjectId() }, guild);
@@ -17,7 +17,7 @@ module.exports = async client => {
     
   };
   
-  const { DEFAULTSETTINGS: defaultSettings} = require(`../config.js`);
+  //const { DEFAULTSETTINGS: defaultSettings} = require(`../config.js`);
 
   client.getGuild = async guild => {
     const data = await Guild.findOne({ guildID: guild.id });
@@ -56,6 +56,7 @@ client.createUser = async user => {
 
 client.getUser = async user => {
   const data = await User.findOne({ userID: user.id });
+  
   if (data) return data;
   else return;
 };
