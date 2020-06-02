@@ -10,7 +10,7 @@
 <li>Création, mise à jour, clonage, et suppression de salons</li>
 <li>Création, mise à jour et suppression de role</li>
 <li>Moderation accessible en 1 clic</li>
-</ul>
+</ul> 
 <p>Grace a spiritus, configurer, maintenir et faire vivre votre serveur ne sera qu'une partie de plaisir</p>
 
 <h2>Un système de levels/ranks performant et fiable :</h2>
