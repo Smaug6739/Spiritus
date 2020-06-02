@@ -18,7 +18,7 @@ module.exports.run = (client, message, args, settings) => {
         embed.addField(
           `${category}`,
           `${client.commands.filter(cat => cat.help.category === category.toLowerCase())
-            .map(cmd => '**'+`${settings.prefix}`+cmd.help.name +' ** - '+ cmd.help.description).join(`\r\n`)}`
+            .map(cmd => '__'+`${settings.prefix}`+cmd.help.name +' __ - '+ cmd.help.description).join(`\r\n`)}`
         );
       };
       return message.channel.send(embed);
