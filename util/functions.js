@@ -68,4 +68,9 @@ client.updateUser = async (user, settings) => {
   }
   return data.updateOne(settings);
 };
+client.updateExp = async (client, member, exp)=>{
+  const userToUpdate = await client.getUser(member);
+  const updateExp = userToUpdate.experience + exp;
+  await client.updateUser(member, {experience : updateExp});
+}
 };

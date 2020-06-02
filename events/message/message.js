@@ -6,7 +6,27 @@ module.exports = async(client, message) => {
 
   let { FALSE } = require('../../configstyle');
   const settings = await client.getGuild(message.guild);
-  if (!message.content.startsWith(settings.prefix) || message.author.bot) return;
+  const dbUser = await client.getUser(message.member);
+  if (message.author.bot) return;
+  //dbUser
+  if(!dbUser) await client.createUser({
+    guildID: message.member.guild.id,
+    guildName: message.member.guild.name,
+    userID: message.member.id,
+    username: message.member.user.tag,
+  });
+  const expCd = Math.floor(Math.random() * 19) + 1; // 1 - 20 
+  const expToAdd = Math.floor(Math.random() * 25) + 10; //  10 - 35
+  if(expCd >= 8 && expCd  <= 11){
+    message.reply(`tu viens de gagner ${expToAdd} points d'experience`)
+      await client.updateExp(client, message.member, expToAdd);
+
+  }
+  //await client.updateExp(client, message.member, expToAdd);
+
+  if (!message.content.startsWith(settings.prefix)) return;
+
+
   const args = message.content.slice(settings.prefix.length).split(/ +/);
   const commandName = args.shift().toLowerCase();
   const user = message.mentions.users.first();
@@ -47,5 +67,5 @@ module.exports = async(client, message) => {
   tStamps.set(message.author.id, timeNow);
   setTimeout(() => tStamps.delete(message.author.id), cdAmount);
 
-  command.run(client, message, args, settings);
+  command.run(client, message, args, settings, dbUser);
 }

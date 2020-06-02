@@ -13,7 +13,7 @@
 </ul>
 <p>Grace a spiritus, configurer, maintenir et faire vivre votre serveur ne sera qu'une partie de plaisir</p>
 <h2>Une modération simple et accessible sur votre serveur :</h2>
-<p>Nombreuses sont les fonctions de moderations comunes comme le ban,kick,purge,warn indispensables a la moderation d'un serveur mais le bot pocède également des fonctions pour la moderation avancée comme le lock,unlock ou encore une fonction prune pour supprimer les message d'un utilisateur en particulier du serveur</p>
+<p>Nombreuses sont les fonctions de moderations comunes comme le ban,kick,purge,warn indispensables a la moderation d'un serveur mais Spiritus pocède également des fonctions pour la moderation avancée comme le lock,unlock ou encore une fonction prune pour supprimer les message d'un utilisateur en particulier du serveur</p>
 </p>
 
 <h2>Constament en devellopement</h2>
