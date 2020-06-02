@@ -12,6 +12,11 @@
 <li>Moderation accessible en 1 clic</li>
 </ul>
 <p>Grace a spiritus, configurer, maintenir et faire vivre votre serveur ne sera qu'une partie de plaisir</p>
+
+<h2>Un système de levels/ranks performant et fiable :</h2>
+<p>Grace a un système de leveling puissant qui compte le nombre de mesages que vous envoyez sur vos serveurs gagnez de l'exp et thronez fièrement comme le plus grand utilisateur de discord ! Des fonctions  pour s'agouter de l'exp en faisant des mini jeux ou en faisant des paris donnent toute sa puissance à spiritus</p>
+</p>
+
 <h2>Une modération simple et accessible sur votre serveur :</h2>
 <p>Nombreuses sont les fonctions de moderations comunes comme le ban,kick,purge,warn indispensables a la moderation d'un serveur mais Spiritus pocède également des fonctions pour la moderation avancée comme le lock,unlock ou encore une fonction prune pour supprimer les message d'un utilisateur en particulier du serveur</p>
 </p>
