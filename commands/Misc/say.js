@@ -1,7 +1,5 @@
 module.exports.run =async(client, message, args) => {
-    const bad_words = ['fuck'];
-    if(args.includes('test'))return message.channel.send(`Vous ne pouvez pas me laisser dire ca quand meme !`)
-    await message.channel.send(args.join(" "));
+   message.channel.send(args.join(" "));
     
 }
 module.exports.help = {

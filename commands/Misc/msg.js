@@ -71,7 +71,7 @@ module.exports.help = {
     category : 'misc',
     description : 'Envoi un message spécifié dans un channel ou en MP',
     cooldown : 10,
-    usage : '<#channel> <votre_message>  ** ou **  <@user> <votre_message>',
+    usage : '<#channel> <votre_message> ou <@user> <votre_message>',
     exemple :["msg @Smaug Message","msg #spiritus Message"],
     isUserAdmin: false,
     permissions : false,
