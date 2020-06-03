@@ -1,5 +1,5 @@
 module.exports = {
-    TOKEN: "Njg5MjEwMjE1NDg4Njg0MDQ0.Xr1f1g.KxGe39O3gghzwyjur6-gTLWGgN4",
+    TOKEN: "Njg5MjEwMjE1NDg4Njg0MDQ0.XtfkIg.vuFIrI3A7wBsJSiwwBiBgZSQuI8",
     PREFIX: "?",
     DBCONNECTION: "mongodb+srv://spiritus:oHBDysvqARAg1chL@cluster0-y7doh.mongodb.net/test?retryWrites=true&w=majority",
     DEFAULTSETTINGS: {

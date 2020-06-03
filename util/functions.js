@@ -54,15 +54,15 @@ client.createUser = async user => {
   createUser.save().then(u => console.log(`Nouvel utilisateur -> ${u.username}`));
 };
 
-client.getUser = async user => {
-  const data = await User.findOne({ userID: user.id });
+client.getUser = async (user, guild) => {
+  const data = await User.findOne({ userID: user.id, guildID: guild });
   
   if (data) return data;
   else return;
 };
 
 client.updateUser = async (user, settings) => {
-  let data = await client.getUser(user);
+  let data = await client.getUser(user, user.guild.id);
   if (typeof data !== "object") data = {};
   for (const key in settings) {
     if (data[key] !== settings[key]) data[key] = settings[key];
@@ -70,7 +70,7 @@ client.updateUser = async (user, settings) => {
   return data.updateOne(settings);
 };
 client.updateExp = async (client, member, exp)=>{
-  const userToUpdate = await client.getUser(member);
+  const userToUpdate = await client.getUser(member, member.guild.id);
   const updateExp = userToUpdate.experience + exp;
   await client.updateUser(member, {experience : updateExp});
 }

@@ -2,7 +2,7 @@ module.exports.run = async(client, message, args, settings, dbUser) => {
     
         if(!dbUser){
             setTimeout(async function () {
-                const use = await client.getUser(message.member);
+                const use = await client.getUser(message.member, message.member.guild.id);
                 message.reply(`tu possède ${use.experience} points d'experience !`);
               },2000)
         }else{

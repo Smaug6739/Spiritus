@@ -21,6 +21,5 @@ module.exports = async(client, member) => {
     userID: member.id,
     username: member.user.tag,
   }
-
-  await client.createUser(newUser);
+  //await client.createUser(newUser);
 }

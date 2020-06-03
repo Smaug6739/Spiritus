@@ -8,7 +8,7 @@ module.exports = async(client, message) => {
   if (message.author.bot) return;
 
   const settings = await client.getGuild(message.guild);
-  const dbUser = await client.getUser(message.member);
+  const dbUser = await client.getUser(message.member, message.member.guild.id);
   if(!dbUser) await client.createUser({
     guildID: message.member.guild.id,
     guildName: message.member.guild.name,
@@ -17,9 +17,18 @@ module.exports = async(client, message) => {
   });
   const expCd = Math.floor(Math.random() * 19) + 1; // 1 - 20 
   const expToAdd = Math.floor(Math.random() * 25) + 10; //  10 - 35
-  if(expCd >= 8 && expCd  <= 11){
-    message.reply(`tu viens de gagner ${expToAdd} points d'experience`)
-    await client.updateExp(client, message.member, expToAdd);
+  if(expCd >= 9 && expCd  <= 11){
+    if(!dbUser){
+      setTimeout(async function () {
+      message.reply(`tu viens de gagner ${expToAdd} points d'experience`)
+      await client.updateExp(client, message.member, expToAdd);
+      },1000)
+      
+    }else{
+      message.reply(`tu viens de gagner ${expToAdd} points d'experience`)
+      await client.updateExp(client, message.member, expToAdd);
+    }
+    
   }
 
   if (!message.content.startsWith(settings.prefix)) return;
