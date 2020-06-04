@@ -15,6 +15,8 @@ module.exports = async(client, message) => {
     userID: message.member.id,
     username: message.member.user.tag,
   });
+  if(settings.expsysteme){
+    
   const expCd = Math.floor(Math.random() * 19) + 1; // 1 - 20 
   const expToAdd = Math.floor(Math.random() * 25) + 10; //  10 - 35
   if(expCd >= 1 && expCd  <= 19){
@@ -38,6 +40,9 @@ module.exports = async(client, message) => {
 
     
   }
+    
+  }
+  
 
   if (!message.content.startsWith(settings.prefix)) return;
 

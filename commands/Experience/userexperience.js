@@ -1,5 +1,6 @@
 module.exports.run = async(client, message, args, settings, dbUser) => {
-    
+    if(settings.expsysteme){
+
         if(!dbUser){
             setTimeout(async function () {
                 const use = await client.getUser(message.member, message.member.guild.id);
@@ -8,7 +9,9 @@ module.exports.run = async(client, message, args, settings, dbUser) => {
         }else{
             message.reply(`tu possède  ${dbUser.experience} points d'experience !`);
         }
-
+    }else{
+       return message.channel.send('Le système d\'exp n\'est pas activé sur ce serveur.');
+    }
 }
 module.exports.help = {
     

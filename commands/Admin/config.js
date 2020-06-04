@@ -28,7 +28,17 @@ module.exports.run = async (client, message, args, settings) => {
             message.channel.send(`welcomeMessage actuel : \`${settings.welcomeMessage}\``);
             break;
         }
-
+        /*case  'experience' : {
+            let uexp ;
+            if(settings.expsysteme == true) uexp = false;
+            else uexp = true;
+            //if(newSetting){
+                await client.updateGuild(message.guild, {expsysteme : uexp});
+                 message.channel.send(`Système d'experience du serveur mis a jour : \`${settings.expsysteme }\` ->\`${uexp}\``)
+            //}
+           
+            break;
+        }*/
      
     }
 };
