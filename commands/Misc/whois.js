@@ -65,12 +65,12 @@ module.exports.run = async (client, message, args) =>{
 module.exports.help = {
     
     name : 'whois',
-    aliases : ['whois'],
+    aliases : ['whois','userinfo','uinfo'],
     category : 'misc',
-    description : 'Donne des infos sur l\'auteur de la commande',
+    description : 'Donne des infos sur une personne',
     cooldown : 5,
-    usage : '',
-   // exemple :["ping"],
+    usage : '<@user>',
+    exemple :["whois @Smaug"],
     permissions : false,
     isUserAdmin: false,
     args : false
