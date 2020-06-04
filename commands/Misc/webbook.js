@@ -41,6 +41,13 @@ module.exports.run = async (client, message, args) => {
                                                         message.channel.awaitMessages(filter, { time: 60000, max: 1, errors: ['time'] })
                                                             .then(messages => {
                                                                 contenu_webkook = messages.first().content
+                                                                const webhookClient  = new WebhookClient(`${id_webkook}`, `${token_webkook}`);
+ 
+                                                                 webhookClient.send(`${contenu_webkook}`,{
+                                                                  username: nom_webkook,
+                                                                  avatarURL: avatar_webkook,
+                                                                }).then(console.log('ok'))
+                                                                  .catch(console.error)
                                                                 //message.channel.send('OK je donne l\'avatar '+avatar_webkook+' au bot !')
                                                             })
                                                             
@@ -74,13 +81,7 @@ module.exports.run = async (client, message, args) => {
     
     
     })
-  const webhookClient  = new WebhookClient(`${id_webkook}`, `${token_webkook}`);
  
-  await webhookClient.send(`${contenu_webkook}`,{
-    username: nom_webkook,
-    avatarURL: avatar_webkook,
-  }).then(console.log('ok'))
-    .catch(console.error)
   }
 
   module.exports.help = {
