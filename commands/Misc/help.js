@@ -31,12 +31,13 @@ module.exports.run = (client, message, args, settings) => {
         .setColor(`${EMBED}`)
         //.setTitle(`\`${settings.prefix}${command.help.name}\``)
         .setTitle(`${LOGOBOT} **Commande :** ${settings.prefix}${command.help.name}`)
-        .addField("Description :", `${command.help.description} (cd: ${command.help.cooldown}secs)`)
-        .addField("Utilisation :", command.help.usage ? `${settings.prefix}${command.help.name} ${command.help.usage}` : `${settings.prefix}${command.help.name}`, true)
+        //.setDescription(`**Description :** ${command.help.description} (cd: ${command.help.cooldown}secs)\n`)
+        .addField("**__Description :__**", `${command.help.description} (cd: ${command.help.cooldown}secs)`)
+        .addField("**__Utilisation :__**", command.help.usage ? `${settings.prefix}${command.help.name} ${command.help.usage}` : `${settings.prefix}${command.help.name}`, true)
         .setTimestamp()
         .setFooter('BOT ID : 689210215488684044', `${message.guild.iconURL()}`);
-      if (command.help.aliases.length > 1) embed.addField("Alias :", `${settings.prefix}${command.help.aliases.join(`\r\n${settings.prefix}`)}`);
-      if (command.help.exemple && command.help.exemple.length > 0) embed.addField("Exemples :", `${settings.prefix}${command.help.exemple.join(`\r\n${settings.prefix}`)}`);
+      if (command.help.aliases.length > 1) embed.addField("**__Alias :__**", `${command.help.aliases.join(`, `)}`);
+      if (command.help.exemple && command.help.exemple.length > 0) embed.addField("**__Exemples :__**", `${settings.prefix}${command.help.exemple.join(`\r\n${settings.prefix}`)}`);
 
       return message.channel.send(embed);
     }
