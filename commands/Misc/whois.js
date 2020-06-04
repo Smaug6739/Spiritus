@@ -36,7 +36,8 @@ module.exports.run = async (client, message, args) =>{
             let permissions_arr = use.permissions.toArray().join(', ');
             let permissions = permissions_arr.toString()
             permissions = permissions.replace(/\_/g,' ');        
-            embed.addField('User information:', `**> Permissions:** ${permissions.toLowerCase()}`)//OK
+            //embed.addField('User information:', `**> Permissions:** ${permissions.toLowerCase()}`)//OK
+            embed.addField('User information:', `** Permissions:** ${use.permissions.toArray().sort().map(permissions => `${permissions.split("_").map(x => x[0] + x.slice(1).toLowerCase()).join(" ")}`).join(", ") || "none"}`)//OK
             embed.setTimestamp()
 
 

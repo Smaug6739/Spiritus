@@ -74,11 +74,11 @@ class Drawing {
   }
 
   renewTimeout() {
-    let self = this;
+    /*let self = this;
     this.msg.client.clearTimeout(this.timeout);
     this.timeout = this.msg.client.setTimeout(function() {
-      self.stop("\nAreter après 2min.");
-    }, 120000);
+    self.stop("\nAreter après 2min.");
+    }, 120000);*/
   }
   
   handleReaction(reaction) {
@@ -184,7 +184,7 @@ module.exports.help = {
     category : 'misc',
     description : 'Permet de dessiner',
     cooldown : 3,
-    usage : '<numbre(5-50)>',
+    usage : '<number(5-50)>',
    // exemple :["ping"],
     permissions : false,
     isUserAdmin: false,
