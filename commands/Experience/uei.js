@@ -32,6 +32,23 @@ module.exports.run = async(client, message, args, settings, dbUser) => {
             else return;
           };
          message.channel.send(`${rank}`)*/
+        
+/*
+         async function idMembers(){
+          message.guild.members.cache.forEach(async user  => {
+              console.log(user.id)
+              const data = await User.findOne({ userID: message.member.id  });
+              if(data){
+
+              }else{
+                  return;
+              }
+    
+          })
+  
+        }
+        idMembers()*/
+        
 }
 module.exports.help = {
 

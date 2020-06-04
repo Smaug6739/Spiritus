@@ -15,35 +15,32 @@ module.exports = async(client, message) => {
     userID: message.member.id,
     username: message.member.user.tag,
   });
+  //-----------Si le système d'experience est activé------------------
   if(settings.expsysteme){
-    
   const expCd = Math.floor(Math.random() * 19) + 1; // 1 - 20 
   const expToAdd = Math.floor(Math.random() * 25) + 10; //  10 - 35
-  if(expCd >= 1 && expCd  <= 19){
-    if(!dbUser){
-      setTimeout(async function () {
-      //message.reply(`tu viens de gagner ${expToAdd} points d'experience`)
-      await client.addExp(client, message.member, expToAdd);
-      },1000)
-      
-    }else{
-      //message.reply(`tu viens de gagner ${expToAdd} points d'experience`)
-      await client.addExp(client, message.member, expToAdd);
+    if(expCd >= 9 && expCd  <= 15){
+      if(!dbUser){
+        setTimeout(async function () {
+        //message.reply(`tu viens de gagner ${expToAdd} points d'experience`)
+        await client.addExp(client, message.member, expToAdd);
+        },1000)
+        
+      }else{
+        //message.reply(`tu viens de gagner ${expToAdd} points d'experience`)
+        await client.addExp(client, message.member, expToAdd);
+      }
+      //-------------------------------------------LEVELS------------------------------------------
+      const userLevel = Math.floor(0.1 * Math.sqrt(dbUser.experience));
+      //Augmanter 0.1 pour avoir besoins de moins de poinnts d'exp.
+      if (dbUser.level < userLevel) {
+        message.reply(`bravo à toi, tu viens de monter niveau **${userLevel}** :muscle: :muscle: `);
+        client.updateUser(message.member, { level: userLevel });
+      }else if (dbUser.level > userLevel) {
+       await client.updateUser(message.member, { level: userLevel });
+      }
     }
-    //-------------------------------------------LEVELS------------------------------------------
-    const userLevel = Math.floor(0.1 * Math.sqrt(dbUser.experience));
-    //Augmanter 0.1 pour avoir besoins de moins de poinnts d'exp.
-    if (dbUser.level < userLevel) {
-      message.reply(`bravo à toi, tu viens de monter niveau **${userLevel}** :muscle: :muscle: `);
-      client.updateUser(message.member, { level: userLevel });
-    };
-
-    
   }
-    
-  }
-  
-
   if (!message.content.startsWith(settings.prefix)) return;
 
 
