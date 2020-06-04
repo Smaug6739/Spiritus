@@ -6,37 +6,38 @@ module.exports.run = async (client, message, args) =>{
     const {ONLINE,IDLE,DND,OFFLINE,EMBED} = require('../../configstyle')
 
     let user = /*message.mentions.users.first() || */message.author;
-   
-    if (user.presence.status === 'online') status = `${ONLINE}Online`  ;
-    if (user.presence.status === 'idle') status = `${IDLE}Idle`;
-    if (user.presence.status === 'dnd') status = `${DND}Dnd`;
-    if (user.presence.status === 'offline') status = `${OFFLINE}Offline`;
+    let use = message.mentions.members.first() || message.member
+
+    if (use.user.presence.status === 'online') status = `${ONLINE}Online`  ;
+    if (use.user.presence.status === 'idle') status = `${IDLE}Idle`;
+    if (use.user.presence.status === 'dnd') status = `${DND}Dnd`;
+    if (use.user.presence.status === 'offline') status = `${OFFLINE}Offline`;
 
 
         const embed = new MessageEmbed()
         //const joinServer = moment(message.member.joinedAt).format('llll');
         //const joinDiscord = moment(user.createdAt).format('llll');
 
-        let member = message.mentions.members.first() || message.member
-            embed.setFooter(user.username, user.displayAvatarURL(), true)
-            embed.setThumbnail(user.displayAvatarURL())
-            embed.setColor(`${EMBED}`)
-            embed.setTitle(`${user.username}`)
+            embed.setFooter(use.user.username, use.user.displayAvatarURL(), true) //OK
+            embed.setThumbnail(use.user.displayAvatarURL())//OK
+            embed.setColor(`${EMBED}`)//OK
+            embed.setTitle(`${use.user.username}`)//OK
             
-            embed.addField('ID de la personne :', `${user.id}`, true)
-            embed.addField('Status :', `${status}`, true)
-            embed.addField('Tag :', `${user.tag}`, true)
+            embed.addField('ID de la personne :', `${use.user.id}`, true)//OK
+            embed.addField('Status :', `${status}`, true)//OK
+            embed.addField('Tag :', `${use.user.tag}`, true)//OK
 
-            embed.addField('A rejoins :', `${moment.utc(user.joinedAt).format('dddd, MMMM Do YYYY')}`, true)
+            embed.addField('A rejoins :', `${moment.utc(use.user.joinedAt).format('dddd, MMMM Do YYYY')}`, true)//OK --------- IDLE
             //embed.addField('A rejoins :', `${moment.utc(message.member.joinedAt).format('dddd, MMMM Do YYYY, HH:mm:ss')}`, true)
 
-            embed.addField('Compte crée le :', `${moment.utc(user.createdAt).format('dddd, MMMM Do YYYY')}`, true)
-            embed.addField('Roles :', `${message.member.roles.cache.map(r => r.toString()).join('')}`)            
+            embed.addField('Compte crée le :', `${moment.utc(use.user.createdAt).format('dddd, MMMM Do YYYY')}`, true)//OK
+            embed.addField('Roles :', `${use.roles.cache.map(r => r.toString()).join('')}`)//OK            
 
-            let permissions_arr = message.member.permissions.toArray().join(', ');
+            let permissions_arr = use.permissions.toArray().join(', ');
             let permissions = permissions_arr.toString()
             permissions = permissions.replace(/\_/g,' ');        
-            embed.addField('User information:', `**> Permissions:** ${permissions.toLowerCase()}`)
+            embed.addField('User information:', `**> Permissions:** ${permissions.toLowerCase()}`)//OK
+            embed.setTimestamp()
 
 
 
@@ -55,7 +56,6 @@ module.exports.run = async (client, message, args) =>{
             **> Tag**: ${message.author.user.tag}
             **> Created at**: ${created}`, true)
             */
-            embed.setTimestamp()
 
 
         message.channel.send(embed);

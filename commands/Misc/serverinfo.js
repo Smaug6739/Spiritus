@@ -42,7 +42,7 @@ module.exports.run = (client, message, args) => {
         { name: 'Verification niveau', value: `${message.guild.verificationLevel}`, inline: true },
         //{ name: 'Roles du serveur', value: `${message.guild.roles.fetch().then(roles =>roles.cache.size)}`, inline: true },
         { name: `${BOOST}Nitro du serveur`, value: `${boost}`, inline: true },
-        { name: 'Chanels', value: `${CHANNEL}Texte :${channel_t}\n${VOICE}Voice :${channel_v}\n${ETIQUETTE}Categories${channel_c}`, inline: true },
+        { name: 'Chanels', value: `${CHANNEL}Texte : ${channel_t}\n${VOICE}Voice : ${channel_v}\n${ETIQUETTE}Categories : ${channel_c}`, inline: true },
         { name: 'Status des membres', value: `${ONLINE}Online : ${online}\n${IDLE}Idle : ${idle}\n${DND}Dnd : ${dnd}\n${OFFLINE}Offline : ${off}`, inline: true },
         //{ name: 'Category', value: `${channel_c}`, inline: true }
        
