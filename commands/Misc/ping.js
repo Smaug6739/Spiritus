@@ -11,7 +11,7 @@ module.exports.help = {
     aliases : ['ping'],
     category : 'misc',
     description : 'Ping le bot et donne son temps de réaction',
-    cooldown : 0.1,
+    cooldown : 3,
     usage : '',
    // exemple :["ping"],
     permissions : false,

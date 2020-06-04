@@ -69,9 +69,14 @@ client.updateUser = async (user, settings) => {
   }
   return data.updateOne(settings);
 };
-client.updateExp = async (client, member, exp)=>{
+client.addExp = async (client, member, exp)=>{
   const userToUpdate = await client.getUser(member, member.guild.id);
   const updateExp = userToUpdate.experience + exp;
+  await client.updateUser(member, {experience : updateExp});
+}
+client.removeExp = async (client, member, exp)=>{
+  const userToUpdate = await client.getUser(member, member.guild.id);
+  const updateExp = userToUpdate.experience - exp;
   await client.updateUser(member, {experience : updateExp});
 }
 };
