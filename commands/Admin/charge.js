@@ -27,7 +27,7 @@ module.exports.run = async (client, message, args) =>{
      
   verifierguild()
 
-  message.channel.send(`${TRUE}Recharge lancée`)
+  message.channel.send(`${TRUE}Recharge de toutes les guilds lancée.`)
 }
 module.exports.help = {
         
