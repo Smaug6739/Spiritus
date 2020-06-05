@@ -1,6 +1,6 @@
 const {MessageEmbed} = require('discord.js');
 module.exports.run =async(client, message, args) => {
-    const {LOGOBOT,EMBED} = require('./../../configstyle')
+    const {LOGOBOT,EMBED} = require('../../configstyle')
 
 
             let nb_dés = args[0]

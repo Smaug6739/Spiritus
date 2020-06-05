@@ -25,7 +25,7 @@ module.exports.run = (client, message, args) => {
   module.exports.help = {
     name: "helpmod",
     aliases: ['helpmod','cmdsmod'],
-    category: 'help',
+    category: 'autre',
     description: "Renvoie une liste de commandes ou les informations sur une seule!",
     cooldown: 3,
     usage: '<command_name>',

@@ -14,7 +14,7 @@ module.exports.run = (client, message, args) => {
             //if (role.permissions.has('KICK_MEMBERS')) return message.channel.send("Vous ne pouvez pas avoir ce rôle!");
     
             utilisateur.roles.remove(role)
-            .then(m => message.channel.send(`${TRUE}J'ai bien supprimer le role ${role} a ${utilisateur}.`))
+            .then(m => message.channel.send(`${TRUE}J'ai bien supprimer le role ${role} de ${utilisateur}.`))
             .catch(e => console.log(e));
             
             //console.log('Le role est ajoutable')
