@@ -30,7 +30,10 @@ module.exports.run = async (client, message, args) =>{
             embed.addField('A rejoins :', `${moment.utc(use.user.joinedAt).format('dddd, MMMM Do YYYY')}`, true)//OK --------- IDLE
             //embed.addField('A rejoins :', `${moment.utc(message.member.joinedAt).format('dddd, MMMM Do YYYY, HH:mm:ss')}`, true)
 
-            embed.addField('Compte crée le :', `${moment.utc(use.user.createdAt).format('dddd, MMMM Do YYYY')}`, true)//OK
+            embed.addField('Compte crée le :', `${moment.utc(use.user.createdAt).format('dddd, MMMM Do YYYY')}`, true)//
+            //if(use.presence.activities !== '')embed.addField('Status :', `${use.presence.activities}`, true)//OK
+
+
             embed.addField('Roles :', `${use.roles.cache.map(r => r.toString()).join('')}`)//OK            
 
             let permissions_arr = use.permissions.toArray().join(', ');
