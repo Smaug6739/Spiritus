@@ -18,7 +18,7 @@ module.exports.run = async(client, message, args, settings, dbUser) => {
                 .setThumbnail(uti.displayAvatarURL())
                 .setDescription(`Points d'experience : ${dbUser.experience}xp\nNiveau : ${dbUser.level}\nNiveau suivant : ${dbUser.level+1}`)
                 message.channel.send(embed)
-        }
+        } 
     }else{
        return message.channel.send('Le système d\'exp n\'est pas activé sur ce serveur.');
     }
