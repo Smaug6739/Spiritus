@@ -28,7 +28,7 @@ module.exports.run = async (client, message, args, settings) => {
             message.channel.send(`welcomeMessage actuel : \`${settings.welcomeMessage}\``);
             break;
         }
-        /*case  'experience' : {
+        case  'experience' : {
             let uexp ;
             if(settings.expsysteme == true) uexp = false;
             else uexp = true;
@@ -38,7 +38,7 @@ module.exports.run = async (client, message, args, settings) => {
             //}
            
             break;
-        }*/
+        }
      
     }
 };
