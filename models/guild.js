@@ -20,6 +20,10 @@ const guildSchema = mongoose.Schema({
   expsysteme:{
     "type": Boolean,
     "default": true
+  },
+  serveurstats:{
+    "type": Boolean,
+    "default": false
   }
 });
 

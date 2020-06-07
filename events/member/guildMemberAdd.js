@@ -12,8 +12,23 @@ module.exports = async(client, member) => {
     .setThumbnail(member.user.displayAvatarURL())
     .setFooter("Un utilisateur a rejoint")
     .setTimestamp();
+    client.channels.cache.get('710763508425424897').send(embed);
+    const settings = await client.getGuild(member.guild);
 
-  client.channels.cache.get('710763508425424897').send(embed);
+    if(settings.serveurstats){
+      const logs = member.guild.channels.cache.find(c => c.name.startsWith("All Members :"))
+      if(!logs){
+      await member.guild.channels.create('All Members :', {type : "voice"})
+      }else{
+        //console.log('Il doit mettre a jour')
+        try{
+        await member.guild.channels.cache.find(c => c.name.startsWith("All Members :")).setName(`All Members : ${member.guild.memberCount}`)
+        }catch(err){console.log(err)}
+
+      }
+    }
+
+
 
   const newUser = {
     guildID: member.guild.id,
