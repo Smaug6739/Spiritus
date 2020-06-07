@@ -16,17 +16,12 @@ module.exports = async(client, member) => {
     const settings = await client.getGuild(member.guild);
 
     if(settings.serveurstats){
-      const logs = member.guild.channels.cache.find(c => c.name.startsWith("All Members :"))
-      if(!logs){
-      await member.guild.channels.create('All Members :', {type : "voice"})
-      }else{
-        //console.log('Il doit mettre a jour')
-        try{
-        await member.guild.channels.cache.find(c => c.name.startsWith("All Members :")).setName(`All Members : ${member.guild.memberCount}`)
-        }catch(err){console.log(err)}
-
-      }
+      const logs = await member.guild.channels.cache.find(c => c.name.startsWith("All Members : "))
+      if(!logs)return await member.guild.channels.create(`All Members : ${member.guild.memberCount}`, {type : "voice"}) 
+      
+     logs.setName(`All Members : ${member.guild.memberCount}`)
     }
+    
 
 
 
