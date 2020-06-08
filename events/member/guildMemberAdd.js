@@ -2,8 +2,13 @@ const { MessageEmbed } = require("discord.js");
 
 module.exports = async(client, member) => {
   let { VERTCLAIRE } = require('../../configstyle');
-
-  const embed = new MessageEmbed()
+  member.guild.fetchInvites().then(guildInvites => {  
+    console.log(guildInvites)
+    client.channels.cache.get("714087772528574475").send(`${member.displayName} vient d'etre inviter par ${guildInvites.code} qui as réaliser ${guildInvites.uses} invitations`)
+  })
+    
+    const embed = new MessageEmbed()
+  
     .setAuthor(`${member.displayName} (${member.id})`, member.user.displayAvatarURL())
     .setColor(`${VERTCLAIRE}`)
     .setTitle('Member add')
