@@ -1,5 +1,5 @@
 # Spiritus 
-<img src='https://french-gaming-family.fr/public/img/top-banner.jpg'>
+<img src='https://cdn.discordapp.com/attachments/715219402215129088/719253459786006538/test.PNG'>
 <h2>Spritus :</h2>
 <p>Le bot spiritus est un bot multi-taches qui est spécialiser dans le manangement d'un serveur.En effet nombreuses sont ses fonctions qui visent à faire gagner du temps et faciliter les taches de maintenance d'un serveur. Synchroniser les permissions d'un salon, cloner des salons,crée, supprimer des salons, catégories,emojis extrenement simple ! Le bot  pocède également de superbes fonctions de moderations comme le ban,kick,purge,prune, warn mais aussi une fonction lock et unlock très pratique en cas de raid. En plus de tous cela vous pouvez accéder a d'autres fonctions cool comme la possibilité d'envoyer un embed personalisé a 100% etc Enfin le bot pocède plien d'autres fonctions cool que vous pourez experimenter par vous . Par la suite ce bot sera équiper d'un système de levels et de jeux </p>
 
