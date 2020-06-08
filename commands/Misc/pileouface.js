@@ -1,13 +1,11 @@
 module.exports.run =(client, message, args) => {
     
     let nombreAleatoire = Math.round(Math.random()*1);
-             //console.log(nombreAleatoire);
-            let reponse;
-            if(nombreAleatoire == 1){
-            message.channel.send("Pile, GG tu viens de gagner 5exp")
-            } else {
-            message.channel.send("Face, pas de chance tu viens de perdre 5exp")
-            }
+    if(nombreAleatoire == 1){
+    message.channel.send("Pile, GG tu viens de gagner 5exp")
+    } else {
+    message.channel.send("Face, pas de chance tu viens de perdre 5exp")
+    }
    
 }
 module.exports.help = {
