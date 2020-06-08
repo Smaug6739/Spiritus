@@ -1,6 +1,6 @@
-/*const util = require('util');
+const util = require('util');
 const child_process = require('child_process');
-const exec = util.promisify(child_process.exec);
+const exec = child_process.exec
 const Command = require('../Command');
 
 class Pull extends Command {
@@ -22,4 +22,4 @@ class Pull extends Command {
         }
     }
 }
-module.exports = Pull;*/
+module.exports = Pull;

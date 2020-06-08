@@ -2,7 +2,7 @@ const { Guild } = require("../../models/index");
 const {MessageEmbed, WebhookClient} = require('discord.js')
 module.exports =async client => {
     console.log(`Logged in as ${client.user.tag}!`);
-    //let emoji = client.emojis.cache.find(emoji => emoji.name === "Z9Z9");
+    //let emoji = client.emojis.cache.find(emoji => emoji.name === "loading");
     //console.log(emoji)
  
   const webhookClient  = new WebhookClient('714886315937759252', 'GtQPNjgyVAHQEaZAudHJ7TgpdhVrifSxp2jkEJVV8H5M0wQ9SEWJOUhMg94M2g_hpKZl');
