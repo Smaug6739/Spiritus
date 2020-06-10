@@ -22,7 +22,7 @@ module.exports.help = {
     description: "Initialise un collector de 10secondes",
     cooldown: 3,
     usage: '<message_to_collect>',
-    exemple :["help","help ping"],
+    exemple :[""],
     isUserAdmin: false,
     permissions: false,
     args: false
