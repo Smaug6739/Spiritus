@@ -14,7 +14,7 @@ module.exports =async client => {
 
   webhookClient.send('',{
     username: 'Démarage',
-    avatarURL: 'https://cdn.discordapp.com/attachments/714242633375023164/714879334879461476/1584471129028.png',
+    avatarURL: 'https://cdn.discordapp.com/attachments/715219402215129088/720266052231102534/FGF_Moderateur.png',
     embeds: [embed],
   });
   }
