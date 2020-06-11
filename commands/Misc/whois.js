@@ -27,10 +27,10 @@ module.exports.run = async (client, message, args) =>{
             embed.addField('Status :', `${status}`, true)//OK
             embed.addField('Tag :', `${use.user.tag}`, true)//OK
 
-            embed.addField('A rejoins :', `${moment.utc(use.user.joinedAt).format('dddd, MMMM Do YYYY')}`, true)//OK --------- IDLE
+            embed.addField('A rejoins :', `${moment.utc(use.joinedAt).format('DD/MM/YYYY - hh:mm')}`, true)//OK --------- IDLE
             //embed.addField('A rejoins :', `${moment.utc(message.member.joinedAt).format('dddd, MMMM Do YYYY, HH:mm:ss')}`, true)
 
-            embed.addField('Compte crée le :', `${moment.utc(use.user.createdAt).format('dddd, MMMM Do YYYY')}`, true)//
+            embed.addField('Compte crée le :', `${moment.utc(use.user.createdAt).format('DD/MM/YYYY - hh:mm')}`, true)//
             //if(use.presence.activities !== '')embed.addField('Status :', `${use.presence.activities}`, true)//OK
 
 
