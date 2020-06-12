@@ -1,7 +1,7 @@
-const { MESSAGES } = require("../util/constants");
+const { MESSAGES } = require("../../util/constants");
 
 module.exports.run = async (client, message, args, settings) => {
-  let { FALSE } = require('../configstyle');
+  let { FALSE } = require('../../configstyle');
 
   /*
   function clean(text) {
@@ -15,7 +15,7 @@ module.exports.run = async (client, message, args, settings) => {
   const cleanCode = await clean(evaled);
   message.channel.send(cleanCode, { code: "js" });
   */
- let {ADMIN} = require('../configstyle')
+ let {ADMIN} = require('../../configstyle')
 
  if(!ADMIN.includes(message.author.id)) return message.channel.send(`${FALSE}Tu n'est pas admin du BOT `)
 

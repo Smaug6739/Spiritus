@@ -1,6 +1,6 @@
 module.exports.run = (client, message, args) => {
     //let role = message.guild.roles.cache.find(r => r.name === args.toString());
-    const {FALSE,TRUE} = require('../configstyle')
+    const {FALSE,TRUE} = require('../../configstyle')
     let  role = message.mentions.roles.first()
     let utilisateur = message.mentions.members.first() || message.member
     if(!message.guild.me.hasPermission('MANAGE_ROLES')) return message.channel.send(`${FALSE}Je n'ai pas la permission pour mettre a jour les roles d'un utilisateur.`);

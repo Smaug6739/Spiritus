@@ -1,6 +1,6 @@
 const { MessageEmbed } = require("discord.js") 
 module.exports.run = async (client, message, args) => {
-  let { FALSE } = require('../configstyle');
+  let { FALSE } = require('../../configstyle');
   if(!message.guild.me.hasPermission('MANAGE_EMOJIS')) return message.channel.send(`${FALSE}Je n'ai pas la permission de gérer les emojis.`);
   if(message.member.hasPermission('MANAGE_EMOJIS')){
     if(args[0].includes('-')||args[0].includes('/')||args[0].includes('/')||args[0].includes('+')||args[0].includes('*')||args[0].includes('(')||args[0].includes(')')||args[0].includes('[')||args[0].includes(']')||args[0].includes('{')||args[0].includes('}')||args[0].includes('#')||args[0].includes('~')||args[0].includes('@')||args[0].includes('&')||args[0].includes('^')||args[0].includes('$')||args[0].includes('€')||args[0].includes('°')||args[0].includes('%')||args[0].includes('£')||args[0].includes(',')||args[0].includes('<')||args[0].includes('>')) return message.channel.send(`${FALSE}Le nom de l'emoji n'est pas valide`);

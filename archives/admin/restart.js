@@ -1,5 +1,5 @@
 module.exports.run = async (client, message, args) =>{
-    let {ADMIN,TRUE,FALSE} = require('../configstyle')
+    let {ADMIN,TRUE,FALSE} = require('../../configstyle')
 
     if(!ADMIN.includes(message.author.id)) return message.channel.send(`${FALSE}Tu n'est pas admin du BOT `)
     console.log("Redemarage")

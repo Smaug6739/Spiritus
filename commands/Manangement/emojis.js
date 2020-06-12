@@ -4,9 +4,16 @@ module.exports.run = async (client, message, args) => {
     if(!message.guild.me.hasPermission('MANAGE_EMOJIS')) return message.channel.send(`${FALSE}Je n'ai pas la permission de gérer les emojis.`);
     if(!message.member.hasPermission('MANAGE_EMOJIS'))return message.channel.send(`${FALSE}Vous devez avoir la permission de gérer les emojis pour utiliser cette commande !`)
     
-    
+    if('liste'){
+      const emojiList = message.guild.emojis.cache.map(e=>e.toString()).join(" ");
+      const embed = new MessageEmbed()
+       .setTitle('Liste des emojis du serveur')
+       .setDescription(emojiList)
+       .setTimestamp()
+       .setFooter('BOT ID : 689210215488684044')
+      message.channel.send(embed)
     //--------------------------------------EMOJIS-CREATE------------------------------------------------------
-    if(args[0] === 'create'){
+    }else if(args[0] === 'create'){
 
             if(args[1].includes('-')||args[1].includes('/')||args[1].includes('/')||args[1].includes('+')||args[1].includes('*')||args[1].includes('(')||args[1].includes(')')||args[1].includes('[')||args[1].includes(']')||args[1].includes('{')||args[1].includes('}')||args[1].includes('#')||args[1].includes('~')||args[1].includes('@')||args[1].includes('&')||args[1].includes('^')||args[1].includes('$')||args[1].includes('€')||args[1].includes('°')||args[1].includes('%')||args[1].includes('£')||args[1].includes(',')||args[1].includes('<')||args[1].includes('>')) return message.channel.send(`${FALSE}Le nom de l'emoji n'est pas valide`);
             let nom_emoji = args[1]
@@ -164,6 +171,6 @@ module.exports.help = {
     permissions : false,
     isUserAdmin: false,
     args : true,
-    sousCommdandes : ["emojis create","emojis update","emoji delete"]
+    sousCommdandes : ["emojis liste","emojis create","emojis update","emoji delete"]
 
 }

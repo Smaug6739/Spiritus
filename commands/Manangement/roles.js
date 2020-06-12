@@ -1,4 +1,4 @@
-module.exports.run = (client, message, args) => {
+module.exports.run = async(client, message, args) => {
     let { TRUE,FALSE } = require('../../configstyle');
     if(!message.guild.me.hasPermission('MANAGE_ROLES')) return message.channel.send(`${FALSE}Je n'ai pas la permission de modifier les roles.`);
 
@@ -46,7 +46,26 @@ module.exports.run = (client, message, args) => {
     
 
         }else if(args[0] === 'update'){
-            console.log("Commande en dev")
+            if(!args[1]) return message.channel.send(`${FALSE}Merci d'indiquer en premier argument le nom ou la mention du role a changer`)
+            let role = message.guild.roles.cache.find(r => r.name === args.slice(1).toString()) || message.mentions.roles.first()
+            if(role){
+                try{
+                    let roleName = args.slice(2).join(" ") || 'new role'
+                    if(roleName.length > 99) return message.channel.send(`${FALSE}Le nom du role doit etre inferieur a 100 caractères.`);
+
+                  await  role.edit({ name: `${roleName}` }).then(
+                        message.channel.send(`J'ai bien mis a jour le role ${role.name} par ${roleName}`)
+                    )
+    
+                }catch(err){
+                    client.channels.cache.get('721036477194174464').send(`Une erreur sur la commande \`role-update\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
+    
+                }
+            }else{
+                message.channel.send(`${FALSE}Je n\'ai pas trouver ce role... Essayez de le mentionner`)
+            }
+
+
         }else if(args[0] === 'add'){
             let  role = message.mentions.roles.first()
             let utilisateur = message.mentions.members.first() || message.member
