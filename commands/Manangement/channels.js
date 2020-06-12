@@ -143,13 +143,14 @@ module.exports.run = (client, message, args) => {
 }
 module.exports.help = {
     name: "channel",
-    aliases: ['channel','channels','chan'],
+    aliases: ['channel','channels'],
     category : 'manangement',
     description: "Permet de gérer les channels du serveur",
     cooldown: 5,
     usage: '<action> <args>',
-    //exemple :["kick @Smaug spam"],
+    exemple :[],
     isUserAdmin: false,
     permissions: true,
-    args: false
+    args: false,
+    sousCommdandes : ["channel clone","channel synchro","channel create","channel delete"]
   };

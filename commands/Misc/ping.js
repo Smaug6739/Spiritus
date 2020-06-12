@@ -13,9 +13,10 @@ module.exports.help = {
     description : 'Ping le bot et donne son temps de réaction',
     cooldown : 3,
     usage : '',
-   // exemple :["ping"],
+    exemple :[],
     permissions : false,
     isUserAdmin: false,
-    args : false
+    args : false,
+    sousCommdandes : []
 }
 

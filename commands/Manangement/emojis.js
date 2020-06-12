@@ -163,5 +163,7 @@ module.exports.help = {
     exemple :["emoji create lien Spiritus "],
     permissions : false,
     isUserAdmin: false,
-    args : true
+    args : true,
+    sousCommdandes : ["emojis create","emojis update","emoji delete"]
+
 }

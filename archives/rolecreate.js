@@ -1,5 +1,5 @@
 module.exports.run = (client, message, args) => {
-  let { TRUE,FALSE } = require('../../configstyle');
+  let { TRUE,FALSE } = require('../configstyle');
   if(!message.guild.me.hasPermission('MANAGE_ROLES')) return message.channel.send(`${FALSE}Je n'ai pas la permission de modifier les roles.`);
 
       if(message.member.hasPermission('MANAGE_ROLES')){
@@ -44,5 +44,6 @@ module.exports.help = {
     exemple :["role-create name"],
     permissions : false,
     isUserAdmin: false,
-    args : true
+    args : true,
+    sousCommdandes : [""]
 }

@@ -33,5 +33,6 @@ module.exports.help = {
   exemple :["kick @Smaug spam"],
   isUserAdmin: true,
   permissions: true,
-  args: true
+  args: true,
+  sousCommdandes : []
 };

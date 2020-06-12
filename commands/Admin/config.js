@@ -50,8 +50,9 @@ module.exports.help = {
     description: "Modiffier la base de donnée",
     cooldown: 0.1,
     usage: '<key_to_modify> <value>',
-    //exemple :["eval 5 + 5"],
+    exemple :[],
     isUserAdmin: false,
     permissions: true,
-    args: true
+    args: true,
+    sousCommdandes : ["config prefix","config logChannel","config welcomeMessage","config experience"]
 }

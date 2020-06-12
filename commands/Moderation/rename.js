@@ -24,5 +24,6 @@ module.exports.help = {
   exemple :["rename @Smaug Dragon"],
   isUserAdmin: false,
   permissions: true,
-  args: true
+  args: true,
+  sousCommdandes : []
 };

@@ -28,5 +28,6 @@ module.exports.help = {
   exemple :["ban @Smaug spam"],
   isUserAdmin: true,
   permissions: true,
-  args: true
+  args: true,
+  sousCommdandes : []
 };

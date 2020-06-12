@@ -75,5 +75,6 @@ module.exports.help = {
     exemple :["msg @Smaug Message","msg #spiritus Message"],
     isUserAdmin: false,
     permissions : false,
-    args : true
+    args : true,
+    sousCommdandes : []
 }

@@ -93,14 +93,15 @@ module.exports.run = (client, message, args) => {
   module.exports.help = {
       
       name : 'roles',
-      aliases : ['roles','role','rol'],
+      aliases : ['roles','role'],
       category : 'manangement',
       description : 'Permet de gérer et add/rem les roles du serveur.',
       cooldown : 5,
       usage : '<action> <args>',
-      exemple :["roles create Admin, roles delete @Admin, roles add @Smaug Admin"],
+      exemple :["roles create BLUE Admin"],
       permissions : true,
       isUserAdmin: false,
-      args : true
+      args : true,
+      sousCommdandes : ["roles create","roles update","roles delete","roles add","roles rem"]
   }
   

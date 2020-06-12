@@ -36,8 +36,10 @@ category : 'experience',
 description : 'Top 10 des utilisateurs sur le serveur',
 cooldown : 10,
 usage : '',
-//exemple :["channel-create text nom"],
+exemple :[],
 permissions : false,
 isUserAdmin: false,
-args : false
+args : false,
+sousCommdandes : []
+
 }

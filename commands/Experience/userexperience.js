@@ -45,9 +45,10 @@ module.exports.help = {
     category : 'experience',
     description : 'Donne l\'exp d\'une personne.',
     cooldown : 10,
-    usage : '',
-    //exemple :["channel-create text nom"],
+    usage : '<@user>',
+    exemple :["uexp @Smaug"],
     permissions : false,
     isUserAdmin: false,
-    args : false
+    args : false,
+    sousCommdandes : []
 }

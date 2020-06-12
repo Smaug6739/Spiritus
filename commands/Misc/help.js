@@ -38,6 +38,7 @@ module.exports.run = (client, message, args, settings) => {
         .setFooter('BOT ID : 689210215488684044', `${message.guild.iconURL()}`);
       if (command.help.aliases.length > 1) embed.addField("**__Alias :__**", `${command.help.aliases.join(`, `)}`);
       if (command.help.exemple && command.help.exemple.length > 0) embed.addField("**__Exemples :__**", `${settings.prefix}${command.help.exemple.join(`\r\n${settings.prefix}`)}`);
+      if (command.help.sousCommdandes && command.help.sousCommdandes.length > 0) embed.addField("**__Sous commandes :__**", `${settings.prefix}${command.help.sousCommdandes.join(`\r\n${settings.prefix}`)}`);
 
       return message.channel.send(embed);
     }
@@ -53,5 +54,6 @@ module.exports.run = (client, message, args, settings) => {
     exemple :["help","help ping"],
     isUserAdmin: false,
     permissions: false,
-    args: false
+    args: false,
+    sousCommdandes : []
   };

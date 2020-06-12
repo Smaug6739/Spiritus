@@ -49,5 +49,6 @@ module.exports.help = {
     exemple :["lock #general"],
     isUserAdmin: false,
     permissions: true,
-    args: true
+    args: true,
+    sousCommdandes : []
   };

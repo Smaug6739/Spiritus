@@ -57,5 +57,6 @@ module.exports.help = {
   exemple :["mute @Smaug 1h"],
   isUserAdmin: true,
   permissions: true,
-  args: true
+  args: true,
+  sousCommdandes : []
 };

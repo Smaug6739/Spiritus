@@ -47,8 +47,9 @@ module.exports.help = {
     description: "unlock un channel",
     cooldown: 5,
     usage: '<#salon> ou <salon_name> ou <id_salon>',
-    //exemple :["kick @Smaug spam"],
+    exemple :["unlock #general"],
     isUserAdmin: false,
     permissions: true,
-    args: true
+    args: true,
+    sousCommdandes : []
   };

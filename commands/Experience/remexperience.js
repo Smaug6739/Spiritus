@@ -18,8 +18,10 @@ category : 'experience',
 description : 'Enleve de l\'exp a une personne.',
 cooldown : 10,
 usage : '<@user> <exp_to_add>',
-//exemple :["channel-create text nom"],
+exemple :["remexp @Smaug 1500"],
 permissions : true,
 isUserAdmin: false,
-args : true
+args : true,
+sousCommdandes : []
+
 }

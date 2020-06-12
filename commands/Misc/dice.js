@@ -48,6 +48,7 @@ module.exports.run =async(client, message, args) => {
      exemple :["dice 3 6"],
      isUserAdmin: false,
      permissions : false,
-     args : true
+     args : true,
+     sousCommdandes : []
  }
  

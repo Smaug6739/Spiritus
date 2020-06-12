@@ -16,9 +16,11 @@ module.exports.help = {
     description : 'Fais jouer le hasard pour gagner ou perdre de l\'exp',
     cooldown : 3,
     usage : '',
-   // exemple :["ping"],
+    exemple :[],
     permissions : false,
     isUserAdmin: false,
-    args : false
+    args : false,
+    sousCommdandes : []
+
 }
 

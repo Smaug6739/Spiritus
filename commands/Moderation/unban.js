@@ -30,5 +30,6 @@ module.exports.help = {
   exemple :["unban 611468402263064577"],
   isUserAdmin: false,
   permissions: true,
-  args: true
+  args: true,
+  sousCommdandes : []
 };

@@ -37,8 +37,10 @@ module.exports.help = {
     description: "Active le système d'experience sur le serveur.",
     cooldown: 0.1,
     usage: '',
-    //exemple :["eval 5 + 5"],
+    exemple :[],
     isUserAdmin: false,
     permissions: true,
-    args: false
+    args: false,
+    sousCommdandes : []
+
 }

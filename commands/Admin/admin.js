@@ -72,12 +72,14 @@ module.exports.help = {
     name : 'admin',
     aliases : ['admin'],
     category : 'admin',
-    description : 'Commandes pour la charge les guilds',
+    description : 'Commandes d\'administration du bot.',
     cooldown : 5,
-    usage : '',
-   // exemple :["ping"],
+    usage : '<action> <args>',
+    exemple :[],
     permissions : true,
     isUserAdmin: false,
-    args : false
+    args : false,
+    sousCommdandes : ["admin charge","admin restart","admin pull","admin eval"]
+
 }    
     

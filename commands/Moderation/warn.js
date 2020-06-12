@@ -34,7 +34,7 @@ module.exports.run = async (client, message, args) => {
 
 module.exports.help = {
   name: "warn",
-  aliases: ['warn'],
+  aliases: ['warn','avertissement'],
   category : 'moderation',
   description: "Warn un utilisateur",
   cooldown: 10,
@@ -42,5 +42,6 @@ module.exports.help = {
   exemple :["warn @Smaug spam"],
   isUserAdmin: true,
   permissions: true,
-  args: true
+  args: true,
+  sousCommdandes : []
 };
