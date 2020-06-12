@@ -2,7 +2,7 @@ const util = require('util');
 const child_process = require('child_process');
 const exec = util.promisify(child_process.exec);
 module.exports.run = async (client, message, args) =>{
-    let {ADMIN,TRUE,FALSE} = require('./../../configstyle')
+    let {ADMIN,TRUE,FALSE} = require('../configstyle')
     let loading = '<a:loading:688692468195262475>'
     if(!ADMIN.includes(message.author.id)) return message.channel.send(`${FALSE}Tu n'est pas admin du BOT `)
     console.log("Pull")

@@ -1,5 +1,7 @@
 const { Guild } = require("../../models/index");
-
+const util = require('util');
+const child_process = require('child_process');
+const exec = util.promisify(child_process.exec);
 module.exports.run = async (client, message, args) =>{
     let {ADMIN,TRUE,FALSE} = require('./../../configstyle')
     if(!ADMIN.includes(message.author.id)) return message.channel.send(`${FALSE}Tu n'est pas admin du BOT `)
@@ -7,9 +9,6 @@ module.exports.run = async (client, message, args) =>{
 
     //---------------------------------------CHARGE-DES-GUILDS--------------------------------------------------
     if(args[0] === 'charge'){
-
-    let sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
-
     async function verifierguild(){
         client.guilds.cache.forEach(async guild  => {
             
@@ -28,8 +27,8 @@ module.exports.run = async (client, message, args) =>{
         })
 
       }  
-    verifierguild()
-    message.channel.send(`${TRUE}Recharge de toutes les guilds lancée.`)
+      verifierguild()
+      message.channel.send(`${TRUE}Recharge de toutes les guilds lancée.`)
     //---------------------------------------RESTART--------------------------------------------------
     }else if(args[0] === 'restart'){
         console.log("Redemarage")
@@ -40,13 +39,31 @@ module.exports.run = async (client, message, args) =>{
         let loading = '<a:loading:688692468195262475>'
         console.log("Pull")
         message.channel.send(`${loading} Commande en cour d'execution...`).then(async msg =>{
-        try {
-            await exec('git pull');
-            msg.edit(`${TRUE} Updated.`);
-        } catch (err) {
-            msg.edit(`${FALSE} An error occured:\n\`\`\`${err}\n\`\`\``);
-        }
-    })
+            try {
+                await exec('git pull');
+                msg.edit(`${TRUE} Updated.`);
+            } catch (err) {
+                msg.edit(`${FALSE} An error occured:\n\`\`\`${err}\n\`\`\``);
+            }
+        })
+    }else if(args[0] === 'eval'){
+        function clean(text) {
+            if (typeof(text) === "string")
+              return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
+            else
+                return text;
+          }
+          try {
+            const code = args.slice(1).join(" ");
+            let evaled = eval(code);
+        
+            if (typeof evaled !== "string")
+              evaled = require("util").inspect(evaled);
+        
+            message.channel.send(clean(evaled), {code:"xl"});
+          } catch (err) {
+            message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
+          };
     }
     //------------------------------------------------------------------------------------------------------------------
 }

@@ -1,5 +1,5 @@
 module.exports.run =async(client, message, args) => {
-    let { FALSE } = require('../../configstyle');
+    let { FALSE } = require('../configstyle');
 
     if(!message.guild.me.hasPermission('MANAGE_MESSAGES')) return message.channel.send(`${FALSE}Je n'ai pas la permission de gérer les messages.`);
 

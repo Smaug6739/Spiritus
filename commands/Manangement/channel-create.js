@@ -3,8 +3,6 @@ module.exports.run =(client, message, args) => {
     if(!message.guild.me.hasPermission('MANAGE_CHANNELS')) return message.channel.send(`${FALSE}Je n'ai pas la permission de crée ce channel.`);
 
     var category = message.channel.parentID
-
-    
     if(!args[0]) return message.channel.send(`${FALSE}Veuillez donner en premier argument une valeur valide (\`text\` ou \`voice\ ou \`category\`)`)
         if(args[0] == 'text' || args[0] == 'voice') {
             try{
@@ -28,9 +26,6 @@ module.exports.run =(client, message, args) => {
                 client.channels.cache.get('716376021292679320').send(`Une erreur sur la commande \`channel-create\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
                 return;
             };
-        
-
-            
 
         }else if(args[0] == 'category'){
             let nom_category = args.splice(1).join(' ')

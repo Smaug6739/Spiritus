@@ -1,7 +1,7 @@
 const { MessageEmbed } = require("discord.js");
 
 module.exports = async (client, message) => {
-  let { ROSE } = require('./configstyle');
+  let { ROSE } = require('../configstyle');
 
   const fetchGuildAuditLogs = await message.guild.fetchAuditLogs({
     limit: 1,
