@@ -61,7 +61,7 @@ module.exports.help = {
     
     name : 'serverinfo',
     aliases : ['serverinfo'],
-    category : 'misc',
+    category : 'info',
     description : 'Donne des infos sur le serveur',
     cooldown : 5,
     usage : '',

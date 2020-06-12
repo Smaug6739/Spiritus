@@ -70,7 +70,7 @@ module.exports.help = {
     
     name : 'whois',
     aliases : ['whois','userinfo','uinfo'],
-    category : 'misc',
+    category : 'info',
     description : 'Donne des infos sur une personne',
     cooldown : 5,
     usage : '<@user>',

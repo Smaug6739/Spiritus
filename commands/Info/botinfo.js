@@ -26,7 +26,7 @@ module.exports.help = {
      
     name : 'botinfo',
     aliases : ['botinfo'],
-    category : 'misc',
+    category : 'info',
     description : 'Donne des informations sur le bot.',
     cooldown : 10,
     usage : '',
