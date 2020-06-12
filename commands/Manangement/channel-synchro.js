@@ -19,8 +19,8 @@ module.exports.run = (client, message, args) => {
 };
 
 module.exports.help = {
-  name: "synchronisation",
-  aliases: ['synchronisation','synchro'],
+  name: "channel-synchro",
+  aliases: ['channel-synchro','synchronisation','synchro'],
   category : 'manangement',
   description: "Synchronise les permissions d'un channel avec sa catégorie",
   cooldown: 10,

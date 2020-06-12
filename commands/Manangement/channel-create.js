@@ -9,6 +9,7 @@ module.exports.run =(client, message, args) => {
         if(args[0] == 'text' || args[0] == 'voice') {
             try{
                 let name_salon = args.splice(1).join('-')
+                if(!name_salon)return message.channel.send(`${FALSE}Merci de préciser un nom au channel.`);
                 if(name_salon.length > 99) return message.channel.send(`${FALSE}Le nom de la categorie doit etre inferieur a 100 caractères.`);
 
                 message.guild.channels.create(`${name_salon}`, {

@@ -1,6 +1,6 @@
 const {MessageEmbed} = require('discord.js')
 module.exports.run = async (client, message, args) => {
-  const {FALSE,ADMIN} = require('../../configstyle')
+  const {FALSE,ADMIN} = require('../configstyle')
   if(!ADMIN.includes(message.author.id)) return message.channel.send(`${FALSE}Tu n'est pas admin du BOT.`);
 
   let couleur_embed = '';

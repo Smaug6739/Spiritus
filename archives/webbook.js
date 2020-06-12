@@ -1,4 +1,4 @@
-const { Guild } = require("../../models/index");
+const { Guild } = require("../models/index");
 const {MessageEmbed, WebhookClient} = require('discord.js')
 module.exports.run = async (client, message, args) => {
     let id_webkook = '';
