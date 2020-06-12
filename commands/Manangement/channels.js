@@ -168,5 +168,5 @@ module.exports.help = {
     isUserAdmin: false,
     permissions: true,
     args: false,
-    sousCommdandes : ["channel clone","channel synchro","channel create","channel delete"]
+    sousCommdandes : ["channel clone","channel synchro","channel create","channel update","channel delete"]
   };
