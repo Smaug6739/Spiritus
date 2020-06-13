@@ -1,4 +1,4 @@
-const { MessageEmbed, Presence } = require("discord.js");
+const { MessageEmbed, Presence, Invite } = require("discord.js");
 const moment = require('moment');
 module.exports.run = async (client, message, args) =>{
     const {ONLINE,IDLE,DND,OFFLINE,EMBED,FLECHE,CHANNEL,NSFW} = require('../../configstyle');
@@ -129,10 +129,11 @@ module.exports.run = async (client, message, args) =>{
         if(channel.type === 'text') type = `${CHANNEL}Texte`
         if(channel.nsfw) nsfw = `${NSFW} Oui`;
         else nsfw = `${NSFW} Non`;
+        channel.fetchInvites().then(i => console.log(i.map(i => i)))
         const embed = new MessageEmbed()
         .setAuthor(`Information sur un channel :`, `${message.guild.iconURL()}`)
         .setThumbnail(message.guild.iconURL())
-        .setTitle(`${channel.name}`)
+        .setTitle(`Channel : ${channel.name}`)
         .addFields(
             { name: 'Channel id :', value: `${channel.id}`, inline: true },
             { name: 'Topic :', value: `${channel.topic}`, inline: true },
@@ -144,6 +145,7 @@ module.exports.run = async (client, message, args) =>{
             { name: 'Crée le  :', value: `${moment.utc(channel.createdTimestamp).format('DD/MM/YYYY - hh:mm')}`, inline: true },
             { name: 'Type channel:', value: `${type}`, inline: true },
             { name: 'Channel NSFW :', value: `${nsfw}`, inline: true },
+            //{ name: 'Invitations sur ce channel :', value: `${}`, inline: true },
         )
         .setTimestamp()
         .setFooter('BOT ID : 689210215488684044')

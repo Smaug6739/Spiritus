@@ -12,6 +12,7 @@ module.exports.run = async(client, message, args) => {
             { name: '\u200b', value: `${FLECHE}\`channel position\` change la position de n'importe quel channel.`, inline: false },
             { name: '\u200b', value: `${FLECHE}\`channel parent\` change la categorie de n'importe quel channel.`, inline: false },
             { name: '\u200b', value: `${FLECHE}\`channel synchro\` permet de synchroniser les permission d\`un channel.`, inline: false },
+            { name: '\u200b', value: `${FLECHE}\`channel topic\` permet de choisir le channel d\`un channel.`, inline: false },
             { name: '\u200b', value: `${FLECHE}\`channel create\` permet de crée un channel.`, inline: false },
             { name: '\u200b', value: `${FLECHE}\`channel update\` permet de mettre a jour le nom d\`un channel.`, inline: false },
             { name: '\u200b', value: `${FLECHE}\`channel delete\` permet de supprimer un channel.`, inline: false },
@@ -20,8 +21,6 @@ module.exports.run = async(client, message, args) => {
         .setFooter('BOT ID : 689210215488684044')
         message.channel.send(embed)
     }
-   
-   
     if(args[0] === 'clone'){
         if(!args[1]){
             try{
@@ -216,11 +215,40 @@ module.exports.run = async(client, message, args) => {
             try{
                 await nom.setParent(positionNew).then(message.channel.send(`${TRUE}J'ai bien mis a jour la position du channel \`${nom}\``))
              }catch(err){
-                 client.channels.cache.get('721041152635175073').send(`Une erreur sur la commande \`channel-update-position\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
+                 client.channels.cache.get('721041152635175073').send(`Une erreur sur la commande \`channel-update-position-categorie\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
              }
         }else{
             try{
                 message.guild.channels.cache.get(args[1]).setParent(args[2]).then(message.channel.send(`${TRUE}J'ai bien mis a jour la position du channel \`${message.guild.channels.cache.get(args[1]).name}\``))
+            }catch{
+                message.channel.send(`Je n\'ai pas trouver ce channel...`)
+
+            }
+        }
+    
+    }else if(args[0] === 'topic'){
+        if(!args[1]) return message.channel.send('Merci de spécifier le nom du channel a modifier')
+        if(!args[2]) return message.channel.send('Merci de spécifier le nouveau topic')
+        let channel = message.guild.channels.cache.find(r => r.name === args[1].toString()) //|| message.mentions.roles.first()
+        let nomMention = message.guild.channels.cache.find(r => r.id === args[1].replace(/<.*#/, '').slice(0, -1));
+        let newTopic = args.slice(2).join(" ")
+        //console.log(newTopic.length)
+        if(newTopic.length > 1020)return message.channel.send(`${FALSE}Vous ne pouvez pas crée un topic de plus de 1024 caractères !`)
+        if(channel){
+            try{
+               await channel.setTopic(newTopic).then(message.channel.send(`${TRUE}J'ai bien mis a jour le topic du channel \`${channel.name}\``))
+            }catch(err){
+                client.channels.cache.get('721041152635175073').send(`Une erreur sur la commande \`channel-update-position\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
+            }
+        }else if(nomMention){
+            try{
+                await nomMention.setTopic(newTopic).then(message.channel.send(`${TRUE}J'ai bien mis a jour le topic du channel \`${nomMention}\``))
+             }catch(err){
+                 client.channels.cache.get('721041152635175073').send(`Une erreur sur la commande \`channel-topic\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
+             }
+        }else{
+            try{
+                message.guild.channels.cache.get(args[1]).setTopic(newTopic).then(message.channel.send(`${TRUE}J'ai bien mis a jour le topic du channel \`${message.guild.channels.cache.get(args[1]).name}\``))
             }catch{
                 message.channel.send(`Je n\'ai pas trouver ce channel...`)
 
