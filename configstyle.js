@@ -28,5 +28,6 @@ exports.CHANNEL = '<:X5channelX5:713120296697331782>';
 exports.VOICE = '<:X2voiceX2:713120217118539879>';
 exports.ETIQUETTE = ' <:X6etiquetteX6:713455416289525851>';
 exports.BOOST = '<:X9nitro4X9:713120475487797340>';
+exports.NSFW = ' <:X3channel_nsfwX3:713120251109179393>';
 
 exports.FLECHE = '<:fleche:721288083974389842>';

@@ -1,7 +1,7 @@
 const { MessageEmbed, Presence } = require("discord.js");
 const moment = require('moment');
 module.exports.run = async (client, message, args) =>{
-    const {ONLINE,IDLE,DND,OFFLINE,EMBED,FLECHE} = require('../../configstyle');
+    const {ONLINE,IDLE,DND,OFFLINE,EMBED,FLECHE,CHANNEL,NSFW} = require('../../configstyle');
     if(!args[0]){
         const embed = new MessageEmbed()
         .setTitle('Commande info')
@@ -11,7 +11,7 @@ module.exports.run = async (client, message, args) =>{
             { name: '\u200b', value: `${FLECHE}\`info bot\` donne des informations sur le bot.`, inline: false },
             { name: '\u200b', value: `${FLECHE}\`info serveur\` donne des informations sur le serveur.`, inline: false },
             { name: '\u200b', value: `${FLECHE}\`info role\` donne des informations sur un role.`, inline: false },
-            //{ name: '\u200b', value: `${FLECHE}\`info invite\` permet de supprimer un info`, inline: false },
+            { name: '\u200b', value: `${FLECHE}\`info channel\` donne des informations sur un channel.`, inline: false },
             //{ name: '\u200b', value: `${FLECHE}\`info channel\` permet de supprimer un info`, inline: false },
         )
         .setTimestamp()
@@ -123,11 +123,36 @@ module.exports.run = async (client, message, args) =>{
         .setTimestamp()
         .setFooter('Commande d\'information de role. BOT ID : 689210215488684044')
         message.channel.send(embed) 
+    }else if(args[0] == 'channel'){
+        //console.log(message.channel)
+        const channel = message.channel;
+        if(channel.type === 'text') type = `${CHANNEL}Texte`
+        if(channel.nsfw) nsfw = `${NSFW} Oui`;
+        else nsfw = `${NSFW} Non`;
+        const embed = new MessageEmbed()
+        .setAuthor(`Information sur un channel :`, `${message.guild.iconURL()}`)
+        .setThumbnail(message.guild.iconURL())
+        .setTitle(`${channel.name}`)
+        .addFields(
+            { name: 'Channel id :', value: `${channel.id}`, inline: true },
+            { name: 'Topic :', value: `${channel.topic}`, inline: true },
+            //{ name: '\u200b', value: `\u200b`, inline: true },
+            { name: 'Catégorie :', value: `${channel.parent}`, inline: true },
+            { name: 'Catégorie ID :', value: `${channel.parentID}`, inline: true },
+            { name: 'Position :', value: `${channel.position}`, inline: true },
+            { name: '\u200b', value: `\u200b`, inline: true },
+            { name: 'Crée le  :', value: `${moment.utc(channel.createdTimestamp).format('DD/MM/YYYY - hh:mm')}`, inline: true },
+            { name: 'Type channel:', value: `${type}`, inline: true },
+            { name: 'Channel NSFW :', value: `${nsfw}`, inline: true },
+        )
+        .setTimestamp()
+        .setFooter('BOT ID : 689210215488684044')
+        message.channel.send(embed)
     }
 }
 module.exports.help = {
     
-    name : 'whois',
+    name : 'info',
     aliases : ['info','information','informations'],
     category : 'info',
     description : 'Donne des infos sur différentes choses.',
