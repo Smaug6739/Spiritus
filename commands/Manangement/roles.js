@@ -1,7 +1,24 @@
+const { MessageEmbed } = require("discord.js") 
 module.exports.run = async(client, message, args) => {
-    let { TRUE,FALSE } = require('../../configstyle');
+    let { TRUE,FALSE,FLECHE } = require('../../configstyle');
     if(!message.guild.me.hasPermission('MANAGE_ROLES')) return message.channel.send(`${FALSE}Je n'ai pas la permission de modifier les roles.`);
+    if(!args[0]){
+        const embed = new MessageEmbed()
+        .setTitle('Commande role')
+        .setDescription('La commande `role` permet de gérer les roles du serveur graces aux sous commandes suivantes :')
+        .addFields(
+            //{ name: '\u200b', value: '<:fleche:721288083974389842>`role liste` permet voir les role du serveur.', inline: false },
+            { name: '\u200b', value: `${FLECHE}\`role create\` permet de crée un role.`, inline: false },
+            { name: '\u200b', value: `${FLECHE}\`role update\` permet de mettre a jour le nom d\`un role.`, inline: false },
+            { name: '\u200b', value: `${FLECHE}\`role delete\` permet de supprimer un role.`, inline: false },
+            { name: '\u200b', value: `${FLECHE}\`role add\` permet de donner un role a une personne.`, inline: false },
+            { name: '\u200b', value: `${FLECHE}\`role rem\` permet de retirer le role d\`une personne.`, inline: false }
 
+        )
+        .setTimestamp()
+        .setFooter('BOT ID : 689210215488684044')
+        message.channel.send(embed)
+    }
         //---------------------------------------------ROLES-CREATE----------------------------------------------------------
         if(args[0] === 'create'){
             if(args[1].includes('BLUE')||args[1].includes('BLACK')||args[1].includes('GREEN')||args[1].includes('RED')||args[1].includes('YELLOW')){
@@ -120,7 +137,7 @@ module.exports.run = async(client, message, args) => {
       exemple :["roles create BLUE Admin"],
       permissions : true,
       isUserAdmin: false,
-      args : true,
+      args : false,
       sousCommdandes : ["roles create","roles update","roles delete","roles add","roles rem"]
   }
   

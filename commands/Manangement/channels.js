@@ -1,7 +1,25 @@
+const {MessageEmbed} = require('discord.js')
 module.exports.run = async(client, message, args) => {
-    let { TRUE,FALSE } = require('../../configstyle');
+    let { TRUE,FALSE,FLECHE } = require('../../configstyle');
     if(!message.guild.me.hasPermission('MANAGE_CHANNELS')) return message.channel.send(`${FALSE}Je n'ai pas la permission de modifier ce channel.`);
     
+    if(!args[0]){
+        const embed = new MessageEmbed()
+        .setTitle('Commande channel')
+        .setDescription('La commande `channel` permet de gérer les channels du serveur graces aux sous commandes suivantes :')
+        .addFields(
+            { name: '\u200b', value: `${FLECHE}\`channel clone\` permet de cloner facilement n\`importe quel channel`, inline: false },
+            { name: '\u200b', value: `${FLECHE}\`channel synchro\` permet de synchroniser les permission d\`un channel`, inline: false },
+            { name: '\u200b', value: `${FLECHE}\`channel create\` permet de crée un channel`, inline: false },
+            { name: '\u200b', value: `${FLECHE}\`channel update\` permet de mettre a jour le nom d\`un channel`, inline: false },
+            { name: '\u200b', value: `${FLECHE}\`channel delete\` permet de supprimer un channel`, inline: false },
+        )
+        .setTimestamp()
+        .setFooter('BOT ID : 689210215488684044')
+        message.channel.send(embed)
+    }
+   
+   
     if(args[0] === 'clone'){
         if(!args[1]){
             try{
@@ -56,7 +74,7 @@ module.exports.run = async(client, message, args) => {
 
     }else if(args[0] === 'create'){
         var category = message.channel.parentID
-        if(!args[1]) return message.channel.send(`${FALSE}Veuillez donner en premier argument une valeur valide (\`text\` ou \`voice\ ou \`category\`)`)
+        if(!args[1]) return message.channel.send(`${FALSE}Veuillez donner en premier argument une valeur valide (\`text\` ou \`voice\` ou \`category\`)`)
         if(args[1] == 'text' || args[1] == 'voice') {
             try{
                 let name_salon = args.splice(2).join('-')

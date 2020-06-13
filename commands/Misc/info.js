@@ -1,9 +1,23 @@
 const { MessageEmbed, Presence } = require("discord.js");
-
 const moment = require('moment');
-
 module.exports.run = async (client, message, args) =>{
-    const {ONLINE,IDLE,DND,OFFLINE,EMBED} = require('../../configstyle');
+    const {ONLINE,IDLE,DND,OFFLINE,EMBED,FLECHE} = require('../../configstyle');
+    if(!args[0]){
+        const embed = new MessageEmbed()
+        .setTitle('Commande info')
+        .setDescription('La commande `info` permet d\'avoir des informations sur différents éléments du serveur et du bot grace aux sous commandes suivantes :')
+        .addFields(
+            { name: '\u200b', value: `${FLECHE}\`info user\` donne des informations sur une personne.`, inline: false },
+            { name: '\u200b', value: `${FLECHE}\`info bot\` donne des informations sur le bot.`, inline: false },
+            { name: '\u200b', value: `${FLECHE}\`info serveur\` donne des informations sur le serveur.`, inline: false },
+            { name: '\u200b', value: `${FLECHE}\`info role\` donne des informations sur un role.`, inline: false },
+            //{ name: '\u200b', value: `${FLECHE}\`info invite\` permet de supprimer un info`, inline: false },
+            //{ name: '\u200b', value: `${FLECHE}\`info channel\` permet de supprimer un info`, inline: false },
+        )
+        .setTimestamp()
+        .setFooter('BOT ID : 689210215488684044')
+        message.channel.send(embed)
+    }
     if(args[0] === 'user'){
     let use = message.mentions.members.first() || message.member
     if (use.user.presence.status === 'online') status = `${ONLINE}Online`  ;

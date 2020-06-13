@@ -1,10 +1,23 @@
 const { MessageEmbed } = require("discord.js") 
 module.exports.run = async (client, message, args) => {
-    let { FALSE } = require('../../configstyle');
+    let { FALSE,FLECHE } = require('../../configstyle');
     if(!message.guild.me.hasPermission('MANAGE_EMOJIS')) return message.channel.send(`${FALSE}Je n'ai pas la permission de gérer les emojis.`);
     if(!message.member.hasPermission('MANAGE_EMOJIS'))return message.channel.send(`${FALSE}Vous devez avoir la permission de gérer les emojis pour utiliser cette commande !`)
-    
-    if('liste'){
+    if(!args[0]){
+      const embed = new MessageEmbed()
+      .setTitle('Commande emoji')
+      .setDescription('La commande `emoji` permet de gérer les emojis du serveur graces aux sous commandes suivantes :')
+      .addFields(
+          { name: '\u200b', value: `${FLECHE}\`emoji liste\` permet voir les emojis du serveur.`, inline: false },
+          { name: '\u200b', value: `${FLECHE}\`emoji create\` permet de crée un emoji.`, inline: false },
+          { name: '\u200b', value: `${FLECHE}\`emoji update\` permet de mettre a jour le nom d\`un emoji.`, inline: false },
+          { name: '\u200b', value: `${FLECHE}\`emoji delete\` permet de supprimer un emoji.`, inline: false }
+      )
+      .setTimestamp()
+      .setFooter('BOT ID : 689210215488684044')
+      message.channel.send(embed)
+  }
+    if(args[0] === 'liste'){
       const emojiList = message.guild.emojis.cache.map(e=>e.toString()).join(" ");
       const embed = new MessageEmbed()
        .setTitle('Liste des emojis du serveur')
@@ -170,7 +183,7 @@ module.exports.help = {
     exemple :["emoji create lien Spiritus "],
     permissions : false,
     isUserAdmin: false,
-    args : true,
+    args : false,
     sousCommdandes : ["emojis liste","emojis create","emojis update","emoji delete"]
 
 }

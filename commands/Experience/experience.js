@@ -1,6 +1,22 @@
+const { MessageEmbed } = require("discord.js") 
 module.exports.run = async(client, message, args, settings) => {
-    const {TRUE,FALSE} = require('./../../configstyle')
+    const {TRUE,FALSE,FLECHE} = require('./../../configstyle')
     if(settings.expsysteme){
+        
+        if(!args[0]){
+            const embed = new MessageEmbed()
+            .setTitle('Commande experience')
+            .setDescription('La commande `experience` permet de gérer l\'experience des membres du serveur graces aux sous commandes suivantes :')
+            .addFields(
+                //{ name: '\u200b', value: '<:fleche:721288083974389842>`role liste` permet voir les role du serveur.', inline: false },
+                { name: '\u200b', value: `${FLECHE}\`experience add\` permet de donner de l\'exp a un membre.`, inline: false },
+                { name: '\u200b', value: `${FLECHE}\`experience rem\` permet de supprimer de l\'exp a un membre.`, inline: false }
+    
+            )
+            .setTimestamp()
+            .setFooter('BOT ID : 689210215488684044')
+            message.channel.send(embed)
+        }
         //-------------------------------------------ADD-EXPERIENCE-----------------------------------------
         if(args[0] === 'add'){
             const user = message.guild.member(message.mentions.users.first());

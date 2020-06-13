@@ -2,10 +2,27 @@ const { Guild } = require("../../models/index");
 const util = require('util');
 const child_process = require('child_process');
 const exec = util.promisify(child_process.exec);
+const { MessageEmbed} = require("discord.js");
+const { FLECHE} = require('./../../configstyle');
 module.exports.run = async (client, message, args) =>{
     let {ADMIN,TRUE,FALSE} = require('./../../configstyle')
     if(!ADMIN.includes(message.author.id)) return message.channel.send(`${FALSE}Tu n'est pas admin du BOT `)
-
+    if(!args[0]){
+        const embed = new MessageEmbed()
+        .setTitle('Commande admin')
+        .setDescription('La commande `admin` permet de gérer le bot grace aux sous commandes suivantes :')
+        .addFields(
+            { name: '\u200b', value: `${FLECHE}\`admin eval\` execute du code javascript.`, inline: false },
+            { name: '\u200b', value: `${FLECHE}\`admin pull\` pull le repo github.`, inline: false },
+            { name: '\u200b', value: `${FLECHE}\`admin restart\` redemere le bot.`, inline: false },
+            { name: '\u200b', value: `${FLECHE}\`admin charge\` lance le chargement des guilds.`, inline: false },
+            //{ name: '\u200b', value: `${FLECHE}\`info invite\` permet de supprimer un info`, inline: false },
+            //{ name: '\u200b', value: `${FLECHE}\`info channel\` permet de supprimer un info`, inline: false },
+        )
+        .setTimestamp()
+        .setFooter('BOT ID : 689210215488684044')
+        message.channel.send(embed)
+    }
 
     //---------------------------------------CHARGE-DES-GUILDS--------------------------------------------------
     if(args[0] === 'charge'){
