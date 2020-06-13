@@ -7,3 +7,7 @@ Add user exp
 Correction user exp
 ----------------------------------03/06/2020----------------------------------
 Update cooldown user exp
+----------------------------------13/06/2020----------------------------------
+Update general
+Fusion
+Add commands

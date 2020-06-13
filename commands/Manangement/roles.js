@@ -7,20 +7,28 @@ module.exports.run = async(client, message, args) => {
         .setTitle('Commande role')
         .setDescription('La commande `role` permet de gérer les roles du serveur graces aux sous commandes suivantes :')
         .addFields(
-            //{ name: '\u200b', value: '<:fleche:721288083974389842>`role liste` permet voir les role du serveur.', inline: false },
+            { name: '\u200b', value: `${FLECHE}\`role liste\` donne la liste des roles du serveur.`, inline: false },
             { name: '\u200b', value: `${FLECHE}\`role create\` permet de crée un role.`, inline: false },
             { name: '\u200b', value: `${FLECHE}\`role update\` permet de mettre a jour le nom d\`un role.`, inline: false },
             { name: '\u200b', value: `${FLECHE}\`role delete\` permet de supprimer un role.`, inline: false },
             { name: '\u200b', value: `${FLECHE}\`role add\` permet de donner un role a une personne.`, inline: false },
             { name: '\u200b', value: `${FLECHE}\`role rem\` permet de retirer le role d\`une personne.`, inline: false }
-
         )
         .setTimestamp()
         .setFooter('BOT ID : 689210215488684044')
         message.channel.send(embed)
     }
+        if(args[0] === 'liste'){
+            const embed = new MessageEmbed()
+            .setTitle('Commande role liste')
+            .setThumbnail(`${message.guild.iconURL()}`)
+            .setDescription('Voici la liste de tous les roles du serveur :')
+            .addFields({ name: '\u200b', value: `${message.guild.roles.cache.map(r => r.toString()).join('')}`, inline: false })
+            .setTimestamp()
+            .setFooter('BOT ID : 689210215488684044')
+            message.channel.send(embed)
         //---------------------------------------------ROLES-CREATE----------------------------------------------------------
-        if(args[0] === 'create'){
+        }else if(args[0] === 'create'){
             if(args[1].includes('BLUE')||args[1].includes('BLACK')||args[1].includes('GREEN')||args[1].includes('RED')||args[1].includes('YELLOW')){
             let role_name = (args.splice(2).join(' ') || 'new role');
             if(role_name.length > 99) return message.channel.send(`${FALSE}Le nom du role doit etre inferieur a 100 caractères.`);
