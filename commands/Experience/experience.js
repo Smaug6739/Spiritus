@@ -1,19 +1,24 @@
-module.exports.run = (client, message, args, settings) => {
+module.exports.run = async(client, message, args, settings) => {
+    const {TRUE,FALSE} = require('./../../configstyle')
     if(settings.expsysteme){
         //-------------------------------------------ADD-EXPERIENCE-----------------------------------------
         if(args[0] === 'add'){
             const user = message.guild.member(message.mentions.users.first());
             const expToAdd = parseInt(args[2]);
             if (isNaN(expToAdd)) return message.reply("vous devez entrer un nombre valide !");
-            client.addExp(client, user, expToAdd);
+            if(!user)return message.channel.send(`${FALSE} Je ne peux pas ajouter de l'exp a cette personne.`)
+           await client.addExp(client, user, expToAdd);
             message.channel.send(`Vous avez ajouté avec succès ${expToAdd} points d'expérience à l'utilisateur ${user}!`);
         //-------------------------------------------REM-EXPERIENCE-----------------------------------------
         }else if(args[0] === 'rem'){
             const user = message.guild.member(message.mentions.users.first());
             const expToRemove = parseInt(args[2]);
             if (isNaN(expToRemove)) return message.reply("vous devez entrer un nombre valide !");
-            client.removeExp(client, user, expToRemove);
-            message.channel.send(`Vous avez enlevé avec succès ${expToRemove} points d'expérience à l'utilisateur ${user}!`);
+            if(!user)return message.channel.send(`${FALSE} Je ne peux pas enlever de l'exp a cette personne.`)
+           await client.removeExp(client, user, expToRemove)
+            .then(message.channel.send(`Vous avez enlevé avec succès ${expToRemove} points d'expérience à l'utilisateur ${user}!`))
+            
+            
         }
     }else{
         return message.channel.send('Le système d\'exp n\'est pas activé sur ce serveur.');
@@ -22,7 +27,7 @@ module.exports.run = (client, message, args, settings) => {
 module.exports.help = {
 
 name : 'experience',
-aliases : ['experience','exp','uexp'],
+aliases : ['experience'],
 category : 'experience',
 description : 'Enleve de l\'exp a une personne.',
 cooldown : 10,
