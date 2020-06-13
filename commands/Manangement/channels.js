@@ -8,12 +8,13 @@ module.exports.run = async(client, message, args) => {
         .setTitle('Commande channel')
         .setDescription('La commande `channel` permet de gérer les channels du serveur graces aux sous commandes suivantes :')
         .addFields(
-            { name: '\u200b', value: `${FLECHE}\`channel clone\` permet de cloner facilement n\`importe quel channel`, inline: false },
-            { name: '\u200b', value: `${FLECHE}\`channel position\` change la position de n'importe quel channel`, inline: false },
-            { name: '\u200b', value: `${FLECHE}\`channel synchro\` permet de synchroniser les permission d\`un channel`, inline: false },
-            { name: '\u200b', value: `${FLECHE}\`channel create\` permet de crée un channel`, inline: false },
-            { name: '\u200b', value: `${FLECHE}\`channel update\` permet de mettre a jour le nom d\`un channel`, inline: false },
-            { name: '\u200b', value: `${FLECHE}\`channel delete\` permet de supprimer un channel`, inline: false },
+            { name: '\u200b', value: `${FLECHE}\`channel clone\` permet de cloner facilement n\`importe quel channel.`, inline: false },
+            { name: '\u200b', value: `${FLECHE}\`channel position\` change la position de n'importe quel channel.`, inline: false },
+            { name: '\u200b', value: `${FLECHE}\`channel parent\` change la categorie de n'importe quel channel.`, inline: false },
+            { name: '\u200b', value: `${FLECHE}\`channel synchro\` permet de synchroniser les permission d\`un channel.`, inline: false },
+            { name: '\u200b', value: `${FLECHE}\`channel create\` permet de crée un channel.`, inline: false },
+            { name: '\u200b', value: `${FLECHE}\`channel update\` permet de mettre a jour le nom d\`un channel.`, inline: false },
+            { name: '\u200b', value: `${FLECHE}\`channel delete\` permet de supprimer un channel.`, inline: false },
         )
         .setTimestamp()
         .setFooter('BOT ID : 689210215488684044')
@@ -179,19 +180,47 @@ module.exports.run = async(client, message, args) => {
         if(isNaN(positionNew)) return message.channel.send(`${FALSE}Merci de rentrer un nombre valide pour la position du channel`)
         if(channel){
             try{
-               await channel.setPosition(positionNew).then(message.channel.send(`${TRUE}J'ai bien mis a jour la position du channel \`${channel.name}\``))
+               await channel.setPosition(positionNew-1).then(message.channel.send(`${TRUE}J'ai bien mis a jour la position du channel \`${channel.name}\``))
             }catch(err){
                 client.channels.cache.get('721041152635175073').send(`Une erreur sur la commande \`channel-update-position\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
             }
         }else if(nom){
             try{
-                await nom.setPosition(positionNew).then(message.channel.send(`${TRUE}J'ai bien mis a jour la position du channel \`${nom}\``))
+                await nom.setPosition(positionNew -1).then(message.channel.send(`${TRUE}J'ai bien mis a jour la position du channel \`${nom}\``))
              }catch(err){
                  client.channels.cache.get('721041152635175073').send(`Une erreur sur la commande \`channel-update-position\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
              }
         }else{
             try{
-                message.guild.channels.cache.get(args[1]).setPosition(args[2]).then(message.channel.send(`${TRUE}J'ai bien mis a jour la position du channel \`${message.guild.channels.cache.get(args[1]).name}\``))
+                message.guild.channels.cache.get(args[1]).setPosition(args[2]-1).then(message.channel.send(`${TRUE}J'ai bien mis a jour la position du channel \`${message.guild.channels.cache.get(args[1]).name}\``))
+            }catch{
+                message.channel.send(`Je n\'ai pas trouver ce channel...`)
+
+            }
+        }
+    
+    }else if(args[0] === 'parent'){
+        if(!args[1]) return message.channel.send('Merci de spécifier le nom du channel a modifier')
+        if(!args[2]) return message.channel.send('Merci de spécifier la nouvelle position du channel')
+        let channel = message.guild.channels.cache.find(r => r.name === args[1].toString()) //|| message.mentions.roles.first()
+        let nom = message.guild.channels.cache.find(r => r.id === args[1].replace(/<.*#/, '').slice(0, -1));
+        let positionNew = args[2]
+        if(isNaN(positionNew)) return message.channel.send(`${FALSE}Merci de rentrer un ID valide pour la nouvelle categorie du salon`)
+        if(channel){
+            try{
+               await channel.setParent(positionNew).then(message.channel.send(`${TRUE}J'ai bien mis a jour la position du channel \`${channel.name}\``))
+            }catch(err){
+                client.channels.cache.get('721041152635175073').send(`Une erreur sur la commande \`channel-update-position\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
+            }
+        }else if(nom){
+            try{
+                await nom.setParent(positionNew).then(message.channel.send(`${TRUE}J'ai bien mis a jour la position du channel \`${nom}\``))
+             }catch(err){
+                 client.channels.cache.get('721041152635175073').send(`Une erreur sur la commande \`channel-update-position\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
+             }
+        }else{
+            try{
+                message.guild.channels.cache.get(args[1]).setParent(args[2]).then(message.channel.send(`${TRUE}J'ai bien mis a jour la position du channel \`${message.guild.channels.cache.get(args[1]).name}\``))
             }catch{
                 message.channel.send(`Je n\'ai pas trouver ce channel...`)
 
