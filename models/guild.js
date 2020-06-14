@@ -24,6 +24,10 @@ const guildSchema = mongoose.Schema({
   serveurstats:{
     "type": Boolean,
     "default": false
+  },
+  rankcard :{
+    "type": String,
+    "default": defaults.rankcard
   }
 });
 

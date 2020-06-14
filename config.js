@@ -5,7 +5,8 @@ module.exports = {
     DEFAULTSETTINGS: {
       prefix: "?",
       logChannel: "bot-logs",
-      welcomeMessage: "Welcome {{user}}"
+      welcomeMessage: "Welcome {{user}}",
+      rankcard : "https://french-gaming-family.fr/public/rank.png"
     }
   }
 

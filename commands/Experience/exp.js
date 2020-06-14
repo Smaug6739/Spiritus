@@ -11,53 +11,67 @@ module.exports.run = async (client, message, args, settings, dbUser) => {
 
     const applyText = (canvas, text) => {
         const ctx = canvas.getContext('2d');
-        let fontSize = 70;
+        let fontSize = 60;
         do {
            ctx.font = `${fontSize -= 10}px sans-serif`;
-        } while (ctx.measureText(text).width > canvas.width - 300);
+        } while (ctx.measureText(text).width > canvas.width - 350);
         return ctx.font;
         };
         if(message.mentions.users.first()){
             const use = message.mentions.users.first()
             const user = message.guild.member(message.mentions.users.first());
             const mentionUser = await client.getUser(user, message.member.guild.id)
+            let pourcentage = dbUser.experience
+            pourcentage = 0.2 * Math.sqrt(mentionUser.experience)
+            pourcentage = pourcentage.toFixed(2)
+            pourcentage = pourcentage.split(".")
+            pourcentage.shift()
+            //message.reply(`Votre progression : ${pourcentage}`)
             const canvas = Canvas.createCanvas(700, 250);
             const ctx = canvas.getContext('2d');
-            const background = await Canvas.loadImage('https://discordjs.guide/assets/img/2vsIPEP.3f295fd2.png');
+            const background = await Canvas.loadImage(settings.rankcard);
             ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
             ctx.strokeStyle = '#74037b';
             ctx.strokeRect(0, 0, canvas.width, canvas.height);
-            ctx.font = '28px sans-serif';
+            ctx.font = '30px sans-serif';
             ctx.fillStyle = '#ffffff';
-            ctx.fillText('Rank du serveur,', canvas.width / 2.5, canvas.height / 3.5);
-            ctx.fillText(`Level :${mentionUser.level}`, canvas.width / 2.5, canvas.height / 1.4);
-            ctx.fillText(`Experience :${mentionUser.experience}xp`, canvas.width / 2.5, canvas.height / 1.2);
-            ctx.font = applyText(canvas, `${member.displayName}!`);
+            //ctx.fillText(`Rank du serveur,${member.displayName}!`, canvas.width / 2.8, canvas.height / 3.5);
+            ctx.fillText(`Level : ${mentionUser.level}`, canvas.width / 2.5, canvas.height / 2);
+            ctx.fillText(`Experience : ${mentionUser.experience}xp`, canvas.width / 2.5, canvas.height / 1.57);
+            ctx.fillText(`Votre progression : ${pourcentage}%`, canvas.width / 2.5, canvas.height / 1.27);
+            ctx.font = applyText(canvas, `${user.displayName}!`);
             ctx.fillStyle = '#ffffff';
-            ctx.fillText(`${user.displayName}!`, canvas.width / 2.5, canvas.height / 1.8);
+            ctx.fillText(`${use.username}!`, canvas.width / 2.5, canvas.height / 3.5);
             ctx.beginPath();
             ctx.arc(125, 125, 100, 0, Math.PI * 2, true);
             ctx.closePath();
             ctx.clip();
             const avatar = await Canvas.loadImage(user.user.displayAvatarURL({ format: 'jpg' }));
-            ctx.drawImage(avatar, 25, 25, 200, 200);
+            ctx.drawImage(avatar, 24, 24, 200, 200);
             const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'rank-image.png');
             channel.send(`\u200b`, attachment);
         }else{
+            let pourcentage = dbUser.experience
+                pourcentage = 0.2 * Math.sqrt(dbUser.experience)
+                pourcentage = pourcentage.toFixed(2)
+                pourcentage = pourcentage.split(".")
+                pourcentage.shift()
+            //message.reply(`Votre progression : ${pourcentage}`)
             const canvas = Canvas.createCanvas(700, 250);
             const ctx = canvas.getContext('2d');
-            const background = await Canvas.loadImage('https://discordjs.guide/assets/img/2vsIPEP.3f295fd2.png');
+            const background = await Canvas.loadImage(settings.rankcard);
             ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
             ctx.strokeStyle = '#74037b';
             ctx.strokeRect(0, 0, canvas.width, canvas.height);
-            ctx.font = '28px sans-serif';
+            ctx.font = '30px sans-serif';
             ctx.fillStyle = '#ffffff';
-            ctx.fillText('Rank du serveur,', canvas.width / 2.5, canvas.height / 3.5);
-            ctx.fillText(`Level :${dbUser.level}`, canvas.width / 2.5, canvas.height / 1.4);
-            ctx.fillText(`Experience :${dbUser.experience}xp`, canvas.width / 2.5, canvas.height / 1.2);
+            //ctx.fillText(`Rank du serveur,${member.displayName}!`, canvas.width / 2.8, canvas.height / 3.5);
+            ctx.fillText(`Level : ${dbUser.level}`, canvas.width / 2.5, canvas.height / 2);
+            ctx.fillText(`Experience : ${dbUser.experience}xp`, canvas.width / 2.5, canvas.height / 1.57);
+            ctx.fillText(`Votre progression : ${pourcentage}%`, canvas.width / 2.5, canvas.height / 1.27);
             ctx.font = applyText(canvas, `${member.displayName}!`);
             ctx.fillStyle = '#ffffff';
-            ctx.fillText(`${member.displayName}!`, canvas.width / 2.5, canvas.height / 1.8);
+            ctx.fillText(`${message.member.displayName}!`, canvas.width / 2.5, canvas.height / 3.5);
             ctx.beginPath();
             ctx.arc(125, 125, 100, 0, Math.PI * 2, true);
             ctx.closePath();

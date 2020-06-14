@@ -39,6 +39,14 @@ module.exports.run = async (client, message, args, settings) => {
            
             break;
         }
+        case  'rankcard' : {
+            if(newSetting){
+                await client.updateGuild(message.guild, {rankcard : newSetting});
+                return message.channel.send(`rank-card mis a jour : \`${settings.rankcard }\` ->\`${newSetting}\``)
+            }
+            message.channel.send(`rank-card actuel : \`${settings.rankcard}\``);
+            break;
+        }
      
     }
 };

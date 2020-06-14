@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "canvas-constructor": "^3.2.0",
+    "canvas": "^2.6.1",
     "discord.js": "^12.2.0",
     "moment": "^2.26.0",
     "mongoose": "^5.9.16",
