@@ -9,6 +9,7 @@ module.exports = async(client, message) => {
 
   const settings = await client.getGuild(message.guild);
   const dbUser = await client.getUser(message.member, message.member.guild.id);
+  
   if(!dbUser) await client.createUser({
     guildID: message.member.guild.id,
     guildName: message.member.guild.name,
