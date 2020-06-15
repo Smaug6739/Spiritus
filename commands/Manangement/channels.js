@@ -16,6 +16,8 @@ module.exports.run = async(client, message, args) => {
             { name: '\u200b', value: `${FLECHE}\`channel create\` permet de crée un channel.`, inline: false },
             { name: '\u200b', value: `${FLECHE}\`channel update\` permet de mettre a jour le nom d\`un channel.`, inline: false },
             { name: '\u200b', value: `${FLECHE}\`channel delete\` permet de supprimer un channel.`, inline: false },
+            { name: '\u200b', value: `${FLECHE}\`channel pin\` permet de pin un message avec son id.`, inline: false },
+            { name: '\u200b', value: `${FLECHE}\`channel unpin\` permet de unpin un message avec son id.`, inline: false },
         )
         .setTimestamp()
         .setFooter('BOT ID : 689210215488684044')
@@ -255,6 +257,22 @@ module.exports.run = async(client, message, args) => {
             }
         }
     
+    }else if(args[0] === 'pin'){
+        try{
+            if(isNaN(args[1])) return message.channel.send(`${FALSE}Merci de rentrer un id de message valide.`)
+            message.channel.messages.cache.get(args[1]).pin().then(message.channel.send(`${TRUE}J'ai bien épingler le message \`${args[1]}\``))
+
+        }catch{
+            message.channel.send(`${FALSE}Une erreur s'est produite merci de réessayer avec un id de message valide ou vérifiez que le message n'est pas déja épingler`)
+        }
+    }else if(args[0] === 'unpin'){
+        try{
+            if(isNaN(args[1])) return message.channel.send(`${FALSE}Merci de rentrer un id de message valide.`)
+            message.channel.messages.cache.get(args[1]).unpin().then(message.channel.send(`${TRUE}J'ai bien retirer le message \`${args[1]}\` des messages épinglés`))
+
+        }catch{
+            message.channel.send(`${FALSE}Je n'ai pas trouver ce message`)
+        }
     }
     
     

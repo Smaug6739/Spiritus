@@ -22,7 +22,7 @@ module.exports.run = async (client, message, args, settings, dbUser) => {
             const user = message.guild.member(message.mentions.users.first());
             const mentionUser = await client.getUser(user, message.member.guild.id)
             let pourcentage = dbUser.experience
-            pourcentage = 0.2 * Math.sqrt(mentionUser.experience)
+            pourcentage = 0.1 * Math.sqrt(mentionUser.experience)
             pourcentage = pourcentage.toFixed(2)
             pourcentage = pourcentage.split(".")
             pourcentage.shift()
@@ -52,7 +52,7 @@ module.exports.run = async (client, message, args, settings, dbUser) => {
             channel.send(`\u200b`, attachment);
         }else{
             let pourcentage = dbUser.experience
-                pourcentage = 0.2 * Math.sqrt(dbUser.experience)
+                pourcentage = 0.1 * Math.sqrt(dbUser.experience)
                 pourcentage = pourcentage.toFixed(2)
                 pourcentage = pourcentage.split(".")
                 pourcentage.shift()
@@ -91,13 +91,13 @@ module.exports.run = async (client, message, args, settings, dbUser) => {
 
 module.exports.help = {
     
-    name : 'exp',
-    aliases : [''],
+    name : 'rank',
+    aliases : ['rank','uexp','exp','userexperience'],
     category : 'experience',
     description : 'Donne l\'exp d\'une personne.',
     cooldown : 10,
     usage : '<@user>',
-    exemple :["exp @Smaug"],
+    exemple :["rank @Smaug"],
     permissions : false,
     isUserAdmin: false,
     args : false,
