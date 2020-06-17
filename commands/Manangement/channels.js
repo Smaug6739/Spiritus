@@ -42,7 +42,7 @@ module.exports.run = async(client, message, args) => {
                 try{
                 message.guild.channels.cache.get(liensalon.id).clone()
                 .then(message.channel.send(`${TRUE}J'ai bien cloner le channel ${nomname}`))
-                .catch(`${FALSE} Une erreur s'est produite. Merci de réessayer.`)
+                .catch(`${FALSE}Une erreur s'est produite. Merci de réessayer.`)
                 }catch(err){
                     message.channel.send(`${FALSE}Une erreur s'est produite merci de ressayer`)
                     client.channels.cache.get('716325736675410000').send(`Une erreur sur la commande \`channel-clone\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``)
@@ -115,14 +115,14 @@ module.exports.run = async(client, message, args) => {
         }
 
     }else if(args[0] === 'update'){
-        if(!args[1]) return message.channel.send('Merci de spécifier le nom du channel a modifier')
-        if(!args[2]) return message.channel.send('Merci de spécifier le nouveau nom du channel a modifier')
+        if(!args[1]) return message.channel.send(`${FALSE} de spécifier le nom du channel a modifier`)
+        if(!args[2]) return message.channel.send(`${FALSE}Merci de spécifier le nouveau nom du channel a modifier`)
         let channel = message.guild.channels.cache.find(r => r.name === args[1].toString()) //|| message.mentions.roles.first()
         if(channel){
             try{
                 
                await channel.edit({ name: args[2] }).then(
-                    message.channel.send(`J'ai bien mis a jour le channel ${channel.name}`)
+                    message.channel.send(`${TRUE}J'ai bien mis a jour le channel ${channel.name}`)
                 )//.catch(message.channel.send(`Une erreur s'est produite. Merci de réessayer`))
 
             }catch(err){
@@ -173,8 +173,8 @@ module.exports.run = async(client, message, args) => {
 
 
     }else if(args[0] === 'position'){
-        if(!args[1]) return message.channel.send('Merci de spécifier le nom du channel a modifier')
-        if(!args[2]) return message.channel.send('Merci de spécifier la nouvelle position du channel')
+        if(!args[1]) return message.channel.send(`${FALSE}Merci de spécifier le nom du channel a modifier`)
+        if(!args[2]) return message.channel.send(`${FALSE}Merci de spécifier la nouvelle position du channel`)
         let channel = message.guild.channels.cache.find(r => r.name === args[1].toString()) //|| message.mentions.roles.first()
         let nom = message.guild.channels.cache.find(r => r.id === args[1].replace(/<.*#/, '').slice(0, -1));
         let positionNew = args[2]
@@ -195,14 +195,14 @@ module.exports.run = async(client, message, args) => {
             try{
                 message.guild.channels.cache.get(args[1]).setPosition(args[2]-1).then(message.channel.send(`${TRUE}J'ai bien mis a jour la position du channel \`${message.guild.channels.cache.get(args[1]).name}\``))
             }catch{
-                message.channel.send(`Je n\'ai pas trouver ce channel...`)
+                message.channel.send(`${FALSE}Je n\'ai pas trouver ce channel...`)
 
             }
         }
     
     }else if(args[0] === 'parent'){
-        if(!args[1]) return message.channel.send('Merci de spécifier le nom du channel a modifier')
-        if(!args[2]) return message.channel.send('Merci de spécifier la nouvelle position du channel')
+        if(!args[1]) return message.channel.send(`${FALSE}Merci de spécifier le nom du channel a modifier`)
+        if(!args[2]) return message.channel.send(`${FALSE}Merci de spécifier la nouvelle position du channel`)
         let channel = message.guild.channels.cache.find(r => r.name === args[1].toString()) //|| message.mentions.roles.first()
         let nom = message.guild.channels.cache.find(r => r.id === args[1].replace(/<.*#/, '').slice(0, -1));
         let positionNew = args[2]
@@ -223,14 +223,14 @@ module.exports.run = async(client, message, args) => {
             try{
                 message.guild.channels.cache.get(args[1]).setParent(args[2]).then(message.channel.send(`${TRUE}J'ai bien mis a jour la position du channel \`${message.guild.channels.cache.get(args[1]).name}\``))
             }catch{
-                message.channel.send(`Je n\'ai pas trouver ce channel...`)
+                message.channel.send(`${FALSE}Je n\'ai pas trouver ce channel...`)
 
             }
         }
     
     }else if(args[0] === 'topic'){
-        if(!args[1]) return message.channel.send('Merci de spécifier le nom du channel a modifier')
-        if(!args[2]) return message.channel.send('Merci de spécifier le nouveau topic')
+        if(!args[1]) return message.channel.send(`${FALSE}Merci de spécifier le nom du channel a modifier`)
+        if(!args[2]) return message.channel.send(`${FALSE}Merci de spécifier le nouveau topic`)
         let channel = message.guild.channels.cache.find(r => r.name === args[1].toString()) //|| message.mentions.roles.first()
         let nomMention = message.guild.channels.cache.find(r => r.id === args[1].replace(/<.*#/, '').slice(0, -1));
         let newTopic = args.slice(2).join(" ")
@@ -288,5 +288,5 @@ module.exports.help = {
     isUserAdmin: false,
     permissions: true,
     args: false,
-    sousCommdandes : ["channel clone","channel synchro","channel create","channel update","channel delete"]
+    sousCommdandes : ["channel clone","channel position","channel parent","channel synchro","channel topic","channel create","channel update","channel delete","channel pin","channel unpin"]
   };

@@ -45,7 +45,7 @@ module.exports.help = {
     category : 'moderation',
     description: "Lock un channel",
     cooldown: 10,
-    usage: '',
+    usage: '<#channel> ou <710761432534351925>',
     exemple :["lock #general"],
     isUserAdmin: false,
     permissions: true,

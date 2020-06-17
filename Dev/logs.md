@@ -12,3 +12,7 @@ Update general
 Fusion
 Add commands
 Add role liste command.
+----------------------------------17/06/2020----------------------------------
+Add rank card
+Add commandes
+

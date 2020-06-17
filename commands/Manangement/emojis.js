@@ -27,7 +27,7 @@ module.exports.run = async (client, message, args) => {
       message.channel.send(embed)
     //--------------------------------------EMOJIS-CREATE------------------------------------------------------
     }else if(args[0] === 'create'){
-
+            if(!args[1]) return message.channel.send(`${FALSE}Merci de d'incure le nom du nouvel emoji et son nom.`)
             if(args[1].includes('-')||args[1].includes('/')||args[1].includes('/')||args[1].includes('+')||args[1].includes('*')||args[1].includes('(')||args[1].includes(')')||args[1].includes('[')||args[1].includes(']')||args[1].includes('{')||args[1].includes('}')||args[1].includes('#')||args[1].includes('~')||args[1].includes('@')||args[1].includes('&')||args[1].includes('^')||args[1].includes('$')||args[1].includes('€')||args[1].includes('°')||args[1].includes('%')||args[1].includes('£')||args[1].includes(',')||args[1].includes('<')||args[1].includes('>')) return message.channel.send(`${FALSE}Le nom de l'emoji n'est pas valide`);
             let nom_emoji = args[1]
             let emoji = '';
@@ -59,7 +59,8 @@ module.exports.run = async (client, message, args) => {
             }
     //--------------------------------------EMOJIS-UPDATE------------------------------------------------------
     }else if(args[0] === 'update'){
-            if(!args[2]) return message.channel.send(`${FALSE}Veuillez donner un nom au nouvel emoj`);
+            if(!args[1]) return message.channel.send(`${FALSE}Merci d'inclure l'emoji a modifier puis son nom.`)
+            if(!args[2]) return message.channel.send(`${FALSE}Veuillez donner un nom au nouvel emoji`);
             if(args[2].includes('-')||args[2].includes('/')||args[2].includes('/')||args[2].includes('+')||args[2].includes('*')||args[2].includes('(')||args[2].includes(')')||args[2].includes('[')||args[2].includes(']')||args[2].includes('{')||args[2].includes('}')||args[2].includes('#')||args[2].includes('~')||args[2].includes('@')||args[2].includes('&')||args[2].includes('^')||args[2].includes('$')||args[2].includes('€')||args[2].includes('°')||args[2].includes('%')||args[2].includes('£')||args[2].includes(',')||args[2].includes('<')||args[2].includes('>')) return message.channel.send(`${FALSE}Le nom de l'emoji n'est pas valide`);
             let emo = client.emojis.cache.find(emoji => emoji.name === args[1]);
             if(emo){
@@ -115,6 +116,7 @@ module.exports.run = async (client, message, args) => {
 
     //-------------------------------------------EMOJIS-DELETE----------------------------------------------------
     }else if(args[0] === 'delete'){
+      if(!args[1]) return message.channel.send(`${FALSE}Merci d'inclure l'emoji a supprimer.`)
         let emo = client.emojis.cache.find(emoji => emoji.name === args[1])
         if(emo){
             //emoji-nom

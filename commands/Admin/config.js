@@ -56,7 +56,7 @@ module.exports.help = {
     aliases: ['config'],
     category: 'admin',
     description: "Modiffier la base de donnée",
-    cooldown: 0.1,
+    cooldown: 10,
     usage: '<key_to_modify> <value>',
     exemple :[],
     isUserAdmin: false,

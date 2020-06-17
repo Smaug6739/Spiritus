@@ -45,7 +45,7 @@ module.exports.help = {
 name : 'experience',
 aliases : ['experience'],
 category : 'experience',
-description : 'Enleve de l\'exp a une personne.',
+description : 'Ajoute ou enleve de l\'exp à une personne.',
 cooldown : 10,
 usage : '<@user> <exp_to_add>',
 exemple :["remexp @Smaug 1500"],
