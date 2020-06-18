@@ -132,7 +132,8 @@ module.exports.run = async(client, message, args) => {
             message.channel.send(`Je n\'ai pas trouver ce channel...`)
         }
     }else if(args[0] === 'delete'){
-        let channelname = message.guild.channels.cache.find(r => r.name === args.toString()) //|| args[0].replace(/<.*#/, '').slice(0, -1);
+        if(!args[1]) return message.channel.send(`${FALSE}Merci d'indiquer le channel à supprimer`)
+        let channelname = message.guild.channels.cache.find(r => r.name === args.slice(1).toString()) //|| args[0].replace(/<.*#/, '').slice(0, -1);
         let nom = message.guild.channels.cache.find(r => r.id === args[1].replace(/<.*#/, '').slice(0, -1));
         let id = args[1]
         if(nom){

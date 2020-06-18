@@ -12,7 +12,6 @@ module.exports.run = async (client, message, args) =>{
             { name: '\u200b', value: `${FLECHE}\`info serveur\` donne des informations sur le serveur.`, inline: false },
             { name: '\u200b', value: `${FLECHE}\`info role\` donne des informations sur un role.`, inline: false },
             { name: '\u200b', value: `${FLECHE}\`info channel\` donne des informations sur un channel.`, inline: false },
-            //{ name: '\u200b', value: `${FLECHE}\`info channel\` permet de supprimer un info`, inline: false },
         )
         .setTimestamp()
         .setFooter('BOT ID : 689210215488684044')

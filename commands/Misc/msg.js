@@ -1,7 +1,7 @@
 const {MessageEmbed} = require("discord.js")
 module.exports.run =(client, message, args) => {
     const {FLECHE} = require('./../../configstyle')
-  if(args[0]){
+  if(args[1]){
     if(typeof message.mentions.channels.first() === 'undefined') {
         if(typeof message.mentions.users.first() !== 'undefined') {
             let attachments = message.attachments
