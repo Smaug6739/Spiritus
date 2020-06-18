@@ -1,4 +1,5 @@
 const { MESSAGES } = require("../../util/constants");
+const { FALSE } = require("../../configstyle");
 
 module.exports.run = async (client, message, args, settings, dbUser) => {
  if(settings.expsysteme){
@@ -81,6 +82,8 @@ module.exports.run = async (client, message, args, settings, dbUser) => {
             const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'rank-image.png');
             channel.send(`\u200b`, attachment);
         }
+ }else{
+     return message.channel.send(`${FALSE}Le système d'experience n'est pas activer sur ce serveur. Pour l'activer utilisez la commande \`${settings.prefix}systeme-experience\``)
  }
 };
 

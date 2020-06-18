@@ -32,10 +32,10 @@ module.exports.run = async (client, message, args, settings) => {
 module.exports.help = {
     
     name: "serveur-stats",
-    aliases: ['serveur-stats'],
+    aliases: ['serveur-stats','serveurstats'],
     category: 'admin',
-    description: "Active le système d'experience sur le serveur.",
-    cooldown: 0.1,
+    description: "Active le système de compteur sur le serveur.",
+    cooldown: 10,
     usage: '',
     exemple :[],
     isUserAdmin: false,

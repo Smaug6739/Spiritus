@@ -1,6 +1,8 @@
+const {MessageEmbed} = require("discord.js")
 module.exports.run =(client, message, args) => {
+    const {FLECHE} = require('./../../configstyle')
+  if(args[0]){
     if(typeof message.mentions.channels.first() === 'undefined') {
-
         if(typeof message.mentions.users.first() !== 'undefined') {
             let attachments = message.attachments
             let user = message.mentions.users.first()
@@ -13,25 +15,19 @@ module.exports.run =(client, message, args) => {
                     message.delete()
                 })
                 .catch(console.error);
-                
-                } else {
+                }else{
                     user.send("**Message de l'administration : **"+content,attachments).then(msg => {
                         message.delete()
                     })
                     .catch(console.error);
                 }
         }
-    } else {
-        
+    }else{
         let attachments = message.attachments
         let channel = message.mentions.channels.first()
-        
-        if(attachments) {
-            
-            let arrayMsg = message.content.split(/ +/g)
-            
+        if(attachments){ 
+            let arrayMsg = message.content.split(/ +/g)   
             if(arrayMsg.length > 2) {
-                
                 arrayMsg.shift()
                 arrayMsg.shift()
                 let content = arrayMsg.join(" ")
@@ -39,17 +35,13 @@ module.exports.run =(client, message, args) => {
                     message.delete()
                 })
                 .catch(console.error);
-            } else {
-                
+            }else{
                 channel.send("", message.attachments.first()).then(msg => {
                     message.delete()
                 })
                 .catch(console.error);
             }
-            
-            
-        } else {
-            
+        }else{
             let arrayMsg = message.content.split(/ +/g)
             arrayMsg.shift()
             arrayMsg.shift()
@@ -61,20 +53,30 @@ module.exports.run =(client, message, args) => {
         }
 
     }
-    
-    
+  }else{
+    const embed = new MessageEmbed()
+    .setTitle('Commande message')
+    .setDescription('La commande `message` permet d\'envoyer un message a une personne ou dans un channel grace aux sous commandes suivantes :')
+    .addFields(
+        { name: '\u200b', value: `${FLECHE}\`message @user\` envoi un message dans les MP d\'une personne.`, inline: false },
+        { name: '\u200b', value: `${FLECHE}\`message #channel\` envoi un message dans un channel..`, inline: false }
+    )
+    .setTimestamp()
+    .setFooter('BOT ID : 689210215488684044')
+    message.channel.send(embed)      
+  } 
 }
 module.exports.help = {
     
-    name : 'msg',
-    aliases : ['msg'],
+    name : 'message',
+    aliases : ['message','msg','m'],
     category : 'misc',
     description : 'Envoi un message spécifié dans un channel ou en MP',
     cooldown : 10,
     usage : '<#channel> <votre_message> ou <@user> <votre_message>',
     exemple :["msg @Smaug Message","msg #spiritus Message"],
     isUserAdmin: false,
-    permissions : false,
-    args : true,
+    permissions : true,
+    args : false,
     sousCommdandes : []
 }
