@@ -36,9 +36,8 @@ module.exports.run = async (client, message, args) => {
       }, 3000)
     })
   }else if(message.mentions.users.first()){
-    console.log('ok')
     let user = message.guild.member(message.mentions.users.first());
-    if (isNaN(args[1]) || (args[1] < 1 || args[1] > 100)) return message.reply(`${FALSE}il faut spécifier un nombre entre 1 et 100.`);
+    if (isNaN(args[1]) || (args[1] < 1 || args[1] > 100)) return message.channel.send(`${FALSE}il faut spécifier un nombre entre 1 et 100.`);
     const messages = (await message.channel.messages.fetch({
       limit: 100,
       before: message.id,
@@ -53,7 +52,6 @@ module.exports.run = async (client, message, args) => {
       .setColor(`${ROUGE}`)
       .setDescription(`**Action**: prune\n**Nbr de messages**: ${args[1]}\n**Utilisateur**: ${user}`)
        message.channel.send(embed);
-    
   }
 };
  

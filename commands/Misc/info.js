@@ -1,4 +1,4 @@
-const { MessageEmbed, Presence, Invite } = require("discord.js");
+const { MessageEmbed} = require("discord.js");
 const moment = require('moment');
 module.exports.run = async (client, message, args) =>{
     const {ONLINE,IDLE,DND,OFFLINE,EMBED,FLECHE,CHANNEL,NSFW} = require('../../configstyle');
@@ -23,6 +23,8 @@ module.exports.run = async (client, message, args) =>{
     if (use.user.presence.status === 'idle') status = `${IDLE}Idle`;
     if (use.user.presence.status === 'dnd') status = `${DND}Dnd`;
     if (use.user.presence.status === 'offline') status = `${OFFLINE}Offline`;
+    if (use.user.presence.clientStatus.desktop === 'online') plateforme = '🖥️ Ordinateur'
+    if (use.user.presence.clientStatus.mobile === 'online') plateforme = '📱 Mobile'
         const embed = new MessageEmbed()
         embed.setFooter(use.user.username, use.user.displayAvatarURL(), true) //OK
         embed.setThumbnail(use.user.displayAvatarURL())//OK
@@ -31,6 +33,7 @@ module.exports.run = async (client, message, args) =>{
         embed.addField('ID de la personne :', `${use.user.id}`, true)//OK
         embed.addField('Status :', `${status}`, true)//OK
         embed.addField('Tag :', `${use.user.tag}`, true)//OK
+        if(plateforme)embed.addField('Plateforme :', `${plateforme}`, true)
         embed.addField('A rejoins :', `${moment.utc(use.joinedAt).format('DD/MM/YYYY - hh:mm')}`, true)//OK --------- IDLE
         embed.addField('Compte crée le :', `${moment.utc(use.user.createdAt).format('DD/MM/YYYY - hh:mm')}`, true)//
         embed.addField('Roles :', `${use.roles.cache.map(r => r.toString()).join('')}`)//OK            
@@ -67,7 +70,7 @@ module.exports.run = async (client, message, args) =>{
             region = message.guild.region.toUpperCase()
             var boost = message.guild.premiumSubscriptionCount
             if (boost === 0) boost = "Ce serveur n'est pas boost"
-            else if (boost >= 1) boost = `Ce serveur possède ${boost} BOOST${boost > 1 ? "s" : ""}`
+            else if (boost >= 1) boost = `Ce serveur possède ${boost} boosts ${boost > 1 ? "s" : ""}`
             var members = message.guild.memberCount; 
             message.guild.members.fetch().then(fetchedMembers => {     
             const online = fetchedMembers.filter(member => member.presence.status === 'online').size;
@@ -106,6 +109,7 @@ module.exports.run = async (client, message, args) =>{
         else separation = 'Non'
         const embed = new MessageEmbed()
         .setColor(EMBED)
+        .setThumbnail(`${message.guild.iconURL()}`)
         .setAuthor(`Information sur un role :`, `${message.guild.iconURL()}`)
         .setTitle(`${role.name}`)
         .addFields(
