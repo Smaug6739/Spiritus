@@ -1,7 +1,8 @@
 module.exports.run =(client, message, args) => {
     let use = message.mentions.members.first() || message.member
    
-    console.log(use.user.presence.clientStatus.desktop)
+    message.guild.setIcon(args[0])
+
    
 }
 module.exports.help = {
