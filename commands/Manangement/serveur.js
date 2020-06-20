@@ -8,8 +8,10 @@ module.exports.run =(client, message, args) => {
         .addFields(
             { name: '\u200b', value: `${FLECHE}\`serveur icon\` permet de changer l'icon du serveur.`, inline: false },
             { name: '\u200b', value: `${FLECHE}\`serveur name\` permet de changer le nom du serveur`, inline: false },
-            { name: '\u200b', value: `${FLECHE}\`serveur region\` permet de gére rla région du servur.`, inline: false },
+            { name: '\u200b', value: `${FLECHE}\`serveur region\` permet de gérer la région du servur.`, inline: false },
             { name: '\u200b', value: `${FLECHE}\`serveur moderation\` permet de gérer le niveau de moderation du serveur.`, inline: false },
+            { name: '\u200b', value: `${FLECHE}\`serveur invite-create\` permet de crée une invitation.`, inline: false },
+            { name: '\u200b', value: `${FLECHE}\`serveur webhook-create\` permet de crée un webhook.`, inline: false },
         )
         .setTimestamp()
         .setFooter('BOT ID : 689210215488684044')
@@ -77,7 +79,7 @@ module.exports.help = {
     
     name : 'serveur',
     aliases : ['serveur'],
-    category : 'misc',
+    category : 'manangement',
     description : 'Permet de gérer le serveur.',
     cooldown : 3,
     usage : '',
