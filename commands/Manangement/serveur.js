@@ -11,7 +11,7 @@ module.exports.run =(client, message, args) => {
             { name: '\u200b', value: `${FLECHE}\`serveur region\` permet de gérer la région du servur.`, inline: false },
             { name: '\u200b', value: `${FLECHE}\`serveur moderation\` permet de gérer le niveau de moderation du serveur.`, inline: false },
             { name: '\u200b', value: `${FLECHE}\`serveur invite-create\` permet de crée une invitation.`, inline: false },
-            { name: '\u200b', value: `${FLECHE}\`serveur webhook-create\` permet de crée un webhook.`, inline: false },
+            { name: '\u200b', value: `${FLECHE}\`serveur webhook-create\` permet de crée un webhook.`, inline: false }
         )
         .setTimestamp()
         .setFooter('BOT ID : 689210215488684044')
@@ -81,12 +81,12 @@ module.exports.help = {
     aliases : ['serveur'],
     category : 'manangement',
     description : 'Permet de gérer le serveur.',
-    cooldown : 3,
-    usage : '',
-    exemple :[],
+    cooldown : 10,
+    usage : '<action> <value>',
+    exemple :['serveur name Spiritus'],
     permissions : true,
     isUserAdmin: false,
     args : false,
-    sousCommdandes : []
+    sousCommdandes : ['serveur icon','serveur name','serveur region','serveur moderation','serveur invite-create','serveur webhook-create']
 }
 
