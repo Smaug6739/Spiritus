@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { Guild,User } = require("../models/index");
+const { Guild,User,Cmd } = require("../models/index");
 
 module.exports = client => {
   
@@ -16,9 +16,7 @@ module.exports = client => {
     }
     
   };
-  
   //const { DEFAULTSETTINGS: defaultSettings} = require(`../config.js`);
-
   client.getGuild = async guild => {
     const data = await Guild.findOne({ guildID: guild.id });
     if (!data){ 
@@ -85,4 +83,39 @@ client.removeExp = async (client, member, exp)=>{
   const updateExp = userToUpdate.experience - exp;
   await client.updateUser(member, {experience : updateExp});
 }
+
+
+//-----------------------------CMD--------------------------------------------
+client.createCmd = async cmd => {
+  const merged = Object.assign({ _id: mongoose.Types.ObjectId() }, cmd);
+  const createCmd = await new Cmd(merged);
+  createCmd.save().then(u => console.log(`Nouvel commande -> ${u.nom}`));
+};
+client.getCmd = async (cmdNom, guild) => {
+  const data = await Cmd.findOne({ nom: cmdNom, guildID: guild.id });
+  if (data) return data;
+  else return ;
+};
+client.getCmds = async guild => {
+  const data = await Cmd.find({guildID : guild.id});
+  if (data) return data;
+  else return;
+};
+client.updateCmd = async (cmdNom,guild, settings) => {
+  let data = await client.getCmd(cmdNom, guild);
+  if (typeof data !== "object") data = {};
+  for (const key in settings) {
+    if (data[key] !== settings[key]) data[key] = settings[key];
+  }
+  if(data.nom){
+    console.log(data)
+  return data.updateOne(settings);
+  }
+}
+client.deleteCmd = async (cmdNom, guild) => {
+  const data = await Cmd.findOne({ nom: cmdNom, guildID: guild.id });
+  if(data){
+    await data.delete()
+  }
+};
 };

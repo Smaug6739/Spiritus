@@ -1,9 +1,9 @@
 const color = require('../../util/constants')
-module.exports.run =(client, message, args) => {
-    
+module.exports.run =async(client, message, args) => {
+    const {FALSE} = require('../../configstyle')
     let debut = Date.now();
     message.channel.send('Pong !').then(async(m) => await m.edit(`Pong  BOT : \`${Date.now()-debut}ms\` API : \`${client.ws.ping}ms\``));
-   
+    
 }
 module.exports.help = {
     

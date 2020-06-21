@@ -6,10 +6,15 @@ module.exports = async(client, message) => {
 
   let { FALSE } = require('../../configstyle');
   if (message.author.bot) return;
-
   const settings = await client.getGuild(message.guild);
   const dbUser = await client.getUser(message.member, message.member.guild.id);
-  
+  //----------------------------------CMD-PERSONALISEE-------------------------
+  if(message.content.startsWith(settings.prefix)){
+    const cmdNom = message.content.slice(settings.prefix.length).split(/ +/);
+    const comd = await client.getCmd(cmdNom[0], message.guild)
+      if(comd) message.channel.send(comd.contenu)
+  }  
+
   if(!dbUser) await client.createUser({
     guildID: message.member.guild.id,
     guildName: message.member.guild.name,
@@ -42,10 +47,12 @@ module.exports = async(client, message) => {
       }
     }
   }
+
   if (!message.content.startsWith(settings.prefix)) return;
 
 
   const args = message.content.slice(settings.prefix.length).split(/ +/);
+
   const commandName = args.shift().toLowerCase();
   const user = message.mentions.users.first();
   const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.help.aliases && cmd.help.aliases.includes(commandName));
