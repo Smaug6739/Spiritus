@@ -1,7 +1,7 @@
 const { MessageEmbed} = require("discord.js");
 const moment = require('moment');
 module.exports.run = async (client, message, args) =>{
-    const {ONLINE,IDLE,DND,OFFLINE,EMBED,FLECHE,CHANNEL,NSFW} = require('../../configstyle');
+    const {ONLINE,IDLE,DND,OFFLINE,EMBED,FLECHE,NSFW,CHANNEL,VOICE,ETIQUETTE,BOOST} = require('../../configstyle');
     if(!args[0]){
         const embed = new MessageEmbed()
         .setTitle('Commande info')
@@ -11,8 +11,7 @@ module.exports.run = async (client, message, args) =>{
             { name: '\u200b', value: `${FLECHE}\`info bot\` donne des informations sur le bot.`, inline: false },
             { name: '\u200b', value: `${FLECHE}\`info serveur\` donne des informations sur le serveur.`, inline: false },
             { name: '\u200b', value: `${FLECHE}\`info role\` donne des informations sur un role.`, inline: false },
-            { name: '\u200b', value: `${FLECHE}\`info channel\` donne des informations sur un channel.`, inline: false },
-        )
+            { name: '\u200b', value: `${FLECHE}\`info channel\` donne des informations sur un channel.`, inline: false })
         .setTimestamp()
         .setFooter('BOT ID : 689210215488684044')
         message.channel.send(embed)
@@ -64,7 +63,6 @@ module.exports.run = async (client, message, args) =>{
         .setFooter('Informations sur le bot Spiritus. BOT ID : 689210215488684044')
 		message.channel.send(embed);
     }else if(args[0] === 'serveur'){
-            const {CHANNEL,VOICE,ETIQUETTE,BOOST,ONLINE,IDLE,DND,OFFLINE,EMBED} = require('../../configstyle')
             var guild_name = message.guild.name,
             owner = message.guild.owner,
             region = message.guild.region.toUpperCase()
@@ -127,29 +125,24 @@ module.exports.run = async (client, message, args) =>{
         .setFooter('Commande d\'information de role. BOT ID : 689210215488684044')
         message.channel.send(embed) 
     }else if(args[0] == 'channel'){
-        //console.log(message.channel)
         const channel = message.channel;
         if(channel.type === 'text') type = `${CHANNEL}Texte`
         if(channel.nsfw) nsfw = `${NSFW} Oui`;
         else nsfw = `${NSFW} Non`;
-        channel.fetchInvites().then(i => console.log(i.map(i => i)))
         const embed = new MessageEmbed()
         .setAuthor(`Information sur un channel :`, `${message.guild.iconURL()}`)
         .setThumbnail(message.guild.iconURL())
         .setTitle(`Channel : ${channel.name}`)
         .addFields(
             { name: 'Channel id :', value: `${channel.id}`, inline: true },
-            { name: 'Topic :', value: `${channel.topic}`, inline: true },
-            //{ name: '\u200b', value: `\u200b`, inline: true },
             { name: 'Catégorie :', value: `${channel.parent}`, inline: true },
+            { name: 'Topic :', value: `${channel.topic}`, inline: false },
             { name: 'Catégorie ID :', value: `${channel.parentID}`, inline: true },
             { name: 'Position :', value: `${channel.position}`, inline: true },
             { name: '\u200b', value: `\u200b`, inline: true },
             { name: 'Crée le  :', value: `${moment.utc(channel.createdTimestamp).format('DD/MM/YYYY - hh:mm')}`, inline: true },
             { name: 'Type channel:', value: `${type}`, inline: true },
-            { name: 'Channel NSFW :', value: `${nsfw}`, inline: true },
-            //{ name: 'Invitations sur ce channel :', value: `${}`, inline: true },
-        )
+            { name: 'Channel NSFW :', value: `${nsfw}`, inline: true })
         .setTimestamp()
         .setFooter('BOT ID : 689210215488684044')
         message.channel.send(embed)
@@ -162,11 +155,10 @@ module.exports.help = {
     category : 'info',
     description : 'Donne des infos sur différentes choses.',
     cooldown : 5,
-    usage : '<action> <>',
+    usage : '<action> <valeur>',
     exemple :["info user @Smaug"],
     permissions : false,
     isUserAdmin: false,
     args : false,
-    sousCommdandes : ["info bot","info user","info serveur","info role"]
-
+    sousCommdandes : ["info bot","info user","info serveur","info role","info channel"]
 }
