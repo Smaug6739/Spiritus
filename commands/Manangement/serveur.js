@@ -1,6 +1,7 @@
 const {MessageEmbed} = require('discord.js')
 module.exports.run =(client, message, args) => {
     const {TRUE,FALSE,FLECHE,EMBED} = require('./../../configstyle')
+    if(!message.guild.me.hasPermission('MANAGE_GUILD')) return message.channel.send(`${FALSE}Je n'ai pas la permission de modifier le serveur.`);
     if(!args[0]){
         const embed = new MessageEmbed()
         .setTitle('Commande serveur')
