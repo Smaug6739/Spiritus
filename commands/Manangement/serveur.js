@@ -76,8 +76,7 @@ module.exports.run =(client, message, args) => {
     }
    
 }
-module.exports.help = {
-    
+module.exports.help = {  
     name : 'serveur',
     aliases : ['serveur'],
     category : 'manangement',
