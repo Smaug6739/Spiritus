@@ -1,6 +1,5 @@
 const { MESSAGES } = require("../../util/constants");
 const { FALSE } = require("../../configstyle");
-
 module.exports.run = async (client, message, args, settings, dbUser) => {
  if(settings.expsysteme){
 
@@ -87,13 +86,7 @@ module.exports.run = async (client, message, args, settings, dbUser) => {
  }
 };
 
-
-
-
-
-
 module.exports.help = {
-    
     name : 'rank',
     aliases : ['rank','uexp','exp','userexperience'],
     category : 'experience',
