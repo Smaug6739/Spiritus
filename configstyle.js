@@ -2,7 +2,7 @@ exports.ADMIN = ["611468402263064577","452222720428605440"]
 //smaug //noval
 
 exports.VERTCLAIRE = '#35f092';
-exports.EMBED = '#222427';//HELP;
+exports.EMBED = '#222427';//HELP;COMMAND.JS;
 exports.ROSE = '#fd7aff';//LOGS;
 exports.ORANGE = '#ffa500';//TICKETS,KICK,MUTE,UNMUTE
 exports.ROUGE = '#dc143c';//MEMBER_REMOVE,BAN,PURGE,PRUNE,UNBAN
