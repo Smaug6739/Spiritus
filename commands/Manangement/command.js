@@ -1,6 +1,6 @@
 const {MessageEmbed} = require('discord.js')
 module.exports.run =async(client, message, args) => {
-    const {TRUE,FALSE,EMBED,FLECHE} = require('./../../configstyle')
+    const {TRUE,FALSE,EMBED,FLECHE} = require('../../configstyle')
     if(!args[0]){
         const embed = new MessageEmbed()
         .setTitle('Commande message')
@@ -66,14 +66,14 @@ module.exports.run =async(client, message, args) => {
 }
 module.exports.help = {
     name : 'command',
-    aliases : ['command','commands','commande','commandes','cmd','cmds'],
-    category : 'misc',
-    description : 'Permet de gérer les commandes personalisées du serveur',
+    aliases : ['command','commands','cmd','cmds'],
+    category : 'manangement',
+    description : 'Permet de gérer les commandes personalisées du serveur.',
     cooldown : 10,
     usage : '<action> <valeur>',
     exemple :['command create spiritus-support https://discord.gg/TC7Qjfs'],
     permissions : true,
     isUserAdmin: false,
     args : false,
-    sousCommdandes : ['command create','command liste']
+    sousCommdandes : ['command liste','command create','command update','command delete']
 }

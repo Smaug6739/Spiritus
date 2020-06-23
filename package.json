@@ -15,7 +15,6 @@
     "moment": "^2.26.0",
     "mongoose": "^5.9.16",
     "ms": "^2.1.2",
-    "ytdl-core": "^2.1.7",
-    "ytdl-core-discord": "^1.2.0"
+    "ytdl-core": "^2.1.7"
   }
 }
