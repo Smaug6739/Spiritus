@@ -63,6 +63,17 @@ module.exports.run = async (client, message, args) =>{
                 msg.edit(`${FALSE} An error occured:\n\`\`\`${err}\n\`\`\``);
             }
         })
+    }else if(args[0] === 'execute'){
+        let loading = '<a:loading:688692468195262475>'
+        console.log("Execution d'une commande")
+        message.channel.send(`${loading} Commande en cour d'execution...`).then(async msg =>{
+            try {
+                await exec(`${args.slice(1).join(" ")}`);
+                msg.edit(`${TRUE} Updated.`);
+            } catch (err) {
+                msg.edit(`${FALSE} An error occured:\n\`\`\`xl\n${err}\n\`\`\``);
+            }
+        })
     }else if(args[0] === 'eval'){
         function clean(text) {
             if (typeof(text) === "string")
