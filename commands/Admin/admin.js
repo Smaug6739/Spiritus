@@ -107,7 +107,7 @@ module.exports.help = {
     permissions : true,
     isUserAdmin: false,
     args : false,
-    sousCommdandes : ["admin charge","admin restart","admin pull","admin eval"]
+    sousCommdandes : ["admin charge","admin restart","admin pull","admin execute","admin eval"]
 
 }    
     
