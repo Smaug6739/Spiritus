@@ -1,4 +1,4 @@
-const { Client, Collection } = require('discord.js');
+const { Client, Collection,WebhookClient } = require('discord.js');
 const { loadCommands, loadEvents } = require("./util/loader");
 const client = new Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION'] });;
 require('./util/functions')(client);
@@ -10,3 +10,26 @@ client.mongoose.init();
 client.config = require("./config")
 client.login(client.config.TOKEN);
 //client.on('ready',()=> require('./test.js')(client));
+process.on('uncaughtException', (error) => {
+    console.warn(error);
+    if (!client) return;
+    client.errorHook.send(error, {code: 'js'});
+  });
+  process.on('unhandledRejection', (listener) => {
+    console.warn(listener);
+    if (!client) return;
+    client.errorHook.send(listener, {code: 'js'});
+  });
+  process.on('rejectionHandled', (listener) => {
+    console.warn(listener);
+    if (!client) return;
+    client.errorHook.send(listener, {code: 'js'});
+  });
+  process.on('warning', (warning) => {
+    console.warn(warning);
+    if (!client) return;
+    client.errorHook.send(warning, {code: 'js'});
+  });
+
+  client.errorHook = new WebhookClient(
+    '725313155236102164', 'iYdWlcVjDnW6ty4-v6PXNFZ6EL2KPe7g0GPRWJbXgyZpAwT5PB2OJKLaTVNcB3MlFDXP');
