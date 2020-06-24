@@ -50,6 +50,7 @@ module.exports.run =async(client, message, args) => {
         })
         message.channel.send(embed)
     }else if(args[0] === 'update'){
+        if(!args[2])return message.channel.send(`${FALSE}Merci d'indiquet le nouveau contenu de la commande.`)
         const newContenu = args.slice(2).join(" ")
         const nameCommand = args[1]
         const comd = await client.getCmd(nameCommand, message.guild)
