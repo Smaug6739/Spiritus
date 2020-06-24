@@ -5,7 +5,7 @@ module.exports.run = async(client, message, args) => {
     if(!args[0]){
         const embed = new MessageEmbed()
         .setTitle('Commande role')
-        .setDescription('La commande `role` permet de gérer les roles du serveur graces aux sous commandes suivantes :')
+        .setDescription('La commande `roles` permet de gérer les roles du serveur graces aux sous commandes suivantes :')
         .addFields(
             { name: '\u200b', value: `${FLECHE}\`role liste\` donne la liste des roles du serveur.`, inline: false },
             { name: '\u200b', value: `${FLECHE}\`role create\` permet de crée un role.`, inline: false },
