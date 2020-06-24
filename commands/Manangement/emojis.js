@@ -55,7 +55,7 @@ module.exports.run = async (client, message, args) => {
         
             }catch(err){
               message.channel.send(`${FALSE}Une erreur s'est produite merci de ressayer`);
-              client.channels.cache.get('716327345975197879').send(`Une erreur sur la commande \`emoji-create\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
+              client.channels.cache.get('725251200660013136').send(`Une erreur sur la commande \`emoji-create\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
             }
     //--------------------------------------EMOJIS-UPDATE------------------------------------------------------
     }else if(args[0] === 'update'){
@@ -81,7 +81,7 @@ module.exports.run = async (client, message, args) => {
                    await message.channel.send(embed)
                }catch(err){
                    message.channel.send(`${FALSE}Une erreur s'est produite merci de ressayer`)
-                   client.channels.cache.get('716382691712303167').send(`Une erreur sur la commande \`emoji-update\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``)
+                   client.channels.cache.get('725251200660013136').send(`Une erreur sur la commande \`emoji-update\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``)
                }
        
              }else if(args[1].includes('>','<')){
@@ -106,7 +106,7 @@ module.exports.run = async (client, message, args) => {
                    message.channel.send(embed);
                }catch(err){
                    message.channel.send(`${FALSE}Une erreur s'est produite merci de ressayer`)
-                   client.channels.cache.get('716382691712303167').send(`Une erreur sur la commande \`emoji-update\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
+                   client.channels.cache.get('725251200660013136').send(`Une erreur sur la commande \`emoji-update\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
                    return;
                }
                
@@ -135,7 +135,7 @@ module.exports.run = async (client, message, args) => {
 
             }catch(err){
                 //message.channel.send(`${FALSE}Une erreur s'est produite merci de réessayer`);
-                client.channels.cache.get('716377260751454210').send(`Une erreur sur la commande \`emoji-delete\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
+                client.channels.cache.get('725251200660013136').send(`Une erreur sur la commande \`emoji-delete\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
                 return;
             };
             
@@ -158,7 +158,7 @@ module.exports.run = async (client, message, args) => {
 
                 }catch(err){
                     //message.channel.send(`${FALSE}Une erreur s'est produite merci de réessayer`);
-                    client.channels.cache.get('716377260751454210').send(`Une erreur sur la commande \`emoji-delete\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
+                    client.channels.cache.get('725251200660013136').send(`Une erreur sur la commande \`emoji-delete\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
                     return;
                 };
             

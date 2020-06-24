@@ -32,7 +32,7 @@ module.exports.run = async(client, message, args) => {
         
             }catch(err){
                 message.channel.send(`${FALSE}Une erreur s'est produite merci de ressayer`)
-                client.channels.cache.get('716325736675410000').send(`Une erreur sur la commande \`channel-clone\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``)
+                client.channels.cache.get('725251200660013136').send(`Une erreur sur la commande \`channel-clone\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``)
             }
         }else{
             let channelname = message.guild.channels.cache.find(r => r.name === args.toString())
@@ -45,7 +45,7 @@ module.exports.run = async(client, message, args) => {
                 .catch(`${FALSE}Une erreur s'est produite. Merci de réessayer.`)
                 }catch(err){
                     message.channel.send(`${FALSE}Une erreur s'est produite merci de ressayer`)
-                    client.channels.cache.get('716325736675410000').send(`Une erreur sur la commande \`channel-clone\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``)
+                    client.channels.cache.get('725251200660013136').send(`Une erreur sur la commande \`channel-clone\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``)
                 }
         
             }else if(channelname){
@@ -55,7 +55,7 @@ module.exports.run = async(client, message, args) => {
                 //.catch(message.channel.send`${FALSE} Une erreur s'est produite. Merci de réessayer.`)
                 }catch(err){
                     message.channel.send(`${FALSE}Une erreur s'est produite merci de réessayer`);
-                    client.channels.cache.get('716371683526836312').send(`Une erreur sur la commande \`channel-delete\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
+                    client.channels.cache.get('725251200660013136').send(`Une erreur sur la commande \`channel-delete\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
                     return;
                 };
             
@@ -72,7 +72,7 @@ module.exports.run = async(client, message, args) => {
           .then(message.channel.send(`${TRUE}J'ai bien synchroniser les permissions du channel ${message.channel.name} avec les permissions de la catégorie ${message.channel.parent.name}`))
         }catch(err){
           message.channel.send(`${FALSE}Une erreur s'est produite merci de ressayer`)
-          client.channels.cache.get('716571613348495420').send(`Une erreur sur la commande \`channel-synchro\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
+          client.channels.cache.get('725251200660013136').send(`Une erreur sur la commande \`channel-synchro\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
         }
 
     }else if(args[0] === 'create'){
@@ -97,7 +97,7 @@ module.exports.run = async(client, message, args) => {
 
             }catch(err){
                 message.channel.send(`${FALSE}Une erreur s'est produite merci de réessayer`);
-                client.channels.cache.get('716376021292679320').send(`Une erreur sur la commande \`channel-create\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
+                client.channels.cache.get('725251200660013136').send(`Une erreur sur la commande \`channel-create\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
                 return;
             };
 
@@ -126,7 +126,7 @@ module.exports.run = async(client, message, args) => {
                 )//.catch(message.channel.send(`Une erreur s'est produite. Merci de réessayer`))
 
             }catch(err){
-                client.channels.cache.get('721041152635175073').send(`Une erreur sur la commande \`channel-update\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
+                client.channels.cache.get('725251200660013136').send(`Une erreur sur la commande \`channel-update\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
             }
         }else{
             message.channel.send(`Je n\'ai pas trouver ce channel...`)
@@ -145,7 +145,7 @@ module.exports.run = async(client, message, args) => {
             .catch(`${FALSE} Une erreur s'est produite. Merci de réessayer.`)
             }catch(err){
                 message.channel.send(`${FALSE}Une erreur s'est produite merci de réessayer`);
-                client.channels.cache.get('716371683526836312').send(`Une erreur sur la commande \`channel-delete\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
+                client.channels.cache.get('725251200660013136').send(`Une erreur sur la commande \`channel-delete\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
                 return;
             }
     
@@ -156,7 +156,7 @@ module.exports.run = async(client, message, args) => {
             //.catch(message.channel.send`${FALSE} Une erreur s'est produite. Merci de réessayer.`)
             }catch(err){
                 message.channel.send(`${FALSE}Une erreur s'est produite merci de réessayer`);
-                client.channels.cache.get('716371683526836312').send(`Une erreur sur la commande \`channel-delete\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
+                client.channels.cache.get('725251200660013136').send(`Une erreur sur la commande \`channel-delete\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
                 return;
             };
             
@@ -184,13 +184,13 @@ module.exports.run = async(client, message, args) => {
             try{
                await channel.setPosition(positionNew-1).then(message.channel.send(`${TRUE}J'ai bien mis a jour la position du channel \`${channel.name}\``))
             }catch(err){
-                client.channels.cache.get('721041152635175073').send(`Une erreur sur la commande \`channel-update-position\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
+                client.channels.cache.get('725251200660013136').send(`Une erreur sur la commande \`channel-update-position\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
             }
         }else if(nom){
             try{
                 await nom.setPosition(positionNew -1).then(message.channel.send(`${TRUE}J'ai bien mis a jour la position du channel \`${nom}\``))
              }catch(err){
-                 client.channels.cache.get('721041152635175073').send(`Une erreur sur la commande \`channel-update-position\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
+                 client.channels.cache.get('725251200660013136').send(`Une erreur sur la commande \`channel-update-position\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
              }
         }else{
             try{
@@ -212,13 +212,13 @@ module.exports.run = async(client, message, args) => {
             try{
                await channel.setParent(positionNew).then(message.channel.send(`${TRUE}J'ai bien mis a jour la position du channel \`${channel.name}\``))
             }catch(err){
-                client.channels.cache.get('721041152635175073').send(`Une erreur sur la commande \`channel-update-position\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
+                client.channels.cache.get('725251200660013136').send(`Une erreur sur la commande \`channel-update-position\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
             }
         }else if(nom){
             try{
                 await nom.setParent(positionNew).then(message.channel.send(`${TRUE}J'ai bien mis a jour la position du channel \`${nom}\``))
              }catch(err){
-                 client.channels.cache.get('721041152635175073').send(`Une erreur sur la commande \`channel-update-position-categorie\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
+                 client.channels.cache.get('725251200660013136').send(`Une erreur sur la commande \`channel-update-position-categorie\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
              }
         }else{
             try{
@@ -241,13 +241,13 @@ module.exports.run = async(client, message, args) => {
             try{
                await channel.setTopic(newTopic).then(message.channel.send(`${TRUE}J'ai bien mis a jour le topic du channel \`${channel.name}\``))
             }catch(err){
-                client.channels.cache.get('721041152635175073').send(`Une erreur sur la commande \`channel-update-position\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
+                client.channels.cache.get('725251200660013136').send(`Une erreur sur la commande \`channel-topic\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
             }
         }else if(nomMention){
             try{
                 await nomMention.setTopic(newTopic).then(message.channel.send(`${TRUE}J'ai bien mis a jour le topic du channel \`${nomMention}\``))
              }catch(err){
-                 client.channels.cache.get('721041152635175073').send(`Une erreur sur la commande \`channel-topic\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
+                 client.channels.cache.get('725251200660013136').send(`Une erreur sur la commande \`channel-topic\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
              }
         }else{
             try{
