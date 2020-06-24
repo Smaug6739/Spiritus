@@ -16,7 +16,7 @@ module.exports.run = async (client, message, args) =>{
         .setFooter('BOT ID : 689210215488684044')
         message.channel.send(embed)
     }
-    if(args[0] === 'user'){
+    if(args[0].toLowerCase() === 'user'){
     let use = message.mentions.members.first() || message.member
     if (use.user.presence.status === 'online') status = `${ONLINE}Online`  ;
     if (use.user.presence.status === 'idle') status = `${IDLE}Idle`;
@@ -42,7 +42,7 @@ module.exports.run = async (client, message, args) =>{
         embed.addField('User information:', `** Permissions:** ${use.permissions.toArray().sort().map(permissions => `${permissions.split("_").map(x => x[0] + x.slice(1).toLowerCase()).join(" ")}`).join(", ") || "none"}`)//OK
         embed.setTimestamp();
         message.channel.send(embed);
-    }else if(args[0] === 'bot' ){
+    }else if(args[0].toLowerCase() === 'bot' ){
         const embed = new MessageEmbed()
         .setColor(`${EMBED}`)
         .setAuthor(`${client.user.username} Info`, client.user.avatarURL())
@@ -62,7 +62,7 @@ module.exports.run = async (client, message, args) =>{
         .setTimestamp()
         .setFooter('Informations sur le bot Spiritus. BOT ID : 689210215488684044')
 		message.channel.send(embed);
-    }else if(args[0] === 'serveur'){
+    }else if(args[0].toLowerCase() === 'serveur'){
             var guild_name = message.guild.name,
             owner = message.guild.owner,
             region = message.guild.region.toUpperCase()
@@ -96,7 +96,7 @@ module.exports.run = async (client, message, args) =>{
             .setFooter('BOT ID : 689210215488684044', `${message.guild.iconURL()}`);
             message.channel.send(embed)
             });
-    }else if(args[0] === 'role'){
+    }else if(args[0].toLowerCase() === 'role'){
         const role = message.mentions.roles.first()
         if(role.mentionable) mention = 'Oui'
         else mention = 'Non'
@@ -124,7 +124,7 @@ module.exports.run = async (client, message, args) =>{
         .setTimestamp()
         .setFooter('Commande d\'information de role. BOT ID : 689210215488684044')
         message.channel.send(embed) 
-    }else if(args[0] == 'channel'){
+    }else if(args[0].toLowerCase() == 'channel'){
         const channel = message.channel;
         if(channel.type === 'text') type = `${CHANNEL}Texte`
         if(channel.nsfw) nsfw = `${NSFW} Oui`;

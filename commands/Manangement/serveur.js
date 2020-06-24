@@ -18,7 +18,7 @@ module.exports.run =(client, message, args) => {
         .setFooter('BOT ID : 689210215488684044')
         message.channel.send(embed)
     }
-    if(args[0] === 'icon'){
+    if(args[0].toLowerCase() === 'icon'){
         if(message.attachments.first()){
             icon = message.attachments.first().url
             message.guild.setIcon(icon)
@@ -26,12 +26,12 @@ module.exports.run =(client, message, args) => {
             .catch(`${FALSE}Une erreur s'est produite. Merci de vérifier la taille du fichier et de réessayer`)
         }
     }
-    if(args[0] === 'name'){
+    if(args[0].toLowerCase() === 'name'){
         let newName = args.slice(1).join(" ")
         message.guild.setName(newName)
         .then(message.channel.send(`${TRUE}J'ai bien mis a jour le nom du serveur avec \`${newName}\``))
     }
-    if(args[0] === 'region'){
+    if(args[0].toLowerCase() === 'region'){
         //let region = ['us-south'||'russia'||'japan'||'dubai'||'us-west'||'brazil'||'hongkong'||'singapore'||'us-central'||'india'||'europe'||'eu-west'||'us-east'||'london'||'frankfurt'||'eu-central'||'sydney'||'southafrica'||'south-korea'||'amsterdam']
         if(args[1] === 'us-south'||args[1] ==='russia'||args[1] ==='japan'||args[1] ==='dubai'||args[1] ==='us-west'||args[1] ==='brazil'||args[1] ==='hongkong'||args[1] ==='singapore'||args[1] ==='us-central'||args[1] ==='india'||args[1] ==='europe'||args[1] ==='eu-west'||args[1] ==='us-east'||args[1] ==='london'||args[1] ==='frankfurt'||args[1] ==='eu-central'||args[1] ==='sydney'||args[1] ==='southafrica'||args[1] ==='south-korea'||args[1] ==='amsterdam'){
         message.guild.setRegion(args[1]).then(
@@ -41,7 +41,7 @@ module.exports.run =(client, message, args) => {
             return message.channel.send(`${FALSE}Merci de choisir une valeur valide (\`south-korea\`, \`dubai\`, \`london\`, \`us-central\`, \`eu-west\`, \`brazil\`, \`japan\`, \`southafrica\`, \`frankfurt\`, \`sydney\`, \`india\`, \`us-south\`, \`europe\`, \`us-east\`, \`hongkong\`, \`eu-central\`, \`singapore\`, \`russia\`, \`us-west\`, \`amsterdam\`). `)
         }
     }
-    if(args[0] === 'moderation'){
+    if(args[0].toLowerCase() === 'moderation'){
         if(!args[1]) return message.channel.send(`${FALSE} Merci d'indiquer une valeur entre 1 et 5`)
         let newLevel = args[1];
         let levelEdit = '';
@@ -54,7 +54,7 @@ module.exports.run =(client, message, args) => {
         message.guild.edit({verificationLevel: levelEdit})
         .then(message.channel.send(`${TRUE}J'ai bien mis a jour le niveau de moderation du serveur par \`${newLevel}\``))
     }
-    if(args[0] === 'invite-create'){
+    if(args[0].toLowerCase() === 'invite-create'){
         message.channel.createInvite().then(invite =>    
         invite.channel.send( new MessageEmbed()
         .setAuthor('Création d\'une invitation')
@@ -64,7 +64,7 @@ module.exports.run =(client, message, args) => {
         .setTimestamp())
         ).catch(console.error);
     }
-    if(args[0] === 'webhook-create'){
+    if(args[0].toLowerCase() === 'webhook-create'){
         message.channel.createWebhook('Webhook', {
             reason: 'Création d\'un webhook'}).then(webhook =>
             client.channels.cache.get(webhook.channelID).send(new MessageEmbed()

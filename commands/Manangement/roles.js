@@ -17,7 +17,7 @@ module.exports.run = async(client, message, args) => {
         .setFooter('BOT ID : 689210215488684044')
         message.channel.send(embed)
     }
-    if(args[0] === 'liste'){
+    if(args[0].toLowerCase() === 'liste'){
         const embed = new MessageEmbed()
         .setTitle('Commande role liste')
         .setThumbnail(`${message.guild.iconURL()}`)
@@ -27,7 +27,7 @@ module.exports.run = async(client, message, args) => {
         .setFooter('BOT ID : 689210215488684044')
         message.channel.send(embed)
     //---------------------------------------------ROLES-CREATE----------------------------------------------------------
-    }else if(args[0] === 'create'){
+    }else if(args[0].toLowerCase() === 'create'){
         let role_name = (args.splice(1).join(' ') || 'new role');
         if(role_name.length > 99) return message.channel.send(`${FALSE}Le nom du role doit etre inferieur à 100 caractères.`);
         message.guild.roles.create({
@@ -38,7 +38,7 @@ module.exports.run = async(client, message, args) => {
         .then(role => message.channel.send(`${TRUE}J'ai bien crée le role ${role}`))
         .catch(console.error);
     //---------------------------------------------ROLES-DELETE----------------------------------------------------------
-    }else if(args[0] === 'delete'){
+    }else if(args[0].toLowerCase() === 'delete'){
         let role = message.guild.roles.cache.find(r => r.name === args.slice(1).join(" ").toString()) || message.mentions.roles.first()
         if(role){    
                 message.channel.send(`${TRUE}J'ai bien supprimer le role \`${role.name}\``).then(
@@ -46,7 +46,7 @@ module.exports.run = async(client, message, args) => {
         }else{
             message.channel.send(`${FALSE}Je n\'ai pas trouver ce role... Essayez de le mentionner`)
         }
-    }else if(args[0] === 'update'){
+    }else if(args[0].toLowerCase() === 'update'){
         if(!args[1]) return message.channel.send(`${FALSE}Merci d'indiquer en premier argument le nom ou la mention du role a changer`)
         let role = message.guild.roles.cache.find(r => r.name === args.slice(1).toString()) || message.mentions.roles.first()
         if(role){
@@ -57,7 +57,7 @@ module.exports.run = async(client, message, args) => {
         }else{
             message.channel.send(`${FALSE}Je n\'ai pas trouver ce role... Essayez de le mentionner`)
         }
-    }else if(args[0] === 'add'){
+    }else if(args[0].toLowerCase() === 'add'){
         let  role = message.mentions.roles.first()
         let utilisateur = message.mentions.members.first() || message.member
         if (role) {
@@ -75,7 +75,7 @@ module.exports.run = async(client, message, args) => {
         }else{
             message.channel.send(`${FALSE}Le rôle n'existe pas...`);
         }
-    }else if(args[0] === 'rem'){
+    }else if(args[0].toLowerCase() === 'rem'){
             let  role = message.mentions.roles.first()
             let utilisateur = message.mentions.members.first() || message.member
         if (role){

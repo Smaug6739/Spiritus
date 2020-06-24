@@ -23,7 +23,7 @@ module.exports.run = async(client, message, args) => {
         .setFooter('BOT ID : 689210215488684044')
         message.channel.send(embed)
     }
-    if(args[0] === 'clone'){
+    if(args[0].toLowerCase() === 'clone'){
         if(!args[1]){
             try{
                 message.channel.clone()
@@ -64,7 +64,7 @@ module.exports.run = async(client, message, args) => {
             }
         }
 
-    }else if(args[0] === 'synchro'){
+    }else if(args[0].toLowerCase() === 'synchro'){
         if(!message.channel.parent) return message.channel.send(`${FALSE}Le salon n'est dans aucune catégorie`)
 
         try{
@@ -75,7 +75,7 @@ module.exports.run = async(client, message, args) => {
           client.channels.cache.get('725251200660013136').send(`Une erreur sur la commande \`channel-synchro\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
         }
 
-    }else if(args[0] === 'create'){
+    }else if(args[0].toLowerCase() === 'create'){
         var category = message.channel.parentID
         if(!args[1]) return message.channel.send(`${FALSE}Veuillez donner en premier argument une valeur valide (\`text\` ou \`voice\` ou \`category\`)`)
         if(args[1] == 'text' || args[1] == 'voice') {
@@ -114,24 +114,24 @@ module.exports.run = async(client, message, args) => {
             return message.channel.send(`${FALSE}Veuillez donner en premier argument une valeur valide (\`text\` ou \`voice\` ou \`category\`)`)
         }
 
-    }else if(args[0] === 'update'){
+    }else if(args[0].toLowerCase() === 'update'){
         if(!args[1]) return message.channel.send(`${FALSE} de spécifier le nom du channel a modifier`)
         if(!args[2]) return message.channel.send(`${FALSE}Merci de spécifier le nouveau nom du channel a modifier`)
-        let channel = message.guild.channels.cache.find(r => r.name === args[1].toString()) //|| message.mentions.roles.first()
+        let channel = message.guild.channels.cache.find(r => r.name === args[1].toString()) || message.mentions.channels.first() //|| message.mentions.roles.first()
         if(channel){
             try{
                 
-               await channel.edit({ name: args[2] }).then(
-                    message.channel.send(`${TRUE}J'ai bien mis a jour le channel ${channel.name}`)
+               await channel.edit({ name: args.slice(2).join("-") }).then(
+                    message.channel.send(`${TRUE}J'ai bien mis a jour le channel \`${channel.name}\``)
                 )//.catch(message.channel.send(`Une erreur s'est produite. Merci de réessayer`))
 
             }catch(err){
                 client.channels.cache.get('725251200660013136').send(`Une erreur sur la commande \`channel-update\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
             }
         }else{
-            message.channel.send(`Je n\'ai pas trouver ce channel...`)
+            message.channel.send(`${FALSE}Je n\'ai pas trouver ce channel...`)
         }
-    }else if(args[0] === 'delete'){
+    }else if(args[0].toLowerCase() === 'delete'){
         if(!args[1]) return message.channel.send(`${FALSE}Merci d'indiquer le channel à supprimer`)
         let channelname = message.guild.channels.cache.find(r => r.name === args.slice(1).toString()) //|| args[0].replace(/<.*#/, '').slice(0, -1);
         let nom = message.guild.channels.cache.find(r => r.id === args[1].replace(/<.*#/, '').slice(0, -1));
@@ -173,7 +173,7 @@ module.exports.run = async(client, message, args) => {
         }
 
 
-    }else if(args[0] === 'position'){
+    }else if(args[0].toLowerCase() === 'position'){
         if(!args[1]) return message.channel.send(`${FALSE}Merci de spécifier le nom du channel a modifier`)
         if(!args[2]) return message.channel.send(`${FALSE}Merci de spécifier la nouvelle position du channel`)
         let channel = message.guild.channels.cache.find(r => r.name === args[1].toString()) //|| message.mentions.roles.first()
@@ -201,7 +201,7 @@ module.exports.run = async(client, message, args) => {
             }
         }
     
-    }else if(args[0] === 'parent'){
+    }else if(args[0].toLowerCase() === 'parent'){
         if(!args[1]) return message.channel.send(`${FALSE}Merci de spécifier le nom du channel a modifier`)
         if(!args[2]) return message.channel.send(`${FALSE}Merci de spécifier la nouvelle position du channel`)
         let channel = message.guild.channels.cache.find(r => r.name === args[1].toString()) //|| message.mentions.roles.first()
@@ -229,7 +229,7 @@ module.exports.run = async(client, message, args) => {
             }
         }
     
-    }else if(args[0] === 'topic'){
+    }else if(args[0].toLowerCase() === 'topic'){
         if(!args[1]) return message.channel.send(`${FALSE}Merci de spécifier le nom du channel a modifier`)
         if(!args[2]) return message.channel.send(`${FALSE}Merci de spécifier le nouveau topic`)
         let channel = message.guild.channels.cache.find(r => r.name === args[1].toString()) //|| message.mentions.roles.first()
@@ -258,7 +258,7 @@ module.exports.run = async(client, message, args) => {
             }
         }
     
-    }else if(args[0] === 'pin'){
+    }else if(args[0].toLowerCase() === 'pin'){
         try{
             if(isNaN(args[1])) return message.channel.send(`${FALSE}Merci de rentrer un id de message valide.`)
             message.channel.messages.cache.get(args[1]).pin().then(message.channel.send(`${TRUE}J'ai bien épingler le message \`${args[1]}\``))
@@ -266,7 +266,7 @@ module.exports.run = async(client, message, args) => {
         }catch{
             message.channel.send(`${FALSE}Une erreur s'est produite merci de réessayer avec un id de message valide ou vérifiez que le message n'est pas déja épingler`)
         }
-    }else if(args[0] === 'unpin'){
+    }else if(args[0].toLowerCase() === 'unpin'){
         try{
             if(isNaN(args[1])) return message.channel.send(`${FALSE}Merci de rentrer un id de message valide.`)
             message.channel.messages.cache.get(args[1]).unpin().then(message.channel.send(`${TRUE}J'ai bien retirer le message \`${args[1]}\` des messages épinglés`))
