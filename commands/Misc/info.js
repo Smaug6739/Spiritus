@@ -17,13 +17,20 @@ module.exports.run = async (client, message, args) =>{
         message.channel.send(embed)
     }
     if(args[0].toLowerCase() === 'user'){
-    let use = message.mentions.members.first() || message.member
+    
+    let use = message.mentions.members.first()||message.member
     if (use.user.presence.status === 'online') status = `${ONLINE}Online`  ;
     if (use.user.presence.status === 'idle') status = `${IDLE}Idle`;
     if (use.user.presence.status === 'dnd') status = `${DND}Dnd`;
     if (use.user.presence.status === 'offline') status = `${OFFLINE}Offline`;
-    if (use.user.presence.clientStatus.desktop === 'online') plateforme = '🖥️ Ordinateur'
-    if (use.user.presence.clientStatus.mobile === 'online') plateforme = '📱 Mobile'
+     
+   /*if (use.user.presence.clientStatus != null && use.user.presence.clientStatus.desktop === 'online') plateforme = '🖥️ Ordinateur'
+    if (use.user.presence.clientStatus != null && use.user.presence.clientStatus.mobile === 'online') plateforme = '📱 Mobile'
+    //else plateforme = 'Aucune'
+        console.log(use.user.presence.clientStatus)*/
+       
+    
+    
         const embed = new MessageEmbed()
         embed.setFooter(use.user.username, use.user.displayAvatarURL(), true) //OK
         embed.setThumbnail(use.user.displayAvatarURL())//OK
@@ -32,7 +39,7 @@ module.exports.run = async (client, message, args) =>{
         embed.addField('ID de la personne :', `${use.user.id}`, true)//OK
         embed.addField('Status :', `${status}`, true)//OK
         embed.addField('Tag :', `${use.user.tag}`, true)//OK
-        if(plateforme)embed.addField('Plateforme :', `${plateforme}`, true)
+        //if(plateforme)embed.addField('Plateforme :', `${plateforme || 'Aucune'}`, true)
         embed.addField('A rejoins :', `${moment.utc(use.joinedAt).format('DD/MM/YYYY - hh:mm')}`, true)//OK --------- IDLE
         embed.addField('Compte crée le :', `${moment.utc(use.user.createdAt).format('DD/MM/YYYY - hh:mm')}`, true)//
         embed.addField('Roles :', `${use.roles.cache.map(r => r.toString()).join('')}`)//OK            
