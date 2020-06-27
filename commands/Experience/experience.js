@@ -39,7 +39,7 @@ module.exports.run = async(client, message, args, settings) => {
         }
         }
     }else{
-        return message.channel.send(`${client.config.emojis.FALSE}Le système d\'exp n\'est pas activé sur ce serveur.`);
+        return message.channel.send(`${client.config.emojis.FALSE}Le système d'experience n'est pas activer sur ce serveur. Pour l'activer utilisez la commande \`${settings.prefix}systeme-experience\``)
     };
 };
 module.exports.help = {
