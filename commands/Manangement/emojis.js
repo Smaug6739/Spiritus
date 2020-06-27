@@ -15,7 +15,7 @@ module.exports.run = async (client, message, args) => {
       )
       .setTimestamp()
       .setFooter('BOT ID : 689210215488684044')
-      message.channel.send(embed)
+     return message.channel.send(embed)
   }
     if(args[0].toLowerCase() === 'liste'){
       const emojiList = message.guild.emojis.cache.map(e=>e.toString()).join(" ");

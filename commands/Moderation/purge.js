@@ -12,7 +12,7 @@ module.exports.run = async (client, message, args) => {
     )
     .setTimestamp()
     .setFooter('BOT ID : 689210215488684044')
-    message.channel.send(embed)
+    return message.channel.send(embed)
 }
   if(!message.guild.me.hasPermission('MANAGE_MESSAGES')) return message.channel.send(`${FALSE}Je n'ai pas la permission de supprimer des messages.`);
   if(args[0] === 'channel'){

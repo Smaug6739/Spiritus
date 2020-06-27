@@ -16,8 +16,9 @@ module.exports.run =(client, message, args) => {
         )
         .setTimestamp()
         .setFooter('BOT ID : 689210215488684044')
-        message.channel.send(embed)
+        return message.channel.send(embed)
     }
+    
     if(args[0].toLowerCase() === 'icon'){
         if(message.attachments.first()){
             icon = message.attachments.first().url

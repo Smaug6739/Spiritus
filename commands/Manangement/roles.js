@@ -15,7 +15,7 @@ module.exports.run = async(client, message, args) => {
             { name: '\u200b', value: `${FLECHE}\`role rem\` permet de retirer le role d\`une personne.`, inline: false })
         .setTimestamp()
         .setFooter('BOT ID : 689210215488684044')
-        message.channel.send(embed)
+        return message.channel.send(embed)
     }
     if(args[0].toLowerCase() === 'liste'){
         const embed = new MessageEmbed()
