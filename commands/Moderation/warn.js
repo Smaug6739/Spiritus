@@ -1,10 +1,7 @@
 
 const { MessageEmbed } = require("discord.js");
-
 module.exports.run = async (client, message, args) => {
-  let { FALSE,ORANGE,TRUE } = require('../../configstyle');
    // if(!message.guild.me.hasPermission('KICK_MEMBERS')) return message.channel.send(`${FALSE}Je n'ai pas la permission pour kick un utilisateur.`);
-
   let user = message.mentions.users.first();
   let reason = (args.splice(1).join(' ') || 'Aucune raison spécifiée');
 
@@ -12,14 +9,14 @@ module.exports.run = async (client, message, args) => {
         const embed = new MessageEmbed()
         .setTitle('Avertissement :')
         .setAuthor(`${user.username} (${user.id})`)
-        .setColor(`${ORANGE}`)
+        .setColor(`${client.config.color.ORANGE}`)
         .setDescription(`**Action**: Warn\n**Raison**: ${reason}`)
         .setThumbnail(user.displayAvatarURL())
         .setTimestamp()
         .setFooter(message.author.username, message.author.avatarURL());
         try{
             user.createDM().then(msg =>
-            msg.send(embed).then(message.channel.send(`${TRUE}J'ai bien warn l'utilisateur **${user.tag}**`))
+            msg.send(embed).then(message.channel.send(`${client.config.emojis.TRUE}J'ai bien warn l'utilisateur **${user.tag}**`))
             ).catch(() =>{return} )
         }catch{
           return;
@@ -27,7 +24,7 @@ module.exports.run = async (client, message, args) => {
         
         
     }else{
-        message.channel.send(`${FALSE}Je n'ai pas trouver cet utilisateur.`)
+        message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver cet utilisateur.`)
     }
  
 };

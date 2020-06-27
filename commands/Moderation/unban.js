@@ -1,10 +1,7 @@
 const { MessageEmbed } = require("discord.js");
 
 module.exports.run = async (client, message, args) => {
-  let { FALSE } = require('../../configstyle');
-
-  if(!message.guild.me.hasPermission('BAN_MEMBERS')) return message.channel.send(`${FALSE}Je n'ai pas la permission pour unban un utilisateur.`);
-
+  if(!message.guild.me.hasPermission('BAN_MEMBERS')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission pour unban un utilisateur.`);
   let { ROUGE } = require('../../configstyle');
   let user = await client.users.fetch(args[0]);
   if (!user) return message.reply("l'utilisateur n'existe pas.");
@@ -12,11 +9,10 @@ module.exports.run = async (client, message, args) => {
 
   const embed = new MessageEmbed()
     .setAuthor(`${user.username} (${user.id})`, user.avatarURL())
-    .setColor(`${ROUGE}`)
+    .setColor(`${client.config.color.ROUGE}`)
     .setDescription(`**Action**: unban`)
     .setTimestamp()
     .setFooter(message.author.username, message.author.avatarURL());
-    
   message.channel.send(embed);
 };
 

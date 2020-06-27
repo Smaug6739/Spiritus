@@ -1,6 +1,5 @@
 module.exports.run = (client, message, args) => {
-    let { TRUE,FALSE } = require('../../configstyle');
-    if(!message.guild.me.hasPermission('MANAGE_CHANNELS')) return message.channel.send(`${FALSE}Je n'ai pas la permission de modifier ce channel.`);
+    if(!message.guild.me.hasPermission('MANAGE_CHANNELS')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de modifier ce channel.`);
     
     let nom = message.guild.channels.cache.find(r => r.name === args.toString());
     let lien = message.guild.channels.cache.find(r => r.id === args[0].replace(/<.*#/, '').slice(0, -1));
@@ -11,7 +10,7 @@ module.exports.run = (client, message, args) => {
         message.guild.channels.cache.get(nom).updateOverwrite(message.guild.roles.everyone, {
             SEND_MESSAGES: true
           })
-          .then(message.channel.send(`${TRUE}J'ai bien unlock le channel <#${nom}>`))
+          .then(message.channel.send(`${client.config.emojis.TRUE}J'ai bien unlock le channel <#${nom}>`))
           .catch(console.error)
 
     }else if(lien){
@@ -19,7 +18,7 @@ module.exports.run = (client, message, args) => {
         message.guild.channels.cache.get(lien).updateOverwrite(message.guild.roles.everyone, {
             SEND_MESSAGES: true
           })
-          .then(message.channel.send(`${TRUE}J'ai bien unlock le channel <#${lien}>`))
+          .then(message.channel.send(`${client.config.emojis.TRUE}J'ai bien unlock le channel <#${lien}>`))
           .catch(console.error)
 
     }else{
@@ -27,11 +26,11 @@ module.exports.run = (client, message, args) => {
             message.guild.channels.cache.get(args[0]).updateOverwrite(message.guild.roles.everyone, {
                 SEND_MESSAGES: true
               })
-              .then(message.channel.send(`${TRUE}J'ai bien lock le channel <#${args[0]}>`))
+              .then(message.channel.send(`${client.config.emojis.TRUE}J'ai bien lock le channel <#${args[0]}>`))
               .catch(console.error);
         }catch(err){
              //client.channels.cache.get('716624695205691513').send(`Une erreur sur la commande \`lock\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
-            return message.channel.send(`${FALSE}Je n'ai pas trouver ce channel...`);
+            return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver ce channel...`);
              
             
 
