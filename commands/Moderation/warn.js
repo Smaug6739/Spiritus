@@ -1,4 +1,3 @@
-
 const { MessageEmbed } = require("discord.js");
 module.exports.run = async (client, message, args) => {
    // if(!message.guild.me.hasPermission('KICK_MEMBERS')) return message.channel.send(`${FALSE}Je n'ai pas la permission pour kick un utilisateur.`);
