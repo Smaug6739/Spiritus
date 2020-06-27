@@ -1,6 +1,5 @@
 const {MessageEmbed} = require("discord.js")
 module.exports.run =(client, message, args) => {
-    const {FLECHE} = require('./../../configstyle')
   if(args[1]){
     if(typeof message.mentions.channels.first() === 'undefined') {
         if(typeof message.mentions.users.first() !== 'undefined') {
@@ -58,8 +57,8 @@ module.exports.run =(client, message, args) => {
     .setTitle('Commande message')
     .setDescription('La commande `message` permet d\'envoyer un message a une personne ou dans un channel grace aux sous commandes suivantes :')
     .addFields(
-        { name: '\u200b', value: `${FLECHE}\`message @user\` envoi un message dans les MP d\'une personne.`, inline: false },
-        { name: '\u200b', value: `${FLECHE}\`message #channel\` envoi un message dans un channel..`, inline: false }
+        { name: '\u200b', value: `${client.config.emojis.FLECHE}\`message @user\` envoi un message dans les MP d\'une personne.`, inline: false },
+        { name: '\u200b', value: `${client.config.emojis.FLECHE}\`message #channel\` envoi un message dans un channel..`, inline: false }
     )
     .setTimestamp()
     .setFooter('BOT ID : 689210215488684044')
