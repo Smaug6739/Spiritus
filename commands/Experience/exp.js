@@ -2,7 +2,6 @@ const { MESSAGES } = require("../../util/constants");
 const { FALSE } = require("../../configstyle");
 module.exports.run = async (client, message, args, settings, dbUser) => {
  if(settings.expsysteme){
-
     const Canvas = require('canvas');
     const Discord = require('discord.js')
     member = message.mentions.members.first() || message.member
@@ -82,7 +81,7 @@ module.exports.run = async (client, message, args, settings, dbUser) => {
             channel.send(`\u200b`, attachment);
         }
  }else{
-     return message.channel.send(`${FALSE}Le système d'experience n'est pas activer sur ce serveur. Pour l'activer utilisez la commande \`${settings.prefix}systeme-experience\``)
+     return message.channel.send(`${client.config.emojis.FALSE}Le système d'experience n'est pas activer sur ce serveur. Pour l'activer utilisez la commande \`${settings.prefix}systeme-experience\``)
  }
 };
 
