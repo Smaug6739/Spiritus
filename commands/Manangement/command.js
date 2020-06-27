@@ -15,7 +15,7 @@ module.exports.run =async(client, message, args) => {
         .setFooter('BOT ID : 689210215488684044')
        return  message.channel.send(embed)      
     }
-    if(args[0] === 'create'){
+    if(args[0].toLowerCase() === 'create'){
             client.getCmds(message.guild).then(async p =>{
             //console.log(p)
             if(p.length > 5) return message.channel.send(`${FALSE}Vous etes limité a 5 commandes personalisées par serveur`)
@@ -34,7 +34,7 @@ module.exports.run =async(client, message, args) => {
             message.channel.send(`${TRUE}J'ai bien crée la commande avec comme nom \`${args[1]}\` `)
         )
         })
-    }else if(args[0] === 'liste'){
+    }else if(args[0].toLowerCase() === 'liste'){
         const embed = new MessageEmbed()
         .setTitle('Commandes personalisées du serveur :')
         .setColor(EMBED)
@@ -49,7 +49,7 @@ module.exports.run =async(client, message, args) => {
            })
         })
         message.channel.send(embed)
-    }else if(args[0] === 'update'){
+    }else if(args[0].toLowerCase() === 'update'){
         if(!args[2])return message.channel.send(`${FALSE}Merci d'indiquet le nouveau contenu de la commande.`)
         const newContenu = args.slice(2).join(" ")
         const nameCommand = args[1]
@@ -58,7 +58,7 @@ module.exports.run =async(client, message, args) => {
         if(newContenu.length > 1800) return message.channel.send(`${FALSE}Le nouveau contenu ne peut pas éxéder 1800 caractès`);
         client.updateCmd(nameCommand,message.guild,{contenu: newContenu}).then(message.channel.send(`${TRUE}J'ai bien mis à jour le contenu de la commande \`${nameCommand}\``))
 
-    }else if(args[0] === 'delete'){
+    }else if(args[0].toLowerCase() === 'delete'){
         const comd = await client.getCmd(args[1], message.guild)
         if(!comd)return message.channel.send(`${FALSE}La commande n'existe pas...`)
         client.deleteCmd(args[1], message.guild).then(message.channel.send(`${TRUE}J'ai bien supprimer la commande \`${args[1]}\``));

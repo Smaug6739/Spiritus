@@ -15,7 +15,7 @@ module.exports.run = async (client, message, args) => {
     return message.channel.send(embed)
 }
   if(!message.guild.me.hasPermission('MANAGE_MESSAGES')) return message.channel.send(`${FALSE}Je n'ai pas la permission de supprimer des messages.`);
-  if(args[0] === 'channel'){
+  if(args[0].toLowerCase() === 'channel'){
     message.channel.clone().then(message.channel.delete())    
   
   }else if(!isNaN(args[0])){

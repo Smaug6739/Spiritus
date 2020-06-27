@@ -15,10 +15,10 @@ module.exports.run = async(client, message, args, settings) => {
             )
             .setTimestamp()
             .setFooter('BOT ID : 689210215488684044')
-            message.channel.send(embed)
+            return message.channel.send(embed)
         }
         //-------------------------------------------ADD-EXPERIENCE-----------------------------------------
-        if(args[0] === 'add'){
+        if(args[0].toLowerCase() === 'add'){
             const user = message.guild.member(message.mentions.users.first());
             const expToAdd = parseInt(args[2]);
             if (isNaN(expToAdd)) return message.reply("vous devez entrer un nombre valide !");
@@ -26,7 +26,7 @@ module.exports.run = async(client, message, args, settings) => {
            await client.addExp(client, user, expToAdd);
             message.channel.send(`Vous avez ajouté avec succès ${expToAdd} points d'expérience à l'utilisateur ${user}!`);
         //-------------------------------------------REM-EXPERIENCE-----------------------------------------
-        }else if(args[0] === 'rem'){
+        }else if(args[0].toLowerCase() === 'rem'){
             const user = message.guild.member(message.mentions.users.first());
             const expToRemove = parseInt(args[2]);
             if (isNaN(expToRemove)) return message.reply("vous devez entrer un nombre valide !");
