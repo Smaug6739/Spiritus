@@ -1,17 +1,17 @@
 const { MessageEmbed} = require("discord.js");
 const moment = require('moment');
 module.exports.run = async (client, message, args) =>{
-    const {ONLINE,IDLE,DND,OFFLINE,EMBED,FLECHE,NSFW,CHANNEL,VOICE,ETIQUETTE,BOOST} = require('../../configstyle');
     if(!args[0]){
         const embed = new MessageEmbed()
         .setTitle('Commande info')
+        .setColor(`${client.config.color.EMBEDCOLOR}`)
         .setDescription('La commande `info` permet d\'avoir des informations sur différents éléments du serveur et du bot grace aux sous commandes suivantes :')
         .addFields(
-            { name: '\u200b', value: `${FLECHE}\`info user\` donne des informations sur une personne.`, inline: false },
-            { name: '\u200b', value: `${FLECHE}\`info bot\` donne des informations sur le bot.`, inline: false },
-            { name: '\u200b', value: `${FLECHE}\`info serveur\` donne des informations sur le serveur.`, inline: false },
-            { name: '\u200b', value: `${FLECHE}\`info role\` donne des informations sur un role.`, inline: false },
-            { name: '\u200b', value: `${FLECHE}\`info channel\` donne des informations sur un channel.`, inline: false })
+            { name: '\u200b', value: `${client.config.emojis.FLECHE}\`info user\` donne des informations sur une personne.`, inline: false },
+            { name: '\u200b', value: `${client.config.emojis.FLECHE}\`info bot\` donne des informations sur le bot.`, inline: false },
+            { name: '\u200b', value: `${client.config.emojis.FLECHE}\`info serveur\` donne des informations sur le serveur.`, inline: false },
+            { name: '\u200b', value: `${client.config.emojis.FLECHE}\`info role\` donne des informations sur un role.`, inline: false },
+            { name: '\u200b', value: `${client.config.emojis.FLECHE}\`info channel\` donne des informations sur un channel.`, inline: false })
         .setTimestamp()
         .setFooter('BOT ID : 689210215488684044')
         message.channel.send(embed)
@@ -19,10 +19,10 @@ module.exports.run = async (client, message, args) =>{
     if(args[0].toLowerCase() === 'user'){
     
     let use = message.mentions.members.first()||message.member
-    if (use.user.presence.status === 'online') status = `${ONLINE}Online`  ;
-    if (use.user.presence.status === 'idle') status = `${IDLE}Idle`;
-    if (use.user.presence.status === 'dnd') status = `${DND}Dnd`;
-    if (use.user.presence.status === 'offline') status = `${OFFLINE}Offline`;
+    if (use.user.presence.status === 'online') status = `${client.config.emojis.ONLINE}Online`  ;
+    if (use.user.presence.status === 'idle') status = `${client.config.emojis.IDLE}Idle`;
+    if (use.user.presence.status === 'dnd') status = `${client.config.emojis.DND}Dnd`;
+    if (use.user.presence.status === 'offline') status = `${client.config.emojis.OFFLINE}Offline`;
      
    /*if (use.user.presence.clientStatus != null && use.user.presence.clientStatus.desktop === 'online') plateforme = '🖥️ Ordinateur'
     if (use.user.presence.clientStatus != null && use.user.presence.clientStatus.mobile === 'online') plateforme = '📱 Mobile'
@@ -34,7 +34,7 @@ module.exports.run = async (client, message, args) =>{
         const embed = new MessageEmbed()
         embed.setFooter(use.user.username, use.user.displayAvatarURL(), true) //OK
         embed.setThumbnail(use.user.displayAvatarURL())//OK
-        embed.setColor(`${EMBED}`)//OK
+        embed.setColor(`${client.config.color.EMBEDCOLOR}`)//OK
         embed.setTitle(`${use.user.username}`)//OK
         embed.addField('ID de la personne :', `${use.user.id}`, true)//OK
         embed.addField('Status :', `${status}`, true)//OK
@@ -51,7 +51,7 @@ module.exports.run = async (client, message, args) =>{
         message.channel.send(embed);
     }else if(args[0].toLowerCase() === 'bot' ){
         const embed = new MessageEmbed()
-        .setColor(`${EMBED}`)
+        .setColor(`${client.config.color.EMBEDCOLOR}`)
         .setAuthor(`${client.user.username} Info`, client.user.avatarURL())
         .addFields(
         { name: 'Developpeur', value: `Smaug#6739`, inline: true },
@@ -87,7 +87,7 @@ module.exports.run = async (client, message, args) =>{
             const channel_c = message.guild.channels.cache.filter(channel => channel.type === "category").size
             let embed = new MessageEmbed()
             .setTitle(`**Informations sur le serveur :**`)
-            .setColor(EMBED)
+            .setColor(`${client.config.color.EMBEDCOLOR}`)
             .setAuthor(`${guild_name}`, `${message.guild.iconURL()}`)
             .setThumbnail(`${message.guild.iconURL()}`)
             .addFields(
@@ -96,9 +96,9 @@ module.exports.run = async (client, message, args) =>{
             { name: 'Nombre de membres', value: `${members}`, inline: true },
             { name: 'Owner', value: `${owner}`, inline: true },
             { name: 'Verification niveau', value: `${message.guild.verificationLevel}`, inline: true },
-            { name: `${BOOST}Nitro du serveur`, value: `${boost}`, inline: true },
-            { name: 'Chanels', value: `${CHANNEL}Texte : ${channel_t}\n${VOICE}Voice : ${channel_v}\n${ETIQUETTE}Categories : ${channel_c}`, inline: true },
-            { name: 'Status des membres', value: `${ONLINE}Online : ${online}\n${IDLE}Idle : ${idle}\n${DND}Dnd : ${dnd}\n${OFFLINE}Offline : ${off}`, inline: true })
+            { name: `${client.config.emojis.BOOST}Nitro du serveur`, value: `${boost}`, inline: true },
+            { name: 'Chanels', value: `${client.config.emojis.CHANNEL}Texte : ${channel_t}\n${client.config.emojis.VOICE}Voice : ${channel_v}\n${client.config.emojis.ETIQUETTE}Categories : ${channel_c}`, inline: true },
+            { name: 'Status des membres', value: `${client.config.emojis.ONLINE}Online : ${online}\n${client.config.emojis.IDLE}Idle : ${idle}\n${client.config.emojis.DND}Dnd : ${dnd}\n${client.config.emojis.OFFLINE}Offline : ${off}`, inline: true })
             .setTimestamp()
             .setFooter('BOT ID : 689210215488684044', `${message.guild.iconURL()}`);
             message.channel.send(embed)
@@ -113,7 +113,7 @@ module.exports.run = async (client, message, args) =>{
         if(role.hoist) separation = 'Oui'
         else separation = 'Non'
         const embed = new MessageEmbed()
-        .setColor(EMBED)
+        .setColor(`${client.config.color.EMBEDCOLOR}`)
         .setThumbnail(`${message.guild.iconURL()}`)
         .setAuthor(`Information sur un role :`, `${message.guild.iconURL()}`)
         .setTitle(`${role.name}`)
@@ -133,12 +133,13 @@ module.exports.run = async (client, message, args) =>{
         message.channel.send(embed) 
     }else if(args[0].toLowerCase() == 'channel'){
         const channel = message.channel;
-        if(channel.type === 'text') type = `${CHANNEL}Texte`
-        if(channel.nsfw) nsfw = `${NSFW} Oui`;
-        else nsfw = `${NSFW} Non`;
+        if(channel.type === 'text') type = `${client.config.emojis.CAHNNEL}Texte`
+        if(channel.nsfw) nsfw = `${client.config.emojis.CHANNELNSFW} Oui`;
+        else nsfw = `${client.config.emojis.CHANNELNSFW} Non`;
         const embed = new MessageEmbed()
         .setAuthor(`Information sur un channel :`, `${message.guild.iconURL()}`)
         .setThumbnail(message.guild.iconURL())
+        .setColor(`${client.config.color.EMBEDCOLOR}`)
         .setTitle(`Channel : ${channel.name}`)
         .addFields(
             { name: 'Channel id :', value: `${channel.id}`, inline: true },
