@@ -1,4 +1,4 @@
-const { Collection } = require('discord.js');
+const { Collection,MessageEmbed } = require('discord.js');
 
 module.exports = async(client, message) => {
   if (message.channel.type === "dm") return client.emit("directMessage", message);
@@ -63,9 +63,19 @@ module.exports = async(client, message) => {
   if (command.help.args && !args.length) {
     let noArgsReply = `Il nous faut des arguments pour cette commande, ${message.author}!`;
 
-    if (command.help.usage) noArgsReply += `\nVoici comment utiliser la commande: \`${settings.prefix}${command.help.name} ${command.help.usage}\``;
-
-    return message.channel.send(noArgsReply);
+   /* if (command.help.usage) noArgsReply += `\nVoici comment utiliser la commande: \`${settings.prefix}${command.help.name} ${command.help.usage}\``;
+    return message.channel.send(noArgsReply);*/
+    const embed = new MessageEmbed()
+    .setColor(client.config.color.EMBEDCOLOR)
+    .setTitle(`${client.config.emojis.LOGOBOT} **Commande :** ${settings.prefix}${command.help.name}`)
+    .addField("**__Description :__**", `${command.help.description} (cd: ${command.help.cooldown}secs)`)
+    .addField("**__Utilisation :__**", command.help.usage ? `${settings.prefix}${command.help.name} ${command.help.usage}` : `${settings.prefix}${command.help.name}`, true)
+    .setTimestamp()
+    .setFooter('BOT ID : 689210215488684044', `${message.guild.iconURL()}`);
+    if (command.help.aliases.length > 1) embed.addField("**__Alias :__**", `${command.help.aliases.join(`, `)}`);
+    if (command.help.exemple && command.help.exemple.length > 0) embed.addField("**__Exemples :__**", `${settings.prefix}${command.help.exemple.join(`\r\n${settings.prefix}`)}`);
+    if (command.help.sousCommdandes && command.help.sousCommdandes.length > 0) embed.addField("**__Sous commandes :__**", `${settings.prefix}${command.help.sousCommdandes.join(`\r\n${settings.prefix}`)}`);
+    return message.channel.send(embed);
   };
 
   if (command.help.isUserAdmin && !user) return message.reply('il faut mentionner un utilisateur.');

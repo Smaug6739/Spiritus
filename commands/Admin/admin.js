@@ -3,19 +3,17 @@ const util = require('util');
 const child_process = require('child_process');
 const exec = util.promisify(child_process.exec);
 const { MessageEmbed} = require("discord.js");
-const { FLECHE} = require('./../../configstyle');
 module.exports.run = async (client, message, args) =>{
-    let {ADMIN,TRUE,FALSE} = require('./../../configstyle')
-    if(!ADMIN.includes(message.author.id)) return message.channel.send(`${FALSE}Tu n'est pas admin du BOT `)
+    if(!client.config.ADMIN.includes(message.author.id)) return message.channel.send(`${client.config.emojis.FALSE}Tu n'est pas admin du BOT `)
     if(!args[0]){
         const embed = new MessageEmbed()
         .setTitle('Commande admin')
         .setDescription('La commande `admin` permet de gérer le bot grace aux sous commandes suivantes :')
         .addFields(
-            { name: '\u200b', value: `${FLECHE}\`admin eval\` execute du code javascript.`, inline: false },
-            { name: '\u200b', value: `${FLECHE}\`admin pull\` pull le repo github.`, inline: false },
-            { name: '\u200b', value: `${FLECHE}\`admin restart\` redemere le bot.`, inline: false },
-            { name: '\u200b', value: `${FLECHE}\`admin charge\` lance le chargement des guilds.`, inline: false },
+            { name: '\u200b', value: `${client.config.emojis.FLECHE}\`admin eval\` execute du code javascript.`, inline: false },
+            { name: '\u200b', value: `${client.config.emojis.FLECHE}\`admin pull\` pull le repo github.`, inline: false },
+            { name: '\u200b', value: `${client.config.emojis.FLECHE}\`admin restart\` redemere le bot.`, inline: false },
+            { name: '\u200b', value: `${client.config.emojis.FLECHE}\`admin charge\` lance le chargement des guilds.`, inline: false },
             //{ name: '\u200b', value: `${FLECHE}\`info invite\` permet de supprimer un info`, inline: false },
             //{ name: '\u200b', value: `${FLECHE}\`info channel\` permet de supprimer un info`, inline: false },
         )
@@ -45,33 +43,31 @@ module.exports.run = async (client, message, args) =>{
 
       }  
       verifierguild()
-      message.channel.send(`${TRUE}Recharge de toutes les guilds lancée.`)
+      message.channel.send(`${client.config.emojis.TRUE}Recharge de toutes les guilds lancée.`)
     //---------------------------------------RESTART--------------------------------------------------
     }else if(args[0] === 'restart'){
         console.log("Redemarage")
-        await message.channel.send(`${TRUE}OK .`)
+        await message.channel.send(`${client.config.emojis.TRUE}OK .`)
         process.exit()
     //---------------------------------------PULL-REPO--------------------------------------------------
     }else if(args[0] === 'pull'){
-        let loading = '<a:loading:688692468195262475>'
         console.log("Pull")
-        message.channel.send(`${loading} Commande en cour d'execution...`).then(async msg =>{
+        message.channel.send(`${client.config.emojis.LOADING} Commande en cour d'execution...`).then(async msg =>{
             try {
                 await exec('git pull');
-                msg.edit(`${TRUE} Updated.`);
+                msg.edit(`${client.config.emojis.TRUE} Updated.`);
             } catch (err) {
-                msg.edit(`${FALSE} An error occured:\n\`\`\`${err}\n\`\`\``);
+                msg.edit(`${client.config.emojis.FALSE} An error occured:\n\`\`\`${err}\n\`\`\``);
             }
         })
     }else if(args[0] === 'execute'){
-        let loading = '<a:loading:688692468195262475>'
         console.log("Execution d'une commande")
-        message.channel.send(`${loading} Commande en cour d'execution...`).then(async msg =>{
+        message.channel.send(`${client.config.emojis.LOADING} Commande en cour d'execution...`).then(async msg =>{
             try {
                 await exec(`${args.slice(1).join(" ")}`);
-                msg.edit(`${TRUE} Updated.`);
+                msg.edit(`${client.config.emojis.TRUE} Updated.`);
             } catch (err) {
-                msg.edit(`${FALSE} An error occured:\n\`\`\`xl\n${err}\n\`\`\``);
+                msg.edit(`${client.config.emojis.FALSE} An error occured:\n\`\`\`xl\n${err}\n\`\`\``);
             }
         })
     }else if(args[0] === 'eval'){
