@@ -6,15 +6,15 @@ module.exports.run = async (client, message, args) => {
     .setTitle('Commande purge')
     .setDescription('La commande `purge` permet de gérer les messages du serveur graces aux sous commandes suivantes :')
     .addFields(
-        { name: '\u200b', value: `${FLECHE}\`purge channel\` permet de purge  un channel entier.`, inline: false },
-        { name: '\u200b', value: `${FLECHE}\`purge <number>\` permet de supprimer un certain nombre de messages.`, inline: false },
-        { name: '\u200b', value: `${FLECHE}\`@user <number>\` permet de supprimer un certain nombre de messages d'une personne.`, inline: false },
+        { name: '\u200b', value: `${client.config.emojis.FLECHE}\`purge channel\` permet de purge  un channel entier.`, inline: false },
+        { name: '\u200b', value: `${client.config.emojis.FLECHE}\`purge <number>\` permet de supprimer un certain nombre de messages.`, inline: false },
+        { name: '\u200b', value: `${client.config.emojis.FLECHE}\`@user <number>\` permet de supprimer un certain nombre de messages d'une personne.`, inline: false },
     )
     .setTimestamp()
     .setFooter('BOT ID : 689210215488684044')
     return message.channel.send(embed)
 }
-  if(!message.guild.me.hasPermission('MANAGE_MESSAGES')) return message.channel.send(`${FALSE}Je n'ai pas la permission de supprimer des messages.`);
+  if(!message.guild.me.hasPermission('MANAGE_MESSAGES')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de supprimer des messages.`);
   if(args[0].toLowerCase() === 'channel'){
     message.channel.clone().then(message.channel.delete())    
   
@@ -28,7 +28,7 @@ module.exports.run = async (client, message, args) => {
     message.channel.bulkDelete(messages);
     const embed = new MessageEmbed()
       .setAuthor(message.author.username, message.author.avatarURL())
-      .setColor(`${ROUGE}`)
+      .setColor(`${client.config.color.ROUGE}`)
       .setDescription(`**Action**: purge\n**Nbr messages**: ${args[0]}\n**Salon**: ${message.channel}`)
     message.channel.send(embed).then(m => {
       setTimeout(function() {
@@ -37,7 +37,7 @@ module.exports.run = async (client, message, args) => {
     })
   }else if(message.mentions.users.first()){
     let user = message.guild.member(message.mentions.users.first());
-    if (isNaN(args[1]) || (args[1] < 1 || args[1] > 100)) return message.channel.send(`${FALSE}il faut spécifier un nombre entre 1 et 100.`);
+    if (isNaN(args[1]) || (args[1] < 1 || args[1] > 100)) return message.channel.send(`${client.config.emojis.FALSE}il faut spécifier un nombre entre 1 et 100.`);
     const messages = (await message.channel.messages.fetch({
       limit: 100,
       before: message.id,
@@ -49,7 +49,7 @@ module.exports.run = async (client, message, args) => {
     message.delete();
     const embed = new MessageEmbed()
       .setAuthor(message.author.username, message.author.avatarURL())
-      .setColor(`${ROUGE}`)
+      .setColor(`${client.config.color.ROUGE}`)
       .setDescription(`**Action**: prune\n**Nbr de messages**: ${args[1]}\n**Utilisateur**: ${user}`)
        message.channel.send(embed);
   }
