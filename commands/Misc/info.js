@@ -14,7 +14,7 @@ module.exports.run = async (client, message, args) =>{
             { name: '\u200b', value: `${client.config.emojis.FLECHE}\`info channel\` donne des informations sur un channel.`, inline: false })
         .setTimestamp()
         .setFooter('BOT ID : 689210215488684044')
-        message.channel.send(embed)
+       return message.channel.send(embed)
     }
     if(args[0].toLowerCase() === 'user'){
     
