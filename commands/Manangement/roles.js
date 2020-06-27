@@ -57,6 +57,20 @@ module.exports.run = async(client, message, args) => {
         }else{
             message.channel.send(`${FALSE}Je n\'ai pas trouver ce role... Essayez de le mentionner`)
         }
+    }else if(args[0].toLowerCase() === 'position'){
+        let role = message.mentions.roles.first()
+        let newPosition = args.slice(1).join('')
+        newPosition = newPosition.split(role)
+        newPosition = newPosition.join(' ')
+        newPosition = Number(newPosition) 
+        console.log(newPosition)
+        if(message.guild.me.roles.highest.comparePositionTo(role) <= 0) return message.channel.send(`${FALSE}Je n'ai pas un role sufisant pour modifier ce role.`)
+        if(message.guild.me.roles.highest.rawPosition <= newPosition) return message.channel.send(`${FALSE}Je n'ai pas un role sufisant pour mettre ce role si haut.`)
+        if(message.member.roles.highest.comparePositionTo(role) <= 0) return message.channel.send(`${FALSE}Tu n'a pas un role sufisant pour modifier ce role.`)
+        if(isNaN(newPosition))return message.channel.send(`${FALSE}Merci d'indiquer la nouvelle position du role sous forme d'un nombre.`)
+        message.guild.setRolePositions([{ role: role, position: newPosition}]).then(message.channel.send(`${TRUE}J'ai bien mis à jour la position du role \`${role.name}\``))
+
+    
     }else if(args[0].toLowerCase() === 'add'){
         let  role = message.mentions.roles.first()
         let utilisateur = message.mentions.members.first() || message.member
