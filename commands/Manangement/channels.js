@@ -1,7 +1,6 @@
 const {MessageEmbed} = require('discord.js')
 module.exports.run = async(client, message, args) => {
     if(!message.guild.me.hasPermission('MANAGE_CHANNELS')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de modifier ce channel.`);
-    
     if(!args[0]){
         const embed = new MessageEmbed()
         .setTitle('Commande channel')
