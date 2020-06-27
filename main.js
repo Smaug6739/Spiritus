@@ -15,7 +15,7 @@ process.on('uncaughtException', (error) => {
     if (!client) return;
     client.errorHook.send(error, {code: 'js'});
   });
-  process.on('unhandledRejection', (listener) => {
+  process.on('unhandledRejection', (listener, test) => {
     console.warn(listener);
     if (!client) return;
     client.errorHook.send(listener, {code: 'js'});
@@ -32,4 +32,4 @@ process.on('uncaughtException', (error) => {
   });
 
   client.errorHook = new WebhookClient(
-    '725313155236102164', 'iYdWlcVjDnW6ty4-v6PXNFZ6EL2KPe7g0GPRWJbXgyZpAwT5PB2OJKLaTVNcB3MlFDXP');
+    `${client.config.ERREURS.WEBHOOKID}`, `${client.config.ERREURS.WEBHOOKTOKEN}`);

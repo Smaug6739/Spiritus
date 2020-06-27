@@ -34,8 +34,13 @@ module.exports = {
     color:{
       EMBEDCOLOR: '#222427',
       ROUGE : '#ff0004',
-      ORANGE : '#ff8400'
-     //EMBEDCOLOR: '#2000c7'
+      ORANGE : '#ff8400',
+      VERT : '#0x00FF00',
+
+    },
+    ERREURS:{
+      WEBHOOKID : '725313155236102164',
+      WEBHOOKTOKEN : 'iYdWlcVjDnW6ty4-v6PXNFZ6EL2KPe7g0GPRWJbXgyZpAwT5PB2OJKLaTVNcB3MlFDXP'
 
     }
 

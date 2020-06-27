@@ -2,12 +2,9 @@ const { MessageEmbed } = require("discord.js");
 
 module.exports = async(client, member) => {
   let { VERTCLAIRE } = require('../../configstyle');
-  
-    
     const embed = new MessageEmbed()
-  
     .setAuthor(`${member.displayName} (${member.id})`, member.user.displayAvatarURL())
-    .setColor(`${VERTCLAIRE}`)
+    .setColor(`${client.config.color.VERT}`)
     .setTitle('Member add')
     .setAuthor('Module d\'evenement', 'https://french-gaming-family.fr/public/spiritusavatar.png')
     .setDescription("**" + member.displayName +"** vient de nous rejoindre. Amuse toi bien !")
