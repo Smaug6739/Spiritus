@@ -1,20 +1,14 @@
-
 const { MessageEmbed } = require("discord.js");
-
 module.exports.run = async (client, message, args) => {
-  let { FALSE,ORANGE } = require('../../configstyle');
-    if(!message.guild.me.hasPermission('KICK_MEMBERS')) return message.channel.send(`${FALSE}Je n'ai pas la permission pour kick un utilisateur.`);
+    if(!message.guild.me.hasPermission('KICK_MEMBERS')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission pour kick un utilisateur.`);
 
   let user = message.mentions.users.first();
   let reason = (args.splice(1).join(' ') || 'Aucune raison spécifiée');
 
-   await user ? message.guild.member(user).kick(reason) : message.channel.send(`${FALSE}Je n'ai pas trouver cet utilisateur`);
-
-  
-  
+   await user ? message.guild.member(user).kick(reason) : message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver cet utilisateur`);
   const embed = new MessageEmbed()
     .setAuthor(`${user.username} (${user.id})`)
-    .setColor(`${ORANGE}`)
+    .setColor(`${client.config.color.ORANGE}`)
     .setDescription(`**Action**: kick\n**Raison**: ${reason}`)
     .setThumbnail(user.displayAvatarURL())
     .setTimestamp()

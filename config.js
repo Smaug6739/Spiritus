@@ -32,7 +32,9 @@ module.exports = {
 
     },
     color:{
-      EMBEDCOLOR: '#222427'
+      EMBEDCOLOR: '#222427',
+      ROUGE : '#ff0004',
+      ORANGE : '#ff8400'
      //EMBEDCOLOR: '#2000c7'
 
     }
