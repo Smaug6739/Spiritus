@@ -27,6 +27,8 @@ module.exports = {
     },
     color:{
       EMBEDCOLOR: '#222427'
+     //EMBEDCOLOR: '#2000c7'
+
     }
 
   }
