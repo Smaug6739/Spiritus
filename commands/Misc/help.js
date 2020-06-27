@@ -2,12 +2,11 @@ const { MessageEmbed } = require("discord.js");
 const { readdirSync } = require("fs");
 const categoryList = readdirSync('./commands');
 module.exports.run = (client, message, args, settings) => {
-  let { LOGOBOT,EMBED } = require('../../configstyle');
 
     if (!args.length) {
       const embed = new MessageEmbed()
-        .setColor(`${EMBED}`)
-        .setTitle(`${LOGOBOT} **Liste  des commandes :** `)
+        .setColor(`${client.config.color.EMBEDCOLOR}`)
+        .setTitle(`${client.config.emojis.LOGOBOT} **Liste  des commandes :** `)
 
         .addField("Liste des commandes", `Une liste de toutes les sous-catégories disponibles et leurs commandes.\nPour plus d'informations sur une commande, tapez \`${settings.prefix}help <command_name>\`.`)
         .setTimestamp()
@@ -28,9 +27,9 @@ module.exports.run = (client, message, args, settings) => {
       if (!command) return message.reply("cette commande n'existe pas!");
       const embed = new MessageEmbed()
       
-        .setColor(`${EMBED}`)
+        .setColor(`${client.config.color.EMBEDCOLOR}`)
         //.setTitle(`\`${settings.prefix}${command.help.name}\``)
-        .setTitle(`${LOGOBOT} **Commande :** ${settings.prefix}${command.help.name}`)
+        .setTitle(`${client.config.emojis.LOGOBOT} **Commande :** ${settings.prefix}${command.help.name}`)
         //.setDescription(`**Description :** ${command.help.description} (cd: ${command.help.cooldown}secs)\n`)
         .addField("**__Description :__**", `${command.help.description} (cd: ${command.help.cooldown}secs)`)
         .addField("**__Utilisation :__**", command.help.usage ? `${settings.prefix}${command.help.name} ${command.help.usage}` : `${settings.prefix}${command.help.name}`, true)

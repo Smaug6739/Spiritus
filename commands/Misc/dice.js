@@ -17,8 +17,8 @@ module.exports.run =async(client, message, args) => {
                 tableau.push('Lancé numero ' + (i+a) + ' a donner la valeur ' + entier)
                 }
                 const exampleEmbed = new MessageEmbed()
-                .setColor(EMBED)
-                .setTitle(`${LOGOBOT} Module de jeu`)
+                .setColor(client.config.color.EMBEDCOLOR)
+                .setTitle(`${client.config.emojis.LOGOBOT} Module de jeu`)
                 .setDescription(tableau)
                 .setThumbnail('https://french-gaming-family.fr/public/dés.png')
                 .setTimestamp()
