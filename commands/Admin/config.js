@@ -1,7 +1,6 @@
 module.exports.run = async (client, message, args, settings) => {
     const getSetting = args[0];
     const newSetting = args.slice(1).join(" ");
-    const {FALSE} = require('./../../configstyle')
     switch(getSetting){
         case  'prefix' : {
             if(newSetting){
@@ -44,7 +43,7 @@ module.exports.run = async (client, message, args, settings) => {
                     await client.updateGuild(message.guild, {rankcard : newSetting});
                     return message.channel.send(`rank-card mis a jour : \`${settings.rankcard }\` ->\`${newSetting}\``)
                 }else{
-                    return message.channel.send(`${FALSE}Le fichier n'est pas a un format valide. Les formats valides sont : png, jpg, jpeg et gif`)
+                    return message.channel.send(`${client.config.emojis.FALSE}Le fichier n'est pas a un format valide. Les formats valides sont : png, jpg, jpeg et gif`)
                 }
                 
             }
