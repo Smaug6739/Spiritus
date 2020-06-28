@@ -30,9 +30,6 @@ module.exports.run =(client, message, args) => {
             .setFooter(`User ID : ${m.id}`)
             message.channel.send(embed)
     })*/
-    
-    
-    
 }
 module.exports.help = {
     
