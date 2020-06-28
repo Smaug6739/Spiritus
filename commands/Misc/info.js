@@ -18,7 +18,8 @@ module.exports.run = async (client, message, args) =>{
     }
     if(args[0].toLowerCase() === 'user'){
     
-    let use = message.mentions.members.first()||message.member
+    let use = client.resolveMember(message.guild,args.slice(1).join(' '))//message.mentions.members.first()||message.member
+    if(use == undefined) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver cette personne`)
     if (use.user.presence.status === 'online') status = `${client.config.emojis.ONLINE}Online`  ;
     if (use.user.presence.status === 'idle') status = `${client.config.emojis.IDLE}Idle`;
     if (use.user.presence.status === 'dnd') status = `${client.config.emojis.DND}Dnd`;
@@ -28,9 +29,6 @@ module.exports.run = async (client, message, args) =>{
     if (use.user.presence.clientStatus != null && use.user.presence.clientStatus.mobile === 'online') plateforme = '📱 Mobile'
     //else plateforme = 'Aucune'
         console.log(use.user.presence.clientStatus)*/
-       
-    
-    
         const embed = new MessageEmbed()
         embed.setFooter(use.user.username, use.user.displayAvatarURL(), true) //OK
         embed.setThumbnail(use.user.displayAvatarURL())//OK
@@ -69,7 +67,8 @@ module.exports.run = async (client, message, args) =>{
         .setTimestamp()
         .setFooter('Informations sur le bot Spiritus. BOT ID : 689210215488684044')
 		message.channel.send(embed);
-    }else if(args[0].toLowerCase() === 'serveur'){
+    }
+    if(args[0].toLowerCase() === 'serveur'){
             var guild_name = message.guild.name,
             owner = message.guild.owner,
             region = message.guild.region.toUpperCase()
@@ -103,8 +102,11 @@ module.exports.run = async (client, message, args) =>{
             .setFooter('BOT ID : 689210215488684044', `${message.guild.iconURL()}`);
             message.channel.send(embed)
             });
-    }else if(args[0].toLowerCase() === 'role'){
-        const role = message.mentions.roles.first()
+    }
+    if(args[0].toLowerCase() === 'role'){
+        //const role = message.mentions.roles.first()
+        let role = client.resolveRole(message.guild,args.slice(1).join(" "))
+        if(role == undefined) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver ce role`)
         if(role.mentionable) mention = 'Oui'
         else mention = 'Non'
         if(role.managed) mananger = 'Oui'
@@ -131,9 +133,11 @@ module.exports.run = async (client, message, args) =>{
         .setTimestamp()
         .setFooter('Commande d\'information de role. BOT ID : 689210215488684044')
         message.channel.send(embed) 
-    }else if(args[0].toLowerCase() == 'channel'){
-        const channel = message.channel;
-        if(channel.type === 'text') type = `${client.config.emojis.CAHNNEL}Texte`
+    }
+    if(args[0].toLowerCase() == 'channel'){
+        let channel = client.resolveChannel(message.guild, args[1])
+        if(channel == undefined)return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver ce channel.`) 
+        if(channel.type === 'text') type = `${client.config.emojis.CHANNEL}Texte`
         if(channel.nsfw) nsfw = `${client.config.emojis.CHANNELNSFW} Oui`;
         else nsfw = `${client.config.emojis.CHANNELNSFW} Non`;
         const embed = new MessageEmbed()
@@ -144,7 +148,7 @@ module.exports.run = async (client, message, args) =>{
         .addFields(
             { name: 'Channel id :', value: `${channel.id}`, inline: true },
             { name: 'Catégorie :', value: `${channel.parent}`, inline: true },
-            { name: 'Topic :', value: `${channel.topic}`, inline: false },
+            { name: 'Topic :', value: `${channel.topic || 'Aucun Topic'}`, inline: false },
             { name: 'Catégorie ID :', value: `${channel.parentID}`, inline: true },
             { name: 'Position :', value: `${channel.position}`, inline: true },
             { name: '\u200b', value: `\u200b`, inline: true },
