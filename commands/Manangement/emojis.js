@@ -1,5 +1,5 @@
 const { MessageEmbed } = require("discord.js") 
-module.exports.run = async (client, message, args) => {
+module.exports.run = async (client, message, args,settings) => {
     if(!message.guild.me.hasPermission('MANAGE_EMOJIS')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de gérer les emojis.`);
     if(!message.member.hasPermission('MANAGE_EMOJIS'))return message.channel.send(`${client.config.emojis.FALSE}Vous devez avoir la permission de gérer les emojis pour utiliser cette commande !`)
     if(!args[0]){
@@ -14,8 +14,8 @@ module.exports.run = async (client, message, args) => {
       )
       .setTimestamp()
       .setFooter('BOT ID : 689210215488684044')
-     return message.channel.send(embed)
-  }
+      return message.channel.send(embed)
+    }
     if(args[0].toLowerCase() === 'liste'){
       const emojiList = message.guild.emojis.cache.map(e=>e.toString()).join(" ");
       const embed = new MessageEmbed()
@@ -25,8 +25,15 @@ module.exports.run = async (client, message, args) => {
        .setFooter('BOT ID : 689210215488684044')
       message.channel.send(embed)
     //--------------------------------------EMOJIS-CREATE------------------------------------------------------
-    }else if(args[0].toLowerCase() === 'create'){
-            if(!args[1]) return message.channel.send(`${client.config.emojis.FALSE}Merci de d'incure le nom du nouvel emoji et son nom.`)
+    }
+    if(args[0].toLowerCase() === 'create'){
+            const emojiCreateDescription = new MessageEmbed()
+            .setTitle(`Sous commande : ${settings.prefix}emoji create`)
+            .setColor('#dc2525')
+            .setDescription(`**Module :** Manangement\n**Description :** Permet de crée un emoji sur le serveur\n**Usage :** [nom] (URL/Attachement)\n**Exemples :** \n ${settings.prefix}emoji create Spiritus https://cdn.discordapp.com/emojis/713121641701572698.png`)
+            .setFooter('BOT ID : 689210215488684044')
+            .setTimestamp()
+            if(!args[1])return message.channel.send(emojiCreateDescription)
             if(args[1].includes('-')||args[1].includes('/')||args[1].includes('/')||args[1].includes('+')||args[1].includes('*')||args[1].includes('(')||args[1].includes(')')||args[1].includes('[')||args[1].includes(']')||args[1].includes('{')||args[1].includes('}')||args[1].includes('#')||args[1].includes('~')||args[1].includes('@')||args[1].includes('&')||args[1].includes('^')||args[1].includes('$')||args[1].includes('€')||args[1].includes('°')||args[1].includes('%')||args[1].includes('£')||args[1].includes(',')||args[1].includes('<')||args[1].includes('>')) return message.channel.send(`${client.config.emojis.FALSE}Le nom de l'emoji n'est pas valide`);
             let nom_emoji = args[1]
             let emoji = '';
@@ -57,8 +64,15 @@ module.exports.run = async (client, message, args) => {
               client.channels.cache.get('725251200660013136').send(`Une erreur sur la commande \`emoji-create\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
             }
     //--------------------------------------EMOJIS-UPDATE------------------------------------------------------
-    }else if(args[0].toLowerCase() === 'update'){
-            if(!args[1]) return message.channel.send(`${client.config.emojis.FALSE}Merci d'inclure l'emoji a modifier puis son nom.`)
+    }
+    if(args[0].toLowerCase() === 'update'){
+      const emojiUpdateDescription = new MessageEmbed()
+            .setTitle(`Sous commande : ${settings.prefix}emoji update`)
+            .setColor('#dc2525')
+            .setDescription(`**Module :** Manangement\n**Description :** Permet de modifier le nom d'un emoji sur le serveur\n**Usage :** [nom] (Nouveau nom)\n**Exemples :** \n ${settings.prefix}emoji update BOT Spiritus`)
+            .setFooter('BOT ID : 689210215488684044')
+            .setTimestamp()
+            if(!args[1])return message.channel.send(emojiUpdateDescription)
             if(!args[2]) return message.channel.send(`${client.config.emojis.FALSE}Veuillez donner un nom au nouvel emoji`);
             if(args[2].includes('-')||args[2].includes('/')||args[2].includes('/')||args[2].includes('+')||args[2].includes('*')||args[2].includes('(')||args[2].includes(')')||args[2].includes('[')||args[2].includes(']')||args[2].includes('{')||args[2].includes('}')||args[2].includes('#')||args[2].includes('~')||args[2].includes('@')||args[2].includes('&')||args[2].includes('^')||args[2].includes('$')||args[2].includes('€')||args[2].includes('°')||args[2].includes('%')||args[2].includes('£')||args[2].includes(',')||args[2].includes('<')||args[2].includes('>')) return message.channel.send(`${client.config.emojis.FALSE}Le nom de l'emoji n'est pas valide`);
             let emo = client.emojis.cache.find(emoji => emoji.name === args[1]);
@@ -114,8 +128,15 @@ module.exports.run = async (client, message, args) => {
              }
 
     //-------------------------------------------EMOJIS-DELETE----------------------------------------------------
-    }else if(args[0].toLowerCase() === 'delete'){
-      if(!args[1]) return message.channel.send(`${client.config.emojis.FALSE}Merci d'inclure l'emoji a supprimer.`)
+    }
+    if(args[0].toLowerCase() === 'delete'){
+      const emojiDeleteDescription = new MessageEmbed()
+          .setTitle(`Sous commande : ${settings.prefix}emoji delete`)
+          .setColor('#dc2525')
+          .setDescription(`**Module :** Manangement\n**Description :** Permet de supprimer un emoji sur le serveur\n**Usage :** [nom]\n**Exemples :** \n ${settings.prefix}emoji delete Spiritus`)
+          .setFooter('BOT ID : 689210215488684044')
+          .setTimestamp()
+          if(!args[1])return message.channel.send(emojiDeleteDescription)
         let emo = client.emojis.cache.find(emoji => emoji.name === args[1])
         if(emo){
             //emoji-nom
