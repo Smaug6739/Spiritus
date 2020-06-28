@@ -19,7 +19,24 @@ module.exports.run = async (client, message, args) =>{
     if(args[0].toLowerCase() === 'user'){
     
     let use = client.resolveMember(message.guild,args.slice(1).join(' '))//message.mentions.members.first()||message.member
-    if(use == undefined) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver cette personne`)
+    if(use == undefined){
+        try{
+            client.users.fetch(args[1]).then(m =>{
+            if(m.bot)BOTSTATUS = 'Vrai'
+            else BOTSTATUS = 'Faux'
+             emb = new MessageEmbed()
+            .setAuthor(`${m.username}#${m.discriminator}`, `${m.avatarURL()}`)
+            .setThumbnail(m.avatarURL())
+            .addField(`\u200b`,`BOT : ${BOTSTATUS}`)
+            .setDescription('Cette personne n\'est pas sur le serveur')
+            .setFooter(`User ID : ${m.id}`)
+             message.channel.send(emb)
+             return
+            })
+        }catch{
+            return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver cette personne.`)
+        }
+    }else{
     if (use.user.presence.status === 'online') status = `${client.config.emojis.ONLINE}Online`  ;
     if (use.user.presence.status === 'idle') status = `${client.config.emojis.IDLE}Idle`;
     if (use.user.presence.status === 'dnd') status = `${client.config.emojis.DND}Dnd`;
@@ -47,6 +64,7 @@ module.exports.run = async (client, message, args) =>{
         embed.addField('User information:', `** Permissions:** ${use.permissions.toArray().sort().map(permissions => `${permissions.split("_").map(x => x[0] + x.slice(1).toLowerCase()).join(" ")}`).join(", ") || "none"}`)//OK
         embed.setTimestamp();
         message.channel.send(embed);
+    }
     }else if(args[0].toLowerCase() === 'bot' ){
         const embed = new MessageEmbed()
         .setColor(`${client.config.color.EMBEDCOLOR}`)
