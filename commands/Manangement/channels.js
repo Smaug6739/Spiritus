@@ -1,5 +1,5 @@
 const {MessageEmbed} = require('discord.js')
-module.exports.run = async(client, message, args) => {
+module.exports.run = async(client, message, args,settings) => {
     if(!message.guild.me.hasPermission('MANAGE_CHANNELS')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de modifier ce channel.`);
     if(!args[0]){
         const embed = new MessageEmbed()
@@ -22,6 +22,13 @@ module.exports.run = async(client, message, args) => {
         return message.channel.send(embed)
     }
     if(args[0].toLowerCase() === 'clone'){
+        const channelCloneDescription = new MessageEmbed()
+        .setTitle(`Sous commande : ${settings.prefix}channel clone`)
+        .setColor('#dc2525')
+        .setDescription(`**Module :** Manangement\n**Description :** Permet de cloner un channel\n**Usage :** [nom/id/mention]\n**Exemples :** \n ${settings.prefix}channel clone 716993025678639124 \n ${settings.prefix}channel clone #blabla`)
+        .setFooter('BOT ID : 689210215488684044')
+        .setTimestamp()
+        if(!args[1]) return message.channel.send(channelCloneDescription)
         let channel = client.resolveChannel(message.guild, args[1])
         if(channel == undefined)return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver ce channel.`)
         try{
@@ -33,6 +40,13 @@ module.exports.run = async(client, message, args) => {
         };
     }
     if(args[0].toLowerCase() === 'synchro'){
+        const channelSynchroDescription = new MessageEmbed()
+        .setTitle(`Sous commande : ${settings.prefix}channel synchro`)
+        .setColor('#dc2525')
+        .setDescription(`**Module :** Manangement\n**Description :** Permet de synchroniser les permissions d'un channel avec sa catégorie\n**Usage :** [nom/id/mention]\n**Exemples :** \n ${settings.prefix}channel synchro 716993025678639124 \n ${settings.prefix}channel synchro #blabla`)
+        .setFooter('BOT ID : 689210215488684044')
+        .setTimestamp()
+        if(!args[1]) return message.channel.send(channelSynchroDescription)
         let channel = client.resolveChannel(message.guild, args[1])
         if(channel == undefined)return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver ce channel.`)
         if(!channel.parent) return message.channel.send(`${client.config.emojis.FALSE}Le salon n'est dans aucune catégorie.`)
@@ -46,8 +60,14 @@ module.exports.run = async(client, message, args) => {
 
     }
     if(args[0].toLowerCase() === 'create'){
+        const channelCreateDescription = new MessageEmbed()
+        .setTitle(`Sous commande : ${settings.prefix}channel create`)
+        .setColor('#dc2525')
+        .setDescription(`**Module :** Manangement\n**Description :**  Permet de crée un channel ou une catégorie\n**Usage :** [text/voice/category] (name)\n**Exemples :** \n ${settings.prefix}channel create text Spiritus\n ${settings.prefix}channel create category Spiritus`)
+        .setFooter('BOT ID : 689210215488684044')
+        .setTimestamp()
         var category = message.channel.parentID
-        if(!args[1]) return message.channel.send(`${client.config.emojis.FALSE}Veuillez donner en premier argument une valeur valide (\`text\` ou \`voice\` ou \`category\`)`)
+        if(!args[1]) return message.channel.send(channelCreateDescription)
         if(args[1] == 'text' || args[1] == 'voice') {
             try{
                 let nameChannel = args.splice(2).join('-')
@@ -81,7 +101,13 @@ module.exports.run = async(client, message, args) => {
         }
     } 
     if(args[0].toLowerCase() === 'update'){
-        if(!args[1]) return message.channel.send(`${client.config.emojis.FALSE} de spécifier le nom du channel a modifier`)
+        const channelUpdateDescription = new MessageEmbed()
+        .setTitle(`Sous commande : ${settings.prefix}channel update`)
+        .setColor('#dc2525')
+        .setDescription(`**Module :** Manangement\n**Description :** Permet de modifier un channel\n**Usage :** [Ancion nom/id/mention] [Nouveau nom]\n**Exemples :** \n ${settings.prefix}channel update 716993025678639124 💬general\n ${settings.prefix}channel update #blabla Général`)
+        .setFooter('BOT ID : 689210215488684044')
+        .setTimestamp()
+        if(!args[1]) return message.channel.send(channelUpdateDescription)
         if(!args[2]) return message.channel.send(`${client.config.emojis.FALSE}Merci de spécifier le nouveau nom du channel a modifier`)
         let channel = client.resolveChannel(message.guild, args.slice(1).join('-'))
         if(channel == undefined)return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver ce channel.`)
@@ -98,6 +124,13 @@ module.exports.run = async(client, message, args) => {
         }
     }
     if(args[0].toLowerCase() === 'delete'){
+        const channelDeleteDescription = new MessageEmbed()
+        .setTitle(`Sous commande : ${settings.prefix}channel delete`)
+        .setColor('#dc2525')
+        .setDescription(`**Module :** Manangement\n**Description :** Permet de supprimer un channel\n**Usage :** (nom/id/mention)\n**Exemples :** \n ${settings.prefix}channel delete 716993025678639124\n ${settings.prefix}channel delete #blabla`)
+        .setFooter('BOT ID : 689210215488684044')
+        .setTimestamp()
+        if(!args[1])return message.channel.send(channelDeleteDescription)
         let channel = client.resolveChannel(message.guild, args.slice(1).join('-'))
         if(channel == undefined)return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver ce channel.`)
         try{
@@ -110,7 +143,13 @@ module.exports.run = async(client, message, args) => {
  
     }
     if(args[0].toLowerCase() === 'position'){
-        if(!args[1]) return message.channel.send(`${client.config.emojis.FALSE}Merci de spécifier le nom du channel a modifier`)
+        const channelPositionDescription = new MessageEmbed()
+        .setTitle(`Sous commande : ${settings.prefix}channel position`)
+        .setColor('#dc2525')
+        .setDescription(`**Module :** Manangement\n**Description :** Permet de modifier la position d'un channel\n**Usage :** (nom/id/mention) (position)\n**Exemples :** \n ${settings.prefix}channel position 716993025678639124 5\n ${settings.prefix}channel position #blabla 5`)
+        .setFooter('BOT ID : 689210215488684044')
+        .setTimestamp()
+        if(!args[1]) return message.channel.send(channelPositionDescription)
         if(!args[2]) return message.channel.send(`${client.config.emojis.FALSE}Merci de spécifier la nouvelle position du channel`)
         let channel = client.resolveChannel(message.guild, args[1])
         if(channel == undefined)return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver ce channel.`)
@@ -126,7 +165,13 @@ module.exports.run = async(client, message, args) => {
         }
     }
     if(args[0].toLowerCase() === 'parent'){
-        if(!args[1]) return message.channel.send(`${client.config.emojis.FALSE}Merci de spécifier le nom du channel a modifier`)
+        const channelParentDescription = new MessageEmbed()
+        .setTitle(`Sous commande : ${settings.prefix}channel parent`)
+        .setColor('#dc2525')
+        .setDescription(`**Module :** Manangement\n**Description :** Permet de modifier la categorie d'un channel\n**Usage :** (nom/id/mention) (categorieID)\n**Exemples :** \n ${settings.prefix}channel position 716993025678639124 716992798506876980\n ${settings.prefix}channel position #blabla 716992798506876980`)
+        .setFooter('BOT ID : 689210215488684044')
+        .setTimestamp()
+        if(!args[1]) return message.channel.send(channelParentDescription)
         if(!args[2]) return message.channel.send(`${client.config.emojis.FALSE}Merci de spécifier la nouvelle position du channel`)
         let channel = client.resolveChannel(message.guild, args[1])
         if(channel == undefined)return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver ce channel.`)
@@ -143,7 +188,13 @@ module.exports.run = async(client, message, args) => {
         }
     
     if(args[0].toLowerCase() === 'topic'){
-        if(!args[1]) return message.channel.send(`${client.config.emojis.FALSE}Merci de spécifier le nom du channel a modifier`)
+        const channelTopicDescription = new MessageEmbed()
+        .setTitle(`Sous commande : ${settings.prefix}channel topic`)
+        .setColor('#dc2525')
+        .setDescription(`**Module :** Manangement\n**Description :** Permet de modifier le topic d'un channel\n**Usage :** [nom/id/mention] (Nouveau topic)\n**Exemples :** \n ${settings.prefix}channel topic 716993025678639124 Nouveau topic\n ${settings.prefix}channel position #blabla Nouveau topic`)
+        .setFooter('BOT ID : 689210215488684044')
+        .setTimestamp()
+        if(!args[1]) return message.channel.send(channelTopicDescription)
         if(!args[2]) return message.channel.send(`${client.config.emojis.FALSE}Merci de spécifier le nouveau topic`)
         let channel = client.resolveChannel(message.guild, args[1])
         if(channel == undefined)return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver ce channel.`)
