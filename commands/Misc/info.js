@@ -1,6 +1,6 @@
 const { MessageEmbed} = require("discord.js");
 const moment = require('moment');
-module.exports.run = async (client, message, args) =>{
+module.exports.run = async (client, message, args,settings) =>{
     if(!args[0]){
         const embed = new MessageEmbed()
         .setTitle('Commande info')
@@ -17,6 +17,13 @@ module.exports.run = async (client, message, args) =>{
        return message.channel.send(embed)
     }
     if(args[0].toLowerCase() === 'user'){
+        const infoUserDescription = new MessageEmbed()
+        .setTitle(`Sous commande : ${settings.prefix}info user`)
+        .setColor('#dc2525')
+        .setDescription(`**Module :** Misc\n**Description :** Permet d'avoir des informations sur une personne.\n**Usage :** [nom/id/mention]\n**Exemples :** \n ${settings.prefix}info user 611468402263064577 \n ${settings.prefix}info user Smaug`)
+        .setFooter('BOT ID : 689210215488684044')
+        .setTimestamp()
+        if(!args[1]) return message.channel.send(infoUserDescription)
     let use = client.resolveMember(message.guild,args.slice(1).join(' '))//message.mentions.members.first()||message.member
     if(use == undefined){
         try{
@@ -120,6 +127,13 @@ module.exports.run = async (client, message, args) =>{
             });
     }
     if(args[0].toLowerCase() === 'role'){
+        const infoRoleDescription = new MessageEmbed()
+        .setTitle(`Sous commande : ${settings.prefix}info role`)
+        .setColor('#dc2525')
+        .setDescription(`**Module :** Misc\n**Description :** Permet d'avoir des informations sur un role.\n**Usage :** [nom/id/mention]\n**Exemples :** \n ${settings.prefix}info role 708500588626837505 \n ${settings.prefix}info role @Admin`)
+        .setFooter('BOT ID : 689210215488684044')
+        .setTimestamp()
+        if(!args[1]) return message.channel.send(infoRoleDescription)
         //const role = message.mentions.roles.first()
         let role = client.resolveRole(message.guild,args.slice(1).join(" "))
         if(role == undefined) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver ce role`)
@@ -151,6 +165,13 @@ module.exports.run = async (client, message, args) =>{
         message.channel.send(embed) 
     }
     if(args[0].toLowerCase() == 'channel'){
+        const infoRoleDescription = new MessageEmbed()
+        .setTitle(`Sous commande : ${settings.prefix}info role`)
+        .setColor('#dc2525')
+        .setDescription(`**Module :** Misc\n**Description :** Permet d'avoir des informations sur un channel.\n**Usage :** [nom/id/mention]\n**Exemples :** \n ${settings.prefix}info channel 710761432534351925 \n ${settings.prefix}info channel #tchat`)
+        .setFooter('BOT ID : 689210215488684044')
+        .setTimestamp()
+        if(!args[1]) return message.channel.send(infoRoleDescription)
         let channel = client.resolveChannel(message.guild, args[1])
         if(channel == undefined)return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver ce channel.`) 
         if(channel.type === 'text') type = `${client.config.emojis.CHANNEL}Texte`
