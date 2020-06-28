@@ -17,7 +17,6 @@ module.exports.run = async (client, message, args) =>{
        return message.channel.send(embed)
     }
     if(args[0].toLowerCase() === 'user'){
-    
     let use = client.resolveMember(message.guild,args.slice(1).join(' '))//message.mentions.members.first()||message.member
     if(use == undefined){
         try{
@@ -41,7 +40,6 @@ module.exports.run = async (client, message, args) =>{
     if (use.user.presence.status === 'idle') status = `${client.config.emojis.IDLE}Idle`;
     if (use.user.presence.status === 'dnd') status = `${client.config.emojis.DND}Dnd`;
     if (use.user.presence.status === 'offline') status = `${client.config.emojis.OFFLINE}Offline`;
-     
    /*if (use.user.presence.clientStatus != null && use.user.presence.clientStatus.desktop === 'online') plateforme = '🖥️ Ordinateur'
     if (use.user.presence.clientStatus != null && use.user.presence.clientStatus.mobile === 'online') plateforme = '📱 Mobile'
     //else plateforme = 'Aucune'

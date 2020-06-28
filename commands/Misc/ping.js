@@ -15,7 +15,7 @@ module.exports.run =async(client, message, args) => {
         message.channel.send(embed)
         
     })*/
-    const test = client.users.fetch(args[0]).then(m =>{ console.log(m)
+   /* const test = client.users.fetch(args[0]).then(m =>{ console.log(m)
             console.log(m.avatarURL())
             let flag = m.flags
             if(flag.includes(576))
@@ -27,7 +27,7 @@ module.exports.run =async(client, message, args) => {
             .setDescription('Cette personne n\'est pas sur le serveur')
             .setFooter(`User ID : ${m.id}`)
             message.channel.send(embed)
-    })
+    })*/
     
     
     

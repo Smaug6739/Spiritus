@@ -7,13 +7,11 @@ module.exports.run = (client, message, args, settings) => {
       const embed = new MessageEmbed()
         .setColor(`${client.config.color.EMBEDCOLOR}`)
         .setTitle(`${client.config.emojis.LOGOBOT} **Liste  des commandes :** `)
-
         .addField("Liste des commandes", `Une liste de toutes les sous-catégories disponibles et leurs commandes.\nPour plus d'informations sur une commande, tapez \`${settings.prefix}help <command_name>\`.`)
         .setTimestamp()
         .setFooter('BOT ID : 689210215488684044', `${message.guild.iconURL()}`);
       for (const category of categoryList) {
         //console.log('Catégories chargées :'+category)
-
         embed.addField(
           `${category}`,
           `${client.commands.filter(cat => cat.help.category === category.toLowerCase())
