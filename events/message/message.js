@@ -101,6 +101,8 @@ module.exports = async(client, message) => {
 
   tStamps.set(message.author.id, timeNow);
   setTimeout(() => tStamps.delete(message.author.id), cdAmount);
-
-  command.run(client, message, args, settings, dbUser);
+  
+   command.run(client, message, args, settings, dbUser)
+ 
+ 
 }

@@ -9,7 +9,7 @@ module.exports =async client => {
       client.user.setPresence({ activity: { name: `${status [i++ % status.length]}`, type: 'WATCHING' }, status: 'online' });
 
     },60000)
-  const webhookClient  = new WebhookClient('714886315937759252', 'GtQPNjgyVAHQEaZAudHJ7TgpdhVrifSxp2jkEJVV8H5M0wQ9SEWJOUhMg94M2g_hpKZl');
+  const webhookClient  = new WebhookClient(`${client.config.webhooks.readyLogs.ID}`, `${client.config.webhooks.readyLogs.TOKEN}`);
   const embed = new MessageEmbed()
 	.setTitle('BOT 2.0 à démarer avec succès.')
   .setColor('#0099ff')
@@ -17,8 +17,8 @@ module.exports =async client => {
   .setFooter('BOT ID : 689210215488684044');
 
   webhookClient.send('',{
-    username: 'Démarage',
-    avatarURL: 'https://cdn.discordapp.com/attachments/715219402215129088/720266052231102534/FGF_Moderateur.png',
+    username: `${client.config.webhooks.readyLogs.NAME}`,
+    avatarURL: `${client.config.webhooks.readyLogs.AVATAR}`,
     embeds: [embed],
   });
   }
