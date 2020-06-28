@@ -37,27 +37,28 @@ module.exports.run = async(client, message, args) => {
         .then(role => message.channel.send(`${client.config.emojis.TRUE}J'ai bien crée le role ${role}`))
         .catch(console.error);
     //---------------------------------------------ROLES-DELETE----------------------------------------------------------
-    }else if(args[0].toLowerCase() === 'delete'){
-        let role = message.guild.roles.cache.find(r => r.name === args.slice(1).join(" ").toString()) || message.mentions.roles.first()
-        if(role){    
+    }
+     if(args[0].toLowerCase() === 'delete'){
+        let role = client.resolveRole(message.guild, args[1])
+        if(role == undefined) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver ce role`)
+         
                 message.channel.send(`${client.config.emojis.TRUE}J'ai bien supprimer le role \`${role.name}\``).then(
                     role.delete())
-        }else{
-            message.channel.send(`${client.config.emojis.FALSE}Je n\'ai pas trouver ce role... Essayez de le mentionner`)
-        }
-    }else if(args[0].toLowerCase() === 'update'){
+        
+    }
+    if(args[0].toLowerCase() === 'update'){
         if(!args[1]) return message.channel.send(`${client.config.emojis.FALSE}Merci d'indiquer en premier argument le nom ou la mention du role a changer`)
-        let role = message.guild.roles.cache.find(r => r.name === args.slice(1).toString()) || message.mentions.roles.first()
-        if(role){
-                let roleName = args.slice(2).join(" ") || 'new role'
-                if(roleName.length > 99) return message.channel.send(`${client.config.emojis.FALSE}Le nom du role doit etre inferieur a 100 caractères.`);
-                await role.edit({ name: `${roleName}` }).then(
-                    message.channel.send(`${client.config.emojis.TRUE}J'ai bien mis a jour le role \`${role.name}\` par \`${roleName}\``))
-        }else{
-            message.channel.send(`${client.config.emojis.FALSE}Je n\'ai pas trouver ce role... Essayez de le mentionner`)
-        }
-    }else if(args[0].toLowerCase() === 'position'){
-        let role = message.mentions.roles.first()
+        let role = client.resolveRole(message.guild, args[1])
+        if(role == undefined) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver ce role`)
+        
+            let roleName = args.slice(2).join(" ") || 'new role'
+            if(roleName.length > 99) return message.channel.send(`${client.config.emojis.FALSE}Le nom du role doit etre inferieur a 100 caractères.`);
+            await role.edit({ name: `${roleName}` }).then(
+            message.channel.send(`${client.config.emojis.TRUE}J'ai bien mis a jour le role \`${role.name}\` par \`${roleName}\``))
+    }
+     if(args[0].toLowerCase() === 'position'){
+        let role = client.resolveRole(message.guild, args[1])
+        if(role == undefined) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver ce role`)
         let newPosition = args.slice(1).join('')
         newPosition = newPosition.split(role)
         newPosition = newPosition.join(' ')
@@ -71,7 +72,8 @@ module.exports.run = async(client, message, args) => {
 
     
     }else if(args[0].toLowerCase() === 'add'){
-        let  role = message.mentions.roles.first()
+        let role = client.resolveRole(message.guild, args[2])|| message.mentions.roles.first()
+        if(role == undefined) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver ce role`)
         let utilisateur = message.mentions.members.first() || message.member
         if (role) {
             if(message.guild.me.roles.highest.comparePositionTo(role) <= 0) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas un role sufisant pour vous attribuer ce role`)
@@ -88,9 +90,11 @@ module.exports.run = async(client, message, args) => {
         }else{
             message.channel.send(`${client.config.emojis.FALSE}Le rôle n'existe pas...`);
         }
-    }else if(args[0].toLowerCase() === 'rem'){
-            let  role = message.mentions.roles.first()
-            let utilisateur = message.mentions.members.first() || message.member
+    }
+    if(args[0].toLowerCase() === 'rem'){
+        let role = client.resolveRole(message.guild, args[2]) || message.mentions.roles.first()
+        if(role == undefined) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver ce role`)
+        let utilisateur = message.mentions.members.first() || message.member
         if (role){
             if(message.guild.me.roles.highest.comparePositionTo(role) <= 0) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas un role sufisant pour vous supprimer ce role`)
             if(message.member.roles.highest.comparePositionTo(role) <= 0){
