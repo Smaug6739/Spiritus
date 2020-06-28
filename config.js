@@ -26,7 +26,7 @@ module.exports = {
       LOGOBOT: '<:Z6158981175244605Z6:713121641701572698>',
     },
     color:{
-      EMBEDCOLOR: '#222427',
+      EMBEDCOLOR: '#d91414',
       ROUGE : '#ff0004',
       ORANGE : '#ff8400',
       VERT : '#0x00FF00',

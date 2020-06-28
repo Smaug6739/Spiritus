@@ -30,7 +30,7 @@ module.exports.run = async(client, message, args,settings) => {
     if(args[0].toLowerCase() === 'create'){
         const roleCreateDescription = new MessageEmbed()
             .setTitle(`Sous commande : ${settings.prefix}role create`)
-            .setColor('#dc2525')
+            .setColor(client.config.color.EMBEDCOLOR)
             .setDescription(`**Module :** Manangement\n**Description :** Permet de crée un role sur le serveur\n**Usage :** [nom]\n**Exemples :** \n ${settings.prefix}role create Spiritus`)
             .setFooter('BOT ID : 689210215488684044')
             .setTimestamp()
@@ -49,7 +49,7 @@ module.exports.run = async(client, message, args,settings) => {
     if(args[0].toLowerCase() === 'delete'){
         const roleDeleteDescription = new MessageEmbed()
         .setTitle(`Sous commande : ${settings.prefix}role delete`)
-        .setColor('#dc2525')
+        .setColor(client.config.color.EMBEDCOLOR)
         .setDescription(`**Module :** Manangement\n**Description :** Permet de supprimer un role sur le serveur\n**Usage :** [nom/id/mention]\n**Exemples :** \n ${settings.prefix}role delete Spiritus`)
         .setFooter('BOT ID : 689210215488684044')
         .setTimestamp()
@@ -64,7 +64,7 @@ module.exports.run = async(client, message, args,settings) => {
     if(args[0].toLowerCase() === 'update'){
         const roleUpdateDescription = new MessageEmbed()
         .setTitle(`Sous commande : ${settings.prefix}role update`)
-        .setColor('#dc2525')
+        .setColor(client.config.color.EMBEDCOLOR)
         .setDescription(`**Module :** Manangement\n**Description :** Permet de modifier un role sur le serveur\n**Usage :** [nom/id/mention] (Nouveau nom)\n**Exemples :** \n ${settings.prefix}role update BOT Spiritus`)
         .setFooter('BOT ID : 689210215488684044')
         .setTimestamp()
@@ -81,7 +81,7 @@ module.exports.run = async(client, message, args,settings) => {
      if(args[0].toLowerCase() === 'position'){
         const rolePositionDescription = new MessageEmbed()
         .setTitle(`Sous commande : ${settings.prefix}role position`)
-        .setColor('#dc2525')
+        .setColor(client.config.color.EMBEDCOLOR)
         .setDescription(`**Module :** Manangement\n**Description :** Permet de modifier la position un role sur le serveur\n**Usage :** [nom/id/mention] (Position)\n**Exemples :** \n ${settings.prefix}role position Spiritus 5`)
         .setFooter('BOT ID : 689210215488684044')
         .setTimestamp()
@@ -104,7 +104,7 @@ module.exports.run = async(client, message, args,settings) => {
     if(args[0].toLowerCase() === 'add'){
         const roleAddDescription = new MessageEmbed()
         .setTitle(`Sous commande : ${settings.prefix}role add`)
-        .setColor('#dc2525')
+        .setColor(client.config.color.EMBEDCOLOR)
         .setDescription(`**Module :** Manangement\n**Description :** Permet d'ajouter un role a une personne du serveur\n**Usage :** [nom/id/mention] (@User)\n**Exemples :** \n ${settings.prefix}role add @Smaug @Spiritus`)
         .setFooter('BOT ID : 689210215488684044')
         .setTimestamp()
@@ -129,7 +129,7 @@ module.exports.run = async(client, message, args,settings) => {
     if(args[0].toLowerCase() === 'rem'){
         const roleRemDescription = new MessageEmbed()
         .setTitle(`Sous commande : ${settings.prefix}role rem`)
-        .setColor('#dc2525')
+        .setColor(client.config.color.EMBEDCOLOR)
         .setDescription(`**Module :** Manangement\n**Description :** Permet d'enlever un role à une personne du serveur\n**Usage :** [nom/id/mention] (@User)\n**Exemples :** \n ${settings.prefix}role rem @Smaug @Spiritus`)
         .setFooter('BOT ID : 689210215488684044')
         .setTimestamp()

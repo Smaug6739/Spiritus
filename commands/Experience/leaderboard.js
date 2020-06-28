@@ -1,10 +1,9 @@
 const {MessageEmbed} = require('discord.js')
-const {EMBED} = require('./../../configstyle')
 module.exports.run = async(client, message, args, settings, dbUser) => {
     if(settings.expsysteme){
         const embed = new MessageEmbed()
         .setTitle('Classement du TOP 10 des utilisateurs du serveur')
-        .setColor(EMBED)
+        .setColor(client.config.color.EMBEDCOLOR)
         .setThumbnail(`${message.guild.iconURL()}`)
         .setTimestamp()
         .setFooter('BOT ID : 689210215488684044')

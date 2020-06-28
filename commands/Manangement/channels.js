@@ -24,7 +24,7 @@ module.exports.run = async(client, message, args,settings) => {
     if(args[0].toLowerCase() === 'clone'){
         const channelCloneDescription = new MessageEmbed()
         .setTitle(`Sous commande : ${settings.prefix}channel clone`)
-        .setColor('#dc2525')
+        .setColor(client.config.color.EMBEDCOLOR)
         .setDescription(`**Module :** Manangement\n**Description :** Permet de cloner un channel\n**Usage :** [nom/id/mention]\n**Exemples :** \n ${settings.prefix}channel clone 716993025678639124 \n ${settings.prefix}channel clone #blabla`)
         .setFooter('BOT ID : 689210215488684044')
         .setTimestamp()
@@ -42,7 +42,7 @@ module.exports.run = async(client, message, args,settings) => {
     if(args[0].toLowerCase() === 'synchro'){
         const channelSynchroDescription = new MessageEmbed()
         .setTitle(`Sous commande : ${settings.prefix}channel synchro`)
-        .setColor('#dc2525')
+        .setColor(client.config.color.EMBEDCOLOR)
         .setDescription(`**Module :** Manangement\n**Description :** Permet de synchroniser les permissions d'un channel avec sa catégorie\n**Usage :** [nom/id/mention]\n**Exemples :** \n ${settings.prefix}channel synchro 716993025678639124 \n ${settings.prefix}channel synchro #blabla`)
         .setFooter('BOT ID : 689210215488684044')
         .setTimestamp()
@@ -62,7 +62,7 @@ module.exports.run = async(client, message, args,settings) => {
     if(args[0].toLowerCase() === 'create'){
         const channelCreateDescription = new MessageEmbed()
         .setTitle(`Sous commande : ${settings.prefix}channel create`)
-        .setColor('#dc2525')
+        .setColor(client.config.color.EMBEDCOLOR)
         .setDescription(`**Module :** Manangement\n**Description :**  Permet de crée un channel ou une catégorie\n**Usage :** [text/voice/category] (name)\n**Exemples :** \n ${settings.prefix}channel create text Spiritus\n ${settings.prefix}channel create category Spiritus`)
         .setFooter('BOT ID : 689210215488684044')
         .setTimestamp()
@@ -103,7 +103,7 @@ module.exports.run = async(client, message, args,settings) => {
     if(args[0].toLowerCase() === 'update'){
         const channelUpdateDescription = new MessageEmbed()
         .setTitle(`Sous commande : ${settings.prefix}channel update`)
-        .setColor('#dc2525')
+        .setColor(client.config.color.EMBEDCOLOR)
         .setDescription(`**Module :** Manangement\n**Description :** Permet de modifier un channel\n**Usage :** [Ancion nom/id/mention] [Nouveau nom]\n**Exemples :** \n ${settings.prefix}channel update 716993025678639124 💬general\n ${settings.prefix}channel update #blabla Général`)
         .setFooter('BOT ID : 689210215488684044')
         .setTimestamp()
@@ -126,7 +126,7 @@ module.exports.run = async(client, message, args,settings) => {
     if(args[0].toLowerCase() === 'delete'){
         const channelDeleteDescription = new MessageEmbed()
         .setTitle(`Sous commande : ${settings.prefix}channel delete`)
-        .setColor('#dc2525')
+        .setColor(client.config.color.EMBEDCOLOR)
         .setDescription(`**Module :** Manangement\n**Description :** Permet de supprimer un channel\n**Usage :** (nom/id/mention)\n**Exemples :** \n ${settings.prefix}channel delete 716993025678639124\n ${settings.prefix}channel delete #blabla`)
         .setFooter('BOT ID : 689210215488684044')
         .setTimestamp()
@@ -145,7 +145,7 @@ module.exports.run = async(client, message, args,settings) => {
     if(args[0].toLowerCase() === 'position'){
         const channelPositionDescription = new MessageEmbed()
         .setTitle(`Sous commande : ${settings.prefix}channel position`)
-        .setColor('#dc2525')
+        .setColor(client.config.color.EMBEDCOLOR)
         .setDescription(`**Module :** Manangement\n**Description :** Permet de modifier la position d'un channel\n**Usage :** (nom/id/mention) (position)\n**Exemples :** \n ${settings.prefix}channel position 716993025678639124 5\n ${settings.prefix}channel position #blabla 5`)
         .setFooter('BOT ID : 689210215488684044')
         .setTimestamp()
@@ -167,7 +167,7 @@ module.exports.run = async(client, message, args,settings) => {
     if(args[0].toLowerCase() === 'parent'){
         const channelParentDescription = new MessageEmbed()
         .setTitle(`Sous commande : ${settings.prefix}channel parent`)
-        .setColor('#dc2525')
+        .setColor(client.config.color.EMBEDCOLOR)
         .setDescription(`**Module :** Manangement\n**Description :** Permet de modifier la categorie d'un channel\n**Usage :** (nom/id/mention) (categorieID)\n**Exemples :** \n ${settings.prefix}channel position 716993025678639124 716992798506876980\n ${settings.prefix}channel position #blabla 716992798506876980`)
         .setFooter('BOT ID : 689210215488684044')
         .setTimestamp()
@@ -190,7 +190,7 @@ module.exports.run = async(client, message, args,settings) => {
     if(args[0].toLowerCase() === 'topic'){
         const channelTopicDescription = new MessageEmbed()
         .setTitle(`Sous commande : ${settings.prefix}channel topic`)
-        .setColor('#dc2525')
+        .setColor(client.config.color.EMBEDCOLOR)
         .setDescription(`**Module :** Manangement\n**Description :** Permet de modifier le topic d'un channel\n**Usage :** [nom/id/mention] (Nouveau topic)\n**Exemples :** \n ${settings.prefix}channel topic 716993025678639124 Nouveau topic\n ${settings.prefix}channel position #blabla Nouveau topic`)
         .setFooter('BOT ID : 689210215488684044')
         .setTimestamp()

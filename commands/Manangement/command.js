@@ -17,7 +17,7 @@ module.exports.run =async(client, message, args,settings) => {
     if(args[0].toLowerCase() === 'create'){
         const commandCreateDescription = new MessageEmbed()
             .setTitle(`Sous commande : ${settings.prefix}command create`)
-            .setColor('#dc2525')
+            .setColor(client.config.color.EMBEDCOLOR)
             .setDescription(`**Module :** Manangement\n**Description :** Permet de crée une commande\n**Usage :** [nom] [Contenu de la commande]\n**Exemples :** \n ${settings.prefix}command create invite https://discord.gg/TC7Qjfs`)
             .setFooter('BOT ID : 689210215488684044')
             .setTimestamp()
@@ -60,7 +60,7 @@ module.exports.run =async(client, message, args,settings) => {
      if(args[0].toLowerCase() === 'update'){
         const commandUpdateDescription = new MessageEmbed()
         .setTitle(`Sous commande : ${settings.prefix}command update`)
-        .setColor('#dc2525')
+        .setColor(client.config.color.EMBEDCOLOR)
         .setDescription(`**Module :** Manangement\n**Description :** Permet de modifier une commande\n**Usage :** [nom] [Nouveau contenu de la commande]\n**Exemples :** \n ${settings.prefix}command update invite Le lien vers le serveur support est : https://discord.gg/TC7Qjfs`)
         .setFooter('BOT ID : 689210215488684044')
         .setTimestamp()
@@ -76,7 +76,7 @@ module.exports.run =async(client, message, args,settings) => {
     }else if(args[0].toLowerCase() === 'delete'){
         const commandDeleteDescription = new MessageEmbed()
         .setTitle(`Sous commande : ${settings.prefix}command delete`)
-        .setColor('#dc2525')
+        .setColor(client.config.color.EMBEDCOLOR)
         .setDescription(`**Module :** Manangement\n**Description :** Permet de supprimer une commande\n**Usage :** [nom]\n**Exemples :** \n ${settings.prefix}command delete invite`)
         .setFooter('BOT ID : 689210215488684044')
         .setTimestamp()

@@ -1,5 +1,4 @@
 const { MESSAGES } = require("../../util/constants");
-const { FALSE } = require("../../configstyle");
 module.exports.run = async (client, message, args, settings, dbUser) => {
  if(settings.expsysteme){
     const Canvas = require('canvas');

@@ -1,5 +1,4 @@
 const {MessageEmbed} = require('discord.js')
-const {VERTCLAIRE} = require('./../../configstyle')
 module.exports = async (client, guild) => {
  /* const newGuild = {
     guildID: guild.id,

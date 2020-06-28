@@ -29,7 +29,7 @@ module.exports.run = async (client, message, args,settings) => {
     if(args[0].toLowerCase() === 'create'){
             const emojiCreateDescription = new MessageEmbed()
             .setTitle(`Sous commande : ${settings.prefix}emoji create`)
-            .setColor('#dc2525')
+            .setColor(client.config.color.EMBEDCOLOR)
             .setDescription(`**Module :** Manangement\n**Description :** Permet de crée un emoji sur le serveur\n**Usage :** [nom] (URL/Attachement)\n**Exemples :** \n ${settings.prefix}emoji create Spiritus https://cdn.discordapp.com/emojis/713121641701572698.png`)
             .setFooter('BOT ID : 689210215488684044')
             .setTimestamp()
@@ -68,7 +68,7 @@ module.exports.run = async (client, message, args,settings) => {
     if(args[0].toLowerCase() === 'update'){
       const emojiUpdateDescription = new MessageEmbed()
             .setTitle(`Sous commande : ${settings.prefix}emoji update`)
-            .setColor('#dc2525')
+            .setColor(client.config.color.EMBEDCOLOR)
             .setDescription(`**Module :** Manangement\n**Description :** Permet de modifier le nom d'un emoji sur le serveur\n**Usage :** [nom] (Nouveau nom)\n**Exemples :** \n ${settings.prefix}emoji update BOT Spiritus`)
             .setFooter('BOT ID : 689210215488684044')
             .setTimestamp()
@@ -132,7 +132,7 @@ module.exports.run = async (client, message, args,settings) => {
     if(args[0].toLowerCase() === 'delete'){
       const emojiDeleteDescription = new MessageEmbed()
           .setTitle(`Sous commande : ${settings.prefix}emoji delete`)
-          .setColor('#dc2525')
+          .setColor(client.config.color.EMBEDCOLOR)
           .setDescription(`**Module :** Manangement\n**Description :** Permet de supprimer un emoji sur le serveur\n**Usage :** [nom]\n**Exemples :** \n ${settings.prefix}emoji delete Spiritus`)
           .setFooter('BOT ID : 689210215488684044')
           .setTimestamp()

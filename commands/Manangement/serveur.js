@@ -27,7 +27,7 @@ module.exports.run =(client, message, args,settings) => {
         }else{
             const serveurIconDescription = new MessageEmbed()
             .setTitle(`Sous commande : ${settings.prefix}serveur icon`)
-            .setColor('#dc2525')
+            .setColor(client.config.color.EMBEDCOLOR)
             .setDescription(`**Module :** Manangement\n**Description :** Permet de changer l'icon du serveur\n**Usage :** [Nouveau nom]\n**Exemples :** \n ${settings.prefix}serveur icon (attachement)`)
             .setFooter('BOT ID : 689210215488684044')
             .setTimestamp()
@@ -37,7 +37,7 @@ module.exports.run =(client, message, args,settings) => {
     if(args[0].toLowerCase() === 'name'){
         const serveurNameDescription = new MessageEmbed()
             .setTitle(`Sous commande : ${settings.prefix}serveur name`)
-            .setColor('#dc2525')
+            .setColor(client.config.color.EMBEDCOLOR)
             .setDescription(`**Module :** Manangement\n**Description :** Permet de changer le nom du serveur\n**Usage :** [attachement]\n**Exemples :** \n ${settings.prefix}serveur name Spiritus support`)
             .setFooter('BOT ID : 689210215488684044')
             .setTimestamp()
@@ -49,7 +49,7 @@ module.exports.run =(client, message, args,settings) => {
     if(args[0].toLowerCase() === 'region'){
         const serveurRegionDescription = new MessageEmbed()
         .setTitle(`Sous commande : ${settings.prefix}serveur region`)
-        .setColor('#dc2525')
+        .setColor(client.config.color.EMBEDCOLOR)
         .setDescription(`**Module :** Manangement\n**Description :** Permet de changer la région du serveur\n**Usage :** [region]\n**Exemples :** \n ${settings.prefix}serveur region singapore`)
         .setFooter('BOT ID : 689210215488684044')
         .setTimestamp()
@@ -66,7 +66,7 @@ module.exports.run =(client, message, args,settings) => {
     if(args[0].toLowerCase() === 'moderation'){
         const serveurModerationDescription = new MessageEmbed()
         .setTitle(`Sous commande : ${settings.prefix}serveur moderation`)
-        .setColor('#dc2525')
+        .setColor(client.config.color.EMBEDCOLOR)
         .setDescription(`**Module :** Manangement\n**Description :** Permet de changer le niveau de modération du serveur\n**Usage :** [Niveau modération]\n**Exemples :** \n ${settings.prefix}serveur moderation 3`)
         .setFooter('BOT ID : 689210215488684044')
         .setTimestamp()

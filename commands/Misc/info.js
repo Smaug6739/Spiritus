@@ -19,7 +19,7 @@ module.exports.run = async (client, message, args,settings) =>{
     if(args[0].toLowerCase() === 'user'){
         const infoUserDescription = new MessageEmbed()
         .setTitle(`Sous commande : ${settings.prefix}info user`)
-        .setColor('#dc2525')
+        .setColor(client.config.color.EMBEDCOLOR)
         .setDescription(`**Module :** Misc\n**Description :** Permet d'avoir des informations sur une personne.\n**Usage :** [nom/id/mention]\n**Exemples :** \n ${settings.prefix}info user 611468402263064577 \n ${settings.prefix}info user Smaug`)
         .setFooter('BOT ID : 689210215488684044')
         .setTimestamp()
@@ -129,7 +129,7 @@ module.exports.run = async (client, message, args,settings) =>{
     if(args[0].toLowerCase() === 'role'){
         const infoRoleDescription = new MessageEmbed()
         .setTitle(`Sous commande : ${settings.prefix}info role`)
-        .setColor('#dc2525')
+        .setColor(client.config.color.EMBEDCOLOR)
         .setDescription(`**Module :** Misc\n**Description :** Permet d'avoir des informations sur un role.\n**Usage :** [nom/id/mention]\n**Exemples :** \n ${settings.prefix}info role 708500588626837505 \n ${settings.prefix}info role @Admin`)
         .setFooter('BOT ID : 689210215488684044')
         .setTimestamp()
@@ -167,7 +167,7 @@ module.exports.run = async (client, message, args,settings) =>{
     if(args[0].toLowerCase() == 'channel'){
         const infoRoleDescription = new MessageEmbed()
         .setTitle(`Sous commande : ${settings.prefix}info role`)
-        .setColor('#dc2525')
+        .setColor(client.config.color.EMBEDCOLOR)
         .setDescription(`**Module :** Misc\n**Description :** Permet d'avoir des informations sur un channel.\n**Usage :** [nom/id/mention]\n**Exemples :** \n ${settings.prefix}info channel 710761432534351925 \n ${settings.prefix}info channel #tchat`)
         .setFooter('BOT ID : 689210215488684044')
         .setTimestamp()
