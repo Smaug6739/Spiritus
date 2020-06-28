@@ -1,5 +1,5 @@
 const {MessageEmbed} = require('discord.js')
-module.exports.run =async(client, message, args) => {
+module.exports.run =async(client, message, args,settings) => {
     if(!args[0]){
         const embed = new MessageEmbed()
         .setTitle('Commande message')
@@ -15,6 +15,13 @@ module.exports.run =async(client, message, args) => {
        return  message.channel.send(embed)      
     }
     if(args[0].toLowerCase() === 'create'){
+        const commandCreateDescription = new MessageEmbed()
+            .setTitle(`Sous commande : ${settings.prefix}command create`)
+            .setColor('#dc2525')
+            .setDescription(`**Module :** Manangement\n**Description :** Permet de crée une commande\n**Usage :** [nom] [Contenu de la commande]\n**Exemples :** \n ${settings.prefix}command create invite https://discord.gg/TC7Qjfs`)
+            .setFooter('BOT ID : 689210215488684044')
+            .setTimestamp()
+            if(!args[1])return message.channel.send(commandCreateDescription)
             client.getCmds(message.guild).then(async p =>{
             //console.log(p)
             if(p.length > 5) return message.channel.send(`${client.config.emojis.FALSE}Vous etes limité a 5 commandes personalisées par serveur`)
@@ -33,7 +40,8 @@ module.exports.run =async(client, message, args) => {
             message.channel.send(`${client.config.emojis.TRUE}J'ai bien crée la commande avec comme nom \`${args[1]}\` `)
         )
         })
-    }else if(args[0].toLowerCase() === 'liste'){
+    }
+     if(args[0].toLowerCase() === 'liste'){
         const embed = new MessageEmbed()
         .setTitle('Commandes personalisées du serveur :')
         .setColor(client.config.color.EMBEDCOLOR)
@@ -48,7 +56,15 @@ module.exports.run =async(client, message, args) => {
            })
         })
         message.channel.send(embed)
-    }else if(args[0].toLowerCase() === 'update'){
+    }
+     if(args[0].toLowerCase() === 'update'){
+        const commandUpdateDescription = new MessageEmbed()
+        .setTitle(`Sous commande : ${settings.prefix}command update`)
+        .setColor('#dc2525')
+        .setDescription(`**Module :** Manangement\n**Description :** Permet de modifier une commande\n**Usage :** [nom] [Nouveau contenu de la commande]\n**Exemples :** \n ${settings.prefix}command update invite Le lien vers le serveur support est : https://discord.gg/TC7Qjfs`)
+        .setFooter('BOT ID : 689210215488684044')
+        .setTimestamp()
+        if(!args[1])return message.channel.send(commandUpdateDescription)
         if(!args[2])return message.channel.send(`${client.config.emojis.FALSE}Merci d'indiquet le nouveau contenu de la commande.`)
         const newContenu = args.slice(2).join(" ")
         const nameCommand = args[1]
@@ -58,6 +74,13 @@ module.exports.run =async(client, message, args) => {
         client.updateCmd(nameCommand,message.guild,{contenu: newContenu}).then(message.channel.send(`${client.config.emojis.TRUE}J'ai bien mis à jour le contenu de la commande \`${nameCommand}\``))
 
     }else if(args[0].toLowerCase() === 'delete'){
+        const commandDeleteDescription = new MessageEmbed()
+        .setTitle(`Sous commande : ${settings.prefix}command delete`)
+        .setColor('#dc2525')
+        .setDescription(`**Module :** Manangement\n**Description :** Permet de supprimer une commande\n**Usage :** [nom]\n**Exemples :** \n ${settings.prefix}command delete invite`)
+        .setFooter('BOT ID : 689210215488684044')
+        .setTimestamp()
+        if(!args[1])return message.channel.send(commandDeleteDescription)
         const comd = await client.getCmd(args[1], message.guild)
         if(!comd)return message.channel.send(`${client.config.emojis.FALSE}La commande n'existe pas...`)
         client.deleteCmd(args[1], message.guild).then(message.channel.send(`${client.config.emojis.TRUE}J'ai bien supprimer la commande \`${args[1]}\``));
