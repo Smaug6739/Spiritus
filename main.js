@@ -20,6 +20,7 @@ process.on('uncaughtException', (error) => {
     console.warn(listener);
     if (!client) return;
     client.errorHook.send(listener, {code: 'js'});
+    
   });
   process.on('rejectionHandled', (listener) => {
     console.warn(listener);

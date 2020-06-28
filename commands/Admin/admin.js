@@ -45,12 +45,31 @@ module.exports.run = async (client, message, args) =>{
       verifierguild()
       message.channel.send(`${client.config.emojis.TRUE}Recharge de toutes les guilds lancée.`)
     //---------------------------------------RESTART--------------------------------------------------
-    }else if(args[0] === 'restart'){
+    }
+    if(args[0] === 'restart'){
         console.log("Redemarage")
         await message.channel.send(`${client.config.emojis.TRUE}OK .`)
         process.exit()
+    }
+    //---------------------------------------RELOAD-----------------------------------------------------
+
+    if(args[0] === 'reload'){
+        command = args.slice(2).join(" ")
+        dir = args[1]
+        chemin = `./../${dir}/${command}.js`
+        try {
+            delete require.cache[require.resolve(`${chemin}`)];
+            client.commands.delete(command)
+            const pull = require(`${chemin}`)
+            client.commands.set(command, pull)
+            message.channel.send(`${client.config.emojis.TRUE}Reloaded command \`${command}\``);
+        } catch (err) {
+            return message.channel.send(`${client.config.emojis.FALSE}An error occured: \n\`\`\`js\n${err}\n\`\`\``);
+        }
+    }
     //---------------------------------------PULL-REPO--------------------------------------------------
-    }else if(args[0] === 'pull'){
+
+    if(args[0] === 'pull'){
         console.log("Pull")
         message.channel.send(`${client.config.emojis.LOADING} Commande en cour d'execution...`).then(async msg =>{
             try {
@@ -60,7 +79,8 @@ module.exports.run = async (client, message, args) =>{
                 msg.edit(`${client.config.emojis.FALSE} An error occured:\n\`\`\`${err}\n\`\`\``);
             }
         })
-    }else if(args[0] === 'execute'){
+    }
+    if(args[0] === 'execute'){
         console.log("Execution d'une commande")
         message.channel.send(`${client.config.emojis.LOADING} Commande en cour d'execution...`).then(async msg =>{
             try {
@@ -70,7 +90,8 @@ module.exports.run = async (client, message, args) =>{
                 msg.edit(`${client.config.emojis.FALSE} An error occured:\n\`\`\`xl\n${err}\n\`\`\``);
             }
         })
-    }else if(args[0] === 'eval'){
+    }
+    if(args[0] === 'eval'){
         function clean(text) {
             if (typeof(text) === "string")
               return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
