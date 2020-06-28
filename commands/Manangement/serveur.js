@@ -1,6 +1,5 @@
 const {MessageEmbed} = require('discord.js')
-module.exports.run =(client, message, args) => {
-    const {TRUE,FALSE,FLECHE,EMBED} = require('./../../configstyle')
+module.exports.run =(client, message, args,settings) => {
     if(!message.guild.me.hasPermission('MANAGE_GUILD')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de modifier le serveur.`);
     if(!args[0]){
         const embed = new MessageEmbed()
@@ -25,14 +24,36 @@ module.exports.run =(client, message, args) => {
             message.guild.setIcon(icon)
             .then(message.channel.send(`${client.config.emojis.TRUE}L'icon du serveur a bien été changé.`))
             .catch(`${client.config.emojis.FALSE}Une erreur s'est produite. Merci de vérifier la taille du fichier et de réessayer`)
+        }else{
+            const serveurIconDescription = new MessageEmbed()
+            .setTitle(`Sous commande : ${settings.prefix}serveur icon`)
+            .setColor('#dc2525')
+            .setDescription(`**Module :** Manangement\n**Description :** Permet de changer l'icon du serveur\n**Usage :** [Nouveau nom]\n**Exemples :** \n ${settings.prefix}serveur icon (attachement)`)
+            .setFooter('BOT ID : 689210215488684044')
+            .setTimestamp()
+            return message.channel.send(serveurIconDescription)
         }
     }
     if(args[0].toLowerCase() === 'name'){
+        const serveurNameDescription = new MessageEmbed()
+            .setTitle(`Sous commande : ${settings.prefix}serveur name`)
+            .setColor('#dc2525')
+            .setDescription(`**Module :** Manangement\n**Description :** Permet de changer le nom du serveur\n**Usage :** [attachement]\n**Exemples :** \n ${settings.prefix}serveur name Spiritus support`)
+            .setFooter('BOT ID : 689210215488684044')
+            .setTimestamp()
+            if(!args[1])return message.channel.send(serveurNameDescription)
         let newName = args.slice(1).join(" ")
         message.guild.setName(newName)
         .then(message.channel.send(`${client.config.emojis.TRUE}J'ai bien mis a jour le nom du serveur avec \`${newName}\``))
     }
     if(args[0].toLowerCase() === 'region'){
+        const serveurRegionDescription = new MessageEmbed()
+        .setTitle(`Sous commande : ${settings.prefix}serveur region`)
+        .setColor('#dc2525')
+        .setDescription(`**Module :** Manangement\n**Description :** Permet de changer la région du serveur\n**Usage :** [region]\n**Exemples :** \n ${settings.prefix}serveur region singapore`)
+        .setFooter('BOT ID : 689210215488684044')
+        .setTimestamp()
+        if(!args[1])return message.channel.send(serveurRegionDescription)
         //let region = ['us-south'||'russia'||'japan'||'dubai'||'us-west'||'brazil'||'hongkong'||'singapore'||'us-central'||'india'||'europe'||'eu-west'||'us-east'||'london'||'frankfurt'||'eu-central'||'sydney'||'southafrica'||'south-korea'||'amsterdam']
         if(args[1] === 'us-south'||args[1] ==='russia'||args[1] ==='japan'||args[1] ==='dubai'||args[1] ==='us-west'||args[1] ==='brazil'||args[1] ==='hongkong'||args[1] ==='singapore'||args[1] ==='us-central'||args[1] ==='india'||args[1] ==='europe'||args[1] ==='eu-west'||args[1] ==='us-east'||args[1] ==='london'||args[1] ==='frankfurt'||args[1] ==='eu-central'||args[1] ==='sydney'||args[1] ==='southafrica'||args[1] ==='south-korea'||args[1] ==='amsterdam'){
         message.guild.setRegion(args[1]).then(
@@ -43,7 +64,13 @@ module.exports.run =(client, message, args) => {
         }
     }
     if(args[0].toLowerCase() === 'moderation'){
-        if(!args[1]) return message.channel.send(`${client.config.emojis.FALSE} Merci d'indiquer une valeur entre 1 et 5`)
+        const serveurModerationDescription = new MessageEmbed()
+        .setTitle(`Sous commande : ${settings.prefix}serveur moderation`)
+        .setColor('#dc2525')
+        .setDescription(`**Module :** Manangement\n**Description :** Permet de changer le niveau de modération du serveur\n**Usage :** [Niveau modération]\n**Exemples :** \n ${settings.prefix}serveur moderation 3`)
+        .setFooter('BOT ID : 689210215488684044')
+        .setTimestamp()
+        if(!args[1])return message.channel.send(serveurModerationDescription)
         let newLevel = args[1];
         let levelEdit = '';
         if(args[1] != 1 && args[1] != 2 && args[1] != 3 && args[1] != 4 && args[1] != 5 ) return message.channel.send(`${client.config.emojis.FALSE} Merci d'indiquer une valeur entre 1 et 5`)
@@ -82,7 +109,7 @@ module.exports.help = {
     aliases : ['serveur'],
     category : 'manangement',
     description : 'Permet de gérer le serveur.',
-    cooldown : 10,
+    cooldown : 5,
     usage : '<action> <value>',
     exemple :['serveur name Spiritus'],
     permissions : true,

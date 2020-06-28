@@ -26,7 +26,8 @@ module.exports.run = async(client, message, args,settings) => {
         .setFooter('BOT ID : 689210215488684044')
         message.channel.send(embed)
     //---------------------------------------------ROLES-CREATE----------------------------------------------------------
-    }else if(args[0].toLowerCase() === 'create'){
+    }
+    if(args[0].toLowerCase() === 'create'){
         const roleCreateDescription = new MessageEmbed()
             .setTitle(`Sous commande : ${settings.prefix}role create`)
             .setColor('#dc2525')
