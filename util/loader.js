@@ -1,7 +1,7 @@
 const { readdirSync } = require("fs");
 
 const loadCommands = (client, dir = "./commands") => {
-  readdirSync(dir).forEach(dirs => {
+  readdirSync(dir).forEach(dirs => { 
     const commands = readdirSync(`${dir}/${dirs}/`).filter(files => files.endsWith(".js"));
 
     for (const file of commands) {

@@ -14,85 +14,53 @@ module.exports.run = async(client, message, args) => {
             { name: '\u200b', value: `${client.config.emojis.FLECHE}\`channel create\` permet de crée un channel.`, inline: false },
             { name: '\u200b', value: `${client.config.emojis.FLECHE}\`channel update\` permet de mettre a jour le nom d\`un channel.`, inline: false },
             { name: '\u200b', value: `${client.config.emojis.FLECHE}\`channel delete\` permet de supprimer un channel.`, inline: false },
-            { name: '\u200b', value: `${client.config.emojis.FLECHE}\`channel pin\` permet de pin un message avec son id.`, inline: false },
-            { name: '\u200b', value: `${client.config.emojis.FLECHE}\`channel unpin\` permet de unpin un message avec son id.`, inline: false },
+           // { name: '\u200b', value: `${client.config.emojis.FLECHE}\`channel pin\` permet de pin un message avec son id.`, inline: false },
+           // { name: '\u200b', value: `${client.config.emojis.FLECHE}\`channel unpin\` permet de unpin un message avec son id.`, inline: false },
         )
         .setTimestamp()
         .setFooter('BOT ID : 689210215488684044')
         return message.channel.send(embed)
     }
     if(args[0].toLowerCase() === 'clone'){
-        if(!args[1]){
-            try{
-                message.channel.clone()
-                .then(message.channel.send(`${client.config.emojis.TRUE}J'ai bien cloner le channel ${message.channel.name}`))
-                .catch(`${client.config.emojis.FALSE}Une erreur s'est produite merci de ressayer`)
-        
-            }catch(err){
-                message.channel.send(`${client.config.emojis.FALSE}Une erreur s'est produite merci de ressayer`)
-                client.channels.cache.get('725251200660013136').send(`Une erreur sur la commande \`channel-clone\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``)
-            }
-        }else{
-            let channelname = message.guild.channels.cache.find(r => r.name === args.toString())
-            let liensalon = message.guild.channels.cache.find(r => r.id === args[1].replace(/<.*#/, '').slice(0, -1));
-            if(liensalon){
-                let nomname = liensalon.name
-                try{
-                message.guild.channels.cache.get(liensalon.id).clone()
-                .then(message.channel.send(`${client.config.emojis.TRUE}J'ai bien cloner le channel ${nomname}`))
-                .catch(`${client.config.emojis.FALSE}Une erreur s'est produite. Merci de réessayer.`)
-                }catch(err){
-                    message.channel.send(`${client.config.emojis.FALSE}Une erreur s'est produite merci de ressayer`)
-                    client.channels.cache.get('725251200660013136').send(`Une erreur sur la commande \`channel-clone\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``)
-                }
-        
-            }else if(channelname){
-                try{
-                channelname.clone()
-                .then(message.channel.send(`${client.config.emojis.TRUE}J'ai bien cloner le channel ${args[1]}`))
-                //.catch(message.channel.send`${client.config.emojis.FALSE} Une erreur s'est produite. Merci de réessayer.`)
-                }catch(err){
-                    message.channel.send(`${client.config.emojis.FALSE}Une erreur s'est produite merci de réessayer`);
-                    client.channels.cache.get('725251200660013136').send(`Une erreur sur la commande \`channel-delete\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
-                    return;
-                };
-            
-            }else{
-                return message.channel.send(`${client.config.emojis.FALSE}Le channel a cloner est introuvable...`)
-            }
-        }
-
-    }else if(args[0].toLowerCase() === 'synchro'){
-        if(!message.channel.parent) return message.channel.send(`${client.config.emojis.FALSE}Le salon n'est dans aucune catégorie`)
-
+        let channel = client.resolveChannel(message.guild, args[1])
+        if(channel == undefined)return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver ce channel.`)
         try{
-          message.channel.lockPermissions()
-          .then(message.channel.send(`${client.config.emojis.TRUE}J'ai bien synchroniser les permissions du channel ${message.channel.name} avec les permissions de la catégorie ${message.channel.parent.name}`))
+            channel.clone().then(message.channel.send(`${client.config.emojis.TRUE}J'ai bien cloner le channel \`${channel.name}\``))
         }catch(err){
-          message.channel.send(`${client.config.emojis.FALSE}Une erreur s'est produite merci de ressayer`)
-          client.channels.cache.get('725251200660013136').send(`Une erreur sur la commande \`channel-synchro\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
-        }
+            message.channel.send(`${client.config.emojis.FALSE}Une erreur s'est produite merci de réessayer`);
+            client.channels.cache.get('725251200660013136').send(`Une erreur sur la commande \`channel-delete\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
+            return;
+        };
+    }
+    if(args[0].toLowerCase() === 'synchro'){
+        let channel = client.resolveChannel(message.guild, args[1])
+        if(channel == undefined)return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver ce channel.`)
+        if(!channel.parent) return message.channel.send(`${client.config.emojis.FALSE}Le salon n'est dans aucune catégorie.`)
+        try{
+            channel.lockPermissions()
+            .then(message.channel.send(`${client.config.emojis.TRUE}J'ai bien synchroniser les permissions du channel ${channel.name} avec les permissions de la catégorie ${channel.parent.name}`))
+          }catch(err){
+            message.channel.send(`${client.config.emojis.FALSE}Une erreur s'est produite merci de ressayer`)
+            client.channels.cache.get('725251200660013136').send(`Une erreur sur la commande \`channel-synchro\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
+          }
 
-    }else if(args[0].toLowerCase() === 'create'){
+    }
+    if(args[0].toLowerCase() === 'create'){
         var category = message.channel.parentID
         if(!args[1]) return message.channel.send(`${client.config.emojis.FALSE}Veuillez donner en premier argument une valeur valide (\`text\` ou \`voice\` ou \`category\`)`)
         if(args[1] == 'text' || args[1] == 'voice') {
             try{
-                let name_salon = args.splice(2).join('-')
-                if(!name_salon)return message.channel.send(`${client.config.emojis.FALSE}Merci de préciser un nom au channel.`);
-                if(name_salon.length > 99) return message.channel.send(`${client.config.emojis.FALSE}Le nom de la categorie doit etre inferieur a 100 caractères.`);
-
-                message.guild.channels.create(`${name_salon}`, {
+                let nameChannel = args.splice(2).join('-')
+                if(!nameChannel)return message.channel.send(`${client.config.emojis.FALSE}Merci de préciser un nom au channel.`);
+                if(nameChannel.length > 99) return message.channel.send(`${client.config.emojis.FALSE}Le nom de la categorie doit etre inferieur a 100 caractères.`);
+                message.guild.channels.create(`${nameChannel}`, {
                     type: `${args[1]}`,
-                        
                     }).then(chan => {
                     chan.setParent(category).then(e => { // On met le nouveau channel dans la bonne catégorie
-                
-                  }).then(message.channel.send(`${client.config.emojis.TRUE}J'ai bien crée le salon ${name_salon}`))
+                  }).then(message.channel.send(`${client.config.emojis.TRUE}J'ai bien crée le salon ${nameChannel}`))
                   .catch(console.error);
                 })
                 .catch(console.error);
-
             }catch(err){
                 message.channel.send(`${client.config.emojis.FALSE}Une erreur s'est produite merci de réessayer`);
                 client.channels.cache.get('725251200660013136').send(`Une erreur sur la commande \`channel-create\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
@@ -111,71 +79,41 @@ module.exports.run = async(client, message, args) => {
         }else{
             return message.channel.send(`${client.config.emojis.FALSE}Veuillez donner en premier argument une valeur valide (\`text\` ou \`voice\` ou \`category\`)`)
         }
-
-    }else if(args[0].toLowerCase() === 'update'){
+    } 
+    if(args[0].toLowerCase() === 'update'){
         if(!args[1]) return message.channel.send(`${client.config.emojis.FALSE} de spécifier le nom du channel a modifier`)
         if(!args[2]) return message.channel.send(`${client.config.emojis.FALSE}Merci de spécifier le nouveau nom du channel a modifier`)
-        let channel = message.guild.channels.cache.find(r => r.name === args[1].toString()) || message.mentions.channels.first() //|| message.mentions.roles.first()
+        let channel = client.resolveChannel(message.guild, args.slice(1).join('-'))
+        if(channel == undefined)return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver ce channel.`)
         if(channel){
             try{
-                
                await channel.edit({ name: args.slice(2).join("-") }).then(
                     message.channel.send(`${client.config.emojis.TRUE}J'ai bien mis a jour le channel \`${channel.name}\``)
                 )//.catch(message.channel.send(`Une erreur s'est produite. Merci de réessayer`))
-
             }catch(err){
                 client.channels.cache.get('725251200660013136').send(`Une erreur sur la commande \`channel-update\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
             }
         }else{
             message.channel.send(`${client.config.emojis.FALSE}Je n\'ai pas trouver ce channel...`)
         }
-    }else if(args[0].toLowerCase() === 'delete'){
-        if(!args[1]) return message.channel.send(`${client.config.emojis.FALSE}Merci d'indiquer le channel à supprimer`)
-        let channelname = message.guild.channels.cache.find(r => r.name === args.slice(1).toString()) //|| args[0].replace(/<.*#/, '').slice(0, -1);
-        let nom = message.guild.channels.cache.find(r => r.id === args[1].replace(/<.*#/, '').slice(0, -1));
-        let id = args[1]
-        if(nom){
-            let nomname = nom.name
-            //console.log(nom)
-            try{
-            message.guild.channels.cache.get(nom.id).delete()
-            .then(message.channel.send(`${client.config.emojis.TRUE}J'ai bien supprimer le channel ${nomname}`))
-            .catch(`${client.config.emojis.FALSE} Une erreur s'est produite. Merci de réessayer.`)
-            }catch(err){
-                message.channel.send(`${client.config.emojis.FALSE}Une erreur s'est produite merci de réessayer`);
-                client.channels.cache.get('725251200660013136').send(`Une erreur sur la commande \`channel-delete\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
-                return;
-            }
-    
-        }else if(channelname){
-            try{
-            channelname.delete()
-            .then(message.channel.send(`${client.config.emojis.TRUE}J'ai bien supprimer le channel ${args[1]}`))
-            //.catch(message.channel.send`${client.config.emojis.FALSE} Une erreur s'est produite. Merci de réessayer.`)
-            }catch(err){
-                message.channel.send(`${client.config.emojis.FALSE}Une erreur s'est produite merci de réessayer`);
-                client.channels.cache.get('725251200660013136').send(`Une erreur sur la commande \`channel-delete\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
-                return;
-            };
-            
-        }else{
-            try {
-             message.guild.channels.cache.get(id).delete()
-              .then(message.channel.send(`${client.config.emojis.TRUE}J'ai bien supprimer le channel ${message.guild.channels.cache.get(id).name}`))
-    
-              } catch (err) {
-                message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver ce channel...`)
-                //message.channel.send(`${client.config.emojis.FALSE}\`ERREUR :\`${err} `)
-    
-              };
+    }
+    if(args[0].toLowerCase() === 'delete'){
+        let channel = client.resolveChannel(message.guild, args.slice(1).join('-'))
+        if(channel == undefined)return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver ce channel.`)
+        try{
+            channel.delete().then(message.channel.send(`${client.config.emojis.TRUE}J'ai bien supprimer le channel ${channel.name}`))
+        }catch (err){
+            message.channel.send(`${client.config.emojis.FALSE}Une erreur s'est produite merci de réessayer`);
+            client.channels.cache.get('725251200660013136').send(`Une erreur sur la commande \`channel-delete\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
+            return;
         }
-
-
-    }else if(args[0].toLowerCase() === 'position'){
+ 
+    }
+    if(args[0].toLowerCase() === 'position'){
         if(!args[1]) return message.channel.send(`${client.config.emojis.FALSE}Merci de spécifier le nom du channel a modifier`)
         if(!args[2]) return message.channel.send(`${client.config.emojis.FALSE}Merci de spécifier la nouvelle position du channel`)
-        let channel = message.guild.channels.cache.find(r => r.name === args[1].toString()) //|| message.mentions.roles.first()
-        let nom = message.guild.channels.cache.find(r => r.id === args[1].replace(/<.*#/, '').slice(0, -1));
+        let channel = client.resolveChannel(message.guild, args[1])
+        if(channel == undefined)return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver ce channel.`)
         let positionNew = args[2]
         if(isNaN(positionNew)) return message.channel.send(`${client.config.emojis.FALSE}Merci de rentrer un nombre valide pour la position du channel`)
         if(channel){
@@ -184,87 +122,52 @@ module.exports.run = async(client, message, args) => {
             }catch(err){
                 client.channels.cache.get('725251200660013136').send(`Une erreur sur la commande \`channel-update-position\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
             }
-        }else if(nom){
-            try{
-                await nom.setPosition(positionNew -1).then(message.channel.send(`${client.config.emojis.TRUE}J'ai bien mis a jour la position du channel \`${nom}\``))
-             }catch(err){
-                 client.channels.cache.get('725251200660013136').send(`Une erreur sur la commande \`channel-update-position\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
-             }
-        }else{
-            try{
-                message.guild.channels.cache.get(args[1]).setPosition(args[2]-1).then(message.channel.send(`${client.config.emojis.TRUE}J'ai bien mis a jour la position du channel \`${message.guild.channels.cache.get(args[1]).name}\``))
-            }catch{
-                message.channel.send(`${client.config.emojis.FALSE}Je n\'ai pas trouver ce channel...`)
-
-            }
+        
         }
-    
-    }else if(args[0].toLowerCase() === 'parent'){
+    }
+    if(args[0].toLowerCase() === 'parent'){
         if(!args[1]) return message.channel.send(`${client.config.emojis.FALSE}Merci de spécifier le nom du channel a modifier`)
         if(!args[2]) return message.channel.send(`${client.config.emojis.FALSE}Merci de spécifier la nouvelle position du channel`)
-        let channel = message.guild.channels.cache.find(r => r.name === args[1].toString()) //|| message.mentions.roles.first()
-        let nom = message.guild.channels.cache.find(r => r.id === args[1].replace(/<.*#/, '').slice(0, -1));
-        let positionNew = args[2]
-        if(isNaN(positionNew)) return message.channel.send(`${client.config.emojis.FALSE}Merci de rentrer un ID valide pour la nouvelle categorie du salon`)
-        if(channel){
+        let channel = client.resolveChannel(message.guild, args[1])
+        if(channel == undefined)return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver ce channel.`)
+        let category = client.resolveChannel(message.guild, args.slice(2).join(" "))
+        if(category == undefined)return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver cette categorie.`)
+        if(isNaN(category)) return message.channel.send(`${client.config.emojis.FALSE}Merci de rentrer un ID valide pour la nouvelle categorie du salon`)
             try{
-               await channel.setParent(positionNew).then(message.channel.send(`${client.config.emojis.TRUE}J'ai bien mis a jour la position du channel \`${channel.name}\``))
+               await channel.setParent(category).then(message.channel.send(`${client.config.emojis.TRUE}J'ai bien mis a jour la position du channel \`${channel.name}\``))
             }catch(err){
+                message.channel.send(`${client.config.emojis.FALSE}Une erreur s'est produite, merci de réessayer`)
                 client.channels.cache.get('725251200660013136').send(`Une erreur sur la commande \`channel-update-position\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
             }
-        }else if(nom){
-            try{
-                await nom.setParent(positionNew).then(message.channel.send(`${client.config.emojis.TRUE}J'ai bien mis a jour la position du channel \`${nom}\``))
-             }catch(err){
-                 client.channels.cache.get('725251200660013136').send(`Une erreur sur la commande \`channel-update-position-categorie\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
-             }
-        }else{
-            try{
-                message.guild.channels.cache.get(args[1]).setParent(args[2]).then(message.channel.send(`${client.config.emojis.TRUE}J'ai bien mis a jour la position du channel \`${message.guild.channels.cache.get(args[1]).name}\``))
-            }catch{
-                message.channel.send(`${client.config.emojis.FALSE}Je n\'ai pas trouver ce channel...`)
-
-            }
+      
         }
     
-    }else if(args[0].toLowerCase() === 'topic'){
+    if(args[0].toLowerCase() === 'topic'){
         if(!args[1]) return message.channel.send(`${client.config.emojis.FALSE}Merci de spécifier le nom du channel a modifier`)
         if(!args[2]) return message.channel.send(`${client.config.emojis.FALSE}Merci de spécifier le nouveau topic`)
-        let channel = message.guild.channels.cache.find(r => r.name === args[1].toString()) //|| message.mentions.roles.first()
-        let nomMention = message.guild.channels.cache.find(r => r.id === args[1].replace(/<.*#/, '').slice(0, -1));
+        let channel = client.resolveChannel(message.guild, args[1])
+        if(channel == undefined)return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver ce channel.`)
         let newTopic = args.slice(2).join(" ")
-        //console.log(newTopic.length)
         if(newTopic.length > 1020)return message.channel.send(`${client.config.emojis.FALSE}Vous ne pouvez pas crée un topic de plus de 1024 caractères !`)
-        if(channel){
             try{
                await channel.setTopic(newTopic).then(message.channel.send(`${client.config.emojis.TRUE}J'ai bien mis a jour le topic du channel \`${channel.name}\``))
             }catch(err){
                 client.channels.cache.get('725251200660013136').send(`Une erreur sur la commande \`channel-topic\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
             }
-        }else if(nomMention){
-            try{
-                await nomMention.setTopic(newTopic).then(message.channel.send(`${client.config.emojis.TRUE}J'ai bien mis a jour le topic du channel \`${nomMention}\``))
-             }catch(err){
-                 client.channels.cache.get('725251200660013136').send(`Une erreur sur la commande \`channel-topic\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
-             }
-        }else{
-            try{
-                message.guild.channels.cache.get(args[1]).setTopic(newTopic).then(message.channel.send(`${client.config.emojis.TRUE}J'ai bien mis a jour le topic du channel \`${message.guild.channels.cache.get(args[1]).name}\``))
-            }catch{
-                message.channel.send(`Je n\'ai pas trouver ce channel...`)
-
-            }
-        }
-    
-    }else if(args[0].toLowerCase() === 'pin'){
+    }
+   /* if(args[0].toLowerCase() === 'pin'){
         try{
             if(isNaN(args[1])) return message.channel.send(`${client.config.emojis.FALSE}Merci de rentrer un id de message valide.`)
-            message.channel.messages.cache.get(args[1]).pin().then(message.channel.send(`${client.config.emojis.TRUE}J'ai bien épingler le message \`${args[1]}\``))
+            let channel = message.channel
+            let test = message.channel.messages.cache.get('726710021399904267')
+            console.log(test)
+            //.pin().then(message.channel.send(`${client.config.emojis.TRUE}J'ai bien épingler le message \`${args[1]}\``))
 
-        }catch{
-            message.channel.send(`${client.config.emojis.FALSE}Une erreur s'est produite merci de réessayer avec un id de message valide ou vérifiez que le message n'est pas déja épingler`)
+        }catch(err){
+            message.channel.send(`${client.config.emojis.FALSE}Une erreur s'est produite merci de réessayer avec un id de message valide ou vérifiez que le message n'est pas déja épingler (erreur : ${err})`)
         }
-    }else if(args[0].toLowerCase() === 'unpin'){
+    }
+    if(args[0].toLowerCase() === 'unpin'){
         try{
             if(isNaN(args[1])) return message.channel.send(`${client.config.emojis.FALSE}Merci de rentrer un id de message valide.`)
             message.channel.messages.cache.get(args[1]).unpin().then(message.channel.send(`${client.config.emojis.TRUE}J'ai bien retirer le message \`${args[1]}\` des messages épinglés`))
@@ -272,7 +175,7 @@ module.exports.run = async(client, message, args) => {
         }catch{
             message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver ce message`)
         }
-    }
+    }*/
     
     
 }

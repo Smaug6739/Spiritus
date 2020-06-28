@@ -2,6 +2,7 @@ const { Client, Collection,WebhookClient } = require('discord.js');
 const { loadCommands, loadEvents } = require("./util/loader");
 const client = new Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION'] });;
 require('./util/functions')(client);
+require('./util/Utils')(client);
 client.mongoose = require("./util/mongoose");
 ["commands", "cooldowns"].forEach(x => client[x] = new Collection());
 loadCommands(client);
