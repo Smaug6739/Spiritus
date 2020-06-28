@@ -13,6 +13,7 @@ module.exports.run = async (client, message, args) =>{
             { name: '\u200b', value: `${client.config.emojis.FLECHE}\`admin eval\` execute du code javascript.`, inline: false },
             { name: '\u200b', value: `${client.config.emojis.FLECHE}\`admin pull\` pull le repo github.`, inline: false },
             { name: '\u200b', value: `${client.config.emojis.FLECHE}\`admin restart\` redemere le bot.`, inline: false },
+            { name: '\u200b', value: `${client.config.emojis.FLECHE}\`admin reload\` redemere une commande du bot.`, inline: false },
             { name: '\u200b', value: `${client.config.emojis.FLECHE}\`admin charge\` lance le chargement des guilds.`, inline: false },
             //{ name: '\u200b', value: `${FLECHE}\`info invite\` permet de supprimer un info`, inline: false },
             //{ name: '\u200b', value: `${FLECHE}\`info channel\` permet de supprimer un info`, inline: false },
