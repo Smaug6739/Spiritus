@@ -71,6 +71,8 @@ module.exports.run = async (client, message, args,settings) =>{
         message.channel.send(embed);
     }
     }else if(args[0].toLowerCase() === 'bot' ){
+        let v = require('./../../package.json')
+        v = v.version
         const embed = new MessageEmbed()
         .setColor(`${client.config.color.EMBEDCOLOR}`)
         .setAuthor(`${client.user.username} Info`, client.user.avatarURL())
@@ -81,7 +83,7 @@ module.exports.run = async (client, message, args,settings) =>{
         { name: 'Serveurs', value: `${client.guilds.cache.size.toString()}`, inline: true },
         { name: 'Salons', value: `${client.channels.cache.size.toString()}`, inline: true },
         { name: 'Utilisateurs', value: `${client.guilds.cache.map(g => g.memberCount).reduce((a, b) => a + b)}`, inline: true },
-        { name: 'Version', value: `1.0.0`, inline: true },
+        { name: 'Version', value: `${v}`, inline: true },
         { name: 'Librairie ', value: `discord.js (javascript)`, inline: true },
         { name: 'Librairie verssion', value: `12.2.0`, inline: true },
         { name: 'Support', value: `[Serveur support ](https://discord.gg/TC7Qjfs)`, inline: true },
