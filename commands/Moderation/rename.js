@@ -8,7 +8,7 @@ module.exports.run = async (client, message, args) => {
     if(newName.length > 12) return message.channel.send(`${client.config.emojis.FALSE}Vous ne pouvez pas choisir un pseudo qui fais plus de 12 caractères.`)
     if(newName.length < 2) return message.channel.send(`${client.config.emojis.FALSE}Vous ne pouvez pas choisir un pseudo qui fais moins de 2 caractères.`)
     utilisateur.setNickname(newName)
-    .then(message.channel.send(`${client.config.emojis.TRUE}J'ai bien mis a jour lle nom de l'utilisateur ${utilisateur}.`))
+    .then(message.channel.send(`${client.config.emojis.TRUE}J'ai bien mis a jour le nom de l'utilisateur ${utilisateur}.`))
     //.catch(message.channel.send(`${client.config.emojis.FALSE}Une erreur s'est produite merci de réessayer.`))
 
 };
