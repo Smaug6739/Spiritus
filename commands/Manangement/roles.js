@@ -4,6 +4,7 @@ module.exports.run = async(client, message, args,settings) => {
     if(!args[0]){
         const embed = new MessageEmbed()
         .setTitle('Commande role')
+        .setColor(client.config.color.EMBEDCOLOR)
         .setDescription('La commande `roles` permet de gérer les roles du serveur graces aux sous commandes suivantes :')
         .addFields(
             { name: '\u200b', value: `${client.config.emojis.FLECHE}\`role liste\` donne la liste des roles du serveur.`, inline: false },
@@ -19,6 +20,7 @@ module.exports.run = async(client, message, args,settings) => {
     if(args[0].toLowerCase() === 'liste'){
         const embed = new MessageEmbed()
         .setTitle('Commande role liste')
+        .setColor(client.config.color.EMBEDCOLOR)
         .setThumbnail(`${message.guild.iconURL()}`)
         .setDescription('Voici la liste de tous les roles du serveur :')
         .addFields({ name: '\u200b', value: `${message.guild.roles.cache.map(r => r.toString()).join('')}`, inline: false })

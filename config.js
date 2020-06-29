@@ -29,7 +29,7 @@ module.exports = {
       EMBEDCOLOR: '#d91414',
       ROUGE : '#ff0004',
       ORANGE : '#ff8400',
-      VERT : '#0x00FF00',
+      VERT : '#02ff30',
     },
     ERREURS:{
       WEBHOOKID : '725313155236102164',

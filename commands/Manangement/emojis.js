@@ -48,16 +48,15 @@ module.exports.run = async (client, message, args,settings) => {
             const embed = new MessageEmbed()
             embed.setTitle('Emoji create')
             embed.setThumbnail(emoji)
-            embed.setColor(0x00FF00)
-            embed.addFields({ name: 'Nom :', value: `${nom_emoji}`, inline: true },
-            { name: 'Emoji URL :', value: `${emoji}`, inline: true })
+            embed.setColor(client.config.color.VERT)
+            embed.addFields({ name: 'Nom :', value: `${nom_emoji}`, inline: true })
             embed.setTimestamp()
             embed.setFooter('BOT ID : 689210215488684044', `${message.guild.iconURL()}`);
             //-------------------------------------CREATION EMOJI -----------------------------------------
             try{            
               await  message.guild.emojis.create(emoji, nom_emoji)
-              .then(message.channel.send(embed));
-              //.catch(console.error);
+              .then(message.channel.send(embed))
+              .catch(console.error);
         
             }catch(err){
               message.channel.send(`${client.config.emojis.FALSE}Une erreur s'est produite merci de ressayer`);
@@ -68,7 +67,7 @@ module.exports.run = async (client, message, args,settings) => {
     if(args[0].toLowerCase() === 'update'){
       const emojiUpdateDescription = new MessageEmbed()
             .setTitle(`Sous commande : ${settings.prefix}emoji update`)
-            .setColor(client.config.color.EMBEDCOLOR)
+            .setColor(client.config.color.VERT)
             .setDescription(`**Module :** Manangement\n**Description :** Permet de modifier le nom d'un emoji sur le serveur\n**Usage :** [nom] (Nouveau nom)\n**Exemples :** \n ${settings.prefix}emoji update BOT Spiritus`)
             .setFooter('BOT ID : 689210215488684044')
             .setTimestamp()
@@ -78,19 +77,18 @@ module.exports.run = async (client, message, args,settings) => {
             let emo = client.emojis.cache.find(emoji => emoji.name === args[1]);
             if(emo){
                let emoticon = client.emojis.cache.find(emoji => emoji.name === args[1]);
-               let nom_emoji_nouveau = args[2];
-               if(nom_emoji_nouveau.length < 2) return message.channel.send(`${client.config.emojis.FALSE}Le nom de l'emoji doit contenir au moins 2 caractères`);
+               let newNameEmot = args[2];
+               if(newNameEmot.length < 2) return message.channel.send(`${client.config.emojis.FALSE}Le nom de l'emoji doit contenir au moins 2 caractères`);
                const embed = new MessageEmbed()
                .setTitle('Emoji update')
                .setThumbnail(emo.url)
-               .setColor(0x00FF00)
+               .setColor(client.config.color.VERT)
                .addFields({ name: 'Ancien nom :', value: `${args[1]}`, inline: true },
-               { name: 'Nouveau nom', value: `${nom_emoji_nouveau}`, inline: true },
-               { name: 'Emoji', value: `${emo.url}`, inline: true })
+               { name: 'Nouveau nom', value: `${newNameEmot}`, inline: true })
                .setTimestamp()
                .setFooter('BOT ID : 689210215488684044', `${message.guild.iconURL()}`);
                try{
-                   await emoticon.edit({ name: nom_emoji_nouveau})
+                   await emoticon.edit({ name: newNameEmot})
                    await message.channel.send(embed)
                }catch(err){
                    message.channel.send(`${client.config.emojis.FALSE}Une erreur s'est produite merci de ressayer`)
@@ -98,24 +96,21 @@ module.exports.run = async (client, message, args,settings) => {
                }
        
              }else if(args[1].includes('>','<')){
-               let nom_emoji_nouveau = args[2]
-               if(nom_emoji_nouveau.length < 2) return message.channel.send(`${client.config.emojis.FALSE}Le nom de l'emoji doit contenir au moins 2 caractères`);
+               let newNameEmot = args.slice(2).join("_")
+               if(newNameEmot.length < 2) return message.channel.send(`${client.config.emojis.FALSE}Le nom de l'emoji doit contenir au moins 2 caractères`);
                let emoo = args[1]
-               let emoji_string = emoo.replace(/<.*:/, '').slice(0, -1);
-               
+               let emojiString = emoo.replace(/<.*:/, '').slice(0, -1);
                const embed = new MessageEmbed()
                .setTitle('Emoji update')
-               .setThumbnail(message.guild.emojis.cache.get(emoji_string).url)
-               .setColor(0x00FF00)
+               .setThumbnail(message.guild.emojis.cache.get(emojiString).url)
+               .setColor(client.config.color.VERT)
                .addFields(
-               { name: 'Serveur :', value: `${message.guild.name}`, inline: true },
-               { name: 'Emoji :', value: `${args[0]}`, inline: true },
-               { name: 'Nouveau nom', value: `${nom_emoji_nouveau}`, inline: true },
-               { name: 'URL : :', value: `${message.guild.emojis.cache.get(emoji_string).url}`, inline: true })
+               { name: 'Emoji :', value: `${args[1]}`, inline: true },
+               { name: 'Nouveau nom', value: `${newNameEmot}`, inline: true })
                .setTimestamp()
                .setFooter('BOT ID : 689210215488684044', `${message.guild.iconURL()}`);
                try{
-                   message.guild.emojis.cache.get(emoji_string).edit({ name: nom_emoji_nouveau });
+                   message.guild.emojis.cache.get(emojiString).edit({ name: newNameEmot });
                    message.channel.send(embed);
                }catch(err){
                    message.channel.send(`${client.config.emojis.FALSE}Une erreur s'est produite merci de ressayer`)
@@ -143,7 +138,7 @@ module.exports.run = async (client, message, args,settings) => {
             const embed = new MessageEmbed()
             .setTitle('Emoji delete')
             .setThumbnail(emo.url)
-            .setColor(0x00FF00)
+            .setColor(client.config.color.VERT)
             .addFields(
             { name: 'Nom :', value: `${args[1]}`, inline: true },
             )
@@ -162,19 +157,19 @@ module.exports.run = async (client, message, args,settings) => {
             }else if(args[1].includes('>','<')){
                 //emoji-taper
                 let emoo = args[1]
-                let emoji_string = emoo.replace(/<.*:/, '').slice(0, -1);
-                console.log(emoji_string)
+                let emojiString = emoo.replace(/<.*:/, '').slice(0, -1);
+                console.log(emojiString)
                 const embed = new MessageEmbed()
                 .setTitle('Emoji delete')
-                .setThumbnail(message.guild.emojis.cache.get(emoji_string).url)
-                .setColor(0x00FF00)
+                .setThumbnail(message.guild.emojis.cache.get(emojiString).url)
+                .setColor(client.config.color.VERT)
                 .addFields(
-                { name: 'URL :', value: `${message.guild.emojis.cache.get(emoji_string).url}`, inline: true })
+                { name: 'Emoji :', value: `${message.guild.emojis.cache.get(emojiString)}`, inline: true })
                 .setTimestamp()
                 .setFooter('BOT ID : 689210215488684044', `${message.guild.iconURL()}`);
                 try{
                     message.channel.send(embed)
-                    message.guild.emojis.cache.get(emoji_string).delete()
+                    message.guild.emojis.cache.get(emojiString).delete()
 
                 }catch(err){
                     //message.channel.send(`${client.config.emojis.FALSE}Une erreur s'est produite merci de réessayer`);

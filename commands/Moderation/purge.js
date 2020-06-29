@@ -1,9 +1,9 @@
 const { MessageEmbed } = require("discord.js");
 module.exports.run = async (client, message, args) => {
-  let { TRUE,FALSE,ROUGE,FLECHE } = require('../../configstyle');
   if(!args[0]){
     const embed = new MessageEmbed()
     .setTitle('Commande purge')
+    .setColor(client.config.color.EMBEDCOLOR)
     .setDescription('La commande `purge` permet de gérer les messages du serveur graces aux sous commandes suivantes :')
     .addFields(
         { name: '\u200b', value: `${client.config.emojis.FLECHE}\`purge channel\` permet de purge  un channel entier.`, inline: false },
