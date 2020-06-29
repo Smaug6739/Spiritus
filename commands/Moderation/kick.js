@@ -2,7 +2,9 @@ const { MessageEmbed } = require("discord.js");
 module.exports.run = async (client, message, args) => {
     if(!message.guild.me.hasPermission('KICK_MEMBERS')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission pour kick un utilisateur.`);
 
-  let user = message.mentions.users.first();
+  //let user = message.mentions.users.first();
+  let user  = client.resolveMember(message.guild,args[0])
+  if(user == undefined)return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver cet utilisateur.`)
   let reason = (args.splice(1).join(' ') || 'Aucune raison spécifiée');
 
    await user ? message.guild.member(user).kick(reason) : message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver cet utilisateur`);

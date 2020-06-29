@@ -4,16 +4,16 @@ module.exports.run = async (client, message, args) => {
   if(!message.guild.me.hasPermission('MANAGE_CHANNELS')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de mute.`);
   if(!message.guild.me.hasPermission('MANAGE_ROLES')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de modifier les roles.`);
 
-  let { ORANGE } = require('../../configstyle');
-  let user = message.guild.member(message.mentions.users.first());
-  let muteRole = message.guild.roles.cache.find(r => r.name === 'muted');
+  let user  = client.resolveMember(message.guild,args[0])
+  if(user == undefined)return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver cet utilisateur.`)
+  let muteRole = message.guild.roles.cache.find(r => r.name === 'Muted');
   let muteTime = (args[1] || '60s');
 
   if (!muteRole) {
     muteRole = await message.guild.roles.create({
       data: {
-        name: 'muted',
-        color: '#000',
+        name: 'Muted',
+        color: '#2f3136',
         permissions: []
       }
     });
@@ -36,7 +36,7 @@ module.exports.run = async (client, message, args) => {
 
   const embed = new MessageEmbed()
     .setAuthor(`${user.user.username} (${user.id})`, user.user.avatarURL())
-    .setColor(`${ORANGE}`)
+    .setColor(`${client.config.color.ORANGE}`)
     .setDescription(`**Action**: mute\n**Temps**: ${ms(ms(muteTime))}`)
     .setTimestamp()
     .setFooter(message.author.username, message.author.avatarURL());

@@ -2,9 +2,10 @@ const { MessageEmbed } = require("discord.js");
 
 module.exports.run = async (client, message, args) => {
   if(!message.guild.me.hasPermission('BAN_MEMBERS')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission pour unban un utilisateur.`);
-  let { ROUGE } = require('../../configstyle');
-  let user = await client.users.fetch(args[0]);
-  if (!user) return message.reply("l'utilisateur n'existe pas.");
+  //let user = await client.users.fetch(args[0]);
+  let user  = client.resolveMember(message.guild,args[0])
+  if(user == undefined)return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver cet utilisateur.`)
+  //if (!user) return message.reply("l'utilisateur n'existe pas.");
   message.guild.members.unban(user);
 
   const embed = new MessageEmbed()

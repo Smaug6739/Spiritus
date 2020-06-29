@@ -77,9 +77,14 @@ module.exports = async(client, message) => {
     return message.channel.send(embed);
   };
 
-  if (command.help.isUserAdmin && !user) return message.reply('il faut mentionner un utilisateur.');
-
-  if (command.help.isUserAdmin && message.guild.member(user).hasPermission('BAN_MEMBERS')) return message.reply("tu ne peux pas utiliser cette commande sur cet utilisateur.");
+  //if (command.help.isUserAdmin && !user) return message.reply('il faut mentionner un utilisateur.');
+  if (command.help.isUserAdmin && args[0]){
+    let user = client.resolveMember(message.guild,args[0])
+    if(user){
+    if(user.hasPermission('BAN_MEMBERS')) return message.reply("tu ne peux pas utiliser cette commande sur cet utilisateur.");
+    }
+  }
+  //if (command.help.isUserAdmin && message.guild.member(user).hasPermission('BAN_MEMBERS')) return message.reply("tu ne peux pas utiliser cette commande sur cet utilisateur.");
 
   if (!client.cooldowns.has(command.help.name)) {
     client.cooldowns.set(command.help.name, new Collection());
