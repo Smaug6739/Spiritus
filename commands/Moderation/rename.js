@@ -2,7 +2,7 @@ module.exports.run = async (client, message, args) => {
     if(!message.guild.me.hasPermission('MANAGE_NICKNAMES')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission pour renomer un utilisateur.`);
 
     //let utilisateur = message.mentions.members.first();
-    let utilisateur  = client.resolveMember(message.guild,args[0])
+    let utilisateur  = await client.resolveMember(message.guild,args[0])
     if(utilisateur == undefined)return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver cet utilisateur.`)
     let newName = args.slice(1).join(" ");
     if(newName.length > 12) return message.channel.send(`${client.config.emojis.FALSE}Vous ne pouvez pas choisir un pseudo qui fais plus de 12 caractères.`)

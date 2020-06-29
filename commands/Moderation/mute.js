@@ -3,12 +3,10 @@ const { MessageEmbed } = require("discord.js");
 module.exports.run = async (client, message, args) => {
   if(!message.guild.me.hasPermission('MANAGE_CHANNELS')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de mute.`);
   if(!message.guild.me.hasPermission('MANAGE_ROLES')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de modifier les roles.`);
-
-  let user  =  message.mentions.members.first() || client.resolveMember(message.guild,args[0]);
-  if(user == undefined)return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver cet utilisateur.`)
+  let user = await client.resolveMember(message.guild,args[0])
+  //let user = message.guild.member(message.mentions.users.first());
   let muteRole = message.guild.roles.cache.find(r => r.name === 'Muted');
   let muteTime = (args[1] || '60s');
-
   if (!muteRole) {
     muteRole = await message.guild.roles.create({
       data: {
@@ -17,7 +15,6 @@ module.exports.run = async (client, message, args) => {
         permissions: []
       }
     });
-
     message.guild.channels.cache.forEach(async (channel, id) => {
       await channel.updateOverwrite(muteRole, {
         SEND_MESSAGES: false,
@@ -40,8 +37,7 @@ module.exports.run = async (client, message, args) => {
     .setDescription(`**Action**: mute\n**Temps**: ${ms(ms(muteTime))}`)
     .setTimestamp()
     .setFooter(message.author.username, message.author.avatarURL());
-    
-  message.channel.send(embed);
+    message.channel.send(embed);
 };
 
 module.exports.help = {
