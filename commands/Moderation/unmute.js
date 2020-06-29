@@ -3,7 +3,7 @@ module.exports.run = (client, message, args) => {
 
   if(!message.guild.me.hasPermission('MANAGE_ROLES')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de modifier les roles.`);
 
-  let user  = client.resolveMember(message.guild,args[0])
+  let user = client.resolveMember(message.guild,args[0])
   if(user == undefined)return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver cet utilisateur.`)
   //let user = message.guild.member(message.mentions.users.first());
   let muteRole = message.guild.roles.cache.find(r => r.name === 'Muted');

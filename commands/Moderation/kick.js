@@ -9,13 +9,12 @@ module.exports.run = async (client, message, args) => {
 
    await user ? message.guild.member(user).kick(reason) : message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver cet utilisateur`);
   const embed = new MessageEmbed()
-    .setAuthor(`${user.username} (${user.id})`)
+    .setAuthor(`${user.user.username} (${user.id})`)
     .setColor(`${client.config.color.ORANGE}`)
     .setDescription(`**Action**: kick\n**Raison**: ${reason}`)
-    .setThumbnail(user.displayAvatarURL())
+    .setThumbnail(user.user.displayAvatarURL())
     .setTimestamp()
-    .setFooter(message.author.username, message.author.avatarURL());
-    
+    .setFooter(message.author.username, message.author.avatarURL());    
     message.channel.send(embed);
 };
 

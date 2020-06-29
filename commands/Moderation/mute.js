@@ -4,7 +4,7 @@ module.exports.run = async (client, message, args) => {
   if(!message.guild.me.hasPermission('MANAGE_CHANNELS')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de mute.`);
   if(!message.guild.me.hasPermission('MANAGE_ROLES')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de modifier les roles.`);
 
-  let user  = client.resolveMember(message.guild,args[0])
+  let user  =  message.mentions.members.first() || client.resolveMember(message.guild,args[0]);
   if(user == undefined)return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver cet utilisateur.`)
   let muteRole = message.guild.roles.cache.find(r => r.name === 'Muted');
   let muteTime = (args[1] || '60s');

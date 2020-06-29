@@ -8,7 +8,7 @@ module.exports.run = (client, message, args) => {
     channel.updateOverwrite(message.guild.roles.everyone, {
         SEND_MESSAGES: false
     })
-    .then(message.channel.send(`${client.config.emojis.TRUE}J'ai bien lock le channel <#${lien}>`))
+    .then(message.channel.send(`${client.config.emojis.TRUE}J'ai bien lock le channel ${channel}`))
     .catch(console.error);
       
 }
