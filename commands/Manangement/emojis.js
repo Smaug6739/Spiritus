@@ -65,8 +65,11 @@ module.exports.run = async (client, message, args,settings) => {
             });
             base64Image = message.attachments.first().url
         }
+        name = args[1]
+        if(name.includes(':'))return message.channel.send(`Nom de l'emoji *(${name})* est invalide.`)
         try{
-            emote = await message.channel.guild.emojis.create(base64Image,args[1]);
+           
+            emote = await message.channel.guild.emojis.create(base64Image,name);
         }catch(err){
             client.channels.cache.get('725251200660013136').send(`Une erreur sur la commande \`emoji-create\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
             return;
