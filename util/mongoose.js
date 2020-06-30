@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { DBCONNECTION } = require("../config");
 const {MessageEmbed, WebhookClient} = require('discord.js')
-module.exports = {
+module.exports =(client) => {
   init: () => {
     const mongOptions = {
       useNewUrlParser: true,
