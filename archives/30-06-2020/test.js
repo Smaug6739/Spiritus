@@ -39,7 +39,6 @@ module.exports.run =async(client, message, args) => {
         }catch(err){
             console.log(err)
             return;
-
         }
         const embed = new MessageEmbed()
         .setTitle(`${client.config.emojis.TRUE} Emoji created`)
