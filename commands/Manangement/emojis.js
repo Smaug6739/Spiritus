@@ -42,6 +42,7 @@ module.exports.run = async (client, message, args,settings) => {
         if (args[2] && (/<a?:([a-z0-9-_]+):(\d+)>/gi).test(args[2])) {
             let extension = args[1].startsWith('<a:') ? '.gif' : '.png';
             let emoteLink = `https://cdn.discordapp.com/emojis/${args[2].replace('<:', '').replace('<a:', '').replace('>', '').split(':')[1]}${extension}`;
+            console.log(emoteLink)
             const query = await axios({
                 url: emoteLink,
                 responseType: 'arraybuffer'
