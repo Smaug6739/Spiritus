@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const { DBCONNECTION } = require("../config");
-
+const {MessageEmbed, WebhookClient} = require('discord.js')
 module.exports = {
   init: () => {
     const mongOptions = {
@@ -17,6 +17,20 @@ module.exports = {
 
     mongoose.connect(DBCONNECTION, mongOptions);
     mongoose.Promise = global.Promise;
-    mongoose.connection.on("connected", () => console.log("Mongoose est connecté!"));
+    mongoose.connection.on("connected", () =>{ 
+      console.log("Mongoose est connecté!")
+      const webhookClient  = new WebhookClient(`${client.config.webhooks.readyLogs.ID}`, `${client.config.webhooks.readyLogs.TOKEN}`);
+      const embed = new MessageEmbed()
+      .setTitle('Mongoose connecté avec succès.')
+      .setColor('#0099ff')
+      .setTimestamp()
+      .setFooter('BOT ID : 689210215488684044');
+
+      webhookClient.send('',{
+        username: `${client.config.webhooks.readyLogs.NAME}`,
+        avatarURL: `${client.config.webhooks.readyLogs.AVATAR}`,
+        embeds: [embed],
+      });
+    });
   }
 }
