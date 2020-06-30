@@ -1,7 +1,7 @@
 const { MessageEmbed } = require("discord.js");
 
 module.exports = async (client, channel) => {
-  let { ROSE } = require('../../configstyle');
+  let { ROSE } = require('../../../configstyle');
 
   if (channel.type === "dm") return;
   else {
