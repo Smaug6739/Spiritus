@@ -11,8 +11,8 @@ module.exports = {
       useFindAndModify: false,
       autoIndex: false, // Don't build indexes
       poolSize: 10, // Maintain up to 10 socket connections
-      serverSelectionTimeoutMS: 30000, // Keep trying to send operations for 5 seconds //5000
-      socketTimeoutMS: 60000, // Close sockets after 45 seconds of inactivity  //45000
+      serverSelectionTimeoutMS: 10000, // Keep trying to send operations for 5 seconds //5000
+      socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity  //45000
       family: 4 // Use IPv4, skip trying IPv6
     }
 
