@@ -1,9 +1,9 @@
 module.exports = {
     TOKEN: "Njg5MjEwMjE1NDg4Njg0MDQ0.XtfkIg.vuFIrI3A7wBsJSiwwBiBgZSQuI8",
     PREFIX: "?",
-    //DBCONNECTION: "mongodb+srv://spiritus:oHBDysvqARAg1chL@cluster0-y7doh.mongodb.net/test?retryWrites=true&w=majority",
+    DBCONNECTION: "mongodb+srv://spiritus:oHBDysvqARAg1chL@cluster0-y7doh.mongodb.net/test?retryWrites=true&w=majority",
     //DBCONNECTION : `mongodb+srv://vps:HhvnmdzfyvjXBLdu@cluster0-y7doh.mongodb.net/test?retryWrites=true&w=majority`,
-      DBCONNECTION : "mongodb+srv://spiritus:oHBDysvqARAg1chL @cluster0-y7doh.mongodb.net/test" 
+    //DBCONNECTION : "mongodb+srv://spiritus:oHBDysvqARAg1chL @cluster0-y7doh.mongodb.net/test" 
     ADMIN : ["611468402263064577"],
     DEFAULTSETTINGS: {
       prefix: "?",
