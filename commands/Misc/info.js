@@ -44,7 +44,6 @@ module.exports.run = async (client, message, args,settings) =>{
             return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver cette personne.`)
         }
     }else{
-        if(!use)return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver cette personne`)
     if (use.user.presence.status === 'online') status = `${client.config.emojis.ONLINE}Online`  ;
     if (use.user.presence.status === 'idle') status = `${client.config.emojis.IDLE}Idle`;
     if (use.user.presence.status === 'dnd') status = `${client.config.emojis.DND}Dnd`;
