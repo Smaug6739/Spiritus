@@ -33,10 +33,14 @@ const guildSchema = mongoose.Schema({
     "type": String,
     "default": defaults.rankcard
   },
-  vip:{
+  premium:{
     "type": Boolean,
     "default": false
   },
+  reactionroles:{
+    "type": Array,
+    "default":[]
+  }
 });
 
 module.exports = mongoose.model("Guild", guildSchema);

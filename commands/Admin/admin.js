@@ -68,6 +68,22 @@ module.exports.run = async (client, message, args) =>{
             return message.channel.send(`${client.config.emojis.FALSE}An error occured: \n\`\`\`js\n${err}\n\`\`\``);
         }
     }
+    //---------------------------------------PREMIUM---------------------------------------------------
+    if(args[0] === 'premium'){
+        const guild = {
+            id : `${args[1]}`
+        }
+        await client.updateGuild(guild, {premium : true});
+            message.channel.send(`${client.config.emojis.TRUE}Guild premium mise à jour avec succès.`)
+    }
+    //---------------------------------------PREMIUM-FALSE---------------------------------------------------
+    if(args[0] === 'premium-false'){
+        const guild = {
+            id : `${args[1]}`
+        }
+        await client.updateGuild(guild, {premium : false});
+            message.channel.send(`${client.config.emojis.TRUE}Guild premium mise à jour avec succès.`)
+    }
     //---------------------------------------PULL-REPO--------------------------------------------------
 
     if(args[0] === 'pull'){
