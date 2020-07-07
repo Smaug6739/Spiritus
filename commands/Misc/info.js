@@ -26,22 +26,20 @@ module.exports.run = async (client, message, args,settings) =>{
         if(!args[1]) return message.channel.send(infoUserDescription)
     let use = client.resolveMember(message.guild,args.slice(1).join(' '))//message.mentions.members.first()||message.member
     if(use == undefined){
-        try{
-            client.users.fetch(args[1]).then(m =>{
-            if(m.bot)BOTSTATUS = 'Vrai'
+        let user = client.resolveUser(args[1])
+        if(user != undefined){ 
+            if(user.bot)BOTSTATUS = 'Vrai'
             else BOTSTATUS = 'Faux'
-             emb = new MessageEmbed()
-            .setAuthor(`${m.username}#${m.discriminator}`, `${m.avatarURL()}`)
+            const embed = new MessageEmbed()
+            .setAuthor(`${user.username}#${user.discriminator}`, `${user.avatarURL()}`)
             .setColor(`${client.config.color.EMBEDCOLOR}`)
-            .setThumbnail(m.avatarURL())
+            .setThumbnail(user.displayAvatarURL())
             .addField(`\u200b`,`BOT : ${BOTSTATUS}`)
             .setDescription('Cette personne n\'est pas sur le serveur')
-            .setFooter(`User ID : ${m.id}`)
-             message.channel.send(emb)
-             return
-            })
-        }catch{
-            return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver cette personne.`)
+            .setFooter(`User ID : ${user.id}`)
+            return message.channel.send(embed)
+        }else{
+            message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver cet utilisateur.`)
         }
     }else{
     if (use.user.presence.status === 'online') status = `${client.config.emojis.ONLINE}Online`  ;
