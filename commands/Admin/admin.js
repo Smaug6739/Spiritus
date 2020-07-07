@@ -9,6 +9,7 @@ module.exports.run = async (client, message, args) =>{
         const embed = new MessageEmbed()
         .setTitle('Commande admin')
         .setDescription('La commande `admin` permet de gérer le bot grace aux sous commandes suivantes :')
+        .setColor(client.config.color.EMBEDCOLOR)
         .addFields(
             { name: '\u200b', value: `${client.config.emojis.FLECHE}\`admin eval\` execute du code javascript.`, inline: false },
             { name: '\u200b', value: `${client.config.emojis.FLECHE}\`admin pull\` pull le repo github.`, inline: false },
