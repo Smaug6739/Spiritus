@@ -80,14 +80,14 @@ module.exports.run = async (client, message, args, settings, dbUser) => {
             channel.send(`\u200b`, attachment);
         }
  }else{
-     return message.channel.send(`${client.config.emojis.FALSE}Le système d'experience n'est pas activer sur ce serveur. Pour l'activer utilisez la commande \`${settings.prefix}systeme-experience\``)
+     return message.channel.send(`${client.config.emojis.FALSE}Le système d'experience n'est pas activer sur ce serveur. Pour l'activer utilisez la commande \`${settings.prefix}config experience\``)
  }
 };
 
 module.exports.help = {
     name : 'rank',
     aliases : ['rank','uexp','exp','userexperience'],
-    category : 'experience',
+    category : 'misc',
     description : 'Donne l\'exp d\'une personne.',
     cooldown : 10,
     usage : '<@user>',

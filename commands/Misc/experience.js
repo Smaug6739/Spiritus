@@ -39,14 +39,14 @@ module.exports.run = async(client, message, args, settings) => {
         }
         }
     }else{
-        return message.channel.send(`${client.config.emojis.FALSE}Le système d'experience n'est pas activer sur ce serveur. Pour l'activer utilisez la commande \`${settings.prefix}systeme-experience\``)
+        return message.channel.send(`${client.config.emojis.FALSE}Le système d'experience n'est pas activer sur ce serveur. Pour l'activer utilisez la commande \`${settings.prefix}config experience\``)
     };
 };
 module.exports.help = {
 
 name : 'experience',
 aliases : ['experience'],
-category : 'experience',
+category : 'misc',
 description : 'Ajoute ou enleve de l\'exp à une personne.',
 cooldown : 10,
 usage : '<@user> <nb_experience>',
