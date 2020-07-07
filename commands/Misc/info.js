@@ -88,7 +88,7 @@ module.exports.run = async (client, message, args,settings) =>{
         { name: 'Librairie verssion', value: `12.2.0`, inline: true },
         { name: 'Support', value: `[Serveur support ](https://discord.gg/TC7Qjfs)`, inline: true },
         { name: 'Invitation :', value: `[Invite](https://discordapp.com/oauth2/authorize?client_id=689210215488684044&scope=bot&permissions=1946446974)`, inline: true },
-        { name: 'Site internet :', value: `[Site](https://discord.com/)`, inline: true })
+        { name: 'Site internet :', value: `[Site](https://mail.spiritus-tech.mon.world)`, inline: true })
         .setTimestamp()
         .setFooter('Informations sur le bot Spiritus. BOT ID : 689210215488684044')
 		message.channel.send(embed);

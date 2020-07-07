@@ -13,6 +13,7 @@ module.exports = async(client, message) => {
     const comd = await client.getCmd(cmdNom[0], message.guild)
       if(comd) message.channel.send(comd.contenu)
   }  
+  if(settings.expsysteme){
 
   if(!dbUser) await client.createUser({
     guildID: message.member.guild.id,
@@ -21,7 +22,6 @@ module.exports = async(client, message) => {
     username: message.member.user.tag,
   });
   //-----------Si le système d'experience est activé------------------
-  if(settings.expsysteme){
   const expCd = Math.floor(Math.random() * 19) + 1; // 1 - 20 
   const expToAdd = Math.floor(Math.random() * 25) + 10; //  10 - 35
     if(expCd >= 10 && expCd  <= 15){

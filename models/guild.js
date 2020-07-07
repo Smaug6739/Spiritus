@@ -19,16 +19,24 @@ const guildSchema = mongoose.Schema({
   },
   expsysteme:{
     "type": Boolean,
-    "default": true
+    "default": false
   },
   serveurstats:{
+    "type": Boolean,
+    "default": false
+  }, 
+  invitations:{
     "type": Boolean,
     "default": false
   },
   rankcard :{
     "type": String,
     "default": defaults.rankcard
-  }
+  },
+  vip:{
+    "type": Boolean,
+    "default": false
+  },
 });
 
 module.exports = mongoose.model("Guild", guildSchema);
