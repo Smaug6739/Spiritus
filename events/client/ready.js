@@ -8,12 +8,15 @@ module.exports =async client => {
     let status = [`Commandes : ${client.config.PREFIX}help`,`Utilisateurs : ${client.guilds.cache.map(g => g.memberCount).reduce((a, b) => a + b)}`,`Commandes : ${client.config.PREFIX}help`],i =0;
     setInterval(() => {
       client.user.setPresence({ activity: { name: `${status [i++ % status.length]}`, type: 'WATCHING' }, status: 'online' });
-
     },60000)
   const webhookClient  = new WebhookClient(`${client.config.webhooks.readyLogs.ID}`, `${client.config.webhooks.readyLogs.TOKEN}`);
   const embed = new MessageEmbed()
-	.setTitle('BOT 2.0 à démarer avec succès.')
-  .setColor('#0099ff')
+  .setTitle(`BOT ${client.user.username} à démarer avec succès.`)
+  .setColor(`${client.config.webhooks.readyLogs.COLOR}`)
+  .setThumbnail(`${client.user.displayAvatarURL()}`)
+  .addField('Event ','Ready',true)
+  .addField('Users ',`${client.guilds.cache.map(g => g.memberCount).reduce((a, b) => a + b)}`,true)
+  .addField('Guilds ',`${client.guilds.cache.size.toString()}`,true)
   .setTimestamp()
   .setFooter('BOT ID : 689210215488684044');
 

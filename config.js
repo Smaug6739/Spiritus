@@ -50,7 +50,8 @@ module.exports = {
       ID : '714886315937759252',
       TOKEN : 'GtQPNjgyVAHQEaZAudHJ7TgpdhVrifSxp2jkEJVV8H5M0wQ9SEWJOUhMg94M2g_hpKZl',
       NAME : 'Spiritus',
-      AVATAR : 'https://cdn.discordapp.com/attachments/715219402215129088/720266052231102534/FGF_Moderateur.png'
+      AVATAR : 'https://cdn.discordapp.com/attachments/715219402215129088/720266052231102534/FGF_Moderateur.png',
+      COLOR : "#0099ff"
     },
     errors:{
       ID : '730122264908922940',
