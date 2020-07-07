@@ -36,7 +36,6 @@ module.exports = {
     ERREURS:{
       WEBHOOKID : '725313155236102164',
       WEBHOOKTOKEN : 'iYdWlcVjDnW6ty4-v6PXNFZ6EL2KPe7g0GPRWJbXgyZpAwT5PB2OJKLaTVNcB3MlFDXP'
-
     },
     webhooks : {
       readyLogs:{
@@ -48,7 +47,6 @@ module.exports = {
     }
 
   }
-
 
 //DBCONNECTION: "mongodb://localhost:27017/test",
 //DBCONNECTION: "mongodb+srv://spiritus:oHBDysvqARAg1chL@cluster0-y7doh.mongodb.net/test?retryWrites=true&w=majority",
