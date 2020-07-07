@@ -1,7 +1,16 @@
 module.exports = {
-  TOKEN: "Njg5MjEwMjE1NDg4Njg0MDQ0.XtfkIg.vuFIrI3A7wBsJSiwwBiBgZSQuI8",//BOT offitiel
   PREFIX: "?",
-  DBCONNECTION : "mongodb+srv://spiritus:oHBDysvqARAg1chL@cluster0-y7doh.mongodb.net/test",
+  //DBCONNECTION : "mongodb+srv://spiritus:oHBDysvqARAg1chL@cluster0-y7doh.mongodb.net/test",
+  //TOKEN: "Njg5MjEwMjE1NDg4Njg0MDQ0.XtfkIg.vuFIrI3A7wBsJSiwwBiBgZSQuI8",
+
+  DBCONNECTION: "mongodb://localhost:27017/test",
+  TOKEN : "Njg5MjExODk5NzIzNjQ0OTI4.XwS2WA.F-_reOFJ5pY_AfxeZSwNlcoLatc",
+
+    owner: {
+      id: "611468402263064577",
+      username: "Smaug#6739"
+  },
+
   ADMIN : ["611468402263064577"],
   DEFAULTSETTINGS: {
     prefix: "?",
@@ -42,6 +51,10 @@ module.exports = {
       TOKEN : 'GtQPNjgyVAHQEaZAudHJ7TgpdhVrifSxp2jkEJVV8H5M0wQ9SEWJOUhMg94M2g_hpKZl',
       NAME : 'Spiritus',
       AVATAR : 'https://cdn.discordapp.com/attachments/715219402215129088/720266052231102534/FGF_Moderateur.png'
+    },
+    errors:{
+      ID : '730122264908922940',
+      TOKEN : 'xPZMNjfuIyyarIi1Rvca5phog3LA0khTydHQAuBPBqkKlRAB50ENfFZhMcmqNR7_8v2_',
     }
   }
 

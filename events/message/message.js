@@ -1,4 +1,4 @@
-const { Collection,MessageEmbed } = require('discord.js');
+const { Collection,MessageEmbed,WebhookClient } = require('discord.js');
 
 module.exports = async(client, message) => {
   if (message.channel.type === "dm") return //client.emit("directMessage", message);
@@ -105,8 +105,24 @@ module.exports = async(client, message) => {
 
   tStamps.set(message.author.id, timeNow);
   setTimeout(() => tStamps.delete(message.author.id), cdAmount);
-  
+    try{
    command.run(client, message, args, settings, dbUser)
- 
+    }catch(e){
+      const webhookClient  = new WebhookClient(`${client.config.webhooks.errors.ID}`, `${client.config.webhooks.errors.TOKEN}`);
+      const embed = new MessageEmbed()
+      .setAuthor(`${message.author.username}#${message.author.discriminator}`,`${message.author.displayAvatarURL()}`)
+      .setTitle("Message d'erreur")
+      .setDescription(`__**Contenu du message :**__ \`${message.content}\` [Jump to message](https://discord.com/channels/${message.channel.guild.id}/${message.channel.id}/${message.id})`)
+      .addField('Mention :',`User : <@${message.author.id}>`,true)
+      .addField('Guild :',`ID : \`${message.guild.id}\` Name : \`${message.guild.name}\``,false)
+      .addField('Channel :',`ID : \`${message.channel.id}\` Name : \`${message.channel.name}\``,true)
+      .addField(`Erreur :`,`\`\`\`js\n${e}\`\`\``,false)
+      .setColor('#0099ff')
+      .setTimestamp()
+      .setFooter('BOT ID : 689210215488684044');
+      webhookClient.send(`<@${client.config.owner.id}>`,{
+        embeds: [embed],
+      });
+    }
  
 }

@@ -4,7 +4,8 @@ module.exports =async client => {
     console.log(`Logged in as ${client.user.tag}!`);
     //let emoji = client.emojis.cache.find(emoji => emoji.name === "loading");
     //console.log(emoji)
-    let status = [`Commandes : ?help`,`Serveurs : ${client.guilds.cache.size.toString()}`,`Utilisateurs : ${client.guilds.cache.map(g => g.memberCount).reduce((a, b) => a + b)}`],i =0;
+    //let status = [`Commandes : ?help`,`Serveurs : ${client.guilds.cache.size.toString()}`,`Utilisateurs : ${client.guilds.cache.map(g => g.memberCount).reduce((a, b) => a + b)}`],i =0;
+    let status = [`Commandes : ${client.config.PREFIX}help`,`Utilisateurs : ${client.guilds.cache.map(g => g.memberCount).reduce((a, b) => a + b)}`,`Commandes : ${client.config.PREFIX}help`],i =0;
     setInterval(() => {
       client.user.setPresence({ activity: { name: `${status [i++ % status.length]}`, type: 'WATCHING' }, status: 'online' });
 
