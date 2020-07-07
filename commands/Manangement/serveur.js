@@ -4,6 +4,7 @@ module.exports.run =(client, message, args,settings) => {
     if(!args[0]){
         const embed = new MessageEmbed()
         .setTitle('Commande serveur')
+        .setColor(`${client.config.color.EMBEDCOLOR}`)
         .setDescription('La commande `serveur` permet de gérer le serveur graces aux sous commandes suivantes :')
         .addFields(
             { name: '\u200b', value: `${client.config.emojis.FLECHE}\`serveur icon\` permet de changer l'icon du serveur.`, inline: false },

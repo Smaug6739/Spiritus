@@ -13,7 +13,7 @@ module.exports = {
     },
     emojis:{
       ONLINE : '<:Z2Status1Z2:713121114725023885>',
-      IDLE : ' <:Z1Status2Z1:713121099537448962>',
+      IDLE : '<:Z1Status2Z1:713121099537448962>',
       DND : '<:Y9Status3Y9:713121040485842984>',
       OFFLINE : '<:Y7Status5Y7:713121039931932714>',
       CHANNEL : '<:X5channelX5:713120296697331782>',

@@ -84,7 +84,7 @@ module.exports.help = {
     category: 'admin',
     description: "Modiffier la base de donnée",
     cooldown: 10,
-    usage: '<key_to_modify> <value>',
+    usage: '[paramètre] (valeur)',
     exemple :[],
     isUserAdmin: false,
     permissions: true,

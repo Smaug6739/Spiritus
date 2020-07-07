@@ -1,7 +1,7 @@
 const { Collection,MessageEmbed } = require('discord.js');
 
 module.exports = async(client, message) => {
-  if (message.channel.type === "dm") return client.emit("directMessage", message);
+  if (message.channel.type === "dm") return //client.emit("directMessage", message);
   if (!message.channel.permissionsFor(message.guild.me).has('SEND_MESSAGES')) return console.log('Je n\'ai pas la permission d\'envoyer messages');
 
   if (message.author.bot) return;

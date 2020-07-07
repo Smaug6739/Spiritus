@@ -5,6 +5,7 @@ module.exports.run = async(client, message, args,settings) => {
         const embed = new MessageEmbed()
         .setTitle('Commande channel')
         .setDescription('La commande `channel` permet de gérer les channels du serveur graces aux sous commandes suivantes :')
+        .setColor(`${client.config.color.EMBEDCOLOR}`)
         .addFields(
             { name: '\u200b', value: `${client.config.emojis.FLECHE}\`channel clone\` permet de cloner facilement n\`importe quel channel.`, inline: false },
             { name: '\u200b', value: `${client.config.emojis.FLECHE}\`channel position\` change la position de n'importe quel channel.`, inline: false },
@@ -12,7 +13,7 @@ module.exports.run = async(client, message, args,settings) => {
             { name: '\u200b', value: `${client.config.emojis.FLECHE}\`channel synchro\` permet de synchroniser les permission d\`un channel.`, inline: false },
             { name: '\u200b', value: `${client.config.emojis.FLECHE}\`channel topic\` permet de choisir le channel d\`un channel.`, inline: false },
             { name: '\u200b', value: `${client.config.emojis.FLECHE}\`channel create\` permet de crée un channel.`, inline: false },
-            { name: '\u200b', value: `${client.config.emojis.FLECHE}\`channel update\` permet de mettre a jour le nom d\`un channel.`, inline: false },
+            { name: '\u200b', value: `${client.config.emojis.FLECHE}\`channel update\` permet de mettre a jour le nom d'un channel.`, inline: false },
             { name: '\u200b', value: `${client.config.emojis.FLECHE}\`channel delete\` permet de supprimer un channel.`, inline: false },
            // { name: '\u200b', value: `${client.config.emojis.FLECHE}\`channel pin\` permet de pin un message avec son id.`, inline: false },
            // { name: '\u200b', value: `${client.config.emojis.FLECHE}\`channel unpin\` permet de unpin un message avec son id.`, inline: false },

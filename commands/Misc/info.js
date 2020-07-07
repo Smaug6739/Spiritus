@@ -32,6 +32,7 @@ module.exports.run = async (client, message, args,settings) =>{
             else BOTSTATUS = 'Faux'
              emb = new MessageEmbed()
             .setAuthor(`${m.username}#${m.discriminator}`, `${m.avatarURL()}`)
+            .setColor(`${client.config.color.EMBEDCOLOR}`)
             .setThumbnail(m.avatarURL())
             .addField(`\u200b`,`BOT : ${BOTSTATUS}`)
             .setDescription('Cette personne n\'est pas sur le serveur')
@@ -43,6 +44,7 @@ module.exports.run = async (client, message, args,settings) =>{
             return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver cette personne.`)
         }
     }else{
+        if(!use)return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver cette personne`)
     if (use.user.presence.status === 'online') status = `${client.config.emojis.ONLINE}Online`  ;
     if (use.user.presence.status === 'idle') status = `${client.config.emojis.IDLE}Idle`;
     if (use.user.presence.status === 'dnd') status = `${client.config.emojis.DND}Dnd`;

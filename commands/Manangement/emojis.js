@@ -7,6 +7,7 @@ module.exports.run = async (client, message, args,settings) => {
       const embed = new MessageEmbed()
       .setTitle('Commande emoji')
       .setDescription('La commande `emoji` permet de gérer les emojis du serveur graces aux sous commandes suivantes :')
+      .setColor(`${client.config.color.EMBEDCOLOR}`)
       .addFields(
           { name: '\u200b', value: `${client.config.emojis.FLECHE}\`emoji liste\` permet voir les emojis du serveur.`, inline: false },
           { name: '\u200b', value: `${client.config.emojis.FLECHE}\`emoji create\` permet de crée un emoji.`, inline: false },

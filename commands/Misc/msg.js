@@ -55,6 +55,7 @@ module.exports.run =(client, message, args) => {
   }else{
     const embed = new MessageEmbed()
     .setTitle('Commande message')
+    .setColor(`${client.config.color.EMBEDCOLOR}`)
     .setDescription('La commande `message` permet d\'envoyer un message a une personne ou dans un channel grace aux sous commandes suivantes :')
     .addFields(
         { name: '\u200b', value: `${client.config.emojis.FLECHE}\`message @user\` envoi un message dans les MP d\'une personne.`, inline: false },
