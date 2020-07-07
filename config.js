@@ -1,8 +1,6 @@
 module.exports = {
-  TOKEN: "Njg5MjEwMjE1NDg4Njg0MDQ0.XtfkIg.vuFIrI3A7wBsJSiwwBiBgZSQuI8",
+  TOKEN: "Njg5MjEwMjE1NDg4Njg0MDQ0.XtfkIg.vuFIrI3A7wBsJSiwwBiBgZSQuI8",//BOT offitiel
   PREFIX: "?",
-  //DBCONNECTION: "mongodb+srv://spiritus:oHBDysvqARAg1chL@cluster0-y7doh.mongodb.net/test?retryWrites=true&w=majority",
-  //DBCONNECTION : `mongodb+srv://vps:HhvnmdzfyvjXBLdu@cluster0-y7doh.mongodb.net/test?retryWrites=true&w=majority`,
   DBCONNECTION : "mongodb+srv://spiritus:oHBDysvqARAg1chL@cluster0-y7doh.mongodb.net/test",
   ADMIN : ["611468402263064577"],
   DEFAULTSETTINGS: {
@@ -52,3 +50,7 @@ module.exports = {
 
 //DBCONNECTION: "mongodb://localhost:27017/test",
 //DBCONNECTION: "mongodb+srv://spiritus:oHBDysvqARAg1chL@cluster0-y7doh.mongodb.net/test?retryWrites=true&w=majority",
+
+
+  //DBCONNECTION: "mongodb+srv://spiritus:oHBDysvqARAg1chL@cluster0-y7doh.mongodb.net/test?retryWrites=true&w=majority",
+  //DBCONNECTION : `mongodb+srv://vps:HhvnmdzfyvjXBLdu@cluster0-y7doh.mongodb.net/test?retryWrites=true&w=majority`,
