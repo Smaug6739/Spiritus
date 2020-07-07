@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
-const { DBCONNECTION } = require("../config");
+const { DBCONNECTION,webhooks } = require("../config");
 const {MessageEmbed, WebhookClient} = require('discord.js')
 
-module.exports = {
+module.exports =  {
+
   init: () => {
     const mongOptions = {
       useNewUrlParser: true,
@@ -20,7 +21,7 @@ module.exports = {
     mongoose.Promise = global.Promise;
     mongoose.connection.on("connected", () =>{ 
       console.log("Mongoose est connecté!")
-      const webhookClient  = new WebhookClient(`714886315937759252`, `GtQPNjgyVAHQEaZAudHJ7TgpdhVrifSxp2jkEJVV8H5M0wQ9SEWJOUhMg94M2g_hpKZl`);
+      const webhookClient  = new WebhookClient(`${webhooks.readyLogs.ID}`, `${webhooks.readyLogs.TOKEN}`);
       const embed = new MessageEmbed()
       .setTitle('Mongoose connecté avec succès.')
       .setColor('#0099ff')
