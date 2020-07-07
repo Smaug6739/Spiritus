@@ -39,6 +39,14 @@ module.exports.run = async (client, message, args, settings) => {
             }
             break;
         }
+        case  'admin-invites' : {
+                let invit ;
+                if(settings.invitations == true) invit = false;
+                else invit = true;
+                    await client.updateGuild(message.guild, {invitations : invit});
+                    message.channel.send(`Système d'anti-invits du serveur mis à jour : \`${settings.invitations }\` ->\`${invit}\``)
+            break;
+        }
         case  'rankcard' : {
             if(settings.premium == true){
                 if(newSetting){
@@ -89,5 +97,5 @@ module.exports.help = {
     isUserAdmin: false,
     permissions: true,
     args: true,
-    sousCommdandes : ["config prefix","config logChannel","config welcomeMessage","config experience"]
+    sousCommdandes : ["config prefix","config logChannel","config welcomeMessage","config experience","admin-invites","rankcard","serveurstats"]
 }
