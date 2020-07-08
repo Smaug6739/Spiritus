@@ -20,11 +20,11 @@ module.exports.help = {
     category : 'admin',
     description : 'Execute du code dans la console.',
     cooldown : 5,
-    usage : '',
+    usage : '[command]',
     exemple :[],
     permissions : true,
     isUserAdmin: false,
-    args : false,
+    args : true,
     sousCommdandes : [""]
 
 }    
