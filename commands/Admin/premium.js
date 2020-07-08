@@ -28,7 +28,7 @@ module.exports.help = {
     exemple :[],
     permissions : true,
     isUserAdmin: false,
-    args : false,
+    args : true,
     sousCommdandes : [""]
 
 }    
