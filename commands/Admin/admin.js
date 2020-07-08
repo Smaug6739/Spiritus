@@ -110,7 +110,7 @@ module.exports.run = async (client, message, args) =>{
         })
     }
     if(args[0] === 'eval'){
-       async function clean(text) {
+       /*async function clean(text) {
             if (typeof(text) === "string")
               return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
             else
@@ -126,7 +126,44 @@ module.exports.run = async (client, message, args) =>{
             message.channel.send(clean(evaled), {code:"xl"});
           } catch (err) {
             message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
-          };
+          };*/
+          let evaled;
+          try {
+              evaled = await eval(args.slice(1).join(' ').trim());
+              if (args[1] === '-a' || args[1] === '-async') {
+                  args.slice(1).shift();
+                  evaled = `(async () => { ${args.slice(1).join(' ').trim()} })()`;
+              }
+              if (typeof evaled === 'object') {
+                  evaled = util.inspect(evaled, { depth: 0, showHidden: true });
+              } else {
+                  evaled = String(evaled);
+              }
+          } catch (err) {
+              return message.channel.send(`\`\`\`js\n${err}\`\`\``);
+          }
+      
+          evaled = evaled.replace(client.config.token, 'no.');
+      
+          const fullLen = evaled.length;
+      
+          if (fullLen === 0) {
+              return null;
+          }
+          if (fullLen > 2000) {
+              evaled = evaled.match(/[\s\S]{1,1900}[\n\r]/g) || [];
+              if (evaled.length > 3) {
+                  message.channel.send(`\`\`\`js\n${evaled[0]}\`\`\``);
+                  message.channel.send(`\`\`\`js\n${evaled[1]}\`\`\``);
+                  message.channel.send(`\`\`\`js\n${evaled[2]}\`\`\``);
+                  return;
+              }
+              return evaled.forEach((message) => {
+                  message.channel.send(`\`\`\`js\n${message}\`\`\``);
+                  return;
+              });
+          }
+          return message.channel.send(`\`\`\`js\n${evaled}\`\`\``);
     }
     //------------------------------------------------------------------------------------------------------------------
 }
