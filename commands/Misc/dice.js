@@ -1,6 +1,5 @@
 const {MessageEmbed} = require('discord.js');
-module.exports.run =async(client, message, args) => {
-    const {LOGOBOT,EMBED} = require('../../configstyle')
+module.exports.run =(client, message, args) => {
             let nb_dés = args[0]
             let count = args[1] 
             if (isNaN(nb_dés)) return message.reply("le nombre de dés doit etre un nombre.");
