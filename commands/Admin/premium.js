@@ -5,28 +5,27 @@ const exec = util.promisify(child_process.exec);
 const { MessageEmbed} = require("discord.js");
 module.exports.run = async (client, message, args) =>{
     if(!client.config.ADMIN.includes(message.author.id)) return message.channel.send(`${client.config.emojis.FALSE}Tu n'est pas admin du BOT `)
-    //---------------------------------------CHARGE-DES-GUILDS--------------------------------------------------
-    async function verifierguild(){
-        client.guilds.cache.forEach(async guild  => {
-            const data = await Guild.findOne({ guildID: guild.id });
-            if (!data){ 
-                const newGuild = {
-                guildID: guild.id,
-                guildName: guild.name
-                
-                };
-                await client.createGuild(newGuild)
-            }
-            console.log(guild.id)
-        })
-      }  
-      verifierguild()
-      message.channel.send(`${client.config.emojis.TRUE}Recharge de toutes les guilds lancée.`)
+    //---------------------------------------PREMIUM-ADD---------------------------------------------------
+    if(args[0] === 'add'){
+        const guild = {
+            id : `${args[1]}`
+        }
+        await client.updateGuild(guild, {premium : true});
+            message.channel.send(`${client.config.emojis.TRUE}Guild premium mise à jour avec succès.`)
+    }
+    //---------------------------------------PREMIUM-REM---------------------------------------------------
+    if(args[0] === 'rem'){
+        const guild = {
+            id : `${args[1]}`
+        }
+        await client.updateGuild(guild, {premium : false});
+            message.channel.send(`${client.config.emojis.TRUE}Guild premium mise à jour avec succès.`)
+    }
 }
 module.exports.help = {
         
-    name : 'charge',
-    aliases : ['charge'],
+    name : 'premium',
+    aliases : ['premium'],
     category : 'admin',
     description : 'Lance une recherge de toutes les guilds du bot.',
     cooldown : 5,

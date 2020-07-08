@@ -5,23 +5,60 @@ const exec = util.promisify(child_process.exec);
 const { MessageEmbed} = require("discord.js");
 module.exports.run = async (client, message, args) =>{
     if(!client.config.ADMIN.includes(message.author.id)) return message.channel.send(`${client.config.emojis.FALSE}Tu n'est pas admin du BOT `)
-    //---------------------------------------CHARGE-DES-GUILDS--------------------------------------------------
-    async function verifierguild(){
-        client.guilds.cache.forEach(async guild  => {
-            const data = await Guild.findOne({ guildID: guild.id });
-            if (!data){ 
-                const newGuild = {
-                guildID: guild.id,
-                guildName: guild.name
-                
-                };
-                await client.createGuild(newGuild)
-            }
-            console.log(guild.id)
-        })
-      }  
-      verifierguild()
-      message.channel.send(`${client.config.emojis.TRUE}Recharge de toutes les guilds lancée.`)
+   
+     /*async function clean(text) {
+            if (typeof(text) === "string")
+              return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
+            else
+                return text;
+          }
+          try {
+            const code = args.slice(1).join(" ");
+            let evaled = eval(code);
+        
+            if (typeof evaled !== "string")
+              evaled = require("util").inspect(evaled);
+        
+            message.channel.send(clean(evaled), {code:"xl"});
+          } catch (err) {
+            message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
+          };*/
+          let evaled;
+          try {
+              evaled = await eval(args.join(' ').trim());
+              if (args[1] === '-a' || args[1] === '-async') {
+                  args.shift();
+                  evaled = `(async () => { ${args.join(' ').trim()} })()`;
+              }
+              if (typeof evaled === 'object') {
+                  evaled = util.inspect(evaled, { depth: 0, showHidden: true });
+              } else {
+                  evaled = String(evaled);
+              }
+          } catch (err) {
+              return message.channel.send(`\`\`\`js\n${err}\`\`\``);
+          }
+          evaled = evaled.replace(client.config.token, 'no.');
+      
+          const fullLen = evaled.length;
+      
+          if (fullLen === 0) {
+              return null;
+          }
+          if (fullLen > 2000) {
+              evaled = evaled.match(/[\s\S]{1,1900}[\n\r]/g) || [];
+              if (evaled.length > 3) {
+                  message.channel.send(`\`\`\`js\n${evaled[0]}\`\`\``);
+                  message.channel.send(`\`\`\`js\n${evaled[1]}\`\`\``);
+                  message.channel.send(`\`\`\`js\n${evaled[2]}\`\`\``);
+                  return;
+              }
+              return evaled.forEach((message) => {
+                  message.channel.send(`\`\`\`js\n${message}\`\`\``);
+                  return;
+              });
+          }
+          return message.channel.send(`\`\`\`js\n${evaled}\`\`\``);
 }
 module.exports.help = {
         

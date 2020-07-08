@@ -6,27 +6,20 @@ const { MessageEmbed} = require("discord.js");
 module.exports.run = async (client, message, args) =>{
     if(!client.config.ADMIN.includes(message.author.id)) return message.channel.send(`${client.config.emojis.FALSE}Tu n'est pas admin du BOT `)
     //---------------------------------------CHARGE-DES-GUILDS--------------------------------------------------
-    async function verifierguild(){
-        client.guilds.cache.forEach(async guild  => {
-            const data = await Guild.findOne({ guildID: guild.id });
-            if (!data){ 
-                const newGuild = {
-                guildID: guild.id,
-                guildName: guild.name
-                
-                };
-                await client.createGuild(newGuild)
-            }
-            console.log(guild.id)
-        })
-      }  
-      verifierguild()
-      message.channel.send(`${client.config.emojis.TRUE}Recharge de toutes les guilds lancée.`)
+    console.log("Pull")
+    message.channel.send(`${client.config.emojis.LOADING} Commande en cour d'execution...`).then(async msg =>{
+        try {
+            await exec(`git pull origin ${args[0]}`);
+            msg.edit(`${client.config.emojis.TRUE} Updated.`);
+        } catch (err) {
+            msg.edit(`${client.config.emojis.FALSE} An error occured:\n\`\`\`${err}\n\`\`\``);
+        }
+    })
 }
 module.exports.help = {
         
-    name : 'charge',
-    aliases : ['charge'],
+    name : 'pull',
+    aliases : ['pull','git-pull'],
     category : 'admin',
     description : 'Lance une recherge de toutes les guilds du bot.',
     cooldown : 5,

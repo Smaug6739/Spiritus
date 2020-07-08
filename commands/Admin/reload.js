@@ -5,28 +5,32 @@ const exec = util.promisify(child_process.exec);
 const { MessageEmbed} = require("discord.js");
 module.exports.run = async (client, message, args) =>{
     if(!client.config.ADMIN.includes(message.author.id)) return message.channel.send(`${client.config.emojis.FALSE}Tu n'est pas admin du BOT `)
-    console.log("Execution d'une commande")
-    message.channel.send(`${client.config.emojis.LOADING} Commande en cour d'execution...`).then(async msg =>{
-        try {
-            await exec(`${args.join(" ")}`);
-            msg.edit(`${client.config.emojis.TRUE} Updated.`);
-        } catch (err) {
-            msg.edit(`${client.config.emojis.FALSE} An error occured:\n\`\`\`xl\n${err}\n\`\`\``);
-        }
-    })
+    file = args.slice(1).join(" ")
+    dir = args[0]
+    chemin = `./../${dir}/${file}.js`
+    try {
+        delete require.cache[require.resolve(`${chemin}`)];
+        client.files.delete(file)
+        const pull = require(`${chemin}`)
+        client.files.set(file, pull)
+        message.channel.send(`${client.config.emojis.TRUE}Reloaded file \`${file}\``);
+    } catch (err) {
+        return message.channel.send(`${client.config.emojis.FALSE}An error occured: \n\`\`\`js\n${err}\n\`\`\``);
+    }
+    
 }
 module.exports.help = {
         
-    name : 'charge',
-    aliases : ['charge'],
+    name : 'reload',
+    aliases : ['reload'],
     category : 'admin',
     description : 'Lance une recherge de toutes les guilds du bot.',
     cooldown : 5,
-    usage : '',
+    usage : '[dir] [file]',
     exemple :[],
     permissions : true,
     isUserAdmin: false,
-    args : false,
+    args : true,
     sousCommdandes : [""]
 
 }    
