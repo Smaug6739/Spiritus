@@ -7,7 +7,7 @@ module.exports.run =async(client, message, args) => {
 
 
 
-    let evaled;
+    /*let evaled;
     try {
         evaled = await eval(args.join(' ').trim());
         if (args[0] === '-a' || args[0] === '-async') {
@@ -30,7 +30,6 @@ module.exports.run =async(client, message, args) => {
     if (fullLen === 0) {
         return null;
     }
-
     if (fullLen > 2000) {
         evaled = evaled.match(/[\s\S]{1,1900}[\n\r]/g) || [];
         if (evaled.length > 3) {
@@ -44,7 +43,7 @@ module.exports.run =async(client, message, args) => {
             return;
         });
     }
-    return message.channel.send(`\`\`\`js\n${evaled}\`\`\``);
+    return message.channel.send(`\`\`\`js\n${evaled}\`\`\``);*/
 
 }
 module.exports.help = {
