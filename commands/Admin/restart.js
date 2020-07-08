@@ -15,7 +15,7 @@ module.exports.help = {
     name : 'restart',
     aliases : ['restart'],
     category : 'admin',
-    description : 'Lance une recherge de toutes les guilds du bot.',
+    description : 'Redemare le bot.',
     cooldown : 5,
     usage : '',
     exemple :[],
