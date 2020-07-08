@@ -7,9 +7,8 @@ module.exports.run = async(client, message, args, settings, dbUser) => {
         .setThumbnail(`${message.guild.iconURL()}`)
         .setTimestamp()
         .setFooter('BOT ID : 689210215488684044')
-
         await client.getUsers(message.guild).then(p =>{
-            console.log(p)
+            //console.log(p)
            p.sort((a, b) =>(a.experience < b.experience) ? 1 : -1).splice(0, 10).forEach(e =>{
                embed.addField(e.username, `${e.experience} points d'experience level : ${e.level}`)
            })
