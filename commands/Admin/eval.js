@@ -61,7 +61,7 @@ module.exports.help = {
     name : 'eval',
     aliases : ['eval','e'],
     category : 'admin',
-    description : 'Lance une recherge de toutes les guilds du bot.',
+    description : 'Execute du code javascript.',
     cooldown : 5,
     usage : '',
     exemple :[],
