@@ -24,7 +24,7 @@ module.exports.help = {
     name : 'reload',
     aliases : ['reload'],
     category : 'admin',
-    description : 'Lance une recherge de toutes les guilds du bot.',
+    description : 'Recharge une commande.',
     cooldown : 5,
     usage : '[dir] [file]',
     exemple :[],

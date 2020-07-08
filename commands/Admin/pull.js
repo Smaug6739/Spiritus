@@ -23,11 +23,11 @@ module.exports.help = {
     category : 'admin',
     description : 'Lance une recherge de toutes les guilds du bot.',
     cooldown : 5,
-    usage : '',
-    exemple :[],
+    usage : '[branch]',
+    exemple :['pull master'],
     permissions : true,
     isUserAdmin: false,
-    args : false,
+    args : true,
     sousCommdandes : [""]
 
 }    
