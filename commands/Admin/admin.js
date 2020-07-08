@@ -169,8 +169,8 @@ module.exports.run = async (client, message, args) =>{
 }
 module.exports.help = {
         
-    name : 'admin',
-    aliases : ['admin'],
+    name : 'admin-bot',
+    aliases : ['admin-bot'],
     category : 'admin',
     description : 'Commandes d\'administration du bot.',
     cooldown : 5,
