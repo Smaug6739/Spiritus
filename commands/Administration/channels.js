@@ -234,7 +234,7 @@ module.exports.run = async(client, message, args,settings) => {
 module.exports.help = {
     name: "channel",
     aliases: ['channel','channels'],
-    category : 'manangement',
+    category : 'administration',
     description: "Permet de gérer les channels du serveur",
     cooldown: 5,
     usage: '<action> <args>',

@@ -108,7 +108,7 @@ module.exports.run =(client, message, args,settings) => {
 module.exports.help = {  
     name : 'serveur',
     aliases : ['serveur'],
-    category : 'manangement',
+    category : 'administration',
     description : 'Permet de gérer le serveur.',
     cooldown : 5,
     usage : '<action> <value>',

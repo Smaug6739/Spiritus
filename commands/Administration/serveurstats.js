@@ -18,7 +18,7 @@ module.exports.help = {
     
     name: "serveur-stats",
     aliases: ['serveur-stats','serveurstats'],
-    category: 'admin',
+    category: 'administration',
     description: "Active le système de compteur sur le serveur.",
     cooldown: 10,
     usage: '',

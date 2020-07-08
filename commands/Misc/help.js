@@ -3,7 +3,11 @@ const { readdirSync } = require("fs");
 const categoryList = readdirSync('./commands');
 module.exports.run = (client, message, args, settings) => {
 
+
     if (!args.length) {
+      console.log(categoryList)
+      categoryList.shift('Admin')
+      console.log(categoryList)
       const embed = new MessageEmbed()
         .setColor(`${client.config.color.EMBEDCOLOR}`)
         .setTitle(`${client.config.emojis.LOGOBOT} **Liste  des commandes :** `)
@@ -12,7 +16,6 @@ module.exports.run = (client, message, args, settings) => {
         .setFooter('BOT ID : 689210215488684044', `${message.guild.iconURL()}`);
       for (const category  of categoryList) { 
         //console.log('Catégories chargées :'+category)
-        
         embed.addField(
           `${category}`,
           `${client.commands.filter(cat => cat.help.category === category.toLowerCase())

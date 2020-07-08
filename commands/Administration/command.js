@@ -90,7 +90,7 @@ module.exports.run =async(client, message, args,settings) => {
 module.exports.help = {
     name : 'command',
     aliases : ['command','commands','cmd','cmds'],
-    category : 'manangement',
+    category : 'administration',
     description : 'Permet de gérer les commandes personalisées du serveur.',
     cooldown : 10,
     usage : '<action> <valeur>',
