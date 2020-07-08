@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const {DBCONNECTION} = require('./../config')
+const {DBCONNECTION,webhooks} = require('./../config')
 const {MessageEmbed, WebhookClient} = require('discord.js')
 
 module.exports =  {
