@@ -97,5 +97,5 @@ module.exports.help = {
     isUserAdmin: false,
     permissions: true,
     args: true,
-    sousCommdandes : ["config prefix","config logChannel","config welcomeMessage","config experience","admin-invites","rankcard","serveurstats"]
+    sousCommdandes : ["config prefix","config logChannel","config welcomeMessage","config experience","config admin-invites","config rankcard","config serveurstats"]
 }
