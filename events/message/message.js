@@ -112,8 +112,8 @@ module.exports = async(client, message) => {
 
   tStamps.set(message.author.id, timeNow);
   setTimeout(() => tStamps.delete(message.author.id), cdAmount);
-    try{
-   command.run(client, message, args, settings, dbUser)
+  try{
+    command.run(client, message, args, settings, dbUser)
     }catch(e){
       const webhookClient  = new WebhookClient(`${client.config.webhooks.errors.ID}`, `${client.config.webhooks.errors.TOKEN}`);
       const embed = new MessageEmbed()

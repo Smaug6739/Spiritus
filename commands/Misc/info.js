@@ -1,6 +1,6 @@
 const { MessageEmbed} = require("discord.js");
 const moment = require('moment');
-module.exports.run = async (client, message, args,settings) =>{
+module.exports.run = (client, message, args,settings) =>{
     if(!args[0]){
         const embed = new MessageEmbed()
         .setTitle('Commande info')
