@@ -29,7 +29,7 @@ module.exports =  {
       .setFooter('BOT ID : 689210215488684044');
 
       webhookClient.send('',{
-        username: `${webhooks.readyLogs.NAMEDB}`,
+        username: `Mongoose`,
         embeds: [embed],
       });
     });
