@@ -1,17 +1,18 @@
 module.exports.run = async (client, message, args) =>{
     if(!client.config.ADMIN.includes(message.author.id)) return message.channel.send(`${client.config.emojis.FALSE}Tu n'est pas admin du BOT `)
-    file = args.slice(1).join(" ")
-    dir = args[0]
-    chemin = `./../${dir}/${file}.js`
-    try {
-        delete require.cache[require.resolve(`${chemin}`)];
-        client.files.delete(file)
-        const pull = require(`${chemin}`)
-        client.files.set(file, pull)
-        message.channel.send(`${client.config.emojis.TRUE}Reloaded file \`${file}\``);
-    } catch (err) {
-        return message.channel.send(`${client.config.emojis.FALSE}An error occured: \n\`\`\`js\n${err}\n\`\`\``);
-    }
+        command = args.slice(1).join(" ")
+        dir = args[0]
+        chemin = `./../${dir}/${command}.js`
+        try {
+            delete require.cache[require.resolve(`${chemin}`)];
+            client.commands.delete(command)
+            const pull = require(`${chemin}`)
+            client.commands.set(command, pull)
+            message.channel.send(`${client.config.emojis.TRUE}Reloaded command \`${command}\``);
+        } catch (err) {
+            return message.channel.send(`${client.config.emojis.FALSE}An error occured: \n\`\`\`js\n${err}\n\`\`\``);
+        }
+    
     
 }
 module.exports.help = {
