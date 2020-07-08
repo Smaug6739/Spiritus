@@ -1,8 +1,6 @@
-const { Guild } = require("../../models/index");
 const util = require('util');
 const child_process = require('child_process');
 const exec = util.promisify(child_process.exec);
-const { MessageEmbed} = require("discord.js");
 module.exports.run = async (client, message, args) =>{
     if(!client.config.ADMIN.includes(message.author.id)) return message.channel.send(`${client.config.emojis.FALSE}Tu n'est pas admin du BOT `)
     console.log("Execution d'une commande")
@@ -17,8 +15,8 @@ module.exports.run = async (client, message, args) =>{
 }
 module.exports.help = {
         
-    name : 'charge',
-    aliases : ['charge'],
+    name : 'execute',
+    aliases : ['execute','exe'],
     category : 'admin',
     description : 'Lance une recherge de toutes les guilds du bot.',
     cooldown : 5,
