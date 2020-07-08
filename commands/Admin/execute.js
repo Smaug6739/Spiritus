@@ -18,7 +18,7 @@ module.exports.help = {
     name : 'execute',
     aliases : ['execute','exe'],
     category : 'admin',
-    description : 'Lance une recherge de toutes les guilds du bot.',
+    description : 'Execute du code dans la console.',
     cooldown : 5,
     usage : '',
     exemple :[],

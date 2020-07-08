@@ -22,7 +22,7 @@ module.exports.help = {
     name : 'premium',
     aliases : ['premium'],
     category : 'admin',
-    description : 'Lance une recherge de toutes les guilds du bot.',
+    description : 'Met à jour les guilds premium du bot.',
     cooldown : 5,
     usage : '',
     exemple :[],
