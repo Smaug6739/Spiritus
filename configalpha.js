@@ -50,6 +50,7 @@ module.exports = {
         ID : '730463871558615042',
         TOKEN : 'dD2RdE_YvZnXs7hLHqgxzOiWcXWgC-2gaZczCjWEUUHw7DacJlPtYrD4TBLcLSMF04j_',
         NAME : 'Spiritus Alpha',
+        NAMEDB : 'Mongoose Alpha',
         AVATAR : 'https://cdn.discordapp.com/attachments/715219402215129088/720266052231102534/FGF_Moderateur.png',
         COLOR : "#0099ff"
       },
