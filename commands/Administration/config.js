@@ -61,6 +61,25 @@ module.exports.run = async (client, message, args, settings) => {
             }
             break;
         }
+        case  'rank-salon' : {
+            if(settings.premium == true){
+                if(newSetting){
+                    if(!isNaN(args[1])){
+                        await client.updateGuild(message.guild, {salonranks : newSetting});
+                        return message.channel.send(`rank-salon mis à jour : \`${newSetting}\``)
+                    }else if(args[1] === 'desactiver'){
+                        client.updateGuild(message.guild, {salonranks : ""});
+                        return message.channel.send(`Rank salon à bien été désactiver.`)
+                    }
+                    else return message.channel.send(`L'id du salon n'est pas valide.`)
+                }
+                
+                message.channel.send(`rank-salon actuel : \`${settings.salonranks || 'Aucun salon'}\``);
+            }else{
+                return message.channel.send(`${client.config.emojis.FALSE}Votre serveur n'est pas un serveur partenaire/VIP. Si vous souhaitez débloquer cette commande vous pouvez rejoindre le serveur support.`)
+            }
+            break;
+        }
         case 'serveurstats' :{
             let serverstats ;
             if(settings.serveurstats == true) serverstats = false;

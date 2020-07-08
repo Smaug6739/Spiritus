@@ -33,6 +33,10 @@ const guildSchema = mongoose.Schema({
     "type": String,
     "default": defaults.rankcard
   },
+  salonranks :{
+    "type": String,
+    "default": ""
+  },
   premium:{
     "type": Boolean,
     "default": false
