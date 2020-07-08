@@ -5,6 +5,6 @@ beta
 # credentials
 #credentials.js
 # log
-
+package-lock.json
 #*.log
 #*.lock
