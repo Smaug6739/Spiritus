@@ -89,7 +89,7 @@ module.exports.help = {
     
     name: "config",
     aliases: ['config'],
-    category: 'admin',
+    category: 'administration',
     description: "Modiffier la base de donnée",
     cooldown: 10,
     usage: '[paramètre] (valeur)',

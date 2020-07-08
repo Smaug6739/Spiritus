@@ -209,7 +209,7 @@ module.exports.run = async (client, message, args,settings) => {
 module.exports.help = {
     name : 'emojis',
     aliases : ['emojis','emoji','emots'],
-    category : 'manangement',
+    category : 'administration',
     description : 'Permet de gérer les emojis du serveur.',
     cooldown : 5,
     usage : '<action> <args>',

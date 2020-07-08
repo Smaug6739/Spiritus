@@ -160,7 +160,7 @@ module.exports.run = async(client, message, args,settings) => {
   module.exports.help = { 
     name : 'roles',
     aliases : ['roles','role'],
-    category : 'manangement',
+    category : 'administration',
     description : 'Permet de gérer et add/rem les roles du serveur.',
     cooldown : 5,
     usage : '<action> <args>',
