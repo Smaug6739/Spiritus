@@ -11,7 +11,7 @@ module.exports =async client => {
     },60000)
   const webhookClient  = new WebhookClient(`${client.config.webhooks.readyLogs.ID}`, `${client.config.webhooks.readyLogs.TOKEN}`);
   const embed = new MessageEmbed()
-  .setTitle(`BOT ${client.user.username} à démarer avec succès.`)
+  .setTitle(`BOT ${client.user.tag} à démarer avec succès.`)
   .setColor(`${client.config.webhooks.readyLogs.COLOR}`)
   .setThumbnail(`${client.user.displayAvatarURL()}`)
   .addField('Event ','Ready',true)
