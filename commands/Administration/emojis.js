@@ -194,17 +194,18 @@ module.exports.run = async (client, message, args,settings) => {
             message.channel.send(`${client.config.emojis.FALSE}Je n\'ai pas trouver cet emoji... Essayez vérifiez son orthographe et qu'il est bien sur le serveur`)
         }
     }
-    /*else{
-        console.log("vkb")
-        const emoteID = args[0].trim().replace('<:', '').replace('<a:', '').replace('>', '').split(':')[1];
-        if (!emoteID) return message.channel.sendErrorMessage(`${client.config.emojis.FALSE}Je n'ai pas trouver cet emoji.`);
-        const emoteURL = `https://cdn.discordapp.com/emojis/${emoteID + args[0].startsWith('<a:') ? '.gif' : '.png'}`;
+    else{
+        const emoteID = await args[0].trim().replace('<:', '').replace('<a:', '').replace('>', '').split(':')[1];
+        if (!emoteID) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver cet emoji.`);
+        const emoteURL = `https://cdn.discordapp.com/emojis/${emoteID}${args[0].startsWith('<a:') ? '.gif' : '.png'}`;
         const embed = new MessageEmbed()
-        
+        .setTitle('Emoji view')
+        .setColor(`${client.config.color.EMBEDCOLOR}`)
         .setImage(emoteURL)
         .setTimestamp()
-        .setFooter('Emojis module')
-    }*/
+        .setFooter('BOT ID : 689210215488684044')
+        message.channel.send(embed)
+    }
 }
 module.exports.help = {
     name : 'emojis',
