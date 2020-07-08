@@ -46,7 +46,11 @@ module.exports = async(client, message) => {
       const userLevel = Math.floor(0.1 * Math.sqrt(dbUser.experience));
       //Augmanter 0.1 pour avoir besoins de moins de poinnts d'exp.
       if (dbUser.level < userLevel) {
-        message.reply(`bravo à toi, tu viens de monter niveau **${userLevel}** :muscle: :muscle: `);
+        if(settings.salonranks != ""){
+          message.guild.channels.cache.get(`${settings.salonranks}`).send(`<@${dbUser.userID}> bravo à toi, tu viens de monter niveau **${userLevel}** :muscle: :muscle: `)
+        }else{
+          message.reply(` bravo à toi, tu viens de monter niveau **${userLevel}** :muscle: :muscle: `);
+        }
         client.updateUser(message.member, { level: userLevel });
       }else if (dbUser.level > userLevel) {
        await client.updateUser(message.member, { level: userLevel });
