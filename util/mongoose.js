@@ -16,12 +16,8 @@ module.exports =  {
       socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity  //45000
       family: 4 // Use IPv4, skip trying IPv6
     }
-    const mongoDBOptions = {
-       useNewUrlParser: true,
-       useUnifiedTopology: true 
-    }
 
-    mongoose.connect(DBCONNECTION/*, mongOptions*/,mongoDBOptions);//createConnection //connect
+    mongoose.connect(DBCONNECTION, mongOptions);//createConnection //connect
     mongoose.Promise = global.Promise;
     mongoose.connection.on("connected", () =>{ 
       console.log("Mongoose est connecté!")
