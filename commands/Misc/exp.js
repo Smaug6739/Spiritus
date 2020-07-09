@@ -19,6 +19,7 @@ module.exports.run = async (client, message, args, settings, dbUser) => {
             const use = message.mentions.users.first()
             const user = message.guild.member(message.mentions.users.first());
             const mentionUser = await client.getUser(user, message.member.guild.id)
+            if(mentionUser != undefined){
             let pourcentage = dbUser.experience
             pourcentage = 0.1 * Math.sqrt(mentionUser.experience)
             pourcentage = pourcentage.toFixed(2)
@@ -48,6 +49,9 @@ module.exports.run = async (client, message, args, settings, dbUser) => {
             ctx.drawImage(avatar, 24, 24, 200, 200);
             const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'rank-image.png');
             channel.send(`\u200b`, attachment);
+            }else{
+                message.reply('personne sans xp, afficher une rankcard a 0')
+            }
         }else{
             let pourcentage = dbUser.experience
                 pourcentage = 0.1 * Math.sqrt(dbUser.experience)
