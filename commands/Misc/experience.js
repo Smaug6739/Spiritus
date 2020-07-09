@@ -5,6 +5,7 @@ module.exports.run = async(client, message, args, settings) => {
         if(!args[0]){
             const embed = new MessageEmbed()
             .setTitle('Commande experience')
+            .setColor(`${client.config.color.EMBEDCOLOR}`)
             .setDescription('La commande `experience` permet de gérer l\'experience des membres du serveur graces aux sous commandes suivantes :')
             .addFields(
                 { name: '\u200b', value: `${client.config.emojis.FLECHE}\`experience add\` permet de donner de l\'exp a un membre.`, inline: false },
@@ -15,6 +16,13 @@ module.exports.run = async(client, message, args, settings) => {
         }
         //-------------------------------------------ADD-EXPERIENCE-----------------------------------------
         if(args[0].toLowerCase() === 'add'){
+            const helpEmbedAdd = new MessageEmbed()
+            .setTitle(`Sous commande : ${settings.prefix}experience add`)
+            .setColor(client.config.color.EMBEDCOLOR)
+            .setDescription(`**Module :** Misc\n**Description :** Permet de donner de l'exp à une personne.\n**Usage :** [mention]\n**Exemples :** \n ${settings.prefix}experience add @Smaug 1500`)
+            .setFooter('BOT ID : 689210215488684044')
+            .setTimestamp()
+            if(!args[2])return message.channel.send(helpEmbedAdd)
             const user = message.guild.member(message.mentions.users.first());
             const expToAdd = parseInt(args[2]);
             if((message.mentions.users.first())){
@@ -27,6 +35,13 @@ module.exports.run = async(client, message, args, settings) => {
             }
         //-------------------------------------------REM-EXPERIENCE-----------------------------------------
         }else if(args[0].toLowerCase() === 'rem'){
+            const helpEmbedRem = new MessageEmbed()
+            .setTitle(`Sous commande : ${settings.prefix}experience rem`)
+            .setColor(client.config.color.EMBEDCOLOR)
+            .setDescription(`**Module :** Misc\n**Description :** Permet d'enlever de l'exp à une personne.\n**Usage :** [mention]\n**Exemples :** \n ${settings.prefix}experience rem @Smaug 1500`)
+            .setFooter('BOT ID : 689210215488684044')
+            .setTimestamp()
+            if(!args[2])return message.channel.send(helpEmbedRem)
             const user = message.guild.member(message.mentions.users.first());
             const expToRemove = parseInt(args[2]);
             if((message.mentions.users.first())){
