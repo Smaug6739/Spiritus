@@ -50,7 +50,28 @@ module.exports.run = async (client, message, args, settings, dbUser) => {
             const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'rank-image.png');
             channel.send(`\u200b`, attachment);
             }else{
-                message.reply('personne sans xp, afficher une rankcard a 0')
+                //Si la persnne mentionné a pas de rank
+                const canvas = Canvas.createCanvas(700, 250);
+                const ctx = canvas.getContext('2d');
+                const background = await Canvas.loadImage(settings.rankcard);
+                ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
+                ctx.strokeStyle = '#74037b';
+                ctx.strokeRect(0, 0, canvas.width, canvas.height);
+                ctx.font = '30px sans-serif';
+                ctx.fillStyle = '#ffffff';
+                //ctx.fillText(`Rank du serveur,${member.displayName}!`, canvas.width / 2.8, canvas.height / 3.5);
+                ctx.fillText(`Cette personne n'a jamais poster de messages...`, canvas.width / 2.5, canvas.height / 1.57);
+                ctx.fillStyle = '#ffffff';
+                ctx.fillText(`${use.username}!`, canvas.width / 2.5, canvas.height / 3.5);
+                ctx.beginPath();
+                ctx.arc(125, 125, 100, 0, Math.PI * 2, true);
+                ctx.closePath();
+                ctx.clip();
+                const avatar = await Canvas.loadImage(user.user.displayAvatarURL({ format: 'jpg' }));
+                ctx.drawImage(avatar, 24, 24, 200, 200);
+                const attachmentPersonneSansRank = new Discord.MessageAttachment(canvas.toBuffer(), 'rank-image.png');
+                channel.send(`\u200b`, attachmentPersonneSansRank);
+
             }
         }else{
             let pourcentage = dbUser.experience
