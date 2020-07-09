@@ -57,7 +57,7 @@ module.exports.run = async (client, message, args, settings, dbUser) => {
                 ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
                 ctx.strokeStyle = '#74037b';
                 ctx.strokeRect(0, 0, canvas.width, canvas.height);
-                ctx.font = '28px sans-serif';
+                ctx.font = '28px osaka';
                 ctx.fillStyle = '#ffffff';
                 //ctx.fillText(`Rank du serveur,${member.displayName}!`, canvas.width / 2.8, canvas.height / 3.5);
                 ctx.fillText(`Cette personne n'a pas\nde rank. Pour en gagner\npostez des messages !`, canvas.width / 2.6, canvas.height / 3);
