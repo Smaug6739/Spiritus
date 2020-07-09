@@ -70,7 +70,6 @@ module.exports.run = async (client, message, args, settings, dbUser) => {
                 ctx.drawImage(avatar, 24, 24, 200, 200);
                 const attachmentPersonneSansRank = new Discord.MessageAttachment(canvas.toBuffer(), 'rank-image.png');
                 channel.send(`\u200b`, attachmentPersonneSansRank);
-
             }
         }else{
             let pourcentage = dbUser.experience
