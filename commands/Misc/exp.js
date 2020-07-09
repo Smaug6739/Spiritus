@@ -69,7 +69,7 @@ module.exports.run = async (client, message, args, settings, dbUser) => {
             ctx.fillText(`Votre progression : ${pourcentage}%`, canvas.width / 2.5, canvas.height / 1.27);
             ctx.font = applyText(canvas, `${dbUser.username}!`);
             ctx.fillStyle = '#ffffff';
-            ctx.fillText(`${message.member.displayName}!`, canvas.width / 2.5, canvas.height / 3.5);
+            ctx.fillText(`${dbUser.username}!`, canvas.width / 2.5, canvas.height / 3.5);
             ctx.beginPath();
             ctx.arc(125, 125, 100, 0, Math.PI * 2, true);
             ctx.closePath();
