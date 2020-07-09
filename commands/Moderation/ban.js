@@ -14,7 +14,7 @@ module.exports.run = async (client, message, args) => {
     .setThumbnail(user.user.displayAvatarURL())
     .setTimestamp()
     .setFooter(message.author.username, message.author.avatarURL());
-    user ? message.guild.member(user).ban(reason).then(message.channel.send(embed)) : message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver cet utilisateur`);
+    user ? message.guild.member(user).ban({reason : `${reason}`}).then(message.channel.send(embed)) : message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver cet utilisateur`);
 
 };
 
