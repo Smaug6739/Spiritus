@@ -21,6 +21,7 @@ module.exports.run = async (client, message, args,settings) => {
       const emojiList = message.guild.emojis.cache.map(e=>e.toString()).join(" ");
       const embed = new MessageEmbed()
        .setTitle('Liste des emojis du serveur')
+       .setColor(client.config.color.EMBEDCOLOR)
        .setDescription(emojiList)
        .setTimestamp()
        .setFooter('BOT ID : 689210215488684044')
