@@ -24,7 +24,7 @@ module.exports.run = async (client, message, args,settings) => {
        .setDescription(emojiList)
        .setTimestamp()
        .setFooter('BOT ID : 689210215488684044')
-      message.channel.send(embed)
+        return message.channel.send(embed)
     //--------------------------------------EMOJIS-CREATE------------------------------------------------------
     }
     if(args[0].toLowerCase() === 'create'){
