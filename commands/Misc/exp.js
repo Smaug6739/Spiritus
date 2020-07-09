@@ -37,7 +37,7 @@ module.exports.run = async (client, message, args, settings, dbUser) => {
             ctx.fillText(`Level : ${mentionUser.level}`, canvas.width / 2.5, canvas.height / 2);
             ctx.fillText(`Experience : ${mentionUser.experience}xp`, canvas.width / 2.5, canvas.height / 1.57);
             ctx.fillText(`Votre progression : ${pourcentage}%`, canvas.width / 2.5, canvas.height / 1.27);
-            ctx.font = applyText(canvas, `${use.displayName}!`);
+            ctx.font = applyText(canvas, `${mentionUser.username}!`);
             ctx.fillStyle = '#ffffff';
             ctx.fillText(`${use.username}!`, canvas.width / 2.5, canvas.height / 3.5);
             ctx.beginPath();
@@ -67,7 +67,7 @@ module.exports.run = async (client, message, args, settings, dbUser) => {
             ctx.fillText(`Level : ${dbUser.level}`, canvas.width / 2.5, canvas.height / 2);
             ctx.fillText(`Experience : ${dbUser.experience}xp`, canvas.width / 2.5, canvas.height / 1.57);
             ctx.fillText(`Votre progression : ${pourcentage}%`, canvas.width / 2.5, canvas.height / 1.27);
-            ctx.font = applyText(canvas, `${member.displayName}!`);
+            ctx.font = applyText(canvas, `${dbUser.username}!`);
             ctx.fillStyle = '#ffffff';
             ctx.fillText(`${message.member.displayName}!`, canvas.width / 2.5, canvas.height / 3.5);
             ctx.beginPath();
