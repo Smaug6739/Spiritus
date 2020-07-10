@@ -17,7 +17,7 @@ module.exports.run =(client, message, args) => {
                 }
                 const exampleEmbed = new MessageEmbed()
                 .setColor(client.config.color.EMBEDCOLOR)
-                .setAuthor('**Module de jeu :**',`${client.user.avatarURL()}`)
+                .setAuthor('Module de jeu :',`${client.user.avatarURL()}`)
                 .setDescription(tableau)
                 .setThumbnail('https://french-gaming-family.fr/public/dés.png')
                 .setTimestamp()
