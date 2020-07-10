@@ -2,7 +2,8 @@ module.exports = {
   PREFIX: "?",
  
   DBCONNECTION: "mongodb://localhost:27017/spiritus",
-  TOKEN : "Njg5MjEwMjE1NDg4Njg0MDQ0.Xwb4tQ.ORPyjElgKw_qCdBqBa48anZCx7g",
+  //TOKEN : "Njg5MjEwMjE1NDg4Njg0MDQ0.Xwb4tQ.ORPyjElgKw_qCdBqBa48anZCx7g",
+  TOKEN:'Njg5MjExODk5NzIzNjQ0OTI4.XwgTBw.EsWZTawpjmdPVSXRiUga73y2_c8',
     owner: {
       id: "611468402263064577",
       username: "Smaug#6739"

@@ -47,7 +47,7 @@ module.exports.run = async (client, message, args,settings) => {
                 const query = await axios({
                 url: emoteLink,
                 responseType: 'arraybuffer'
-            }).catch(() => message.channel.send('Je n\'ai pas trouver cet emot'));
+            }).catch(() => {return});
             let data = Buffer.from(query.data, 'binary');
             base64Image = `data:image/${extension.slice(1)};base64,` + data.toString('base64');
         }
@@ -70,11 +70,13 @@ module.exports.run = async (client, message, args,settings) => {
         name = args[1]
         if(name.includes(':'))return message.channel.send(`${client.config.emojis.FALSE}Nom de l'emoji *(${name})* est invalide.`)
         try{
-           
             emote = await message.channel.guild.emojis.create(base64Image,name);
         }catch(err){
-            client.channels.cache.get('725251200660013136').send(`Une erreur sur la commande \`emoji-create\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
-            return;
+            if(err.message.match('String value did not match validation regex'))return message.channel.send(`${client.config.emojis.FALSE}Le nom de l'emoji n'est pas valide.`);
+            else{
+                message.channel.send(`${client.config.emojis.FALSE}Une erreur s'est produite. Merci de réessayer.`)
+                return client.channels.cache.get('725251200660013136').send(`Une erreur sur la commande \`emoji-create\` s'est produite sur le serveur : ${message.guild.name}.\nContenu du message : \`${message.content}\`\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
+            }
         }
         const embed = new MessageEmbed()
         .setTitle(`${client.config.emojis.TRUE} Emoji created`)
