@@ -51,11 +51,11 @@ module.exports.run = (client, message, args,settings) =>{
     //else plateforme = 'Aucune'
         console.log(use.user.presence.clientStatus)*/
         const embed = new MessageEmbed()
-        embed.setFooter(use.user.username, use.user.displayAvatarURL(), true) //OK
+        embed.setFooter(`${use.user.username} ID : ${use.user.id}`, use.user.displayAvatarURL(), true) //OK
         embed.setThumbnail(use.user.displayAvatarURL())//OK
         embed.setColor(`${client.config.color.EMBEDCOLOR}`)//OK
         embed.setTitle(`${use.user.username}`)//OK
-        embed.addField('ID de la personne :', `${use.user.id}`, true)//OK
+        embed.addField('ID :', `${use.user.id}`, true)//OK
         embed.addField('Status :', `${status}`, true)//OK
         embed.addField('Tag :', `${use.user.tag}`, true)//OK
         //if(plateforme)embed.addField('Plateforme :', `${plateforme || 'Aucune'}`, true)
