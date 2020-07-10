@@ -44,7 +44,11 @@ const guildSchema = mongoose.Schema({
   reactionroles:{
     "type": Array,
     "default":[]
-  }
+  },
+  kickauto:{
+    "type": Boolean,
+    "default": false
+  },
 });
 
 module.exports = mongoose.model("Guild", guildSchema);
