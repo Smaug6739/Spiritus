@@ -24,7 +24,7 @@ module.exports.run =async(client, message, args,settings) => {
             if(!args[1])return message.channel.send(commandCreateDescription)
             client.getCmds(message.guild).then(async p =>{
             //console.log(p)
-            if(p.length > 5) return message.channel.send(`${client.config.emojis.FALSE}Vous etes limité a 5 commandes personalisées par serveur`)
+            if(p.length > 4) return message.channel.send(`${client.config.emojis.FALSE}Vous etes limité a 5 commandes personalisées par serveur`)
             const nomCommande = args[1];
             const comd = await client.getCmd(args[1], message.guild)
             if(comd && comd.nom)return message.channel.send(`${client.config.emojis.FALSE}Cette commande existe déja`)
