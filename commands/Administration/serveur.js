@@ -29,7 +29,7 @@ module.exports.run =(client, message, args,settings) => {
             const serveurIconDescription = new MessageEmbed()
             .setTitle(`Sous commande : ${settings.prefix}serveur icon`)
             .setColor(client.config.color.EMBEDCOLOR)
-            .setDescription(`**Module :** Manangement\n**Description :** Permet de changer l'icon du serveur\n**Usage :** [Nouveau nom]\n**Exemples :** \n ${settings.prefix}serveur icon (attachement)`)
+            .setDescription(`**Module :** Manangement\n**Description :** Permet de changer l'icon du serveur\n**Usage :** [Aucun]\n**Exemples :** \n ${settings.prefix}serveur icon (attachement)`)
             .setFooter('BOT ID : 689210215488684044')
             .setTimestamp()
             return message.channel.send(serveurIconDescription)
