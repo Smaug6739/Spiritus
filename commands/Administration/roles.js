@@ -18,7 +18,7 @@ module.exports.run = async(client, message, args,settings) => {
         return message.channel.send(embed)
     }
     if(args[0].toLowerCase() === 'liste'){
-        const embed = new MessageEmbed()
+       /* const embed = new MessageEmbed()
         .setTitle('Commande role liste')
         .setColor(client.config.color.EMBEDCOLOR)
         .setThumbnail(`${message.guild.iconURL()}`)
@@ -26,9 +26,32 @@ module.exports.run = async(client, message, args,settings) => {
         .addFields({ name: '\u200b', value: `${message.guild.roles.cache.map(r => r.toString()).join('')}`, inline: false })
         .setTimestamp()
         .setFooter('BOT ID : 689210215488684044')
-        message.channel.send(embed)
-    //---------------------------------------------ROLES-CREATE----------------------------------------------------------
+        message.channel.send(embed)*/
+        const rolesListe = message.channel.guild.roles.cache.map(role => role.toString() );
+        let embed = {
+            title: `Liste des roles pour le serveur **${message.guild.name}** | ${rolesListe.length} au totale`,
+            thumbnail: {
+                url: `${message.guild.iconURL()}`,
+            },
+            color: `${client.config.color.EMBEDCOLOR}`,
+            description: null,
+            fields: []
+            
+        };
+        if (rolesListe.join(' ').length > 2048) {
+            let i = '';
+            // eslint-disable-next-line guard-for-in
+            rolesListe.forEach(role => {
+                if (i.length <= 1024 && i.length + role.length > 1024) embed.fields.push({name: '\u200b', value: i, inline: true});
+                i = i.concat(' ', role);
+            });
+        } else {
+            embed.description = rolesListe.join(' ');
+        }
+        return message.channel.send({embed});
     }
+    //---------------------------------------------ROLES-CREATE----------------------------------------------------------
+    
     if(args[0].toLowerCase() === 'create'){
         const roleCreateDescription = new MessageEmbed()
             .setTitle(`Sous commande : ${settings.prefix}role create`)

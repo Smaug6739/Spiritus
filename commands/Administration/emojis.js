@@ -21,6 +21,7 @@ module.exports.run = async (client, message, args,settings) => {
         const emojisList = message.channel.guild.emojis.cache.map(emote => `<${emote.animated ? 'a' : ''}:${emote.name}:${emote.id}>`);
         let embed = {
             title: `Liste des emojis pour le serveur **${message.guild.name}** | ${emojisList.length} total`,
+            color: `${client.config.color.EMBEDCOLOR}`,
             description: null,
             fields: []
         };
