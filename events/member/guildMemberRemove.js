@@ -1,8 +1,7 @@
 const { MessageEmbed } = require("discord.js");
 
 module.exports = async(client, member) => {
-  let { ROUGE } = require('../../configstyle');
-    const embed = new MessageEmbed()
+    /*const embed = new MessageEmbed()
     .setColor(`${client.config.color.ROUGE}`)
     .setTitle('Member left')
     .setAuthor('Module d\'evenement', 'https://french-gaming-family.fr/public/spiritusavatar.png')
@@ -10,8 +9,8 @@ module.exports = async(client, member) => {
     //.setImage()
     .setThumbnail(member.user.displayAvatarURL())
     .setTimestamp()
-    .setFooter('Smaug devellopers officiels du BOT', 'https://french-gaming-family.fr/public/logoFGF.png');
-  client.channels.cache.get('710763508425424897').send(embed);
+    .setFooter('Smaug develloper officiel du BOT', 'https://french-gaming-family.fr/public/logoFGF.png');
+  client.channels.cache.get('710763508425424897').send(embed);*/
   const settings = await client.getGuild(member.guild);
 
   if(settings.serveurstats){

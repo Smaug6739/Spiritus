@@ -2,7 +2,7 @@ const { MessageEmbed } = require("discord.js");
 
 module.exports = async(client, member) => {
   let { VERTCLAIRE } = require('../../configstyle');
-    const embed = new MessageEmbed()
+    /*const embed = new MessageEmbed()
     .setAuthor(`${member.displayName} (${member.id})`, member.user.displayAvatarURL())
     .setColor(`${client.config.color.VERT}`)
     .setTitle('Member add')
@@ -11,7 +11,7 @@ module.exports = async(client, member) => {
     .setThumbnail(member.user.displayAvatarURL())
     .setFooter("Un utilisateur a rejoint")
     .setTimestamp();
-    client.channels.cache.get('710763508425424897').send(embed);
+    client.channels.cache.get('710763508425424897').send(embed);*/
     const settings = await client.getGuild(member.guild);
 
     if(settings.serveurstats){
