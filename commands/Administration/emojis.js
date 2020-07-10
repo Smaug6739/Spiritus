@@ -18,16 +18,27 @@ module.exports.run = async (client, message, args,settings) => {
       return message.channel.send(embed)
     }
     if(args[0].toLowerCase() === 'liste'){
-      const emojiList = message.guild.emojis.cache.map(e=>e.toString()).join(" ");
-      const embed = new MessageEmbed()
-       .setTitle('Liste des emojis du serveur')
-       .setColor(client.config.color.EMBEDCOLOR)
-       .setDescription(emojiList)
-       .setTimestamp()
-       .setFooter('BOT ID : 689210215488684044')
-        return message.channel.send(embed)
+        const emojisList = message.channel.guild.emojis.cache.map(emote => `<${emote.animated ? 'a' : ''}:${emote.name}:${emote.id}>`);
+        let embed = {
+            title: `Liste des emojis pour le serveur **${message.guild.name}** | ${emojisList.length} total`,
+            description: null,
+            fields: []
+        };
+        if (emojisList.join(' ').length > 2048) {
+            let i = '';
+            // eslint-disable-next-line guard-for-in
+            emojisList.forEach(emote => {
+                if (i.length <= 1024 && i.length + emote.length > 1024) embed.fields.push({name: '\u200b', value: i, inline: true});
+                i = i.concat(' ', emote);
+            });
+        } else {
+            embed.description = emojisList.join(' ');
+        }
+        return message.channel.send({embed});
+                
+    }  
     //--------------------------------------EMOJIS-CREATE------------------------------------------------------
-    }
+    
     if(args[0].toLowerCase() === 'create'){
         if (args.length < 3 && !message.attachments.first()) {
           const emojiCreateDescription = new MessageEmbed()
