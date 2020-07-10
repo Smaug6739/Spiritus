@@ -12,7 +12,7 @@ module.exports = {
     prefix: "?",
     logChannel: "bot-logs",
     welcomeMessage: "Welcome {{user}}",
-    rankcard : "https://french-gaming-family.fr/public/rank.png"
+    rankcard : "https://cdn.discordapp.com/attachments/715219402215129088/731041731159785482/rank_1.png"
   },
   emojis:{
     ONLINE : '<:Z2Status1Z2:713121114725023885>',
