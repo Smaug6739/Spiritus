@@ -75,6 +75,7 @@ module.exports.run = (client, message, args,settings) =>{
         const embed = new MessageEmbed()
         .setColor(`${client.config.color.EMBEDCOLOR}`)
         .setAuthor(`${client.user.username} Info`, client.user.avatarURL())
+        .setThumbnail(client.user.avatarURL())
         .addFields(
         { name: 'Developpeur', value: `Smaug#6739`, inline: true },
         { name: 'Mémoire', value: `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`, inline: true },
