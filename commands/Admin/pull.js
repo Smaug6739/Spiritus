@@ -19,13 +19,13 @@ module.exports.help = {
     name : 'pull',
     aliases : ['pull','git-pull'],
     category : 'admin',
-    description : 'Lance une recherge de toutes les guilds du bot.',
+    description : 'Pull le repo github.',
     cooldown : 5,
-    usage : '[branch]',
-    exemple :['pull master'],
+    usage : '',
+    exemple :['pull'],
     permissions : true,
     isUserAdmin: false,
-    args : true,
+    args : false,
     sousCommdandes : [""]
 
 }    
