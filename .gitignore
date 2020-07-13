@@ -11,3 +11,4 @@ package-lock.json
 
 #config
 config.js
+configdev.js
