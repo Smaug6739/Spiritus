@@ -34,7 +34,7 @@ process.on('uncaughtException', (error) => {
   });
 
   client.errorHook = new WebhookClient(
-    `${client.config.ERREURS.WEBHOOKID}`, `${client.config.ERREURS.WEBHOOKTOKEN}`);
+    `${client.config.webhooks.console.WEBHOOKID}`, `${client.config.webhooks.console.WEBHOOKTOKEN}`);
 
     /*client.on("disconnect", () => console.log("Bot is disconnecting...", "warn"))
     .on("reconnecting", () => console.log("Bot reconnecting...", "log"))

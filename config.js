@@ -37,11 +37,6 @@ module.exports = {
     ORANGE : '#ff8400',
     VERT : '#02ff30',
   },
-  ERREURS:{
-    WEBHOOKID : '725313155236102164',
-    WEBHOOKTOKEN : 'iYdWlcVjDnW6ty4-v6PXNFZ6EL2KPe7g0GPRWJbXgyZpAwT5PB2OJKLaTVNcB3MlFDXP'
-
-  },
   webhooks : {
     readyLogs:{
       ID : '714886315937759252',
@@ -54,6 +49,10 @@ module.exports = {
     errors:{
       ID : '730122264908922940',
       TOKEN : 'xPZMNjfuIyyarIi1Rvca5phog3LA0khTydHQAuBPBqkKlRAB50ENfFZhMcmqNR7_8v2_',
+    },
+    console:{
+      WEBHOOKID : '725313155236102164',
+      WEBHOOKTOKEN : 'iYdWlcVjDnW6ty4-v6PXNFZ6EL2KPe7g0GPRWJbXgyZpAwT5PB2OJKLaTVNcB3MlFDXP'
     }
   }
 

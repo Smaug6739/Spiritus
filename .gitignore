@@ -8,3 +8,6 @@ beta
 package-lock.json
 #*.log
 #*.lock
+
+#config
+config.js
