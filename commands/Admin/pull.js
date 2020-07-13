@@ -7,7 +7,7 @@ module.exports.run = async (client, message, args) =>{
     console.log("Pull")
     message.channel.send(`${client.config.emojis.LOADING} Commande en cour d'execution...`).then(async msg =>{
         try {
-            await exec(`git pull origin ${args[0]}`);
+            await exec(`git pull origin ${client.config.ORIGINPULL}`);
             msg.edit(`${client.config.emojis.TRUE} Updated.`);
         } catch (err) {
             msg.edit(`${client.config.emojis.FALSE} An error occured:\n\`\`\`${err}\n\`\`\``);
