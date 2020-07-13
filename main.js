@@ -16,27 +16,21 @@ process.on('uncaughtException', (error) => {
     if (!client) return;
     client.errorHook.send(error, {code: 'js'});
   });
-  process.on('unhandledRejection', (listener, test) => {
-    console.warn(listener);
-    if (!client) return;
-    client.errorHook.send(listener, {code: 'js'});
-    
-  });
-  process.on('rejectionHandled', (listener) => {
-    console.warn(listener);
-    if (!client) return;
-    client.errorHook.send(listener, {code: 'js'});
-  });
-  process.on('warning', (warning) => {
-    console.warn(warning);
-    if (!client) return;
-    client.errorHook.send(warning, {code: 'js'});
-  });
+process.on('unhandledRejection', (listener, test) => {
+  console.warn(listener);
+  if (!client) return;
+  client.errorHook.send(listener, {code: 'js'}); 
+});
+process.on('rejectionHandled', (listener) => {
+  console.warn(listener);
+  if (!client) return;
+  client.errorHook.send(listener, {code: 'js'});
+});
+process.on('warning', (warning) => {
+  console.warn(warning);
+  if (!client) return;
+  client.errorHook.send(warning, {code: 'js'});
+});
 
   client.errorHook = new WebhookClient(
     `${client.config.webhooks.console.WEBHOOKID}`, `${client.config.webhooks.console.WEBHOOKTOKEN}`);
-
-    /*client.on("disconnect", () => console.log("Bot is disconnecting...", "warn"))
-    .on("reconnecting", () => console.log("Bot reconnecting...", "log"))
-    .on("error", (e) => console.log(e, "error"))
-    .on("warn", (info) => console.log(info, "warn"));*/
