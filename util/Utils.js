@@ -1,4 +1,5 @@
 module.exports = client => {
+    //const ReactionHandler = require('./ReactionHandler');
 
     client.console = message =>{
         console.log(message)
@@ -49,10 +50,34 @@ module.exports = client => {
             return false;
         }
     }
-     /*client.resolveGuildEmoji = async (guild, arg) => {
+     client.resolveGuildEmoji = async (guild, arg) => {
         if (!guild || !arg) return;
         let emoji = null;
-        emoji = guild.emojis.cache.find(e => e.id == arg || e.name == arg) || await guild.getRESTEmoji(arg.replace('<:', '').replace('<a:', '').replace('>', '').split(':')[1]).catch(() => null);
+        emoji = guild.emojis.cache.find(e => e.id == arg || e.name == arg) || guild.emojis.cache.find(e => e.id == arg.replace('<:', '').replace('<a:', '').replace('>', '').split(':')[1] ) // await guild.emojis.cache.find(arg.replace('<:', '').replace('<a:', '').replace('>', '').split(':')[1]).catch(() => null);
         return emoji;
+        //console.log(guild.emojis.cache.find(e => e.id == '713119015186333716' ))
+    }
+   /* client.listenToReactionRole = async(client, message, emote, role) => {
+        if (!emote.id && !this.isUnicode(emote)) emote = await this.resolveGuildEmoji(message.channel.guild, emote);
+        // eslint-disable-next-line new-cap
+        const reactionListener = new ReactionHandler.continuousReactionStream(
+            message,
+            (userID) => !message.channel.guild.members.get(userID).bot,
+            true
+        );
+        reactionListener.on('reacted', async(event) => {
+            const user = client.resolveMember(message.channel.guild, event.userID);
+            if (user.bot) return;
+            if ((event.emoji.id && event.emoji.id !== emote.id) || (!event.emoji.id && event.emoji.name !== emote)) return;
+            if (user.roles.includes(role.id)) return user.removeRole(role.id).catch();
+            return user.addRole(role.id).catch();
+        });
+        reactionListener.on('unReacted', async(event) => {
+            const user = client.resolveMember(message.channel.guild, event.userID);
+            if (user.bot) return;
+            if ((event.emoji.id && event.emoji.id !== emote.id) || (!event.emoji.id && event.emoji.name !== emote)) return;
+            if (!user.roles.includes(role.id)) return user.addRole(role.id).catch();
+            return user.removeRole(role.id).catch();
+        });
     }*/
 }
