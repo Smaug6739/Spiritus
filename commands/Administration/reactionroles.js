@@ -121,7 +121,7 @@ module.exports.help = {
     description: "Gère les roles reactions.",
     cooldown: 10,
     usage: '[paramètre] (valeur)',
-    exemple :['add 714041691904016424 732983983377350676 👍 @Role'],
+    exemple :['rr add 714041691904016424 732983983377350676 👍 @Role'],
     isUserAdmin: false,
     permissions: true,
     args: true,
