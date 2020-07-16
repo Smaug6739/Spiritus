@@ -1,10 +1,11 @@
-const { MessageEmbed} = require("discord.js");
+const { MessageEmbed,WebhookClient} = require("discord.js");
 module.exports.run = async (client, message, args, settings) => {
     if(args[0].toLowerCase() === 'add'){
+        try{
         const rrCreateDescription = new MessageEmbed()
             .setTitle(`Sous commande : ${settings.prefix}reaction-role add`)
             .setColor(client.config.color.EMBEDCOLOR)
-            .setDescription(`**Module :** Manangement\n**Description :** Permet de crée un role-reaction sous un message.\n**Usage :** [channel] [message_ID] [emoi] [role]\n**Exemples :** \n ${settings.prefix}role-reaction add 716993025678639124 728683365712265257 <:Z6158981175244605Z6:713121641701572698> @Update`)
+            .setDescription(`**Module :** Manangement\n**Description :** Permet de crée un role-reaction sous un message.\n**Usage :** [channel] [message_ID] [emoji] [role]\n**Exemples :** \n ${settings.prefix}role-reaction add 716993025678639124 728683365712265257 <:Z6158981175244605Z6:713121641701572698> @Update`)
             .setFooter('BOT ID : 689210215488684044')
             .setTimestamp()
             if(args.length < 5)return message.channel.send(rrCreateDescription)
@@ -12,7 +13,8 @@ module.exports.run = async (client, message, args, settings) => {
             const guild = settings
             const channel = client.resolveChannel(message.channel.guild, args[1]);
             if (!channel) return message.channel.send(`${client.config.emojis.FALSE} Je n'ai pas trouver ce channel.`);
-            const messageV = await (await client.channels.fetch(channel.id)).messages.fetch(args[2])//await channel.getMessage(args[1].trim().catch(() => undefined));
+            const messageV = await (await client.channels.fetch(channel.id)).messages.fetch(args[2])
+            //await channel.getMessage(args[1].trim().catch(() => undefined));
             if (!messageV) return message.channel.send(`${client.config.emojis.FALSE} Je n'ai pas trouver ce message.`);
             let emote = await client.resolveGuildEmoji(message.channel.guild, args[3].trim());
             if (!emote && client.isUnicode(args[3])) emote = args[3];
@@ -20,8 +22,8 @@ module.exports.run = async (client, message, args, settings) => {
             args.splice(0, 4);
             const role = client.resolveRole(message.channel.guild, args.join(' '));
             if (!role || role.id == message.channel.guild.id) return message.channel.send(`${client.config.emojis.FALSE} Impossible de trouver ce rôle.`);
-            let existingReactionRole = await settings.reactionroles.find(r => r.emoji == emote.id ? emote.id : emote && r.messageID == messageV.id && r.roleID == role.id)
-            if(existingReactionRole)return message.channel.send(`${client.config.emojis.FALSE} Ce role est déja associé a un émoji sous ce message.`);
+            let existingReactionRole = await settings.reactionroles.find(r => r.emoji == emote.id ? emote.id : emote && r.messageID == messageV.id)
+            if(existingReactionRole)return message.channel.send(`${client.config.emojis.FALSE} Cet emoji est déja associé a un role sous ce message.`);
             //.find(r => r.emoji == emote && r.messageID == message.id);
             //if (existingReactionRole) return message.channel.send(`${client.config.emojis.FALSE} Il  y a déja un role associé a cet emoji sous ce message.`);
             await messageV.react(emote.id ? `${emote.name}:${emote.id}` : emote);
@@ -50,6 +52,29 @@ module.exports.run = async (client, message, args, settings) => {
         }else{
             return message.channel.send(`${client.config.emojis.FALSE}Une erreur s'est produite merci de réessayer.`)
         }
+    }catch(e){
+        if(e.message.match('Unknown Message'))return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver ce message`)
+        if(e.message.match('Invalid Form Body'))return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver de message avec cet ID`)
+        else{
+            message.channel.send(`${client.config.emojis.FALSE}Une erreur est survenue merci de réessayer.`)
+            const webhookClient  = new WebhookClient(`${client.config.webhooks.errors.ID}`, `${client.config.webhooks.errors.TOKEN}`);
+            const embed = new MessageEmbed()
+            .setAuthor(`${message.author.username}#${message.author.discriminator}`,`${message.author.displayAvatarURL()}`)
+            .setTitle("Reaction role erreur :")
+            .setDescription(`__**Contenu du message :**__ \`${message.content}\` [Jump to message](https://discord.com/channels/${message.channel.guild.id}/${message.channel.id}/${message.id})`)
+            .addField('Mention :',`User : <@${message.author.id}>`,true)
+            .addField('Guild :',`ID : \`${message.guild.id}\` Name : \`${message.guild.name}\``,false)
+            .addField('Channel :',`ID : \`${message.channel.id}\` Name : \`${message.channel.name}\``,true)
+            .addField(`Erreur message :`,`\`\`\`js\n${e.message}\`\`\``,false)
+            .addField(`Erreur complète :`,`\`\`\`js\n${e.stack}\`\`\``,false)
+            .setColor('#0099ff')
+            .setTimestamp()
+            .setFooter('BOT ID : 689210215488684044');
+            webhookClient.send(`<@${client.config.owner.id}>`,{
+              embeds: [embed],
+            });
+        }
+    }
     }
     if(args[0].toLowerCase() === 'rem'){
         
@@ -62,7 +87,7 @@ module.exports.run = async (client, message, args, settings) => {
             const rrDeleteDescription = new MessageEmbed()
             .setTitle(`Sous commande : ${settings.prefix}reaction-role rem`)
             .setColor(client.config.color.EMBEDCOLOR)
-            .setDescription(`**Module :** Manangement\n**Description :** Permet de crée un role-reaction sous un message.\n**Usage :** [channel] [message_ID] [emoi] [role]\n**Exemples :** \n ${settings.prefix}role-reaction rem 716993025678639124 728683365712265257 <:Z6158981175244605Z6:713121641701572698> @Update`)
+            .setDescription(`**Module :** Manangement\n**Description :** Permet de crée un role-reaction sous un message.\n**Usage :** [channel] [message_ID] [emoji] [role]\n**Exemples :** \n ${settings.prefix}role-reaction rem 716993025678639124 728683365712265257 <:Z6158981175244605Z6:713121641701572698> @Update`)
             .setFooter('BOT ID : 689210215488684044')
             .setTimestamp()
             if(args.length < 5)return message.channel.send(rrDeleteDescription)
@@ -82,7 +107,6 @@ module.exports.run = async (client, message, args, settings) => {
             //await settings.updateOne({ ID: message.channel.guild.id }, { $pull: {messageID: message.id} });
             client.updateGuild(message.guild, {$pull:{ reactionroles: {channelID:channel,messageID: messageV.id,emoji:emote,roleID:role.id} }});
             return message.channel.send(`${client.config.emojis.TRUE} J'ai bien supprimer ce role reaction.`);
-           // console.log(del)
         }
       
     }
