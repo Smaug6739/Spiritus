@@ -184,13 +184,13 @@ module.exports.run = async(client, message, args,settings) => {
     name : 'roles',
     aliases : ['roles','role'],
     category : 'administration',
-    description : 'Permet de gérer et add/rem les roles du serveur.',
+    description : 'Permet de gérer, add/rem les roles.',
     cooldown : 5,
     usage : '<action> <args>',
     exemple :["roles create Admin"],
     permissions : true,
     isUserAdmin: false,
     args : false,
-    sousCommdandes : ["roles create","roles update","roles delete","roles add","roles rem"]
+    sousCommdandes : ["roles liste","roles create","roles update","roles delete","roles add","roles rem"]
   }
   

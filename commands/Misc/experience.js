@@ -58,17 +58,15 @@ module.exports.run = async(client, message, args, settings) => {
     };
 };
 module.exports.help = {
-
-name : 'experience',
-aliases : ['experience'],
-category : 'misc',
-description : 'Ajoute ou enleve de l\'exp à une personne.',
-cooldown : 10,
-usage : '<@user> <nb_experience>',
-exemple :["remexp @Smaug 1500"],
-permissions : true,
-isUserAdmin: false,
-args : false,
-sousCommdandes : ["experience add", "experience rem"]
-
+    name : 'experience',
+    aliases : ['experience'],
+    category : 'misc',
+    description : 'Gère l\'exp d\'une personne.',
+    cooldown : 10,
+    usage : '<@user> <nb_experience>',
+    exemple :["remexp @Smaug 1500"],
+    permissions : true,
+    isUserAdmin: false,
+    args : false,
+    sousCommdandes : ["experience add", "experience rem"]
 }

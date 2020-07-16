@@ -8,7 +8,7 @@ module.exports.run = async (client, message, args) => {
     .addFields(
         { name: '\u200b', value: `${client.config.emojis.FLECHE}\`purge channel\` permet de purge  un channel entier.`, inline: false },
         { name: '\u200b', value: `${client.config.emojis.FLECHE}\`purge <number>\` permet de supprimer un certain nombre de messages.`, inline: false },
-        { name: '\u200b', value: `${client.config.emojis.FLECHE}\`@user <number>\` permet de supprimer un certain nombre de messages d'une personne.`, inline: false },
+        { name: '\u200b', value: `${client.config.emojis.FLECHE}\`purge @user <number>\` permet de supprimer un certain nombre de messages d'une personne.`, inline: false },
     )
     .setTimestamp()
     .setFooter('BOT ID : 689210215488684044')
@@ -59,7 +59,7 @@ module.exports.help = {
   name: "purge",
   aliases: ['purge'],
   category : 'moderation',
-  description: "Permet de supprimer le nombre de messages indiqués",
+  description: "Permet de supprimer des messages.",
   cooldown: 10,
   usage: '<nb_messages>',
   exemple :["purge 50"],

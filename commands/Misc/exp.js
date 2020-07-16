@@ -51,25 +51,7 @@ module.exports.run = async (client, message, args, settings, dbUser) => {
             channel.send(`\u200b`, attachment);
             }else{
                 //Si la persnne mentionné a pas de rank
-                const canvas = Canvas.createCanvas(700, 250);
-                const ctx = canvas.getContext('2d');
-                const background = await Canvas.loadImage(settings.rankcard);
-                ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
-                ctx.strokeStyle = '#74037b';
-                ctx.strokeRect(0, 0, canvas.width, canvas.height);
-                ctx.font = '28px osaka';
-                ctx.fillStyle = '#ffffff';
-                //ctx.fillText(`Rank du serveur,${member.displayName}!`, canvas.width / 2.8, canvas.height / 3.5);
-                ctx.fillText(`Cette personne n'a pas\nde rank. Pour en gagner\npostez des messages !`, canvas.width / 2.6, canvas.height / 3);
-                ctx.fillStyle = '#ffffff';
-                ctx.beginPath();
-                ctx.arc(125, 125, 100, 0, Math.PI * 2, true);
-                ctx.closePath();
-                ctx.clip();
-                const avatar = await Canvas.loadImage(user.user.displayAvatarURL({ format: 'jpg' }));
-                ctx.drawImage(avatar, 24, 24, 200, 200);
-                const attachmentPersonneSansRank = new Discord.MessageAttachment(canvas.toBuffer(), 'rank-image.png');
-                channel.send(`\u200b`, attachmentPersonneSansRank);
+                return message.channel.send(`${client.config.emojis.FALSE} La personne mentionné n'a pas de rank.`)
             }
         }else{
             let pourcentage = dbUser.experience

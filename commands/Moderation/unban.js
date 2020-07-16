@@ -21,7 +21,7 @@ module.exports.help = {
   name: "unban",
   aliases: ['unban'],
   category : 'moderation',
-  description: "Unban un utilisateur",
+  description: "Unban un utilisateur.",
   cooldown: 10,
   usage: '<user_id>',
   exemple :["unban 611468402263064577"],

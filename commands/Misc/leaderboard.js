@@ -22,17 +22,16 @@ module.exports.run = async(client, message, args, settings, dbUser) => {
 
 
 module.exports.help = {
-
-name : 'leaderboard',
-aliases : ['leaderboard','lead'],
-category : 'misc',
-description : 'Top 10 des utilisateurs sur le serveur',
-cooldown : 10,
-usage : '',
-exemple :[],
-permissions : false,
-isUserAdmin: false,
-args : false,
-sousCommdandes : []
-
+    
+    name : 'leaderboard',
+    aliases : ['leaderboard','lead'],
+    category : 'misc',
+    description : 'Classement du serveur',
+    cooldown : 10,
+    usage : '',
+    exemple :[],
+    permissions : false,
+    isUserAdmin: false,
+    args : false,
+    sousCommdandes : []
 }

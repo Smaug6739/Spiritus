@@ -204,7 +204,7 @@ module.exports.help = {
     name : 'info',
     aliases : ['info','information','informations'],
     category : 'info',
-    description : 'Donne des infos sur différentes choses.',
+    description : 'Donne des informations.',
     cooldown : 5,
     usage : '<action> <valeur>',
     exemple :["info user @Smaug"],

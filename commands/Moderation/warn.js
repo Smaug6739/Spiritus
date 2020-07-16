@@ -32,7 +32,7 @@ module.exports.help = {
   name: "warn",
   aliases: ['warn','avertissement'],
   category : 'moderation',
-  description: "Warn un utilisateur",
+  description: "Warn un utilisateur.",
   cooldown: 10,
   usage: '<@user> <raison>',
   exemple :["warn @Smaug spam"],

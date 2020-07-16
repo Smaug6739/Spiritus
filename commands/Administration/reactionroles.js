@@ -88,7 +88,7 @@ module.exports.run = async (client, message, args, settings) => {
             const rrDeleteDescription = new MessageEmbed()
             .setTitle(`Sous commande : ${settings.prefix}reaction-role rem`)
             .setColor(client.config.color.EMBEDCOLOR)
-            .setDescription(`**Module :** Manangement\n**Description :** Permet de crée un role-reaction sous un message.\n**Usage :** [channel] [message_ID] [emoji] [role]\n**Exemples :** \n ${settings.prefix}role-reaction rem 716993025678639124 728683365712265257 <:Z6158981175244605Z6:713121641701572698> @Update`)
+            .setDescription(`**Module :** Manangement\n**Description :** Permet de crée un role-reaction sous un message.\n**Usage :** [channel] [message_ID] [emoji] [role]\n**Exemples :** \n ${settings.prefix}role-reaction rem 716993025678639124 728683365712265257 <:Z6158981175244605Z6:713121641701572698> @Update\n  ${settings.prefix}role-reaction rem all`)
             .setFooter('BOT ID : 689210215488684044')
             .setTimestamp()
             if(args.length < 5)return message.channel.send(rrDeleteDescription)
@@ -125,5 +125,5 @@ module.exports.help = {
     isUserAdmin: false,
     permissions: true,
     args: true,
-    sousCommdandes : [""]
+    sousCommdandes : ["reactionroles add","reactionroles rem"]
 }

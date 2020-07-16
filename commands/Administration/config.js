@@ -109,7 +109,7 @@ module.exports.help = {
     name: "config",
     aliases: ['config'],
     category: 'administration',
-    description: "Modiffier la base de donnée",
+    description: "Permet de configurer le bot.",
     cooldown: 10,
     usage: '[paramètre] (valeur)',
     exemple :[],

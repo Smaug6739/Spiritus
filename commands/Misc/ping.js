@@ -13,7 +13,7 @@ module.exports.help = {
     name : 'ping',
     aliases : ['ping'],
     category : 'misc',
-    description : 'Ping le bot et donne son temps de réaction',
+    description : 'Ping le bot.',
     cooldown : 3,
     usage : '',
     exemple :['ping'],

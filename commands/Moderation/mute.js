@@ -44,7 +44,7 @@ module.exports.help = {
   name: "mute",
   aliases: ['mute'],
   category : 'moderation',
-  description: "Mute un utilisateur",
+  description: "Mute un utilisateur.",
   cooldown: 10,
   usage: '<@user> <time>',
   exemple :["mute @Smaug 1h"],

@@ -226,7 +226,7 @@ module.exports.help = {
     name : 'emojis',
     aliases : ['emojis','emoji','emots'],
     category : 'administration',
-    description : 'Permet de gérer les emojis du serveur.',
+    description : 'Permet de gérer les emojis.',
     cooldown : 5,
     usage : '<action> <args>',
     exemple :["emoji create lien Spiritus "],

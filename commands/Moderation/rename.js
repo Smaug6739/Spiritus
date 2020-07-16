@@ -17,7 +17,7 @@ module.exports.help = {
   name: "rename",
   aliases: ['rename','rname'],
   category : 'moderation',
-  description: "Change le pseudo d'un utilisateur",
+  description: "Change le pseudo d'un utilisateur.",
   cooldown: 10,
   usage: '<@user> <new_name>',
   exemple :["rename @Smaug Dragon"],

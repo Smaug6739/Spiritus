@@ -27,7 +27,7 @@ module.exports.run =(client, message, args) => {
      name : 'dice',
      aliases : ['dice', 'dés','random','roll'],
      category : 'misc',
-     description : 'Lance un ou plusieurs dés',
+     description : 'Lance un ou plusieurs dés.',
      cooldown : 10,
      usage : '<numbre_dice> <max_dice>',
      exemple :["dice 3 6"],

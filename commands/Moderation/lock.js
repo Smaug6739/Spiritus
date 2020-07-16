@@ -17,7 +17,7 @@ module.exports.help = {
     name: "lock",
     aliases: ['lock'],
     category : 'moderation',
-    description: "Lock un channel",
+    description: "Lock un channel.",
     cooldown: 10,
     usage: '<#channel> ou <710761432534351925>',
     exemple :["lock #general"],

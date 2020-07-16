@@ -79,7 +79,8 @@ module.exports = async(client, message) => {
     return message.channel.send(noArgsReply);*/
     const embed = new MessageEmbed()
     .setColor(client.config.color.EMBEDCOLOR)
-    .setTitle(`${client.config.emojis.LOGOBOT} **Commande :** ${settings.prefix}${command.help.name}`)
+    .setAuthor(`Commande : ${settings.prefix}${command.help.name}`,`${client.user.avatarURL()}`)
+    //.setTitle(`${client.config.emojis.LOGOBOT} **Commande :** ${settings.prefix}${command.help.name}`)
     .addField("**__Description :__**", `${command.help.description} (cd: ${command.help.cooldown}secs)`)
     .addField("**__Utilisation :__**", command.help.usage ? `${settings.prefix}${command.help.name} ${command.help.usage}` : `${settings.prefix}${command.help.name}`, true)
     .setTimestamp()
