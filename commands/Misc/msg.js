@@ -71,7 +71,7 @@ module.exports.help = {
     name : 'message',
     aliases : ['message','msg','m'],
     category : 'misc',
-    description : 'Envoi un message dans un channel/MP',
+    description : 'Permet d\'envoyer un message.',
     cooldown : 10,
     usage : '<#channel> <votre_message> où <@user> <votre_message>',
     exemple :["message @Smaug Message","message #spiritus Message"],

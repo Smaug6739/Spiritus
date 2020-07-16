@@ -59,7 +59,7 @@ module.exports.help = {
   name: "purge",
   aliases: ['purge'],
   category : 'moderation',
-  description: "Permet de supprimer des messages.",
+  description: "Supprime des messages.",
   cooldown: 10,
   usage: '<nb_messages>',
   exemple :["purge 50"],

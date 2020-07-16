@@ -203,7 +203,7 @@ module.exports.help = {
     
     name : 'info',
     aliases : ['info','information','informations'],
-    category : 'info',
+    category : 'misc',
     description : 'Donne des informations.',
     cooldown : 5,
     usage : '<action> <valeur>',

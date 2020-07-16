@@ -118,7 +118,7 @@ module.exports.help = {
     name: "reactionroles",
     aliases: ['reactionroles','reaction-roles','rr'],
     category: 'administration',
-    description: "Permet de gérer les roles reactions du serveur.",
+    description: "Gère les roles reactions.",
     cooldown: 10,
     usage: '[paramètre] (valeur)',
     exemple :['add 714041691904016424 732983983377350676 👍 @Role'],

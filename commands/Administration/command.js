@@ -91,7 +91,7 @@ module.exports.help = {
     name : 'command',
     aliases : ['command','commands','cmd','cmds'],
     category : 'administration',
-    description : 'Permet de gérer les commandes personalisées.',
+    description : 'Gère les commandes personalisées.',
     cooldown : 10,
     usage : '<action> <valeur>',
     exemple :['command create spiritus-support https://discord.gg/TC7Qjfs'],

@@ -48,7 +48,7 @@ module.exports.run = (client, message, args, settings) => {
     name: "help",
     aliases: ['help','commandes'],
     category: 'misc',
-    description: "Liste des commandes du bot",
+    description: "Liste des commandes du bot.",
     cooldown: 3,
     usage: '<command_name>',
     exemple :["help","help ping"],

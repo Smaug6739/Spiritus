@@ -16,7 +16,7 @@ module.exports.help = {
     name: "unlock",
     aliases: ['unlock'],
     category : 'moderation',
-    description: "unlock un channel.",
+    description: "Unlock un channel.",
     cooldown: 5,
     usage: '<#salon> ou <salon_name> ou <id_salon>',
     exemple :["unlock #general"],
