@@ -22,8 +22,9 @@ module.exports.run = async (client, message, args, settings) => {
             args.splice(0, 4);
             const role = client.resolveRole(message.channel.guild, args.join(' '));
             if (!role || role.id == message.channel.guild.id) return message.channel.send(`${client.config.emojis.FALSE} Impossible de trouver ce rôle.`);
-            let existingReactionRole = await settings.reactionroles.find(r => r.emoji == emote.id ? emote.id : emote && r.messageID == messageV.id)
-            if(existingReactionRole)return message.channel.send(`${client.config.emojis.FALSE} Cet emoji est déja associé a un role sous ce message.`);
+            let existingReactionRole = await settings.reactionroles.find(r => r.emoji == emote.id  && r.messageID == messageV.id)
+            let existingReactionRole2 = await settings.reactionroles.find(r => r.emoji == emote && r.messageID == messageV.id)
+            if(existingReactionRole || existingReactionRole2)return message.channel.send(`${client.config.emojis.FALSE} Cet emoji est déja associé a un role sous ce message.`);
             //.find(r => r.emoji == emote && r.messageID == message.id);
             //if (existingReactionRole) return message.channel.send(`${client.config.emojis.FALSE} Il  y a déja un role associé a cet emoji sous ce message.`);
             await messageV.react(emote.id ? `${emote.name}:${emote.id}` : emote);
