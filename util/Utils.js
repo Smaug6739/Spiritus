@@ -80,4 +80,15 @@ module.exports = client => {
             return user.removeRole(role.id).catch();
         });
     }*/
+    /*client.banUser = async (delta, msg, user, reason, type) => {
+       // if (reason && reason.length > 512) return `${delta.emotes.error} The reason has to be lower than 512 characters`;
+        try {
+            await client.banGuildMember(msg.channel.guild.id, user.id, 7, encodeURIComponent(reason));
+            return `${delta.emotes.success} Successfully banned ${user.username}#${user.discriminator}.`.then(() => this.createModLogCase(this.delta, msg.member, user, type, reason, null));
+        } catch (err) {
+            if (err.message.match('DiscordRESTError [50013]: Missing Permissions') || err.message.match('DiscordHTTPError [50013]: Missing Permissions')) {
+                return `${delta.emotes.error} I can't ban that user, they probably have higher roles than me.`;
+            }
+        }
+    }*/
 }
