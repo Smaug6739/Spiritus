@@ -12,7 +12,7 @@ module.exports.run = async (client, message, args) => {
     reason = encodeURIComponent(reason);
     const msgs = await message.channel.messages.fetch()
     let messge = await message.channel.send(`${client.config.emojis.LOADING} Recherche du message \`${query}\`...`);
-    const messages = msgs.filter(m => m.content.includes(query));
+    const messages = msgs.filter(m => m.content.includes(query) && !m.content.includes(query));
     if (!messages || messages.length === 0) return messge.edit(`${client.config.emojis.FALSE} Ce message n'a pas été trouver.`);
     const ids = messages.map(m => m.author.id);
     //console.log('IDS : ' + ids)
