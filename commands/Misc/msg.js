@@ -56,11 +56,11 @@ module.exports.run =(client, message, args) => {
     const embed = new MessageEmbed()
     .setTitle('Commande message')
     .setColor(`${client.config.color.EMBEDCOLOR}`)
-    .setDescription('La commande `message` permet d\'envoyer un message a une personne ou dans un channel grace aux sous commandes suivantes :')
-    .addFields(
+    .setDescription(`La commande __message__ permet d'envoyer un message a une personne ou dans un channel grace aux sous commandes suivantes :\n\n${client.config.emojis.FLECHE}__message @user__ envoi un message dans les MP d\'une personne.\n${client.config.emojis.FLECHE}__message #channel__ envoi un message dans un channel.`)
+    /*.addFields(
         { name: '\u200b', value: `${client.config.emojis.FLECHE}\`message @user\` envoi un message dans les MP d\'une personne.`, inline: false },
-        { name: '\u200b', value: `${client.config.emojis.FLECHE}\`message #channel\` envoi un message dans un channel..`, inline: false }
-    )
+        { name: '\u200b', value: `${client.config.emojis.FLECHE}\`message #channel\` envoi un message dans un channel.`, inline: false }
+    )*/
     .setTimestamp()
     .setFooter('BOT ID : 689210215488684044')
     message.channel.send(embed)      

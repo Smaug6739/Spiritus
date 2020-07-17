@@ -5,13 +5,13 @@ module.exports.run = (client, message, args,settings) =>{
         const embed = new MessageEmbed()
         .setTitle('Commande info')
         .setColor(`${client.config.color.EMBEDCOLOR}`)
-        .setDescription('La commande `info` permet d\'avoir des informations sur différents éléments du serveur et du bot grace aux sous commandes suivantes :')
-        .addFields(
+        .setDescription(`La commande __info__ permet d'avoir des informations sur différents éléments du serveur et du bot grace aux sous commandes suivantes :\n\n${client.config.emojis.FLECHE}__info user__ donne des informations sur une personne.\n${client.config.emojis.FLECHE}__info bot__ donne des informations sur le bot.\n${client.config.emojis.FLECHE}__info serveur__ donne des informations sur le serveur.\n${client.config.emojis.FLECHE}__info role__ donne des informations sur un role.\n${client.config.emojis.FLECHE}__info channel__ donne des informations sur un channel.`)
+        /*.addFields(
             { name: '\u200b', value: `${client.config.emojis.FLECHE}\`info user\` donne des informations sur une personne.`, inline: false },
             { name: '\u200b', value: `${client.config.emojis.FLECHE}\`info bot\` donne des informations sur le bot.`, inline: false },
             { name: '\u200b', value: `${client.config.emojis.FLECHE}\`info serveur\` donne des informations sur le serveur.`, inline: false },
             { name: '\u200b', value: `${client.config.emojis.FLECHE}\`info role\` donne des informations sur un role.`, inline: false },
-            { name: '\u200b', value: `${client.config.emojis.FLECHE}\`info channel\` donne des informations sur un channel.`, inline: false })
+            { name: '\u200b', value: `${client.config.emojis.FLECHE}\`info channel\` donne des informations sur un channel.`, inline: false })*/
         .setTimestamp()
         .setFooter('BOT ID : 689210215488684044')
        return message.channel.send(embed)

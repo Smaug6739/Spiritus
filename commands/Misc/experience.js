@@ -6,10 +6,10 @@ module.exports.run = async(client, message, args, settings) => {
             const embed = new MessageEmbed()
             .setTitle('Commande experience')
             .setColor(`${client.config.color.EMBEDCOLOR}`)
-            .setDescription('La commande `experience` permet de gérer l\'experience des membres du serveur graces aux sous commandes suivantes :')
-            .addFields(
+            .setDescription(`La commande __experience__ permet de gérer l'experience des membres du serveur graces aux sous commandes suivantes :\n\n${client.config.emojis.FLECHE}__experience add__ permet de donner de l'exp a un membre.\n${client.config.emojis.FLECHE}__experience rem__ permet de supprimer de l'exp a un membre.`)
+            /*.addFields(
                 { name: '\u200b', value: `${client.config.emojis.FLECHE}\`experience add\` permet de donner de l\'exp a un membre.`, inline: false },
-                { name: '\u200b', value: `${client.config.emojis.FLECHE}\`experience rem\` permet de supprimer de l\'exp a un membre.`, inline: false })
+                { name: '\u200b', value: `${client.config.emojis.FLECHE}\`experience rem\` permet de supprimer de l\'exp a un membre.`, inline: false })*/
             .setTimestamp()
             .setFooter('BOT ID : 689210215488684044')
             return message.channel.send(embed)

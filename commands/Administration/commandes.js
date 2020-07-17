@@ -1,6 +1,24 @@
 const { MessageEmbed,WebhookClient} = require("discord.js");
 module.exports.run = async (client, message, args, settings) => {
-    if(args[0].toLowerCase() === 'add'){
+    if(!args[0]){
+        const embed = new MessageEmbed()
+        .setTitle('Commande commande')
+        .setDescription(`La commande __commande__ permet de gérer les commandes personalisées du serveur grâces aux sous commandes suivantes :\n\n${client.config.emojis.FLECHE}__commande liste__ permet voir la liste des commandes personalisées.\n${client.config.emojis.FLECHE}__commande create__ permet de crée une commande.\n${client.config.emojis.FLECHE}__commande delete__ permet de supprimer une commande peronalisée.`)
+        .setColor(`${client.config.color.EMBEDCOLOR}`)
+        .setTimestamp()
+        .setFooter('BOT ID : 689210215488684044')
+        return message.channel.send(embed)
+      }
+    if( args[0].toLowerCase() === 'create' || args[0].toLowerCase() === 'add' ){
+        if (args.length < 2 && !message.attachments.first()) {
+            const commandeCreateDescription = new MessageEmbed()
+            .setTitle(`Sous commande : ${settings.prefix}command create`)
+            .setColor(client.config.color.EMBEDCOLOR)
+            .setDescription(`**Module :** Manangement\n**Description :** Permet de crée une commande\n**Usage : **${settings.prefix}commande create [nom] [Contenu de la commande]\n**Exemples :** \n ${settings.prefix}commande create invite https://discord.gg/TC7Qjfs`)
+            .setFooter('BOT ID : 689210215488684044')
+            .setTimestamp()
+              return message.channel.send(commandeCreateDescription)
+          }
         try{
             const title = args[1].toLowerCase()
             if(settings.commandes){
@@ -10,8 +28,6 @@ module.exports.run = async (client, message, args, settings) => {
             }
             const contenu = args.slice(2).join(' ')
             if(contenu.length > 1800)return message.channel.send(`${client.config.emojis.FALSE} Le contenu de la commande est trop long. `)
-            if(!title)return message.channel.send(`${client.config.emojis.FALSE}Merci de d'indiquer un nom à la commande.`)
-            if(!contenu)return message.channel.send(`${client.config.emojis.FALSE}Merci de d'indiquer le contenu de la commande.`)
             let tableau = []
             tableau = settings.commandes
             tableau.push({nom: title, contenu: contenu })
@@ -37,19 +53,27 @@ module.exports.run = async (client, message, args, settings) => {
             });
         }
     }
-    if(args[0].toLowerCase() === 'rem'){
+    if(args[0].toLowerCase() === 'delete' || args[0].toLowerCase() === 'rem' ){
+        if(!args[1]){
+            const commandDeleteDescription = new MessageEmbed()
+            .setTitle(`Sous commande : ${settings.prefix}command delete`)
+            .setColor(client.config.color.EMBEDCOLOR)
+            .setDescription(`**Module :** Manangement\n**Description :** Permet de supprimer une commande\n**Usage : ** ${settings.prefix}commande delete [nom]\n**Exemples :** \n ${settings.prefix}commande delete invite`)
+            .setFooter('BOT ID : 689210215488684044')
+            .setTimestamp()
+            return message.channel.send(commandDeleteDescription)
+        }
         if(settings.commandes){
             if (args.length == 2 && args[1] == 'all') {
                 settings.commandes.splice(0, settings.commandes.length);
-                guild.save();
+                settings.save();
                 return message.channel.send(`${client.config.emojis.TRUE} Toutes les commandes personalisées de ce serveur ont bien été supprimés.`);
             } else {
                 const title = args[1].toLowerCase()
-                if(!title)return message.channel.send(`${client.config.emojis.FALSE} Merci de d'indiquer le nom de la commande a supprimer.`)
                 let customCommand = settings.commandes.find(e => e.nom == title)
                 if(customCommand){
                     client.updateGuild(message.guild, {$pull:{ commandes: {nom: title} }});
-                    message.channel.send(`${client.config.emojis.TRUE} J'ai bien supprimer cette commande cette commande.`)
+                    message.channel.send(`${client.config.emojis.TRUE} J'ai bien supprimer cette commande.`)
                 } 
                 else return message.channel.send(`${client.config.emojis.FALSE} Je n'ai pas trouver cette commande.`)
             }
@@ -75,15 +99,15 @@ module.exports.run = async (client, message, args, settings) => {
 };
 module.exports.help = {
     
-    name: "commandes",
-    aliases: ['commandes'],
+    name: "commande",
+    aliases: ['commande','commandes'],
     category: 'administration',
     description: "Gère les commandes personalisées.",
     cooldown: 10,
-    usage: '',
+    usage: '<action> <valeur>',
     exemple :[''],
     isUserAdmin: false,
     permissions: true,
     args: false,
-    sousCommdandes : [""]
+    sousCommdandes : ["commande liste","commande create","commande delete"]
 }
