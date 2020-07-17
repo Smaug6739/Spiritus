@@ -44,26 +44,18 @@ module.exports.run = async (client, message, args) => {
         for (const user of users) {
                 try {
                     userToBan = client.resolveMember(message.guild,user)
-
                     usr = user
                     await usersList.push(`${userToBan.user.username}#${userToBan.user.discriminator}`);
-                    if(userToBan.banable){
+                    if(userToBan.bannable){
                         userToBan.ban()
-                        .catch(
-                            errored++ ,
-                            success--
-                           )
                         success++
                     }else{
                         errored++
                         admin++
-
                     }
-                     
-                     
                      //messge.edit(`${descrip} (${success}/${users.length})`);
-                    
                  } catch (e) {
+                     console.log(e)
                      errored++;
                  }
             
@@ -127,7 +119,9 @@ module.exports.run = async (client, message, args) => {
     .setThumbnail(user.user.displayAvatarURL())
     .setTimestamp()
     .setFooter(message.author.username, message.author.avatarURL());
+    if(user.bannable)
     user ? message.guild.member(user).ban({reason : `${reason}`}).then(message.channel.send(embed)) : message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver cet utilisateur`);
+    else message.channel.send(`${client.config.emojis.FALSE} Je ne peux pas bannir cette personne.`)
 
   }
 
@@ -142,7 +136,7 @@ module.exports.help = {
   cooldown: 10,
   usage: '<@user> <raison>',
   exemple :["ban @Smaug spam"],
-  isUserAdmin: true,
+  isUserAdmin: false,
   permissions: true,
   args: true,
   sousCommdandes : []
