@@ -4,9 +4,9 @@ module.exports.run = async(client, message, args,settings) => {
     if(!args[0]){
         const embed = new MessageEmbed()
         .setTitle('Commande channel')
-        .setDescription('La commande `channel` permet de gérer les channels du serveur graces aux sous commandes suivantes :')
+        .setDescription(`La commande __channel__ permet de gérer les channels du serveur graces aux sous commandes suivantes :\n\n${client.config.emojis.FLECHE}__channel clone__ permet de cloner facilement n'importe quel channel.\n${client.config.emojis.FLECHE}__channel position__ change la position de n'importe quel channel.\n${client.config.emojis.FLECHE}__channel parent__ change la categorie de n'importe quel channel.\n${client.config.emojis.FLECHE}__channel synchro__ permet de synchroniser les permission d'un channel.\n${client.config.emojis.FLECHE}__channel topic__ permet de choisir le channel d'un channel.\n${client.config.emojis.FLECHE}__channel create__ permet de crée un channel.\n${client.config.emojis.FLECHE}__channel update__ permet de mettre a jour le nom d'un channel.\n${client.config.emojis.FLECHE}__channel delete__ permet de supprimer un channel.`)
         .setColor(`${client.config.color.EMBEDCOLOR}`)
-        .addFields(
+        /*.addFields(
             { name: '\u200b', value: `${client.config.emojis.FLECHE}\`channel clone\` permet de cloner facilement n\`importe quel channel.`, inline: false },
             { name: '\u200b', value: `${client.config.emojis.FLECHE}\`channel position\` change la position de n'importe quel channel.`, inline: false },
             { name: '\u200b', value: `${client.config.emojis.FLECHE}\`channel parent\` change la categorie de n'importe quel channel.`, inline: false },
@@ -17,7 +17,7 @@ module.exports.run = async(client, message, args,settings) => {
             { name: '\u200b', value: `${client.config.emojis.FLECHE}\`channel delete\` permet de supprimer un channel.`, inline: false },
            // { name: '\u200b', value: `${client.config.emojis.FLECHE}\`channel pin\` permet de pin un message avec son id.`, inline: false },
            // { name: '\u200b', value: `${client.config.emojis.FLECHE}\`channel unpin\` permet de unpin un message avec son id.`, inline: false },
-        )
+        )*/
         .setTimestamp()
         .setFooter('BOT ID : 689210215488684044')
         return message.channel.send(embed)
@@ -26,7 +26,7 @@ module.exports.run = async(client, message, args,settings) => {
         const channelCloneDescription = new MessageEmbed()
         .setTitle(`Sous commande : ${settings.prefix}channel clone`)
         .setColor(client.config.color.EMBEDCOLOR)
-        .setDescription(`**Module :** Manangement\n**Description :** Permet de cloner un channel\n**Usage :** [nom/id/mention]\n**Exemples :** \n ${settings.prefix}channel clone 716993025678639124 \n ${settings.prefix}channel clone #blabla`)
+        .setDescription(`**Module :** Manangement\n**Description :** Permet de cloner un channel\n**Usage : **${settings.prefix}channel clone [nom/id/mention]\n**Exemples :** \n ${settings.prefix}channel clone 716993025678639124 \n ${settings.prefix}channel clone #blabla`)
         .setFooter('BOT ID : 689210215488684044')
         .setTimestamp()
         if(!args[1]) return message.channel.send(channelCloneDescription)
@@ -44,7 +44,7 @@ module.exports.run = async(client, message, args,settings) => {
         const channelSynchroDescription = new MessageEmbed()
         .setTitle(`Sous commande : ${settings.prefix}channel synchro`)
         .setColor(client.config.color.EMBEDCOLOR)
-        .setDescription(`**Module :** Manangement\n**Description :** Permet de synchroniser les permissions d'un channel avec sa catégorie\n**Usage :** [nom/id/mention]\n**Exemples :** \n ${settings.prefix}channel synchro 716993025678639124 \n ${settings.prefix}channel synchro #blabla`)
+        .setDescription(`**Module :** Manangement\n**Description :** Permet de synchroniser les permissions d'un channel avec sa catégorie\n**Usage :**${settings.prefix}channel synchro [nom/id/mention]\n**Exemples :** \n ${settings.prefix}channel synchro 716993025678639124 \n ${settings.prefix}channel synchro #blabla`)
         .setFooter('BOT ID : 689210215488684044')
         .setTimestamp()
         if(!args[1]) return message.channel.send(channelSynchroDescription)
@@ -64,7 +64,7 @@ module.exports.run = async(client, message, args,settings) => {
         const channelCreateDescription = new MessageEmbed()
         .setTitle(`Sous commande : ${settings.prefix}channel create`)
         .setColor(client.config.color.EMBEDCOLOR)
-        .setDescription(`**Module :** Manangement\n**Description :**  Permet de crée un channel ou une catégorie\n**Usage :** [text/voice/category] (name)\n**Exemples :** \n ${settings.prefix}channel create text Spiritus\n ${settings.prefix}channel create category Spiritus`)
+        .setDescription(`**Module :** Manangement\n**Description :**  Permet de crée un channel ou une catégorie\n**Usage : **${settings.prefix}channel create [text/voice/category] (name)\n**Exemples :** \n ${settings.prefix}channel create text Spiritus\n ${settings.prefix}channel create category Spiritus`)
         .setFooter('BOT ID : 689210215488684044')
         .setTimestamp()
         var category = message.channel.parentID
@@ -105,7 +105,7 @@ module.exports.run = async(client, message, args,settings) => {
         const channelUpdateDescription = new MessageEmbed()
         .setTitle(`Sous commande : ${settings.prefix}channel update`)
         .setColor(client.config.color.EMBEDCOLOR)
-        .setDescription(`**Module :** Manangement\n**Description :** Permet de modifier un channel\n**Usage :** [Ancion nom/id/mention] [Nouveau nom]\n**Exemples :** \n ${settings.prefix}channel update 716993025678639124 💬general\n ${settings.prefix}channel update #blabla Général`)
+        .setDescription(`**Module :** Manangement\n**Description :** Permet de modifier un channel\n**Usage : **${settings.prefix}channel update [nom/id/mention] [Nouveau nom]\n**Exemples :** \n ${settings.prefix}channel update 716993025678639124 💬general\n ${settings.prefix}channel update #blabla Général`)
         .setFooter('BOT ID : 689210215488684044')
         .setTimestamp()
         if(!args[1]) return message.channel.send(channelUpdateDescription)
@@ -128,7 +128,7 @@ module.exports.run = async(client, message, args,settings) => {
         const channelDeleteDescription = new MessageEmbed()
         .setTitle(`Sous commande : ${settings.prefix}channel delete`)
         .setColor(client.config.color.EMBEDCOLOR)
-        .setDescription(`**Module :** Manangement\n**Description :** Permet de supprimer un channel\n**Usage :** (nom/id/mention)\n**Exemples :** \n ${settings.prefix}channel delete 716993025678639124\n ${settings.prefix}channel delete #blabla`)
+        .setDescription(`**Module :** Manangement\n**Description :** Permet de supprimer un channel\n**Usage : **${settings.prefix}channel delete (nom/id/mention)\n**Exemples :** \n ${settings.prefix}channel delete 716993025678639124\n ${settings.prefix}channel delete #blabla`)
         .setFooter('BOT ID : 689210215488684044')
         .setTimestamp()
         if(!args[1])return message.channel.send(channelDeleteDescription)
@@ -147,7 +147,7 @@ module.exports.run = async(client, message, args,settings) => {
         const channelPositionDescription = new MessageEmbed()
         .setTitle(`Sous commande : ${settings.prefix}channel position`)
         .setColor(client.config.color.EMBEDCOLOR)
-        .setDescription(`**Module :** Manangement\n**Description :** Permet de modifier la position d'un channel\n**Usage :** (nom/id/mention) (position)\n**Exemples :** \n ${settings.prefix}channel position 716993025678639124 5\n ${settings.prefix}channel position #blabla 5`)
+        .setDescription(`**Module :** Manangement\n**Description :** Permet de modifier la position d'un channel\n**Usage : **${settings.prefix}channel position (nom/id/mention) (position)\n**Exemples :** \n ${settings.prefix}channel position 716993025678639124 5\n ${settings.prefix}channel position #blabla 5`)
         .setFooter('BOT ID : 689210215488684044')
         .setTimestamp()
         if(!args[1]) return message.channel.send(channelPositionDescription)
@@ -169,7 +169,7 @@ module.exports.run = async(client, message, args,settings) => {
         const channelParentDescription = new MessageEmbed()
         .setTitle(`Sous commande : ${settings.prefix}channel parent`)
         .setColor(client.config.color.EMBEDCOLOR)
-        .setDescription(`**Module :** Manangement\n**Description :** Permet de modifier la categorie d'un channel\n**Usage :** (nom/id/mention) (categorieID)\n**Exemples :** \n ${settings.prefix}channel position 716993025678639124 716992798506876980\n ${settings.prefix}channel position #blabla 716992798506876980`)
+        .setDescription(`**Module :** Manangement\n**Description :** Permet de modifier la categorie d'un channel\n**Usage : **${settings.prefix}channel parent (nom/id/mention) (categorieID)\n**Exemples :** \n ${settings.prefix}channel position 716993025678639124 716992798506876980\n ${settings.prefix}channel position #blabla 716992798506876980`)
         .setFooter('BOT ID : 689210215488684044')
         .setTimestamp()
         if(!args[1]) return message.channel.send(channelParentDescription)
@@ -192,7 +192,7 @@ module.exports.run = async(client, message, args,settings) => {
         const channelTopicDescription = new MessageEmbed()
         .setTitle(`Sous commande : ${settings.prefix}channel topic`)
         .setColor(client.config.color.EMBEDCOLOR)
-        .setDescription(`**Module :** Manangement\n**Description :** Permet de modifier le topic d'un channel\n**Usage :** [nom/id/mention] (Nouveau topic)\n**Exemples :** \n ${settings.prefix}channel topic 716993025678639124 Nouveau topic\n ${settings.prefix}channel position #blabla Nouveau topic`)
+        .setDescription(`**Module :** Manangement\n**Description :** Permet de modifier le topic d'un channel\n**Usage : **${settings.prefix}channel topic [nom/id/mention] (Nouveau topic)\n**Exemples :** \n ${settings.prefix}channel topic 716993025678639124 Nouveau topic\n ${settings.prefix}channel position #blabla Nouveau topic`)
         .setFooter('BOT ID : 689210215488684044')
         .setTimestamp()
         if(!args[1]) return message.channel.send(channelTopicDescription)

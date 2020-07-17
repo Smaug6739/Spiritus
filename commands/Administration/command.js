@@ -3,13 +3,14 @@ module.exports.run =async(client, message, args,settings) => {
     if(!args[0]){
         const embed = new MessageEmbed()
         .setTitle('Commande message')
-        .setDescription('La commande `message` permet d\'envoyer un message a une personne ou dans un channel grace aux sous commandes suivantes :')
-        .addFields(
+        .setColor(`${client.config.color.EMBEDCOLOR}`)
+        .setDescription(`La commande __message__ permet d'envoyer un message a une personne ou dans un channel grace aux sous commandes suivantes :\n\n${client.config.emojis.FLECHE}__command create__ permet de crée une commande personalisée pour le serveur.\n${client.config.emojis.FLECHE}__command liste__ donne la liste des commandes personalisées du serveur\n${client.config.emojis.FLECHE}__command update__ met a jour le contenu d'une commande personalisée\n${client.config.emojis.FLECHE}__command delete__ supprime une commandes personalisées du serveur`)
+        /*.addFields(
             { name: '\u200b', value: `${client.config.emojis.FLECHE}\`command create\` permet de crée une commande personalisée pour le serveur.`, inline: false },
             { name: '\u200b', value: `${client.config.emojis.FLECHE}\`command liste\` donne la liste des commandes personalisées du serveur`, inline: false },
             { name: '\u200b', value: `${client.config.emojis.FLECHE}\`command update\` met a jour le contenu d'une commande personalisée`, inline: false },
             { name: '\u200b', value: `${client.config.emojis.FLECHE}\`command delete\` supprime une commandes personalisées du serveur`, inline: false },
-        )
+        )*/
         .setTimestamp()
         .setFooter('BOT ID : 689210215488684044')
        return  message.channel.send(embed)      
@@ -18,7 +19,7 @@ module.exports.run =async(client, message, args,settings) => {
         const commandCreateDescription = new MessageEmbed()
             .setTitle(`Sous commande : ${settings.prefix}command create`)
             .setColor(client.config.color.EMBEDCOLOR)
-            .setDescription(`**Module :** Manangement\n**Description :** Permet de crée une commande\n**Usage :** [nom] [Contenu de la commande]\n**Exemples :** \n ${settings.prefix}command create invite https://discord.gg/TC7Qjfs`)
+            .setDescription(`**Module :** Manangement\n**Description :** Permet de crée une commande\n**Usage : ** ${settings.prefix}command create [nom] [Contenu de la commande]\n**Exemples :** \n ${settings.prefix}command create invite https://discord.gg/TC7Qjfs`)
             .setFooter('BOT ID : 689210215488684044')
             .setTimestamp()
             if(!args[1])return message.channel.send(commandCreateDescription)
@@ -61,7 +62,7 @@ module.exports.run =async(client, message, args,settings) => {
         const commandUpdateDescription = new MessageEmbed()
         .setTitle(`Sous commande : ${settings.prefix}command update`)
         .setColor(client.config.color.EMBEDCOLOR)
-        .setDescription(`**Module :** Manangement\n**Description :** Permet de modifier une commande\n**Usage :** [nom] [Nouveau contenu de la commande]\n**Exemples :** \n ${settings.prefix}command update invite Le lien vers le serveur support est : https://discord.gg/TC7Qjfs`)
+        .setDescription(`**Module :** Manangement\n**Description :** Permet de modifier une commande\n**Usage : **${settings.prefix}command update [nom] [Nouveau contenu de la commande]\n**Exemples :** \n ${settings.prefix}command update invite Le lien vers le serveur support est : https://discord.gg/TC7Qjfs`)
         .setFooter('BOT ID : 689210215488684044')
         .setTimestamp()
         if(!args[1])return message.channel.send(commandUpdateDescription)
@@ -77,7 +78,7 @@ module.exports.run =async(client, message, args,settings) => {
         const commandDeleteDescription = new MessageEmbed()
         .setTitle(`Sous commande : ${settings.prefix}command delete`)
         .setColor(client.config.color.EMBEDCOLOR)
-        .setDescription(`**Module :** Manangement\n**Description :** Permet de supprimer une commande\n**Usage :** [nom]\n**Exemples :** \n ${settings.prefix}command delete invite`)
+        .setDescription(`**Module :** Manangement\n**Description :** Permet de supprimer une commande\n**Usage : ** ${settings.prefix}command delete [nom]\n**Exemples :** \n ${settings.prefix}command delete invite`)
         .setFooter('BOT ID : 689210215488684044')
         .setTimestamp()
         if(!args[1])return message.channel.send(commandDeleteDescription)

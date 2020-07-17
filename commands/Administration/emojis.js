@@ -6,13 +6,13 @@ module.exports.run = async (client, message, args,settings) => {
     if(!args[0]){
       const embed = new MessageEmbed()
       .setTitle('Commande emoji')
-      .setDescription('La commande `emoji` permet de gérer les emojis du serveur graces aux sous commandes suivantes :')
+      .setDescription(`La commande __emoji__ permet de gérer les emojis du serveur graces aux sous commandes suivantes :\n\n${client.config.emojis.FLECHE}__emoji liste__ permet voir les emojis du serveur.\n${client.config.emojis.FLECHE}__emoji create__ permet de crée un emoji.\n${client.config.emojis.FLECHE}__emoji update__ permet de mettre a jour le nom d'un emoji.\n${client.config.emojis.FLECHE}__emoji delete__ permet de supprimer un emoji.`)
       .setColor(`${client.config.color.EMBEDCOLOR}`)
-      .addFields(
+      /*.addFields(
           { name: '\u200b', value: `${client.config.emojis.FLECHE}\`emoji liste\` permet voir les emojis du serveur.`, inline: false },
           { name: '\u200b', value: `${client.config.emojis.FLECHE}\`emoji create\` permet de crée un emoji.`, inline: false },
           { name: '\u200b', value: `${client.config.emojis.FLECHE}\`emoji update\` permet de mettre a jour le nom d\`un emoji.`, inline: false },
-          { name: '\u200b', value: `${client.config.emojis.FLECHE}\`emoji delete\` permet de supprimer un emoji.`, inline: false })
+          { name: '\u200b', value: `${client.config.emojis.FLECHE}\`emoji delete\` permet de supprimer un emoji.`, inline: false })*/
       .setTimestamp()
       .setFooter('BOT ID : 689210215488684044')
       return message.channel.send(embed)
@@ -45,7 +45,7 @@ module.exports.run = async (client, message, args,settings) => {
           const emojiCreateDescription = new MessageEmbed()
             .setTitle(`Sous commande : ${settings.prefix}emoji create`)
             .setColor(client.config.color.EMBEDCOLOR)
-            .setDescription(`**Module :** Manangement\n**Description :** Permet de crée un emoji sur le serveur\n**Usage :** [nom] (URL/Attachement)\n**Exemples :** \n ${settings.prefix}emoji create Spiritus https://cdn.discordapp.com/emojis/713121641701572698.png`)
+            .setDescription(`**Module :** Manangement\n**Description :** Permet de crée un emoji sur le serveur\n**Usage : **${settings.prefix}emoji create [nom] (URL/Attachement)\n**Exemples :** \n ${settings.prefix}emoji create Spiritus https://cdn.discordapp.com/emojis/713121641701572698.png`)
             .setFooter('BOT ID : 689210215488684044')
             .setTimestamp()
             return message.channel.send(emojiCreateDescription)
@@ -105,7 +105,7 @@ module.exports.run = async (client, message, args,settings) => {
       const emojiUpdateDescription = new MessageEmbed()
             .setTitle(`Sous commande : ${settings.prefix}emoji update`)
             .setColor(client.config.color.VERT)
-            .setDescription(`**Module :** Manangement\n**Description :** Permet de modifier le nom d'un emoji sur le serveur\n**Usage :** [nom] (Nouveau nom)\n**Exemples :** \n ${settings.prefix}emoji update BOT Spiritus`)
+            .setDescription(`**Module :** Manangement\n**Description :** Permet de modifier le nom d'un emoji sur le serveur\n**Usage : **${settings.prefix}emoji update [nom] (Nouveau nom)\n**Exemples :** \n ${settings.prefix}emoji update BOT Spiritus`)
             .setFooter('BOT ID : 689210215488684044')
             .setTimestamp()
             if(!args[1])return message.channel.send(emojiUpdateDescription)
@@ -163,7 +163,7 @@ module.exports.run = async (client, message, args,settings) => {
       const emojiDeleteDescription = new MessageEmbed()
           .setTitle(`Sous commande : ${settings.prefix}emoji delete`)
           .setColor(client.config.color.EMBEDCOLOR)
-          .setDescription(`**Module :** Manangement\n**Description :** Permet de supprimer un emoji sur le serveur\n**Usage :** [nom]\n**Exemples :** \n ${settings.prefix}emoji delete Spiritus`)
+          .setDescription(`**Module :** Manangement\n**Description :** Permet de supprimer un emoji sur le serveur\n**Usage : **${settings.prefix}emoji delete [nom]\n**Exemples :** \n ${settings.prefix}emoji delete Spiritus`)
           .setFooter('BOT ID : 689210215488684044')
           .setTimestamp()
           if(!args[1])return message.channel.send(emojiDeleteDescription)

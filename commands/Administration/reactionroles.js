@@ -1,11 +1,21 @@
 const { MessageEmbed,WebhookClient} = require("discord.js");
 module.exports.run = async (client, message, args, settings) => {
+    if(!message.guild.me.hasPermission('MANAGE_ROLES')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de gérer les roles.`);
+    if(!args[0]){
+        const embed = new MessageEmbed()
+        .setTitle('Commande reaction-roles')
+        .setColor(client.config.color.EMBEDCOLOR)
+        .setDescription(`La commande __reactions-roles__ permet de gérer les reaction-roles du serveur graces aux sous commandes suivantes :\n\n${client.config.emojis.FLECHE}__reaction-roles add__ permet de crée un role-reaction.\n${client.config.emojis.FLECHE}__reaction-roles rem__ permet de supprimer un role-reaction.`)
+        .setTimestamp()
+        .setFooter('BOT ID : 689210215488684044')
+        return message.channel.send(embed)
+    }
     if(args[0].toLowerCase() === 'add'){
         try{
         const rrCreateDescription = new MessageEmbed()
             .setTitle(`Sous commande : ${settings.prefix}reaction-role add`)
             .setColor(client.config.color.EMBEDCOLOR)
-            .setDescription(`**Module :** Manangement\n**Description :** Permet de crée un role-reaction sous un message.\n**Usage :** [channel] [message_ID] [emoji] [role]\n**Exemples :** \n ${settings.prefix}role-reaction add 716993025678639124 728683365712265257 <:Z6158981175244605Z6:713121641701572698> @Update`)
+            .setDescription(`**Module :** Manangement\n**Description :** Permet de crée un role-reaction sous un message.\n**Usage : **${settings.prefix}reaction-roles add [channel] [message_ID] [emoji] [role]\n**Exemples :** \n ${settings.prefix}role-reaction add 716993025678639124 728683365712265257 <:Z6158981175244605Z6:713121641701572698> @Update`)
             .setFooter('BOT ID : 689210215488684044')
             .setTimestamp()
             if(args.length < 5)return message.channel.send(rrCreateDescription)
@@ -88,7 +98,7 @@ module.exports.run = async (client, message, args, settings) => {
             const rrDeleteDescription = new MessageEmbed()
             .setTitle(`Sous commande : ${settings.prefix}reaction-role rem`)
             .setColor(client.config.color.EMBEDCOLOR)
-            .setDescription(`**Module :** Manangement\n**Description :** Permet de crée un role-reaction sous un message.\n**Usage :** [channel] [message_ID] [emoji] [role]\n**Exemples :** \n ${settings.prefix}role-reaction rem 716993025678639124 728683365712265257 <:Z6158981175244605Z6:713121641701572698> @Update\n  ${settings.prefix}role-reaction rem all`)
+            .setDescription(`**Module :** Manangement\n**Description :** Permet de crée un role-reaction sous un message.\n**Usage : ** ${settings.prefix}reaction-roles rem [channel] [message_ID] [emoji] [role]\n**Exemples :** \n ${settings.prefix}role-reaction rem 716993025678639124 728683365712265257 <:Z6158981175244605Z6:713121641701572698> @Update\n  ${settings.prefix}role-reaction rem all`)
             .setFooter('BOT ID : 689210215488684044')
             .setTimestamp()
             if(args.length < 5)return message.channel.send(rrDeleteDescription)
@@ -124,6 +134,6 @@ module.exports.help = {
     exemple :['rr add 714041691904016424 732983983377350676 👍 @Role'],
     isUserAdmin: false,
     permissions: true,
-    args: true,
+    args: false,
     sousCommdandes : ["reactionroles add","reactionroles rem"]
 }

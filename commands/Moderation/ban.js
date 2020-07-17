@@ -1,11 +1,18 @@
 const { MessageEmbed } = require("discord.js");
-module.exports.run = async (client, message, args) => {
+module.exports.run = async (client, message, args, settings) => {
   if(!message.guild.me.hasPermission('BAN_MEMBERS')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission pour ban un utilisateur.`);
- 
-
 
   if(args[0].toLowerCase() === 'match'){
-    if(!args[1])return message.channel.send(`${client.config.emojis.FALSE} Merci d'indiquer le contenu d'un message.`)
+    if(!args[1]){
+        const banMatcheDescription = new MessageEmbed()
+        .setTitle(`Sous commande : ${settings.prefix}ban match`)
+        .setColor(client.config.color.EMBEDCOLOR)
+        .setDescription(`**Module :** Moderation\n**Description :** Permet  de bannir plusieurs personnes ayant poster un meme message \n**Usage : **${settings.prefix}ban match [texte]\n**Exemples :** \n ${settings.prefix}ban match Rejoignez mon serveur https://discord.gg/TC7Qjfs `)
+        .setFooter('BOT ID : 689210215488684044')
+        .setTimestamp()
+        return message.channel.send(banMatcheDescription)
+    }
+    //if(!args[1])return message.channel.send(`${client.config.emojis.FALSE} Merci d'indiquer le contenu d'un message.`)
     let query;
     let reason = 'No reason provided';
     query = args.slice(1).join(' ')
@@ -139,5 +146,5 @@ module.exports.help = {
   isUserAdmin: false,
   permissions: true,
   args: true,
-  sousCommdandes : []
+  sousCommdandes : ["ban match"]
 };

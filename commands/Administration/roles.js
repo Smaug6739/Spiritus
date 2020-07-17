@@ -5,14 +5,14 @@ module.exports.run = async(client, message, args,settings) => {
         const embed = new MessageEmbed()
         .setTitle('Commande role')
         .setColor(client.config.color.EMBEDCOLOR)
-        .setDescription('La commande `roles` permet de gérer les roles du serveur graces aux sous commandes suivantes :')
-        .addFields(
+        .setDescription(`La commande __roles__ permet de gérer les roles du serveur graces aux sous commandes suivantes :\n\n${client.config.emojis.FLECHE}__role liste__ donne la liste des roles du serveur.\n${client.config.emojis.FLECHE}__role create__ permet de crée un role.\n${client.config.emojis.FLECHE}__role update__ permet de mettre a jour le nom d'un role.\n${client.config.emojis.FLECHE}__role delete__ permet de supprimer un role.\n${client.config.emojis.FLECHE}__role add__ permet de donner un role a une personne.\n${client.config.emojis.FLECHE}__role rem__ permet de retirer le role d'une personne.`)
+        /*.addFields(
             { name: '\u200b', value: `${client.config.emojis.FLECHE}\`role liste\` donne la liste des roles du serveur.`, inline: false },
             { name: '\u200b', value: `${client.config.emojis.FLECHE}\`role create\` permet de crée un role.`, inline: false },
             { name: '\u200b', value: `${client.config.emojis.FLECHE}\`role update\` permet de mettre a jour le nom d\`un role.`, inline: false },
             { name: '\u200b', value: `${client.config.emojis.FLECHE}\`role delete\` permet de supprimer un role.`, inline: false },
             { name: '\u200b', value: `${client.config.emojis.FLECHE}\`role add\` permet de donner un role a une personne.`, inline: false },
-            { name: '\u200b', value: `${client.config.emojis.FLECHE}\`role rem\` permet de retirer le role d\`une personne.`, inline: false })
+            { name: '\u200b', value: `${client.config.emojis.FLECHE}\`role rem\` permet de retirer le role d\`une personne.`, inline: false })*/
         .setTimestamp()
         .setFooter('BOT ID : 689210215488684044')
         return message.channel.send(embed)
@@ -56,7 +56,7 @@ module.exports.run = async(client, message, args,settings) => {
         const roleCreateDescription = new MessageEmbed()
             .setTitle(`Sous commande : ${settings.prefix}role create`)
             .setColor(client.config.color.EMBEDCOLOR)
-            .setDescription(`**Module :** Manangement\n**Description :** Permet de crée un role sur le serveur\n**Usage :** [nom]\n**Exemples :** \n ${settings.prefix}role create Spiritus`)
+            .setDescription(`**Module :** Manangement\n**Description :** Permet de crée un role sur le serveur\n**Usage : **${settings.prefix}role create [nom]\n**Exemples :** \n ${settings.prefix}role create Spiritus`)
             .setFooter('BOT ID : 689210215488684044')
             .setTimestamp()
             if(!args[1])return message.channel.send(roleCreateDescription)
@@ -75,7 +75,7 @@ module.exports.run = async(client, message, args,settings) => {
         const roleDeleteDescription = new MessageEmbed()
         .setTitle(`Sous commande : ${settings.prefix}role delete`)
         .setColor(client.config.color.EMBEDCOLOR)
-        .setDescription(`**Module :** Manangement\n**Description :** Permet de supprimer un role sur le serveur\n**Usage :** [nom/id/mention]\n**Exemples :** \n ${settings.prefix}role delete Spiritus`)
+        .setDescription(`**Module :** Manangement\n**Description :** Permet de supprimer un role sur le serveur\n**Usage : ** ${settings.prefix}role delete [nom/id/mention]\n**Exemples :** \n ${settings.prefix}role delete Spiritus`)
         .setFooter('BOT ID : 689210215488684044')
         .setTimestamp()
         if(!args[1])return message.channel.send(roleDeleteDescription)
@@ -90,7 +90,7 @@ module.exports.run = async(client, message, args,settings) => {
         const roleUpdateDescription = new MessageEmbed()
         .setTitle(`Sous commande : ${settings.prefix}role update`)
         .setColor(client.config.color.EMBEDCOLOR)
-        .setDescription(`**Module :** Manangement\n**Description :** Permet de modifier un role sur le serveur\n**Usage :** [nom/id/mention] (Nouveau nom)\n**Exemples :** \n ${settings.prefix}role update BOT Spiritus`)
+        .setDescription(`**Module :** Manangement\n**Description :** Permet de modifier un role sur le serveur\n**Usage : ** ${settings.prefix}role update [nom/id/mention] (Nouveau nom)\n**Exemples :** \n ${settings.prefix}role update BOT Spiritus`)
         .setFooter('BOT ID : 689210215488684044')
         .setTimestamp()
         if(!args[1])return message.channel.send(roleUpdateDescription)
@@ -107,7 +107,7 @@ module.exports.run = async(client, message, args,settings) => {
         const rolePositionDescription = new MessageEmbed()
         .setTitle(`Sous commande : ${settings.prefix}role position`)
         .setColor(client.config.color.EMBEDCOLOR)
-        .setDescription(`**Module :** Manangement\n**Description :** Permet de modifier la position un role sur le serveur\n**Usage :** [nom/id/mention] (Position)\n**Exemples :** \n ${settings.prefix}role position Spiritus 5`)
+        .setDescription(`**Module :** Manangement\n**Description :** Permet de modifier la position un role sur le serveur\n**Usage : ** ${settings.prefix}role position [nom/id/mention] (Position)\n**Exemples :** \n ${settings.prefix}role position Spiritus 5`)
         .setFooter('BOT ID : 689210215488684044')
         .setTimestamp()
         if(!args[1])return message.channel.send(rolePositionDescription)
@@ -130,7 +130,7 @@ module.exports.run = async(client, message, args,settings) => {
         const roleAddDescription = new MessageEmbed()
         .setTitle(`Sous commande : ${settings.prefix}role add`)
         .setColor(client.config.color.EMBEDCOLOR)
-        .setDescription(`**Module :** Manangement\n**Description :** Permet d'ajouter un role a une personne du serveur\n**Usage :** [nom/id/mention] (@User)\n**Exemples :** \n ${settings.prefix}role add @Smaug @Spiritus`)
+        .setDescription(`**Module :** Manangement\n**Description :** Permet d'ajouter un role a une personne du serveur\n**Usage : **${settings.prefix}role add [nom/id/mention] (@User)\n**Exemples :** \n ${settings.prefix}role add @Smaug @Spiritus`)
         .setFooter('BOT ID : 689210215488684044')
         .setTimestamp()
         if(!args[1])return message.channel.send(roleAddDescription)
@@ -155,7 +155,7 @@ module.exports.run = async(client, message, args,settings) => {
         const roleRemDescription = new MessageEmbed()
         .setTitle(`Sous commande : ${settings.prefix}role rem`)
         .setColor(client.config.color.EMBEDCOLOR)
-        .setDescription(`**Module :** Manangement\n**Description :** Permet d'enlever un role à une personne du serveur\n**Usage :** [nom/id/mention] (@User)\n**Exemples :** \n ${settings.prefix}role rem @Smaug @Spiritus`)
+        .setDescription(`**Module :** Manangement\n**Description :** Permet d'enlever un role à une personne du serveur\n**Usage : **${settings.prefix}role rem [nom/id/mention] (@User)\n**Exemples :** \n ${settings.prefix}role rem @Smaug @Spiritus`)
         .setFooter('BOT ID : 689210215488684044')
         .setTimestamp()
         if(!args[1])return message.channel.send(roleRemDescription)
