@@ -15,11 +15,12 @@ module.exports = async(client, message) => {
     }
   }
   //----------------------------------CMD-PERSONALISEE-------------------------
-  if(message.content.startsWith(settings.prefix)){
+  /*if(message.content.startsWith(settings.prefix)){
     const cmdNom = message.content.slice(settings.prefix.length).split(/ +/);
     const comd = await client.getCmd(cmdNom[0], message.guild)
       if(comd) message.channel.send(comd.contenu)
-  }  
+  } */
+  //-----------Si le système d'experience est activé------------------
   if(settings.expsysteme){
 
   if(!dbUser) await client.createUser({
@@ -28,7 +29,6 @@ module.exports = async(client, message) => {
     userID: message.member.id,
     username: message.member.user.tag,
   });
-  //-----------Si le système d'experience est activé------------------
 
   if(dbUser){
     const expCd = Math.floor(Math.random() * 19) + 1; // 1 - 20 
@@ -68,13 +68,18 @@ module.exports = async(client, message) => {
   const commandName = args.shift().toLowerCase();
   const user = message.mentions.users.first();
   const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.help.aliases && cmd.help.aliases.includes(commandName));
+  //----------------------------------CMD-PERSONALISEE-------------------------
+  if(settings.commandes){
+    let customCommand = settings.commandes.find(e => e.nom == message.content.slice(settings.prefix.length).toLowerCase())
+    if(customCommand){
+      return message.channel.send(customCommand.contenu)
+    }
+  }
+  //--------------------------------------------------------------------------
   if (!command) return;
-
   if (command.help.permissions && !message.member.hasPermission('BAN_MEMBERS')) return message.reply("tu n'as pas les permissions pour taper cette commande.");
-
   if (command.help.args && !args.length) {
     let noArgsReply = `Il nous faut des arguments pour cette commande, ${message.author}!`;
-
    /* if (command.help.usage) noArgsReply += `\nVoici comment utiliser la commande: \`${settings.prefix}${command.help.name} ${command.help.usage}\``;
     return message.channel.send(noArgsReply);*/
     const embed = new MessageEmbed()
@@ -99,7 +104,6 @@ module.exports = async(client, message) => {
     }
   }
   //if (command.help.isUserAdmin && message.guild.member(user).hasPermission('BAN_MEMBERS')) return message.reply("tu ne peux pas utiliser cette commande sur cet utilisateur.");
-
   if (!client.cooldowns.has(command.help.name)) {
     client.cooldowns.set(command.help.name, new Collection());
   };

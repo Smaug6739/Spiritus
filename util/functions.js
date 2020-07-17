@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { Guild,User,Cmd } = require("../models/index");
+const { Guild,User } = require("../models/index");
 
 module.exports = client => {
   
@@ -86,7 +86,7 @@ client.removeExp = async (client, member, exp)=>{
 
 
 //-----------------------------CMD--------------------------------------------
-client.createCmd = async cmd => {
+/*client.createCmd = async cmd => {
   const merged = Object.assign({ _id: mongoose.Types.ObjectId() }, cmd);
   const createCmd = await new Cmd(merged);
   createCmd.save().then(u => console.log(`Nouvel commande -> ${u.nom}`));
@@ -117,5 +117,5 @@ client.deleteCmd = async (cmdNom, guild) => {
   if(data){
     await data.delete()
   }
-};
+};*/
 };
