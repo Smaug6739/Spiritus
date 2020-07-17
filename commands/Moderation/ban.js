@@ -12,7 +12,7 @@ module.exports.run = async (client, message, args) => {
     reason = encodeURIComponent(reason);
     const msgs = await message.channel.messages.fetch()
     let messge = await message.channel.send(`${client.config.emojis.LOADING} Recherche du message \`${query}\`...`);
-    const messages = msgs.filter(m => m.content.includes(query) && !message.content.includes(query));
+    const messages = msgs.filter(m => m.content.includes(query));
     if (!messages || messages.length === 0) return messge.edit(`${client.config.emojis.FALSE} Ce message n'a pas été trouver.`);
     const ids = messages.map(m => m.author.id);
     //console.log('IDS : ' + ids)
@@ -27,11 +27,13 @@ module.exports.run = async (client, message, args) => {
             });
         }
         if (!user) add = false;
-        if (add) users.push(user.id);
+        if(user.id != message.author.id){
+            if (add) users.push(user.id);
+
+        }
     }
 
     if (users.length === 0) return messge.edit(`${client.config.emojis.FALSE} Aucun utilisateur trouver.`);//message.channel.send(`${client.config.emojis.FALSE} Aucun utilisateur trouver.`);
-
     //messge.edit({ content: `Vous etes sur le point de banir **${users.length}** user(s). Vous pouvez confirmer en réagissant avec ${client.config.emojis.TRUE} où annuler la commande en réagissant avec ${client.config.emojis.FALSE} .` });
         usersList = [];
         success = 0;
