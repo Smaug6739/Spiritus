@@ -10,8 +10,8 @@ module.exports.run = async (client, message, args, settings) => {
         return message.channel.send(embed)
     }
     if(args[0].toLowerCase() === 'add' || args[0].toLowerCase() === 'create'){
-        if(!message.guild.me.hasPermission('MANAGE_ROLES')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de gérer les roles.`);
         if(!message.member.hasPermission('MANAGE_ROLES'))return message.channel.send(`${client.config.emojis.FALSE}Vous devez avoir la permission de gérer les roles pour utiliser cette commande !`);
+        if(!message.guild.me.hasPermission('MANAGE_ROLES')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de gérer les roles.`);
         try{
         const rrCreateDescription = new MessageEmbed()
             .setTitle(`Sous commande : ${settings.prefix}reaction-role add`)
@@ -89,8 +89,8 @@ module.exports.run = async (client, message, args, settings) => {
     }
     }
     if(args[0].toLowerCase() === 'rem' || args[0].toLowerCase() === 'delete'){
-        if(!message.guild.me.hasPermission('MANAGE_ROLES')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de gérer les roles.`);
         if(!message.member.hasPermission('MANAGE_ROLES'))return message.channel.send(`${client.config.emojis.FALSE}Vous devez avoir la permission de gérer les roles pour utiliser cette commande !`);
+        if(!message.guild.me.hasPermission('MANAGE_ROLES')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de gérer les roles.`);
         const guild = settings
         if (args.length == 2 && args[1] == 'all') {
             settings.reactionroles.splice(0, guild.reactionroles.length);
