@@ -1,6 +1,7 @@
 const {MessageEmbed} = require("discord.js")
 module.exports.run =(client, message, args) => {
   if(args[1]){
+    if(!message.guild.me.hasPermission('MANAGE_MESSAGES')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de modifier le serveur.`);
     if(typeof message.mentions.channels.first() === 'undefined') {
         if(typeof message.mentions.users.first() !== 'undefined') {
             let attachments = message.attachments
