@@ -124,7 +124,7 @@ module.exports.help = {
     cooldown : 5,
     usage : '<action> <value>',
     exemple :['serveur name Spiritus'],
-    permissions : true,
+    permissions : false,
     isUserAdmin: false,
     args : false,
     sousCommdandes : ['serveur icon','serveur name','serveur region','serveur moderation','serveur invite-create','serveur webhook-create']

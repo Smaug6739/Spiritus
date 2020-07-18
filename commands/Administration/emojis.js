@@ -40,7 +40,7 @@ module.exports.run = async (client, message, args,settings) => {
     //--------------------------------------EMOJIS-CREATE------------------------------------------------------
     
     if(args[0].toLowerCase() === 'create'){
-        if(!message.member.hasPermission('MANAGE_EMOJIS'))return message.channel.send(`${client.config.emojis.FALSE}Vous devez avoir la permission de gérer les emojis pour utiliser cette commande !`);
+        if(!message.member.hasPermission('MANAGE_EMOJIS'))return message.channel.send(`${client.config.emojis.FALSE}Vous devez avoir la permission de gérer les emojis pour utiliser cette commande.`);
         if(!message.guild.me.hasPermission('MANAGE_EMOJIS')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de gérer les emojis.`);
         if (args.length < 3 && !message.attachments.first()) {
           const emojiCreateDescription = new MessageEmbed()
@@ -103,7 +103,7 @@ module.exports.run = async (client, message, args,settings) => {
     }
     //--------------------------------------EMOJIS-UPDATE------------------------------------------------------
     if(args[0].toLowerCase() === 'update'){
-        if(!message.member.hasPermission('MANAGE_EMOJIS'))return message.channel.send(`${client.config.emojis.FALSE}Vous devez avoir la permission de gérer les emojis pour utiliser cette commande !`);
+        if(!message.member.hasPermission('MANAGE_EMOJIS'))return message.channel.send(`${client.config.emojis.FALSE}Vous devez avoir la permission de gérer les emojis pour utiliser cette commande.`);
         if(!message.guild.me.hasPermission('MANAGE_EMOJIS')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de gérer les emojis.`);
       const emojiUpdateDescription = new MessageEmbed()
             .setTitle(`Sous commande : ${settings.prefix}emoji update`)
@@ -163,7 +163,7 @@ module.exports.run = async (client, message, args,settings) => {
       }
     //-------------------------------------------EMOJIS-DELETE----------------------------------------------------
     if(args[0].toLowerCase() === 'delete'){
-        if(!message.member.hasPermission('MANAGE_EMOJIS'))return message.channel.send(`${client.config.emojis.FALSE}Vous devez avoir la permission de gérer les emojis pour utiliser cette commande !`);
+        if(!message.member.hasPermission('MANAGE_EMOJIS'))return message.channel.send(`${client.config.emojis.FALSE}Vous devez avoir la permission de gérer les emojis pour utiliser cette commande.`);
         if(!message.guild.me.hasPermission('MANAGE_EMOJIS')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de gérer les emojis.`);
       const emojiDeleteDescription = new MessageEmbed()
           .setTitle(`Sous commande : ${settings.prefix}emoji delete`)
