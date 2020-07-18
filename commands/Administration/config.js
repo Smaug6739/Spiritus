@@ -28,15 +28,15 @@ module.exports.run = async (client, message, args, settings) => {
             break;
         }
         case  'experience' : {
-            if(settings.premium == true){
+            //if(settings.premium == true){
                 let uexp ;
                 if(settings.expsysteme == true) uexp = false;
                 else uexp = true;
                     await client.updateGuild(message.guild, {expsysteme : uexp});
                     message.channel.send(`Système d'experience du serveur mis à jour : \`${settings.expsysteme }\` ->\`${uexp}\``)
-            }else{
+           /* }else{
                 return message.channel.send(`${client.config.emojis.FALSE}Votre serveur n'est pas un serveur partenaire/VIP. Si vous souhaitez débloquer cette commande vous pouvez rejoindre le serveur support.`)
-            }
+            }*/
             break;
         }
         case  'admin-invites' : {
@@ -48,7 +48,7 @@ module.exports.run = async (client, message, args, settings) => {
             break;
         }
         case  'rankcard' : {
-            if(settings.premium == true){
+           // if(settings.premium == true){
                 if(newSetting){
                     if(args[1].includes('png') || args[1].includes('PNG')|| args[1].includes('JPG')|| args[1].includes('jpg')|| args[1].includes('JPEG')|| args[1].includes('jpeg')|| args[1].includes('GIF')|| args[1].includes('gif')){
                         await client.updateGuild(message.guild, {rankcard : newSetting});
@@ -56,13 +56,13 @@ module.exports.run = async (client, message, args, settings) => {
                     }else return message.channel.send(`${client.config.emojis.FALSE}Le fichier n'est pas a un format valide. Les formats valides sont : png, jpg, jpeg et gif`)
                 }
                 message.channel.send(`rank-card actuel : \`${settings.rankcard}\``);
-            }else{
+            /*}else{
                 return message.channel.send(`${client.config.emojis.FALSE}Votre serveur n'est pas un serveur partenaire/VIP. Si vous souhaitez débloquer cette commande vous pouvez rejoindre le serveur support.`)
-            }
+            }*/
             break;
         }
         case  'rank-salon' : {
-            if(settings.premium == true){
+            //if(settings.premium == true){
                 if(newSetting){
                     if(!isNaN(args[1])){
                         await client.updateGuild(message.guild, {salonranks : newSetting});
@@ -75,9 +75,9 @@ module.exports.run = async (client, message, args, settings) => {
                 }
                 
                 message.channel.send(`rank-salon actuel : \`${settings.salonranks || 'Aucun salon'}\``);
-            }else{
+           /* }else{
                 return message.channel.send(`${client.config.emojis.FALSE}Votre serveur n'est pas un serveur partenaire/VIP. Si vous souhaitez débloquer cette commande vous pouvez rejoindre le serveur support.`)
-            }
+            }*/
             break;
         }
         case 'serveurstats' :{

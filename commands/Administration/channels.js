@@ -1,6 +1,5 @@
 const {MessageEmbed} = require('discord.js')
 module.exports.run = async(client, message, args,settings) => {
-    if(!message.guild.me.hasPermission('MANAGE_CHANNELS')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de modifier ce channel.`);
     if(!args[0]){
         const embed = new MessageEmbed()
         .setTitle('Commande channel')
@@ -23,6 +22,8 @@ module.exports.run = async(client, message, args,settings) => {
         return message.channel.send(embed)
     }
     if(args[0].toLowerCase() === 'clone'){
+        if(!message.member.hasPermission('MANAGE_CHANNELS'))return message.channel.send(`${client.config.emojis.FALSE}Vous devez avoir la permission de gérer les channels pour utiliser cette commande.`)
+        if(!message.guild.me.hasPermission('MANAGE_CHANNELS')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de modifier des channel.`);
         const channelCloneDescription = new MessageEmbed()
         .setTitle(`Sous commande : ${settings.prefix}channel clone`)
         .setColor(client.config.color.EMBEDCOLOR)
@@ -41,6 +42,8 @@ module.exports.run = async(client, message, args,settings) => {
         };
     }
     if(args[0].toLowerCase() === 'synchro'){
+        if(!message.member.hasPermission('MANAGE_CHANNELS'))return message.channel.send(`${client.config.emojis.FALSE}Vous devez avoir la permission de gérer les channels pour utiliser cette commande.`)
+        if(!message.guild.me.hasPermission('MANAGE_CHANNELS')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de modifier des channel.`);
         const channelSynchroDescription = new MessageEmbed()
         .setTitle(`Sous commande : ${settings.prefix}channel synchro`)
         .setColor(client.config.color.EMBEDCOLOR)
@@ -61,6 +64,8 @@ module.exports.run = async(client, message, args,settings) => {
 
     }
     if(args[0].toLowerCase() === 'create'){
+        if(!message.member.hasPermission('MANAGE_CHANNELS'))return message.channel.send(`${client.config.emojis.FALSE}Vous devez avoir la permission de gérer les channels pour utiliser cette commande.`)
+        if(!message.guild.me.hasPermission('MANAGE_CHANNELS')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de modifier des channel.`);
         const channelCreateDescription = new MessageEmbed()
         .setTitle(`Sous commande : ${settings.prefix}channel create`)
         .setColor(client.config.color.EMBEDCOLOR)
@@ -102,6 +107,8 @@ module.exports.run = async(client, message, args,settings) => {
         }
     } 
     if(args[0].toLowerCase() === 'update'){
+        if(!message.member.hasPermission('MANAGE_CHANNELS'))return message.channel.send(`${client.config.emojis.FALSE}Vous devez avoir la permission de gérer les channels pour utiliser cette commande.`)
+        if(!message.guild.me.hasPermission('MANAGE_CHANNELS')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de modifier des channel.`);
         const channelUpdateDescription = new MessageEmbed()
         .setTitle(`Sous commande : ${settings.prefix}channel update`)
         .setColor(client.config.color.EMBEDCOLOR)
@@ -125,6 +132,8 @@ module.exports.run = async(client, message, args,settings) => {
         }
     }
     if(args[0].toLowerCase() === 'delete'){
+        if(!message.member.hasPermission('MANAGE_CHANNELS'))return message.channel.send(`${client.config.emojis.FALSE}Vous devez avoir la permission de gérer les channels pour utiliser cette commande.`)
+        if(!message.guild.me.hasPermission('MANAGE_CHANNELS')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de modifier des channel.`);
         const channelDeleteDescription = new MessageEmbed()
         .setTitle(`Sous commande : ${settings.prefix}channel delete`)
         .setColor(client.config.color.EMBEDCOLOR)
@@ -144,6 +153,8 @@ module.exports.run = async(client, message, args,settings) => {
  
     }
     if(args[0].toLowerCase() === 'position'){
+        if(!message.member.hasPermission('MANAGE_CHANNELS'))return message.channel.send(`${client.config.emojis.FALSE}Vous devez avoir la permission de gérer les channels pour utiliser cette commande.`)
+        if(!message.guild.me.hasPermission('MANAGE_CHANNELS')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de modifier des channel.`);
         const channelPositionDescription = new MessageEmbed()
         .setTitle(`Sous commande : ${settings.prefix}channel position`)
         .setColor(client.config.color.EMBEDCOLOR)
@@ -166,6 +177,8 @@ module.exports.run = async(client, message, args,settings) => {
         }
     }
     if(args[0].toLowerCase() === 'parent'){
+        if(!message.member.hasPermission('MANAGE_CHANNELS'))return message.channel.send(`${client.config.emojis.FALSE}Vous devez avoir la permission de gérer les channels pour utiliser cette commande.`)
+        if(!message.guild.me.hasPermission('MANAGE_CHANNELS')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de modifier des channel.`);
         const channelParentDescription = new MessageEmbed()
         .setTitle(`Sous commande : ${settings.prefix}channel parent`)
         .setColor(client.config.color.EMBEDCOLOR)
@@ -189,6 +202,8 @@ module.exports.run = async(client, message, args,settings) => {
         }
     
     if(args[0].toLowerCase() === 'topic'){
+        if(!message.member.hasPermission('MANAGE_CHANNELS'))return message.channel.send(`${client.config.emojis.FALSE}Vous devez avoir la permission de gérer les channels pour utiliser cette commande.`)
+        if(!message.guild.me.hasPermission('MANAGE_CHANNELS')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de modifier des channel.`);
         const channelTopicDescription = new MessageEmbed()
         .setTitle(`Sous commande : ${settings.prefix}channel topic`)
         .setColor(client.config.color.EMBEDCOLOR)
@@ -240,7 +255,7 @@ module.exports.help = {
     usage: '<action> <args>',
     exemple :[],
     isUserAdmin: false,
-    permissions: true,
+    permissions: false,
     args: false,
     sousCommdandes : ["channel clone","channel position","channel parent","channel synchro","channel topic","channel create","channel update","channel delete","channel pin","channel unpin"]
   };

@@ -1,6 +1,5 @@
 const { MessageEmbed,WebhookClient} = require("discord.js");
 module.exports.run = async (client, message, args, settings) => {
-    if(!message.guild.me.hasPermission('MANAGE_ROLES')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de gérer les roles.`);
     if(!args[0]){
         const embed = new MessageEmbed()
         .setTitle('Commande reaction-roles')
@@ -10,7 +9,9 @@ module.exports.run = async (client, message, args, settings) => {
         .setFooter('BOT ID : 689210215488684044')
         return message.channel.send(embed)
     }
-    if(args[0].toLowerCase() === 'add'){
+    if(args[0].toLowerCase() === 'add' || args[0].toLowerCase() === 'create'){
+        if(!message.guild.me.hasPermission('MANAGE_ROLES')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de gérer les roles.`);
+        if(!message.member.hasPermission('MANAGE_ROLES'))return message.channel.send(`${client.config.emojis.FALSE}Vous devez avoir la permission de gérer les roles pour utiliser cette commande !`);
         try{
         const rrCreateDescription = new MessageEmbed()
             .setTitle(`Sous commande : ${settings.prefix}reaction-role add`)
@@ -87,8 +88,9 @@ module.exports.run = async (client, message, args, settings) => {
         }
     }
     }
-    if(args[0].toLowerCase() === 'rem'){
-        
+    if(args[0].toLowerCase() === 'rem' || args[0].toLowerCase() === 'delete'){
+        if(!message.guild.me.hasPermission('MANAGE_ROLES')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de gérer les roles.`);
+        if(!message.member.hasPermission('MANAGE_ROLES'))return message.channel.send(`${client.config.emojis.FALSE}Vous devez avoir la permission de gérer les roles pour utiliser cette commande !`);
         const guild = settings
         if (args.length == 2 && args[1] == 'all') {
             settings.reactionroles.splice(0, guild.reactionroles.length);
@@ -133,7 +135,7 @@ module.exports.help = {
     usage: '[paramètre] (valeur)',
     exemple :['rr add 714041691904016424 732983983377350676 👍 @Role'],
     isUserAdmin: false,
-    permissions: true,
+    permissions: false,
     args: false,
     sousCommdandes : ["reactionroles add","reactionroles rem"]
 }

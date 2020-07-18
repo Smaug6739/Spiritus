@@ -1,6 +1,5 @@
 const { MessageEmbed } = require("discord.js") 
 module.exports.run = async(client, message, args,settings) => {
-    if(!message.guild.me.hasPermission('MANAGE_ROLES')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de modifier les roles.`);
     if(!args[0]){
         const embed = new MessageEmbed()
         .setTitle('Commande role')
@@ -53,6 +52,8 @@ module.exports.run = async(client, message, args,settings) => {
     //---------------------------------------------ROLES-CREATE----------------------------------------------------------
     
     if(args[0].toLowerCase() === 'create'){
+        if(!message.member.hasPermission('MANAGE_ROLES'))return message.channel.send(`${client.config.emojis.FALSE}Vous devez avoir la permission de gérer les roles pour utiliser cette commande.`)
+        if(!message.guild.me.hasPermission('MANAGE_ROLES')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de modifier les roles.`);
         const roleCreateDescription = new MessageEmbed()
             .setTitle(`Sous commande : ${settings.prefix}role create`)
             .setColor(client.config.color.EMBEDCOLOR)
@@ -72,6 +73,8 @@ module.exports.run = async(client, message, args,settings) => {
     //---------------------------------------------ROLES-DELETE----------------------------------------------------------
     }
     if(args[0].toLowerCase() === 'delete'){
+        if(!message.member.hasPermission('MANAGE_ROLES'))return message.channel.send(`${client.config.emojis.FALSE}Vous devez avoir la permission de gérer les roles pour utiliser cette commande.`)
+        if(!message.guild.me.hasPermission('MANAGE_ROLES')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de modifier les roles.`);
         const roleDeleteDescription = new MessageEmbed()
         .setTitle(`Sous commande : ${settings.prefix}role delete`)
         .setColor(client.config.color.EMBEDCOLOR)
@@ -87,6 +90,8 @@ module.exports.run = async(client, message, args,settings) => {
         
     }
     if(args[0].toLowerCase() === 'update'){
+        if(!message.member.hasPermission('MANAGE_ROLES'))return message.channel.send(`${client.config.emojis.FALSE}Vous devez avoir la permission de gérer les roles pour utiliser cette commande.`)
+        if(!message.guild.me.hasPermission('MANAGE_ROLES')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de modifier les roles.`);
         const roleUpdateDescription = new MessageEmbed()
         .setTitle(`Sous commande : ${settings.prefix}role update`)
         .setColor(client.config.color.EMBEDCOLOR)
@@ -104,6 +109,8 @@ module.exports.run = async(client, message, args,settings) => {
             message.channel.send(`${client.config.emojis.TRUE}J'ai bien mis a jour le role \`${role.name}\` par \`${roleName}\``))
     }
      if(args[0].toLowerCase() === 'position'){
+        if(!message.member.hasPermission('MANAGE_ROLES'))return message.channel.send(`${client.config.emojis.FALSE}Vous devez avoir la permission de gérer les roles pour utiliser cette commande.`)
+        if(!message.guild.me.hasPermission('MANAGE_ROLES')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de modifier les roles.`);
         const rolePositionDescription = new MessageEmbed()
         .setTitle(`Sous commande : ${settings.prefix}role position`)
         .setColor(client.config.color.EMBEDCOLOR)
@@ -127,6 +134,8 @@ module.exports.run = async(client, message, args,settings) => {
     
     }
     if(args[0].toLowerCase() === 'add'){
+        if(!message.member.hasPermission('MANAGE_ROLES'))return message.channel.send(`${client.config.emojis.FALSE}Vous devez avoir la permission de gérer les roles pour utiliser cette commande.`)
+        if(!message.guild.me.hasPermission('MANAGE_ROLES')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de modifier les roles.`);
         const roleAddDescription = new MessageEmbed()
         .setTitle(`Sous commande : ${settings.prefix}role add`)
         .setColor(client.config.color.EMBEDCOLOR)
@@ -152,6 +161,8 @@ module.exports.run = async(client, message, args,settings) => {
         }
     }
     if(args[0].toLowerCase() === 'rem'){
+        if(!message.member.hasPermission('MANAGE_ROLES'))return message.channel.send(`${client.config.emojis.FALSE}Vous devez avoir la permission de gérer les roles pour utiliser cette commande.`)
+        if(!message.guild.me.hasPermission('MANAGE_ROLES')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de modifier les roles.`);
         const roleRemDescription = new MessageEmbed()
         .setTitle(`Sous commande : ${settings.prefix}role rem`)
         .setColor(client.config.color.EMBEDCOLOR)
@@ -188,7 +199,7 @@ module.exports.run = async(client, message, args,settings) => {
     cooldown : 5,
     usage : '<action> <args>',
     exemple :["roles create Admin"],
-    permissions : true,
+    permissions : false,
     isUserAdmin: false,
     args : false,
     sousCommdandes : ["roles liste","roles create","roles update","roles delete","roles add","roles rem"]

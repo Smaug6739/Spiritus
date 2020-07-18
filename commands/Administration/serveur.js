@@ -1,25 +1,26 @@
 const {MessageEmbed} = require('discord.js')
 module.exports.run =(client, message, args,settings) => {
-    if(!message.guild.me.hasPermission('MANAGE_GUILD')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de modifier le serveur.`);
     if(!args[0]){
         const embed = new MessageEmbed()
         .setTitle('Commande serveur')
         .setColor(`${client.config.color.EMBEDCOLOR}`)
-        .setDescription('La commande `serveur` permet de gérer le serveur graces aux sous commandes suivantes :')
-        .addFields(
+        .setDescription(`La commande __serveur__ permet de gérer le serveur graces aux sous commandes suivantes :\n\n${client.config.emojis.FLECHE}__serveur icon__ permet de changer l'icon du serveur.\n${client.config.emojis.FLECHE}__serveur name__ permet de changer le nom du serveur\n${client.config.emojis.FLECHE}__serveur region__ permet de gérer la région du servur.\n${client.config.emojis.FLECHE}__serveur moderation__ permet de gérer le niveau de moderation du serveur.\n${client.config.emojis.FLECHE}__serveur invite-create__ permet de crée une invitation.\n${client.config.emojis.FLECHE}__serveur webhook-create__ permet de crée un webhook.`)
+        /*.addFields(
             { name: '\u200b', value: `${client.config.emojis.FLECHE}\`serveur icon\` permet de changer l'icon du serveur.`, inline: false },
             { name: '\u200b', value: `${client.config.emojis.FLECHE}\`serveur name\` permet de changer le nom du serveur`, inline: false },
             { name: '\u200b', value: `${client.config.emojis.FLECHE}\`serveur region\` permet de gérer la région du servur.`, inline: false },
             { name: '\u200b', value: `${client.config.emojis.FLECHE}\`serveur moderation\` permet de gérer le niveau de moderation du serveur.`, inline: false },
             { name: '\u200b', value: `${client.config.emojis.FLECHE}\`serveur invite-create\` permet de crée une invitation.`, inline: false },
             { name: '\u200b', value: `${client.config.emojis.FLECHE}\`serveur webhook-create\` permet de crée un webhook.`, inline: false }
-        )
+        )*/
         .setTimestamp()
         .setFooter('BOT ID : 689210215488684044')
         return message.channel.send(embed)
     }
     
     if(args[0].toLowerCase() === 'icon'){
+        if(!message.member.hasPermission('MANAGE_GUILD'))return message.channel.send(`${client.config.emojis.FALSE}Vous devez avoir la permission de gérer le serveur pour utiliser cette commande.`)
+        if(!message.guild.me.hasPermission('MANAGE_GUILD')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de modifier le serveur.`);
         if(message.attachments.first()){
             icon = message.attachments.first().url
             message.guild.setIcon(icon)
@@ -36,6 +37,8 @@ module.exports.run =(client, message, args,settings) => {
         }
     }
     if(args[0].toLowerCase() === 'name'){
+        if(!message.member.hasPermission('MANAGE_GUILD'))return message.channel.send(`${client.config.emojis.FALSE}Vous devez avoir la permission de gérer le serveur pour utiliser cette commande.`)
+        if(!message.guild.me.hasPermission('MANAGE_GUILD')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de modifier le serveur.`);
         const serveurNameDescription = new MessageEmbed()
             .setTitle(`Sous commande : ${settings.prefix}serveur name`)
             .setColor(client.config.color.EMBEDCOLOR)
@@ -48,6 +51,8 @@ module.exports.run =(client, message, args,settings) => {
         .then(message.channel.send(`${client.config.emojis.TRUE}J'ai bien mis a jour le nom du serveur avec \`${newName}\``))
     }
     if(args[0].toLowerCase() === 'region'){
+        if(!message.member.hasPermission('MANAGE_GUILD'))return message.channel.send(`${client.config.emojis.FALSE}Vous devez avoir la permission de gérer le serveur pour utiliser cette commande.`)
+        if(!message.guild.me.hasPermission('MANAGE_GUILD')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de modifier le serveur.`);
         const serveurRegionDescription = new MessageEmbed()
         .setTitle(`Sous commande : ${settings.prefix}serveur region`)
         .setColor(client.config.color.EMBEDCOLOR)
@@ -65,6 +70,8 @@ module.exports.run =(client, message, args,settings) => {
         }
     }
     if(args[0].toLowerCase() === 'moderation'){
+        if(!message.member.hasPermission('MANAGE_GUILD'))return message.channel.send(`${client.config.emojis.FALSE}Vous devez avoir la permission de gérer le serveur pour utiliser cette commande.`)
+        if(!message.guild.me.hasPermission('MANAGE_GUILD')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de modifier le serveur.`);
         const serveurModerationDescription = new MessageEmbed()
         .setTitle(`Sous commande : ${settings.prefix}serveur moderation`)
         .setColor(client.config.color.EMBEDCOLOR)
@@ -84,6 +91,8 @@ module.exports.run =(client, message, args,settings) => {
         .then(message.channel.send(`${client.config.emojis.TRUE}J'ai bien mis a jour le niveau de moderation du serveur par \`${newLevel}\``))
     }
     if(args[0].toLowerCase() === 'invite-create'){
+        if(!message.member.hasPermission('CREATE_INSTANT_INVITE'))return message.channel.send(`${client.config.emojis.FALSE}Vous devez avoir la permission de crée une invitation.`)
+        if(!message.guild.me.hasPermission('CREATE_INSTANT_INVITE')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de crée une invitation.`);
         message.channel.createInvite().then(invite =>    
         invite.channel.send( new MessageEmbed()
         .setAuthor('Création d\'une invitation')
@@ -94,6 +103,8 @@ module.exports.run =(client, message, args,settings) => {
         ).catch(console.error);
     }
     if(args[0].toLowerCase() === 'webhook-create'){
+        if(!message.member.hasPermission('MANAGE_WEBHOOKS'))return message.channel.send(`${client.config.emojis.FALSE}Vous devez avoir la permission de gérer les webhooks.`)
+        if(!message.guild.me.hasPermission('MANAGE_WEBHOOKS')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de gérer les webhooks.`);
         message.channel.createWebhook('Webhook', {
             reason: 'Création d\'un webhook'}).then(webhook =>
             client.channels.cache.get(webhook.channelID).send(new MessageEmbed()
