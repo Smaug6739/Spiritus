@@ -5,10 +5,11 @@ module.exports =async client => {
     //let emoji = client.emojis.cache.find(emoji => emoji.name === "loading");
     //console.log(emoji)
     //let status = [`Commandes : ?help`,`Serveurs : ${client.guilds.cache.size.toString()}`,`Utilisateurs : ${client.guilds.cache.map(g => g.memberCount).reduce((a, b) => a + b)}`],i =0;
-    let status = [`Commandes : ${client.config.PREFIX}help`,`Utilisateurs : ${client.guilds.cache.map(g => g.memberCount).reduce((a, b) => a + b)}`,`Commandes : ${client.config.PREFIX}help`],i =0;
+   /* let status = [`Commandes : ${client.config.PREFIX}help`,`Utilisateurs : ${client.guilds.cache.map(g => g.memberCount).reduce((a, b) => a + b)}`,`Commandes : ${client.config.PREFIX}help`],i =0;
     setInterval(() => {
       client.user.setPresence({ activity: { name: `${status [i++ % status.length]}`, type: 'WATCHING' }, status: 'online' });
-    },60000)
+    },60000)*/
+    client.user.setPresence({ activity: { name: `${client.config.PREFIX}`, type: 'WATCHING' }, status: 'online' });
   const webhookClient  = new WebhookClient(`${client.config.webhooks.readyLogs.ID}`, `${client.config.webhooks.readyLogs.TOKEN}`);
   const embed = new MessageEmbed()
   .setTitle(`BOT ${client.user.tag} à démarer avec succès.`)
