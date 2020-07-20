@@ -1,5 +1,4 @@
 module.exports = async (client, messageReaction, user) => {
-  console.log('ok')
   const message = messageReaction.message;
   const member = await message.guild.members.cache.get(user.id);
   const emoji = messageReaction.emoji.name;
@@ -7,10 +6,10 @@ module.exports = async (client, messageReaction, user) => {
   const channel = message.guild.channels.cache.find(c => c.id === '708593997890977823');
   const roleun = message.guild.roles.cache.get("713757081966215269");
   const roledeux = message.guild.roles.cache.get("713757111678664845");
-  if (member.user.bot) return;
-
+  let verif = await member.user.bot
+  if (verif) return;
   
-  console.log('OK 2')
+  console.log('OK add')
   const settings = await client.getGuild(message.guild);
 
       settings.reactionroles.forEach(element => {

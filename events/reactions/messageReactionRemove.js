@@ -1,13 +1,15 @@
 module.exports = async (client, messageReaction, user) => {
   const message = messageReaction.message;
-  const member = message.guild.members.cache.get(user.id);
+  const member = await message.guild.members.cache.get(user.id);
   const emojiID = messageReaction.emoji.id;
   const emoji = messageReaction.emoji.name;
   const channel = message.guild.channels.cache.find(c => c.id === '708593997890977823');
   const roleun = message.guild.roles.cache.get("713757081966215269");
   const roledeux = message.guild.roles.cache.get("713757111678664845");
   const settings = await client.getGuild(message.guild);
-  if (member.user.bot) return;
+  let verif = await member.user.bot
+  if (verif) return;
+  console.log('OK remove')
   settings.reactionroles.forEach(element => {
         
     if(element.messageID === `${message.id}` && element.channelID === `${message.channel.id}`){
