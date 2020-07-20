@@ -101,6 +101,7 @@ module.exports.run = async (client, message, args,settings) => {
         return message.channel.send(embed);
     //--------------------------------------EMOJIS-UPDATE------------------------------------------------------
     }else if(args[0].toLowerCase() === 'update'){
+        await delete require.cache
         if(!message.member.hasPermission('MANAGE_EMOJIS'))return message.channel.send(`${client.config.emojis.FALSE}Vous devez avoir la permission de gérer les emojis pour utiliser cette commande.`);
         if(!message.guild.me.hasPermission('MANAGE_EMOJIS')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de gérer les emojis.`);
       const emojiUpdateDescription = new MessageEmbed()
