@@ -112,7 +112,8 @@ module.exports.run = async (client, message, args,settings) => {
             if(!args[1])return message.channel.send(emojiUpdateDescription)
             if(!args[2]) return message.channel.send(`${client.config.emojis.FALSE}Veuillez donner un nom au nouvel emoji`);
             if(args[2].includes('-')||args[2].includes('/')||args[2].includes('/')||args[2].includes('+')||args[2].includes('*')||args[2].includes('(')||args[2].includes(')')||args[2].includes('[')||args[2].includes(']')||args[2].includes('{')||args[2].includes('}')||args[2].includes('#')||args[2].includes('~')||args[2].includes('@')||args[2].includes('&')||args[2].includes('^')||args[2].includes('$')||args[2].includes('€')||args[2].includes('°')||args[2].includes('%')||args[2].includes('£')||args[2].includes(',')||args[2].includes('<')||args[2].includes('>')) return message.channel.send(`${client.config.emojis.FALSE}Le nom de l'emoji n'est pas valide`);
-            let emo = client.emojis.cache.find(emoji => emoji.name === args[1]);
+             emo = await message.guild.emojis.cache.find(emoji => emoji.name === args[1]);
+             console.log(emo)
             if(emo){
                let emoticon = client.emojis.cache.find(emoji => emoji.name === args[1]);
                let newNameEmot = args[2];
@@ -126,17 +127,17 @@ module.exports.run = async (client, message, args,settings) => {
                .setTimestamp()
                .setFooter('BOT ID : 689210215488684044', `${message.guild.iconURL()}`);
                try{
-                   await emoticon.edit({ name: newNameEmot})
+                   await emo.edit({ name: newNameEmot})
                    await message.channel.send(embed)
                }catch(err){
                    message.channel.send(`${client.config.emojis.FALSE}Une erreur s'est produite merci de ressayer`)
-                   client.channels.cache.get('725251200660013136').send(`Une erreur sur la commande \`emoji-update\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``)
+                   client.channels.cache.get('725251200660013136').send(`Une erreur sur la commande \`emoji-update\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR 1 :\`\n\`\`\`xl\n${err}\`\`\``)
                }
              }else if(args[1].includes('>','<')){
                let newNameEmot = args.slice(2).join("_")
                if(newNameEmot.length < 2) return message.channel.send(`${client.config.emojis.FALSE}Le nom de l'emoji doit contenir au moins 2 caractères`);
                let emoo = args[1]
-               let emojiString = emoo.replace(/<.*:/, '').slice(0, -1);
+               let emojiString = await emoo.replace(/<.*:/, '').slice(0, -1);
                const embed = new MessageEmbed()
                .setTitle('Emoji update')
                .setThumbnail(message.guild.emojis.cache.get(emojiString).url)
@@ -151,7 +152,7 @@ module.exports.run = async (client, message, args,settings) => {
                    message.channel.send(embed);
                }catch(err){
                    message.channel.send(`${client.config.emojis.FALSE}Une erreur s'est produite merci de ressayer`)
-                   client.channels.cache.get('725251200660013136').send(`Une erreur sur la commande \`emoji-update\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
+                   client.channels.cache.get('725251200660013136').send(`Une erreur sur la commande \`emoji-update\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR 2 :\`\n\`\`\`xl\n${err}\`\`\``);
                    return;
                }
                
@@ -170,7 +171,8 @@ module.exports.run = async (client, message, args,settings) => {
           .setFooter('BOT ID : 689210215488684044')
           .setTimestamp()
           if(!args[1])return message.channel.send(emojiDeleteDescription)
-        let emo = client.emojis.cache.find(emoji => emoji.name === args[1])
+          emo = await message.guild.emojis.cache.find(emoji => emoji.name === args[1])
+          
         if(emo){
             //emoji-nom
             const embed = new MessageEmbed()
@@ -186,7 +188,7 @@ module.exports.run = async (client, message, args,settings) => {
                 emo.delete()
             }catch(err){
                 //message.channel.send(`${client.config.emojis.FALSE}Une erreur s'est produite merci de réessayer`);
-                client.channels.cache.get('725251200660013136').send(`Une erreur sur la commande \`emoji-delete\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
+                client.channels.cache.get('725251200660013136').send(`Une erreur sur la commande \`emoji-delete\` s'est produite sur le serveur : ${message.guild.name}.\n\`ERREUR 1 :\`\n\`\`\`xl\n${err}\`\`\``);
                 return;
             };
             }else if(args[1].includes('>','<')){

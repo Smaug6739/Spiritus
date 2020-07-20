@@ -117,7 +117,7 @@ module.exports.run = async(client, message, args,settings) => {
         .setTimestamp()
         if(!args[1]) return message.channel.send(channelUpdateDescription)
         if(!args[2]) return message.channel.send(`${client.config.emojis.FALSE}Merci de spécifier le nouveau nom du channel a modifier`)
-        let channel = client.resolveChannel(message.guild, args.slice(1).join('-'))
+        let channel = await client.resolveChannel(message.guild, args[1])
         if(channel == undefined)return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver ce channel.`)
         if(channel){
             try{
