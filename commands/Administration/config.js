@@ -92,6 +92,7 @@ module.exports.run = async (client, message, args, settings) => {
                     }else if(logs && serverstats == false){
                         message.guild.channels.cache.find(c => c.name.startsWith("All Members :")).delete()
                     }
+                    break;
             }
         default : {
             const config = new MessageEmbed()

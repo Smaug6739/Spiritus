@@ -36,10 +36,9 @@ module.exports.run = async (client, message, args,settings) => {
         }
         return message.channel.send({embed});
                 
-    }  
+     
     //--------------------------------------EMOJIS-CREATE------------------------------------------------------
-    
-    if(args[0].toLowerCase() === 'create'){
+    }else if(args[0].toLowerCase() === 'create'){
         if(!message.member.hasPermission('MANAGE_EMOJIS'))return message.channel.send(`${client.config.emojis.FALSE}Vous devez avoir la permission de gérer les emojis pour utiliser cette commande.`);
         if(!message.guild.me.hasPermission('MANAGE_EMOJIS')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de gérer les emojis.`);
         if (args.length < 3 && !message.attachments.first()) {
@@ -100,9 +99,8 @@ module.exports.run = async (client, message, args,settings) => {
         .setTimestamp()
         .setFooter('BOT ID : 689210215488684044')
         return message.channel.send(embed);
-    }
     //--------------------------------------EMOJIS-UPDATE------------------------------------------------------
-    if(args[0].toLowerCase() === 'update'){
+    }else if(args[0].toLowerCase() === 'update'){
         if(!message.member.hasPermission('MANAGE_EMOJIS'))return message.channel.send(`${client.config.emojis.FALSE}Vous devez avoir la permission de gérer les emojis pour utiliser cette commande.`);
         if(!message.guild.me.hasPermission('MANAGE_EMOJIS')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de gérer les emojis.`);
       const emojiUpdateDescription = new MessageEmbed()
@@ -160,9 +158,9 @@ module.exports.run = async (client, message, args,settings) => {
              }else{
                return message.channel.send(`${client.config.emojis.FALSE}Une erreur s\'est produite... Verifiez que l\'emoji est correctement orthographier.`);
              }
-      }
+      
     //-------------------------------------------EMOJIS-DELETE----------------------------------------------------
-    if(args[0].toLowerCase() === 'delete'){
+    }else if(args[0].toLowerCase() === 'delete'){
         if(!message.member.hasPermission('MANAGE_EMOJIS'))return message.channel.send(`${client.config.emojis.FALSE}Vous devez avoir la permission de gérer les emojis pour utiliser cette commande.`);
         if(!message.guild.me.hasPermission('MANAGE_EMOJIS')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de gérer les emojis.`);
       const emojiDeleteDescription = new MessageEmbed()
@@ -213,8 +211,7 @@ module.exports.run = async (client, message, args,settings) => {
         }else{
             message.channel.send(`${client.config.emojis.FALSE}Je n\'ai pas trouver cet emoji... Essayez vérifiez son orthographe et qu'il est bien sur le serveur`)
         }
-    }
-    else{
+    }else{
         const emoteID = await args[0].trim().replace('<:', '').replace('<a:', '').replace('>', '').split(':')[1];
         if (!emoteID) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver cet emoji.`);
         const emoteURL = `https://cdn.discordapp.com/emojis/${emoteID}${args[0].startsWith('<a:') ? '.gif' : '.png'}`;
