@@ -42,10 +42,10 @@ module.exports.run = (client, message, args,settings) =>{
             message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver cet utilisateur.`)
         }
     }else{
-    if (use.user.presence.status === 'online') status = `${client.config.emojis.ONLINE}Online`  ;
-    if (use.user.presence.status === 'idle') status = `${client.config.emojis.IDLE}Idle`;
-    if (use.user.presence.status === 'dnd') status = `${client.config.emojis.DND}Dnd`;
-    if (use.user.presence.status === 'offline') status = `${client.config.emojis.OFFLINE}Offline`;
+   // if (use.user.presence.status === 'online') status = `${client.config.emojis.ONLINE}Online`  ;
+  //  if (use.user.presence.status === 'idle') status = `${client.config.emojis.IDLE}Idle`;
+  // if (use.user.presence.status === 'dnd') status = `${client.config.emojis.DND}Dnd`;
+  //  if (use.user.presence.status === 'offline') status = `${client.config.emojis.OFFLINE}Offline`;
    /*if (use.user.presence.clientStatus != null && use.user.presence.clientStatus.desktop === 'online') plateforme = '🖥️ Ordinateur'
     if (use.user.presence.clientStatus != null && use.user.presence.clientStatus.mobile === 'online') plateforme = '📱 Mobile'
     //else plateforme = 'Aucune'
@@ -56,7 +56,7 @@ module.exports.run = (client, message, args,settings) =>{
         embed.setColor(`${client.config.color.EMBEDCOLOR}`)//OK
         embed.setTitle(`${use.user.username}`)//OK
         embed.addField('ID :', `${use.user.id}`, true)//OK
-        embed.addField('Status :', `${status}`, true)//OK
+       // embed.addField('Status :', `${status}`, true)//OK
         embed.addField('Tag :', `${use.user.tag}`, true)//OK
         //if(plateforme)embed.addField('Plateforme :', `${plateforme || 'Aucune'}`, true)
         embed.addField('A rejoins :', `${moment.utc(use.joinedAt).format('DD/MM/YYYY - hh:mm')}`, true)//OK --------- IDLE
@@ -101,11 +101,11 @@ module.exports.run = (client, message, args,settings) =>{
             if (boost === 0) boost = "Ce serveur n'est pas boost"
             else if (boost >= 1) boost = `Ce serveur possède ${boost} boosts ${boost > 1 ? "s" : ""}`
             var members = message.guild.memberCount; 
-            message.guild.members.fetch().then(fetchedMembers => {     
-            const online = fetchedMembers.filter(member => member.presence.status === 'online').size;
-            const idle = fetchedMembers.filter(member => member.presence.status === 'idle').size;
-            const dnd = fetchedMembers.filter(member => member.presence.status === 'dnd').size;
-            const off = fetchedMembers.filter(member => member.presence.status === 'offline').size;
+           // message.guild.members.fetch().then(fetchedMembers => {     
+           // const online = fetchedMembers.filter(member => member.presence.status === 'online').size;
+           // const idle = fetchedMembers.filter(member => member.presence.status === 'idle').size;
+           // const dnd = fetchedMembers.filter(member => member.presence.status === 'dnd').size;
+           // const off = fetchedMembers.filter(member => member.presence.status === 'offline').size;
             const channel_t = message.guild.channels.cache.filter(channel => channel.type === "text").size
             const channel_v = message.guild.channels.cache.filter(channel => channel.type === "voice").size
             const channel_c = message.guild.channels.cache.filter(channel => channel.type === "category").size
@@ -122,11 +122,12 @@ module.exports.run = (client, message, args,settings) =>{
             { name: 'Verification niveau', value: `${message.guild.verificationLevel}`, inline: true },
             { name: `${client.config.emojis.BOOST}Nitro du serveur`, value: `${boost}`, inline: true },
             { name: 'Chanels', value: `${client.config.emojis.CHANNEL}Texte : ${channel_t}\n${client.config.emojis.VOICE}Voice : ${channel_v}\n${client.config.emojis.ETIQUETTE}Categories : ${channel_c}`, inline: true },
-            { name: 'Status des membres', value: `${client.config.emojis.ONLINE}Online : ${online}\n${client.config.emojis.IDLE}Idle : ${idle}\n${client.config.emojis.DND}Dnd : ${dnd}\n${client.config.emojis.OFFLINE}Offline : ${off}`, inline: true })
+            //{ name: 'Status des membres', value: `${client.config.emojis.ONLINE}Online : ${online}\n${client.config.emojis.IDLE}Idle : ${idle}\n${client.config.emojis.DND}Dnd : ${dnd}\n${client.config.emojis.OFFLINE}Offline : ${off}`, inline: true }
+            )
             .setTimestamp()
             .setFooter('BOT ID : 689210215488684044', `${message.guild.iconURL()}`);
             message.channel.send(embed)
-            });
+           // });
     }
     if(args[0].toLowerCase() === 'role'){
         const infoRoleDescription = new MessageEmbed()
