@@ -1,7 +1,7 @@
 module.exports = async (client, messageReaction, user) => {
   console.log('ok')
   const message = messageReaction.message;
-  const member = message.guild.members.cache.get(user.id);
+  const member = await message.guild.members.cache.get(user.id);
   const emoji = messageReaction.emoji.name;
   const emojiID = messageReaction.emoji.id;
   const channel = message.guild.channels.cache.find(c => c.id === '708593997890977823');
