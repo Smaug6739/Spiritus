@@ -3,9 +3,9 @@ const { loadCommands, loadEvents } = require("./util/loader");
 //const myIntents = new Intents();
 //myIntents.add('GUILDS','GUILD_MEMBERS','GUILD_MESSAGES','DIRECT_MESSAGES');
 const client = new Client({// ws: { intents: myIntents }
+  messageCacheMaxSize : 0,
   ws: { intents: ['GUILDS','GUILD_MEMBERS','GUILD_MESSAGES','DIRECT_MESSAGES'] },
-  /*partials: ['MESSAGE', 'CHANNEL', 'REACTION']*/});;
-  
+  /*partials: ['MESSAGE', 'CHANNEL', 'REACTION']*/});
 require('./util/functions')(client);
 require('./util/Utils')(client);
 client.mongoose = require("./util/mongoose");
@@ -15,13 +15,12 @@ loadEvents(client);
 client.mongoose.init();
 client.config = require("./config")
 client.login(client.config.TOKEN);
-//client.on('ready',()=> require('./test.js')(client));
 process.on('uncaughtException', (error) => {
     console.warn(error);
     if (!client) return;
     client.errorHook.send(error, {code: 'js'});
   });
-process.on('unhandledRejection', (listener, test) => {
+process.on('unhandledRejection', (listener) => {
   console.warn(listener);
   if (!client) return;
   client.errorHook.send(listener, {code: 'js'}); 

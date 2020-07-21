@@ -38,18 +38,15 @@ module.exports.run = (client, message, args,settings) =>{
             .setDescription('Cette personne n\'est pas sur le serveur')
             .setFooter(`User ID : ${user.id}`)
             return message.channel.send(embed)
-        }else{
-            message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver cet utilisateur.`)
-        }
+        }else message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver cet utilisateur.`)
     }else{
-   // if (use.user.presence.status === 'online') status = `${client.config.emojis.ONLINE}Online`  ;
-  //  if (use.user.presence.status === 'idle') status = `${client.config.emojis.IDLE}Idle`;
-  // if (use.user.presence.status === 'dnd') status = `${client.config.emojis.DND}Dnd`;
-  //  if (use.user.presence.status === 'offline') status = `${client.config.emojis.OFFLINE}Offline`;
-   /*if (use.user.presence.clientStatus != null && use.user.presence.clientStatus.desktop === 'online') plateforme = '🖥️ Ordinateur'
-    if (use.user.presence.clientStatus != null && use.user.presence.clientStatus.mobile === 'online') plateforme = '📱 Mobile'
-    //else plateforme = 'Aucune'
-        console.log(use.user.presence.clientStatus)*/
+  //if (use.user.presence.status === 'online') status = `${client.config.emojis.ONLINE}Online`  ;
+  //if (use.user.presence.status === 'idle') status = `${client.config.emojis.IDLE}Idle`;
+  //if (use.user.presence.status === 'dnd') status = `${client.config.emojis.DND}Dnd`;
+  //if (use.user.presence.status === 'offline') status = `${client.config.emojis.OFFLINE}Offline`;
+  //if (use.user.presence.clientStatus != null && use.user.presence.clientStatus.desktop === 'online') plateforme = '🖥️ Ordinateur'
+  //if (use.user.presence.clientStatus != null && use.user.presence.clientStatus.mobile === 'online') plateforme = '📱 Mobile'
+        console.log(use.user.presence.clientStatus)
         const embed = new MessageEmbed()
         embed.setFooter(`${use.user.username} ID : ${use.user.id}`, use.user.displayAvatarURL(), true) //OK
         embed.setThumbnail(use.user.displayAvatarURL())//OK
@@ -99,8 +96,8 @@ module.exports.run = (client, message, args,settings) =>{
             region = message.guild.region.toUpperCase()
             var boost = message.guild.premiumSubscriptionCount
             if (boost === 0) boost = "Ce serveur n'est pas boost"
-            else if (boost >= 1) boost = `Ce serveur possède ${boost} boosts ${boost > 1 ? "s" : ""}`
-            var members = message.guild.memberCount; 
+            else if (boost >= 1) boost = `Ce serveur possède ${boost} boost${boost > 1 ? "s" : ""}`
+            var members = message.guild.memberCount;
            // message.guild.members.fetch().then(fetchedMembers => {     
            // const online = fetchedMembers.filter(member => member.presence.status === 'online').size;
            // const idle = fetchedMembers.filter(member => member.presence.status === 'idle').size;
@@ -109,12 +106,18 @@ module.exports.run = (client, message, args,settings) =>{
             const channel_t = message.guild.channels.cache.filter(channel => channel.type === "text").size
             const channel_v = message.guild.channels.cache.filter(channel => channel.type === "voice").size
             const channel_c = message.guild.channels.cache.filter(channel => channel.type === "category").size
-            let embed = new MessageEmbed()
-            .setTitle(`**Informations sur le serveur :**`)
-            .setColor(`${client.config.color.EMBEDCOLOR}`)
-            .setAuthor(`${guild_name}`, `${message.guild.iconURL()}`)
-            .setThumbnail(`${message.guild.iconURL()}`)
-            .addFields(
+            const embed = new MessageEmbed()
+            if(message.guild.iconURL()){
+                embed.setAuthor(`${guild_name}`, `${message.guild.iconURL()}`)
+                embed.setThumbnail(`${message.guild.iconURL()}`)
+                embed.setFooter('BOT ID : 689210215488684044', `${message.guild.iconURL()}`);
+            }else{
+                embed.setAuthor(`${guild_name}`)
+                embed.setFooter(`BOT ID : ${client.user.id}`);
+            }
+            embed.setTitle(`**Informations sur le serveur :**`)
+            embed.setColor(`${client.config.color.EMBEDCOLOR}`)
+            embed.addFields(
             { name: 'Nom du serveur', value: `${guild_name}`, inline: true },
             { name: 'Region', value: `${region}`, inline: true },
             { name: 'Nombre de membres', value: `${members}`, inline: true },
@@ -124,10 +127,9 @@ module.exports.run = (client, message, args,settings) =>{
             { name: 'Chanels', value: `${client.config.emojis.CHANNEL}Texte : ${channel_t}\n${client.config.emojis.VOICE}Voice : ${channel_v}\n${client.config.emojis.ETIQUETTE}Categories : ${channel_c}`, inline: true },
             //{ name: 'Status des membres', value: `${client.config.emojis.ONLINE}Online : ${online}\n${client.config.emojis.IDLE}Idle : ${idle}\n${client.config.emojis.DND}Dnd : ${dnd}\n${client.config.emojis.OFFLINE}Offline : ${off}`, inline: true }
             )
-            .setTimestamp()
-            .setFooter('BOT ID : 689210215488684044', `${message.guild.iconURL()}`);
+            embed.setTimestamp()
             message.channel.send(embed)
-           // });
+           //});
     }
     if(args[0].toLowerCase() === 'role'){
         const infoRoleDescription = new MessageEmbed()
@@ -201,7 +203,6 @@ module.exports.run = (client, message, args,settings) =>{
     }
 }
 module.exports.help = {
-    
     name : 'info',
     aliases : ['info','information','informations'],
     category : 'misc',

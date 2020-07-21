@@ -2,8 +2,6 @@ const { MessageEmbed } = require("discord.js");
 const { readdirSync } = require("fs");
 const categoryList = readdirSync('./commands');
 module.exports.run = (client, message, args, settings) => {
-
-
     if (!args.length) {
      // console.log(categoryList)
       //categoryList = categoryList.slice(1)
@@ -12,7 +10,8 @@ module.exports.run = (client, message, args, settings) => {
         .setAuthor('Liste  des commandes :',`${client.user.avatarURL()}`)
         .addField("Liste des commandes", `Une liste de toutes les sous-catégories disponibles et leurs commandes.\nPour plus d'informations sur une commande, tapez \`${settings.prefix}help <command_name>\`.`)
         .setTimestamp()
-        .setFooter('BOT ID : 689210215488684044', `${message.guild.iconURL()}`);
+        if(message.guild.iconURL()) embed.setFooter('BOT ID : 689210215488684044', `${message.guild.iconURL()}`);
+        else embed.setFooter(`BOT ID : ${client.user.id}`);
       for (const category  of categoryList.slice(1)) { 
         //console.log('Catégories chargées :'+category)
         embed.addField(
@@ -39,7 +38,6 @@ module.exports.run = (client, message, args, settings) => {
       if (command.help.aliases.length > 1) embed.addField("**__Alias :__**", `${command.help.aliases.join(`, `)}`);
       if (command.help.exemple && command.help.exemple.length > 0) embed.addField("**__Exemples :__**", `${settings.prefix}${command.help.exemple.join(`\r\n${settings.prefix}`)}`);
       if (command.help.sousCommdandes && command.help.sousCommdandes.length > 0) embed.addField("**__Sous commandes :__**", `${settings.prefix}${command.help.sousCommdandes.join(`\r\n${settings.prefix}`)}`);
-
       return message.channel.send(embed);
     }
   };

@@ -1,52 +1,39 @@
 const { Collection,MessageEmbed,WebhookClient } = require('discord.js');
-
 module.exports = async(client, message) => {
   if (message.channel.type === "dm") return //client.emit("directMessage", message);
   if (!message.channel.permissionsFor(message.guild.me).has('SEND_MESSAGES')) return console.log('Je n\'ai pas la permission d\'envoyer messages');
-
   if (message.author.bot) return;
   const settings = await client.getGuild(message.guild);
   const dbUser = await client.getUser(message.member, message.guild.id);
   //--------------------------------SYSTEME-ANTI-INVITS----------------------
   if(settings.invitations){
-    if(message.content.includes('https://discord.gg')){
+    if(message.content.includes('discord.gg/')){
       message.delete()
       message.reply('les invitations sont interdites sur ce serveur !')
     }
   }
-  //----------------------------------CMD-PERSONALISEE-------------------------
-  /*if(message.content.startsWith(settings.prefix)){
-    const cmdNom = message.content.slice(settings.prefix.length).split(/ +/);
-    const comd = await client.getCmd(cmdNom[0], message.guild)
-      if(comd) message.channel.send(comd.contenu)
-  } */
   //-----------Si le système d'experience est activé------------------
   if(settings.expsysteme){
+    if(!dbUser) await client.createUser({
+      guildID: message.member.guild.id,
+      guildName: message.member.guild.name,
+      userID: message.member.id,
+      username: message.member.user.tag,
+    });
 
-  if(!dbUser) await client.createUser({
-    guildID: message.member.guild.id,
-    guildName: message.member.guild.name,
-    userID: message.member.id,
-    username: message.member.user.tag,
-  });
-
-  if(dbUser){
-    const expCd = Math.floor(Math.random() * 19) + 1; // 1 - 20 
-    const expToAdd = Math.floor(Math.random() * 25) + 10; //  10 - 35
+    if(dbUser){
+      const expCd = Math.floor(Math.random() * 19) + 1; // 1 - 20 
+      const expToAdd = Math.floor(Math.random() * 25) + 10; //  10 - 35
       if(expCd >= 10 && expCd  <= 15){
-          if(!dbUser){
+        if(!dbUser){
             setTimeout(async function () {
-            //message.reply(`tu viens de gagner ${expToAdd} points d'experience`)
             await client.addExp(client, message.member, expToAdd);
             },1000)
-            
           }else{
-            //message.reply(`tu viens de gagner ${expToAdd} points d'experience`)
             await client.addExp(client, message.member, expToAdd);
           }
         //-------------------------------------------LEVELS------------------------------------------
         const userLevel = Math.floor(0.1 * Math.sqrt(dbUser.experience));
-        //Augmanter 0.1 pour avoir besoins de moins de poinnts d'exp.
         if (dbUser.level < userLevel) {
           if(settings.salonranks != ""){
             message.guild.channels.cache.get(`${settings.salonranks}`).send(`<@${dbUser.userID}> bravo à toi, tu viens de monter niveau **${userLevel}** :muscle: :muscle: `)
@@ -55,25 +42,32 @@ module.exports = async(client, message) => {
           }
           client.updateUser(message.member, { level: userLevel });
         }else if (dbUser.level > userLevel) {
-        await client.updateUser(message.member, { level: userLevel });
+          await client.updateUser(message.member, { level: userLevel });
         }
       }
     }
   }
+  /*if(message.content.includes(`<@!${client.user.id}>`)){
+    const embed = new MessageEmbed()
+    .setAuthor(`Spiritus`,`${client.user.displayAvatarURL()}`)
+    .setThumbnail(client.user.displayAvatarURL())
+    .addField(`Prefix de ce serveur :`,`${settings.prefix}`,false)
+    .addField(`Commande d'aide :`,`${settings.prefix}help ou ${settings.prefix}cmds`,false)
+    .setTimestamp()
+    .setFooter(`BOT ID : ${client.user.id}`)
+    return message.channel.send(embed)
+  }*/
   if (!message.content.startsWith(settings.prefix)) return;
 
 
   const args = message.content.slice(settings.prefix.length).split(/ +/);
-
   const commandName = args.shift().toLowerCase();
   const user = message.mentions.users.first();
   const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.help.aliases && cmd.help.aliases.includes(commandName));
   //----------------------------------CMD-PERSONALISEE-------------------------
   if(settings.commandes){
     let customCommand = settings.commandes.find(e => e.nom == message.content.slice(settings.prefix.length).toLowerCase())
-    if(customCommand){
-      return message.channel.send(customCommand.contenu)
-    }
+    if(customCommand)return message.channel.send(customCommand.contenu)
   }
   //--------------------------------------------------------------------------
   if (!command) return;
@@ -85,7 +79,6 @@ module.exports = async(client, message) => {
     const embed = new MessageEmbed()
     .setColor(client.config.color.EMBEDCOLOR)
     .setAuthor(`Commande : ${settings.prefix}${command.help.name}`,`${client.user.avatarURL()}`)
-    //.setTitle(`${client.config.emojis.LOGOBOT} **Commande :** ${settings.prefix}${command.help.name}`)
     .addField("**__Description :__**", `${command.help.description} (cd: ${command.help.cooldown}secs)`)
     .addField("**__Utilisation :__**", command.help.usage ? `${settings.prefix}${command.help.name} ${command.help.usage}` : `${settings.prefix}${command.help.name}`, true)
     .setTimestamp()
@@ -107,20 +100,16 @@ module.exports = async(client, message) => {
   if (!client.cooldowns.has(command.help.name)) {
     client.cooldowns.set(command.help.name, new Collection());
   };
-
   const timeNow = Date.now();
   const tStamps = client.cooldowns.get(command.help.name);
   const cdAmount = (command.help.cooldown || 5) * 1000;
-
   if (tStamps.has(message.author.id)) {
     const cdExpirationTime = tStamps.get(message.author.id) + cdAmount;
-
     if (timeNow < cdExpirationTime && message.author.id != client.config.owner.id) {
       timeLeft = (cdExpirationTime - timeNow) / 1000;
       return message.reply(`merci d'attendre ${timeLeft.toFixed(0)} seconde(s) avant de ré-utiliser la commande \`${command.help.name}\`.`);
     }
   }
-
   tStamps.set(message.author.id, timeNow);
   setTimeout(() => tStamps.delete(message.author.id), cdAmount);
   try{
@@ -143,5 +132,4 @@ module.exports = async(client, message) => {
         embeds: [embed],
       });
     }
- 
 }

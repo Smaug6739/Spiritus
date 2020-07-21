@@ -1,7 +1,6 @@
 const { MessageEmbed } = require("discord.js")
 const axios = require('axios');
 module.exports.run = async (client, message, args,settings) => {
-  
     if(!args[0]){
       const embed = new MessageEmbed()
       .setTitle('Commande emoji')
@@ -12,15 +11,33 @@ module.exports.run = async (client, message, args,settings) => {
       return message.channel.send(embed)
     }
     if(args[0].toLowerCase() === 'liste'){
-        const emojisList = message.channel.guild.emojis.cache.map(emote => `<${emote.animated ? 'a' : ''}:${emote.name}:${emote.id}>`);
+       /* const emojisList = message.channel.guild.emojis.cache.map(emote => `<${emote.animated ? 'a' : ''}:${emote.name}:${emote.id}>`);
         let embed = new MessageEmbed()
         .setTitle(`Liste des emojis pour le serveur **${message.guild.name}** | ${emojisList.length} totale`)
         .setColor(client.config.color.VERT)
         .setDescription(emojisList.slice(0, 60).join(' '))
         .setFooter(`BOT ID : ${client.user.id}`)
         .setTimestamp()
-        message.channel.send(embed)
-
+        message.channel.send(embed)*/
+        const emojisListe = message.channel.guild.emojis.cache.map(role => role.toString() );
+        let embed = {
+            title: `Liste des emojis pour le serveur **${message.guild.name}** | ${emojisListe.length} au totale`,
+            thumbnail: {
+                url: `${message.guild.iconURL()}`,
+            },
+            color: `${client.config.color.EMBEDCOLOR}`,
+            description: null,
+            fields: []   
+        };
+        if (emojisListe.join(' ').length > 2048) {
+            let i = '';
+            emojisListe.forEach(emoji => {
+                if (i.length <= 1024 && i.length + emoji.length > 1024) embed.fields.push({name: '\u200b', value: i, inline: true});
+                i = i.concat(' ', emoji);
+            });
+        } else  embed.description = emojisListe.join(' ');
+        return message.channel.send({embed});
+    
     //--------------------------------------EMOJIS-CREATE------------------------------------------------------
     }else if(args[0].toLowerCase() === 'create'){
         if(!message.member.hasPermission('MANAGE_EMOJIS'))return message.channel.send(`${client.config.emojis.FALSE}Vous devez avoir la permission de gérer les emojis pour utiliser cette commande.`);
@@ -132,6 +149,5 @@ module.exports.help = {
     permissions : false,
     isUserAdmin: false,
     args : false,
-    sousCommdandes : ["emojis liste","emojis create","emojis update","emoji delete"]
-
+    sousCommdandes : ["emojis liste","emojis create","emoji delete"]
 }
