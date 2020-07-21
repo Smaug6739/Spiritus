@@ -1,8 +1,10 @@
-const { Client, Collection,WebhookClient } = require('discord.js');
+const { Client, Collection,WebhookClient/*,Intents*/ } = require('discord.js');
 const { loadCommands, loadEvents } = require("./util/loader");
-const client = new Client({ 
-  ws: { intents: ['GUILDS','GUILD_MEMBERS','GUILD_MESSAGES','GUILD_MESSAGE_REACTIONS','DIRECT_MESSAGES','DIRECT_MESSAGE_REACTIONS'] },
-  partials: ['MESSAGE', 'CHANNEL', 'REACTION']});;
+//const myIntents = new Intents();
+//myIntents.add('GUILDS','GUILD_MEMBERS','GUILD_MESSAGES','DIRECT_MESSAGES');
+const client = new Client({// ws: { intents: myIntents }
+  ws: { intents: ['GUILDS','GUILD_MEMBERS','GUILD_MESSAGES','DIRECT_MESSAGES'] },
+  /*partials: ['MESSAGE', 'CHANNEL', 'REACTION']*/});;
   
 require('./util/functions')(client);
 require('./util/Utils')(client);

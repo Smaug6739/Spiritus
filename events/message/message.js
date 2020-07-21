@@ -6,7 +6,7 @@ module.exports = async(client, message) => {
 
   if (message.author.bot) return;
   const settings = await client.getGuild(message.guild);
-  const dbUser = await client.getUser(message.member, message.member.guild.id);
+  const dbUser = await client.getUser(message.member, message.guild.id);
   //--------------------------------SYSTEME-ANTI-INVITS----------------------
   if(settings.invitations){
     if(message.content.includes('https://discord.gg')){
