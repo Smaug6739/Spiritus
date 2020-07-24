@@ -27,7 +27,7 @@ const guildSchema = mongoose.Schema({
   }, 
   invitations:{
     "type": Boolean,
-    "default": false
+    "default": defaults.invitations
   },
   rankcard :{
     "type": String,
@@ -51,7 +51,7 @@ const guildSchema = mongoose.Schema({
   },
   kickauto:{
     "type": Boolean,
-    "default": false
+    "default": defaults.kickauto
   },
 });
 

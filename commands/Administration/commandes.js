@@ -3,7 +3,7 @@ module.exports.run = async (client, message, args, settings) => {
     if(!args[0]){
         const embed = new MessageEmbed()
         .setTitle('Commande commande')
-        .setDescription(`La commande __commande__ permet de gérer les commandes personalisées du serveur grâces aux sous commandes suivantes :\n\n${client.config.emojis.FLECHE}__commande liste__ permet voir la liste des commandes personalisées.\n${client.config.emojis.FLECHE}__commande create__ permet de crée une commande.\n${client.config.emojis.FLECHE}__commande delete__ permet de supprimer une commande peronalisée.`)
+        .setDescription(`La commande __commande__ permet de gérer les commandes personalisées du serveur grâces aux sous commandes suivantes :\n\n${client.config.emojis.fleche}__commande liste__ permet voir la liste des commandes personalisées.\n${client.config.emojis.fleche}__commande create__ permet de crée une commande.\n${client.config.emojis.fleche}__commande delete__ permet de supprimer une commande peronalisée.`)
         .setColor(`${client.config.color.EMBEDCOLOR}`)
         .setTimestamp()
         .setFooter('BOT ID : 689210215488684044')
@@ -22,19 +22,19 @@ module.exports.run = async (client, message, args, settings) => {
         try{
             const title = args[1].toLowerCase()
             if(settings.commandes){
-                if(settings.commandes.length > 19) return message.channel.send(`${client.config.emojis.FALSE}Vous avez atteint le nombre maximal de commandes personalisées pour ce serveur`)
+                if(settings.commandes.length > 19) return message.channel.send(`${client.config.emojis.error}Vous avez atteint le nombre maximal de commandes personalisées pour ce serveur`)
                 let customCommand = settings.commandes.find(e => e.nom == title)
-                if(customCommand) return message.channel.send(`${client.config.emojis.FALSE}Une commande portant ce nom existe déja sur ce serveur.`)
+                if(customCommand) return message.channel.send(`${client.config.emojis.error}Une commande portant ce nom existe déja sur ce serveur.`)
             }
             const contenu = args.slice(2).join(' ')
-            if(contenu.length > 1800)return message.channel.send(`${client.config.emojis.FALSE} Le contenu de la commande est trop long. `)
+            if(contenu.length > 1800)return message.channel.send(`${client.config.emojis.error} Le contenu de la commande est trop long. `)
             let tableau = []
             tableau = settings.commandes
             tableau.push({nom: title, contenu: contenu })
             await client.updateGuild(message.guild, { commandes: tableau});
-            message.channel.send(`${client.config.emojis.TRUE}J'ai bien crée cette commande.`);
+            message.channel.send(`${client.config.emojis.success}J'ai bien crée cette commande.`);
         }catch(e){
-            message.channel.send(`${client.config.emojis.FALSE}Une erreur est survenue merci de réessayer.`)
+            message.channel.send(`${client.config.emojis.error}Une erreur est survenue merci de réessayer.`)
             const webhookClient  = new WebhookClient(`${client.config.webhooks.errors.ID}`, `${client.config.webhooks.errors.TOKEN}`);
             const embed = new MessageEmbed()
             .setAuthor(`${message.author.username}#${message.author.discriminator}`,`${message.author.displayAvatarURL()}`)
@@ -67,18 +67,18 @@ module.exports.run = async (client, message, args, settings) => {
             if (args.length == 2 && args[1] == 'all') {
                 settings.commandes.splice(0, settings.commandes.length);
                 settings.save();
-                return message.channel.send(`${client.config.emojis.TRUE} Toutes les commandes personalisées de ce serveur ont bien été supprimés.`);
+                return message.channel.send(`${client.config.emojis.success} Toutes les commandes personalisées de ce serveur ont bien été supprimés.`);
             } else {
                 const title = args[1].toLowerCase()
                 let customCommand = settings.commandes.find(e => e.nom == title)
                 if(customCommand){
                     client.updateGuild(message.guild, {$pull:{ commandes: {nom: title} }});
-                    message.channel.send(`${client.config.emojis.TRUE} J'ai bien supprimer cette commande.`)
+                    message.channel.send(`${client.config.emojis.success} J'ai bien supprimer cette commande.`)
                 } 
-                else return message.channel.send(`${client.config.emojis.FALSE} Je n'ai pas trouver cette commande.`)
+                else return message.channel.send(`${client.config.emojis.error} Je n'ai pas trouver cette commande.`)
             }
         } else {
-            return message.channel.send(`${client.config.emojis.FALSE} Il n'y a aucune commande personalisée sur ce serveur.`)
+            return message.channel.send(`${client.config.emojis.error} Il n'y a aucune commande personalisée sur ce serveur.`)
         }
     }
     if(args[0].toLowerCase() == 'liste'){
@@ -92,7 +92,7 @@ module.exports.run = async (client, message, args, settings) => {
             });
             message.channel.send(embed)
         }else{
-            return message.channel.send(`${client.config.emojis.FALSE} Il n'y a aucune commande personalisée sur ce serveur.`)
+            return message.channel.send(`${client.config.emojis.error} Il n'y a aucune commande personalisée sur ce serveur.`)
         }
 
     }

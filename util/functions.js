@@ -28,7 +28,7 @@ module.exports = client => {
       await client.createGuild(newGuild)
     }
     if (data) return data;
-    return client.config.DEFAULTSETTINGS;
+    return client.configuration.DEFAULTSETTINGS;
   };
 
 
