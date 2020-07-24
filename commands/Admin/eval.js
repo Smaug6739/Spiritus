@@ -34,7 +34,7 @@ module.exports.run = async (client, message, args) =>{
           } catch (err) {
               return message.channel.send(`\`\`\`js\n${err}\`\`\``);
           }
-          evaled = evaled.replace(client.config.TOKEN, 'no.');
+          evaled = evaled.replace(client.configuration.TOKENS.DISCORD, 'no.');
       
           const fullLen = evaled.length;
       

@@ -8,9 +8,9 @@ module.exports.run = async (client, message, args) =>{
             client.commands.delete(command)
             const pull = require(`${chemin}`)
             client.commands.set(command, pull)
-            message.channel.send(`${client.config.emojis.TRUE}Reloaded command \`${command}\``);
+            message.channel.send(`${client.config.emojis.success}Reloaded command \`${command}\``);
         } catch (err) {
-            return message.channel.send(`${client.config.emojis.FALSE}An error occured: \n\`\`\`js\n${err}\n\`\`\``);
+            return message.channel.send(`${client.config.emojis.error}An error occured: \n\`\`\`js\n${err}\n\`\`\``);
         }
     
     

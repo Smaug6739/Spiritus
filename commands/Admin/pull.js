@@ -5,12 +5,12 @@ module.exports.run = async (client, message, args) =>{
     if(!client.config.ADMIN.includes(message.author.id)) return message.channel.send(`${client.config.emojis.FALSE}Tu n'est pas admin du BOT `)
     //---------------------------------------CHARGE-DES-GUILDS--------------------------------------------------
     console.log("Pull")
-    message.channel.send(`${client.config.emojis.LOADING} Commande en cour d'execution...`).then(async msg =>{
+    message.channel.send(`${client.config.emojis.loading} Commande en cour d'execution...`).then(async msg =>{
         try {
-            await exec(`git pull origin ${client.config.ORIGINPULL}`);
-            msg.edit(`${client.config.emojis.TRUE} Updated.`);
+            await exec(`git pull origin ${client.configuration.ADMIN.ORIGINPULL}`);
+            msg.edit(`${client.config.emojis.success} Updated.`);
         } catch (err) {
-            msg.edit(`${client.config.emojis.FALSE} An error occured:\n\`\`\`${err}\n\`\`\``);
+            msg.edit(`${client.config.emojis.error} An error occured:\n\`\`\`${err}\n\`\`\``);
         }
     })
 }

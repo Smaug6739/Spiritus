@@ -4,12 +4,12 @@ const exec = util.promisify(child_process.exec);
 module.exports.run = async (client, message, args) =>{
     if(!client.config.ADMIN.includes(message.author.id)) return message.channel.send(`${client.config.emojis.FALSE}Tu n'est pas admin du BOT `)
     console.log("Execution d'une commande")
-    message.channel.send(`${client.config.emojis.LOADING} Commande en cour d'execution...`).then(async msg =>{
+    message.channel.send(`${client.config.emojis.loading} Commande en cour d'execution...`).then(async msg =>{
         try {
             await exec(`${args.join(" ")}`);
-            msg.edit(`${client.config.emojis.TRUE} Updated.`);
+            msg.edit(`${client.config.emojis.success} Updated.`);
         } catch (err) {
-            msg.edit(`${client.config.emojis.FALSE} An error occured:\n\`\`\`xl\n${err}\n\`\`\``);
+            msg.edit(`${client.config.emojis.error} An error occured:\n\`\`\`xl\n${err}\n\`\`\``);
         }
     })
 }

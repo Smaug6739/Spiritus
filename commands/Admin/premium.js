@@ -6,7 +6,7 @@ module.exports.run = async (client, message, args) =>{
             id : `${args[1]}`
         }
         await client.updateGuild(guild, {premium : true});
-            message.channel.send(`${client.config.emojis.TRUE}Guild premium mise à jour avec succès.`)
+            message.channel.send(`${client.config.emojis.success}Guild premium mise à jour avec succès.`)
     }
     //---------------------------------------PREMIUM-REM---------------------------------------------------
     if(args[0] === 'rem'){
@@ -14,7 +14,7 @@ module.exports.run = async (client, message, args) =>{
             id : `${args[1]}`
         }
         await client.updateGuild(guild, {premium : false});
-            message.channel.send(`${client.config.emojis.TRUE}Guild premium mise à jour avec succès.`)
+            message.channel.send(`${client.config.emojis.success}Guild premium mise à jour avec succès.`)
     }
 }
 module.exports.help = {
