@@ -10,6 +10,6 @@ package-lock.json
 #*.lock
 
 #config
-config.js
-configdev.js
-configbot.js
+configuration.js
+configurationdev.js
+configurationbot.js
