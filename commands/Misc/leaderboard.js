@@ -14,7 +14,7 @@ module.exports.run = async (client, message, args, settings, dbUser) => {
         })
         message.channel.send(embed)
 
-    } else return message.channel.send(`${client.config.emojis.FALSE}Le système d'experience n'est pas activer sur ce serveur. Pour l'activer utilisez la commande \`${settings.prefix}config experience\``)
+    } else return message.channel.send(`${client.config.emojis.error}Le système d'experience n'est pas activer sur ce serveur. Pour l'activer utilisez la commande \`${settings.prefix}config experience\``)
 };
 
 
