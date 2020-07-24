@@ -7,9 +7,6 @@ module.exports.run = async(client, message, args, settings) => {
             .setTitle('Commande experience')
             .setColor(`${client.config.color.EMBEDCOLOR}`)
             .setDescription(`La commande __experience__ permet de gérer l'experience des membres du serveur graces aux sous commandes suivantes :\n\n${client.config.emojis.FLECHE}__experience add__ permet de donner de l'exp a un membre.\n${client.config.emojis.FLECHE}__experience rem__ permet de supprimer de l'exp a un membre.`)
-            /*.addFields(
-                { name: '\u200b', value: `${client.config.emojis.FLECHE}\`experience add\` permet de donner de l\'exp a un membre.`, inline: false },
-                { name: '\u200b', value: `${client.config.emojis.FLECHE}\`experience rem\` permet de supprimer de l\'exp a un membre.`, inline: false })*/
             .setTimestamp()
             .setFooter('BOT ID : 689210215488684044')
             return message.channel.send(embed)
@@ -27,11 +24,11 @@ module.exports.run = async(client, message, args, settings) => {
             const expToAdd = parseInt(args[2]);
             if((message.mentions.users.first())){
             if (isNaN(expToAdd)) return message.reply("vous devez entrer un nombre valide !");
-            if(!user)return message.channel.send(`${client.config.emojis.FALSE} Je ne peux pas ajouter de l'exp a cette personne.`)
+            if(!user)return message.channel.send(`${client.config.emojis.error} Je ne peux pas ajouter de l'exp a cette personne.`)
            await client.addExp(client, user, expToAdd);
             message.channel.send(`Vous avez ajouté avec succès ${expToAdd} points d'expérience à l'utilisateur ${user}!`);
             }else{
-                message.channel.send(`${client.config.emojis.FALSE}Vous ne pouvez pas utiliser cette commande sur un bot.`)
+                message.channel.send(`${client.config.emojis.error}Vous ne pouvez pas utiliser cette commande sur un bot.`)
             }
         //-------------------------------------------REM-EXPERIENCE-----------------------------------------
         }else if(args[0].toLowerCase() === 'rem'){
@@ -46,15 +43,15 @@ module.exports.run = async(client, message, args, settings) => {
             const expToRemove = parseInt(args[2]);
             if((message.mentions.users.first())){
             if (isNaN(expToRemove)) return message.reply("vous devez entrer un nombre valide !");
-            if(!user)return message.channel.send(`${client.config.emojis.FALSE} Je ne peux pas enlever de l'exp a cette personne.`)
+            if(!user)return message.channel.send(`${client.config.emojis.error} Je ne peux pas enlever de l'exp a cette personne.`)
            await client.removeExp(client, user, expToRemove)
             .then(message.channel.send(`Vous avez enlevé avec succès ${expToRemove} points d'expérience à l'utilisateur ${user}!`))
         }else{
-            message.channel.send(`${client.config.emojis.FALSE}Vous ne pouvez pas utiliser cette commande sur un bot.`)
+            message.channel.send(`${client.config.emojis.error}Vous ne pouvez pas utiliser cette commande sur un bot.`)
         }
         }
     }else{
-        return message.channel.send(`${client.config.emojis.FALSE}Le système d'experience n'est pas activer sur ce serveur. Pour l'activer utilisez la commande \`${settings.prefix}config experience\``)
+        return message.channel.send(`${client.config.emojis.error}Le système d'experience n'est pas activer sur ce serveur. Pour l'activer utilisez la commande \`${settings.prefix}config experience\``)
     };
 };
 module.exports.help = {

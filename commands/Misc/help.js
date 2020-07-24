@@ -3,8 +3,6 @@ const { readdirSync } = require("fs");
 const categoryList = readdirSync('./commands');
 module.exports.run = (client, message, args, settings) => {
     if (!args.length) {
-     // console.log(categoryList)
-      //categoryList = categoryList.slice(1)
       const embed = new MessageEmbed()
         .setColor(`${client.config.color.EMBEDCOLOR}`)
         .setAuthor('Liste  des commandes :',`${client.user.avatarURL()}`)
@@ -13,7 +11,6 @@ module.exports.run = (client, message, args, settings) => {
         if(message.guild.iconURL()) embed.setFooter('BOT ID : 689210215488684044', `${message.guild.iconURL()}`);
         else embed.setFooter(`BOT ID : ${client.user.id}`);
       for (const category  of categoryList.slice(1)) { 
-        //console.log('Catégories chargées :'+category)
         embed.addField(
           `${category}`,
           `${client.commands.filter(cat => cat.help.category === category.toLowerCase())
@@ -23,14 +20,11 @@ module.exports.run = (client, message, args, settings) => {
       return message.channel.send(embed);
     } else {
       const command = client.commands.get(args[0]) || client.commands.find(cmd => cmd.help.aliases && cmd.help.aliases.includes(args[0]));
-      //console.log(command);
       if (!command) return message.channel.send(`${client.config.emojis.FALSE} Je n'ai pas trouver cette commande.`);
       const embed = new MessageEmbed()
       
         .setColor(`${client.config.color.EMBEDCOLOR}`)
-        //.setTitle(`\`${settings.prefix}${command.help.name}\``)
         .setAuthor(`Commande : ${settings.prefix}${command.help.name}`,`${client.user.avatarURL()}`)
-        //.setDescription(`**Description :** ${command.help.description} (cd: ${command.help.cooldown}secs)\n`)
         .addField("**__Description :__**", `${command.help.description} (cd: ${command.help.cooldown}secs)`)
         .addField("**__Utilisation :__**", command.help.usage ? `${settings.prefix}${command.help.name} ${command.help.usage}` : `${settings.prefix}${command.help.name}`, true)
         .setTimestamp()
@@ -53,5 +47,5 @@ module.exports.run = (client, message, args, settings) => {
     isUserAdmin: false,
     permissions: false,
     args: false,
-    sousCommdandes : []
+    sousCommdandes : ["help <command>"]
   };
