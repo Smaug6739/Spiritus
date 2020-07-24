@@ -103,9 +103,11 @@ module.exports.run = (client, message, args,settings) =>{
            // const idle = fetchedMembers.filter(member => member.presence.status === 'idle').size;
            // const dnd = fetchedMembers.filter(member => member.presence.status === 'dnd').size;
            // const off = fetchedMembers.filter(member => member.presence.status === 'offline').size;
-            const channel_t = message.guild.channels.cache.filter(channel => channel.type === "text").size
-            const channel_v = message.guild.channels.cache.filter(channel => channel.type === "voice").size
-            const channel_c = message.guild.channels.cache.filter(channel => channel.type === "category").size
+            const channel_t = message.guild.channels.cache.filter(channel => channel.type === "text").size;
+            const channel_v = message.guild.channels.cache.filter(channel => channel.type === "voice").size;
+            const channel_c = message.guild.channels.cache.filter(channel => channel.type === "category").size;
+            const roles = message.guild.roles.cache.size;
+            const salons = message.guild.channels.cache.size;
             const embed = new MessageEmbed()
             if(message.guild.iconURL()){
                 embed.setAuthor(`${guild_name}`, `${message.guild.iconURL()}`)
@@ -120,11 +122,13 @@ module.exports.run = (client, message, args,settings) =>{
             embed.addFields(
             { name: 'Nom du serveur', value: `${guild_name}`, inline: true },
             { name: 'Region', value: `${region}`, inline: true },
-            { name: 'Nombre de membres', value: `${members}`, inline: true },
             { name: 'Owner', value: `${owner}`, inline: true },
+            { name: 'Membres', value: `${members}`, inline: true },
+            { name: 'Salons', value: `${salons}`, inline: true },
+            { name: 'Roles', value: `${roles}`, inline: true },
+            { name: 'Chanels', value: `${client.config.emojis.CHANNEL}Texte : ${channel_t}\n${client.config.emojis.VOICE}Voice : ${channel_v}\n${client.config.emojis.ETIQUETTE}Categories : ${channel_c}`, inline: true },
             { name: 'Verification niveau', value: `${message.guild.verificationLevel}`, inline: true },
             { name: `${client.config.emojis.BOOST}Nitro du serveur`, value: `${boost}`, inline: true },
-            { name: 'Chanels', value: `${client.config.emojis.CHANNEL}Texte : ${channel_t}\n${client.config.emojis.VOICE}Voice : ${channel_v}\n${client.config.emojis.ETIQUETTE}Categories : ${channel_c}`, inline: true },
             //{ name: 'Status des membres', value: `${client.config.emojis.ONLINE}Online : ${online}\n${client.config.emojis.IDLE}Idle : ${idle}\n${client.config.emojis.DND}Dnd : ${dnd}\n${client.config.emojis.OFFLINE}Offline : ${off}`, inline: true }
             )
             embed.setTimestamp()
@@ -166,7 +170,7 @@ module.exports.run = (client, message, args,settings) =>{
             { name: 'Crée le  :', value: `${moment.utc(role.createdTimestamp).format('DD/MM/YYYY - hh:mm')}`, inline: true },
             { name: 'Permissions :', value:`${role.permissions.toArray().sort().map(permissions => `${permissions.split("_").map(x => x[0] + x.slice(1).toLowerCase()).join(" ")}`).join(", ") || "none"}`, inline: true })
         .setTimestamp()
-        .setFooter('Commande d\'information de role. BOT ID : 689210215488684044')
+        .setFooter('BOT ID : 689210215488684044')
         message.channel.send(embed) 
     }
     if(args[0].toLowerCase() == 'channel'){

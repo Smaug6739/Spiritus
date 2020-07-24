@@ -118,7 +118,7 @@ module.exports.run = async (client, message, args,settings) => {
               const embed = new MessageEmbed()
               .setTitle('Emoji delete')
               .setColor(client.config.color.VERT)
-              .setThumbnail(`https://cdn.discordapp.com/emojis/${emoji.id}`)
+              .setThumbnail(`https://cdn.discordapp.com/emojis/${emoji.id}${emoji.animated ? '.gif' : '.png'}`)
               .addField(`Action :`,`Delete`,true)
               .addField(`Nom :`,`${emoji.name}`,true)
               .setTimestamp()

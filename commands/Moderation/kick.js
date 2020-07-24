@@ -1,18 +1,18 @@
 const { MessageEmbed } = require("discord.js");
 module.exports.run = async (client, message, args) => {
     if(!message.guild.me.hasPermission('KICK_MEMBERS')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission pour kick un utilisateur.`);
-
-  //let user = message.mentions.users.first();
-  let user  = await client.resolveMember(message.guild,args[0])
+    if(!message.mentions.users.first()) return message.channel.send(`${client.config.emojis.FALSE}Vous devez mentionner une personne.`)
+  let user = message.mentions.users.first();
+  console.log(user)
+  //let user  = await client.resolveMember(message.guild,args[0])
   if(user == undefined)return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver cet utilisateur.`)
   let reason = (args.splice(1).join(' ') || 'Aucune raison spécifiée');
-
-   await user ? message.guild.member(user).kick(reason) : message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver cet utilisateur`);
+  await user ? message.guild.member(user).kick(reason) : message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver cet utilisateur`);
   const embed = new MessageEmbed()
-    .setAuthor(`${user.user.username} (${user.id})`)
+    .setAuthor(`${user.username} (${user.id})`)
     .setColor(`${client.config.color.ORANGE}`)
     .setDescription(`**Action**: kick\n**Raison**: ${reason}`)
-    .setThumbnail(user.user.displayAvatarURL())
+    .setThumbnail(user.displayAvatarURL())
     .setTimestamp()
     .setFooter(message.author.username, message.author.avatarURL());    
     message.channel.send(embed);

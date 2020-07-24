@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
-const {DBCONNECTION,webhooks} = require('./../config')
+const {MONGOOSE,WEBHOOKS} = require('./../configuration')
 const {MessageEmbed, WebhookClient} = require('discord.js')
-
 module.exports =  {
 
   init: () => {
@@ -17,17 +16,16 @@ module.exports =  {
       family: 4 // Use IPv4, skip trying IPv6
     }
 
-    mongoose.connect(DBCONNECTION, mongOptions);//createConnection //connect
+    mongoose.connect(MONGOOSE.DBCONNECTION, mongOptions);//createConnection //connect
     mongoose.Promise = global.Promise;
     mongoose.connection.on("connected", () =>{ 
       console.log("Mongoose est connecté!")
-      const webhookClient  = new WebhookClient(`${webhooks.readyLogs.ID}`, `${webhooks.readyLogs.TOKEN}`);
+      const webhookClient  = new WebhookClient(`${WEBHOOKS.CONNECTIONS.MONGOOSE.ID}`, `${WEBHOOKS.CONNECTIONS.MONGOOSE.TOKEN}`);
       const embed = new MessageEmbed()
       .setTitle('Mongoose connecté avec succès.')
       .setColor('#0099ff')
       .setTimestamp()
       .setFooter('BOT ID : 689210215488684044');
-
       webhookClient.send('',{
         username: `Mongoose`,
         embeds: [embed],

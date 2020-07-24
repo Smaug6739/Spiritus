@@ -115,18 +115,19 @@ module.exports.run = async (client, message, args, settings) => {
     });
 
   }else{
-    let user  = await client.resolveMember(message.guild,args[0])
+    if(!message.mentions.users.first()) return message.channel.send(`${client.config.emojis.FALSE}Vous devez mentionner une personne.`)
+    let user = message.mentions.users.first();
     if(user == undefined)return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver cet utilisateur.`)
     let reason = (args.splice(1).join(' ') || 'Aucune raison spécifiée');
-    //let user = message.mentions.users.first();
+    //let user  = await client.resolveMember(message.guild,args[0])
     const embed = new MessageEmbed()
-    .setAuthor(`${user.user.username} (${user.id})`)
+    .setAuthor(`${user.username} (${user.id})`)
     .setColor(`${client.config.color.ROUGE}`)
     .setDescription(`**Action**: ban\n**Raison**: ${reason}`)
-    .setThumbnail(user.user.displayAvatarURL())
+    .setThumbnail(user.displayAvatarURL())
     .setTimestamp()
     .setFooter(message.author.username, message.author.avatarURL());
-    if(user.bannable)
+    if(message.guild.member(user).bannable)
     user ? message.guild.member(user).ban({reason : `${reason}`}).then(message.channel.send(embed)) : message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver cet utilisateur`);
     else message.channel.send(`${client.config.emojis.FALSE} Je ne peux pas bannir cette personne.`)
 

@@ -115,7 +115,7 @@ module.exports = async(client, message) => {
   try{
      await command.run(client, message, args, settings, dbUser)
     }catch(e){
-      const webhookClient  = new WebhookClient(`${client.config.webhooks.errors.ID}`, `${client.config.webhooks.errors.TOKEN}`);
+      const webhookClient  = new WebhookClient(`${client.configuration.WEBHOOKS.ERRORS.ID}`, `${client.configuration.WEBHOOKS.ERRORS.TOKEN}`);
       const embed = new MessageEmbed()
       .setAuthor(`${message.author.username}#${message.author.discriminator}`,`${message.author.displayAvatarURL()}`)
       .setTitle("Message d'erreur")
@@ -129,6 +129,8 @@ module.exports = async(client, message) => {
       .setTimestamp()
       .setFooter('BOT ID : 689210215488684044');
       webhookClient.send(`<@${client.config.owner.id}>`,{
+        username: `${client.configuration.WEBHOOKS.ERRORS.NAME}`,
+        avatarURL: `${client.configuration.WEBHOOKS.ERRORS.AVATAR}`,
         embeds: [embed],
       });
     }

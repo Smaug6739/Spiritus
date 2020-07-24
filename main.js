@@ -3,8 +3,8 @@ const { loadCommands, loadEvents } = require("./util/loader");
 //const myIntents = new Intents();
 //myIntents.add('GUILDS','GUILD_MEMBERS','GUILD_MESSAGES','DIRECT_MESSAGES');
 const client = new Client({// ws: { intents: myIntents }
-  messageCacheMaxSize : 0,
-  ws: { intents: ['GUILDS','GUILD_MEMBERS','GUILD_MESSAGES','DIRECT_MESSAGES'] },
+  //messageCacheMaxSize : 0,
+  ws: { intents: ['GUILDS','GUILD_MEMBERS','GUILD_MESSAGES'] },
   /*partials: ['MESSAGE', 'CHANNEL', 'REACTION']*/});
 require('./util/functions')(client);
 require('./util/Utils')(client);
@@ -14,7 +14,8 @@ loadCommands(client);
 loadEvents(client);
 client.mongoose.init();
 client.config = require("./config")
-client.login(client.config.TOKEN);
+client.configuration = require('./configuration')
+client.login(client.configuration.TOKENS.DISCORD);
 process.on('uncaughtException', (error) => {
     console.warn(error);
     if (!client) return;
@@ -37,4 +38,4 @@ process.on('warning', (warning) => {
 });
 
   client.errorHook = new WebhookClient(
-    `${client.config.webhooks.console.WEBHOOKID}`, `${client.config.webhooks.console.WEBHOOKTOKEN}`);
+    `${client.configuration.WEBHOOKS.CONSOLE.ID}`, `${client.configuration.WEBHOOKS.CONSOLE.TOKEN}`);
