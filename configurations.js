@@ -37,4 +37,4 @@ module.exports = {
     ADMIN : {
         ORIGINPULL : 'master',
     }
-  };
+};

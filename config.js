@@ -1,16 +1,25 @@
 module.exports = {
   PREFIX: ";",
+
   owner: {
     id: "611468402263064577",
     username: "Smaug#6739"
   },
-  ORIGINPULL: 'master',
+
   ADMIN: ["611468402263064577"],
+
   DEFAULTSETTINGS: {
     prefix: ";",
     logChannel: "bot-logs",
     welcomeMessage: "Welcome {{user}}",
     rankcard: "https://cdn.discordapp.com/attachments/715219402215129088/731041731159785482/rank_1.png"
+  },
+  
+  color: {
+    EMBEDCOLOR: '#d91414',
+    ROUGE: '#ff0004',
+    ORANGE: '#ff8400',
+    VERT: '#02ff30',
   },
 
   emojis: {
@@ -35,10 +44,5 @@ module.exports = {
     fleche: '<:fleche:721288083974389842>',
 
   },
-  color: {
-    EMBEDCOLOR: '#d91414',
-    ROUGE: '#ff0004',
-    ORANGE: '#ff8400',
-    VERT: '#02ff30',
-  },
+  
 }
