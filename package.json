@@ -13,10 +13,8 @@
     "axios": "^0.19.2",
     "canvas": "^2.6.1",
     "discord.js": "^12.2.0",
-    "html-entities-decoder": "^1.0.0",
     "moment": "^2.27.0",
     "mongoose": "^5.9.25",
-    "ms": "^2.1.2",
-    "ytdl-core": "^3.1.2"
+    "ms": "^2.1.2"
   }
 }

@@ -33,5 +33,8 @@ module.exports = {
                 AVATAR : 'https://cdn.discordapp.com/attachments/736127175471792159/736127357567631360/1589804016312.png',
             }
         },
+    },
+    ADMIN : {
+        ORIGINPULL : 'master',
     }
   };
