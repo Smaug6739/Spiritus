@@ -8,12 +8,7 @@ module.exports = {
 
   ADMIN: ["611468402263064577"],
 
-  DEFAULTSETTINGS: {
-    prefix: ";",
-    logChannel: "bot-logs",
-    welcomeMessage: "Welcome {{user}}",
-    rankcard: "https://cdn.discordapp.com/attachments/715219402215129088/731041731159785482/rank_1.png"
-  },
+  
   
   color: {
     EMBEDCOLOR: '#d91414',
