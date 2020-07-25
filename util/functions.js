@@ -82,4 +82,9 @@ module.exports = client => {
     const updateExp = userToUpdate.experience - exp;
     await client.updateUser(member, { experience: updateExp });
   }
+  client.addCoins = async (client, member, coins) => {
+    const userToUpdate = await client.getUser(member, member.guild.id);
+    const updateCoins = userToUpdate.coins + coins;
+    await client.updateUser(member, { coins: updateCoins });
+  }
 };
