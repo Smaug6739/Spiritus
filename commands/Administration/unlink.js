@@ -15,6 +15,7 @@ module.exports.run = async (client, message, args,settings) => {
             if (!otherGuild) return message.channel.send(`${client.config.emojis.error}Je n'ai pas trouver ce serveur.`);
             const botMember = otherGuild.members.cache.get(client.user.id);
             if (!botMember) return message.channel.send(`${client.config.emojis.error}Le bot n'est pas sur ce serveur.`);
+            if(otherGuild.id === message.guild.id)return message.channel.send(`${client.config.emojis.error}Vous ne pouvez pas unlink un channel sur la meme guild.`)
             const otherChannel = client.resolveChannel(otherGuild, args[1]);
             if (!otherChannel || otherChannel.type != 'text') return message.channel.send(`${client.config.emojis.error}Je n'ai pas trouver ce channel`);
             const otherGuildMember = await otherGuild.members.fetch(message.author.id)
@@ -39,11 +40,11 @@ module.exports.run = async (client, message, args,settings) => {
             if (otherIndex === -1) return messageLoading.edit({content: `${client.config.emojis.error}Je n'ai trouver aucun lien entre ces 2 channels.`});
             const webhook2 = otherGuildDoc.links.join(' ')
             if(!webhook2)return messageLoading.edit(`${client.config.emojis.error}Le 2eme serveur n'est lié à aucun autre.`)
-            otherGuildDoc.links.splice(otherIndex, 1);
-            await otherGuildDoc.save();
             const index = settings.links.indexOf(doc);
             settings.links.splice(index, 1);
+            otherGuildDoc.links.splice(otherIndex, 1);
             await settings.save();
+            await otherGuildDoc.save();
             return messageLoading.edit(`${client.config.emojis.success} Le suivis des conversations à bien été désactiver.`);
         }catch(e){
             if(e.message.match("Cannot read property 'find' of undefined"))return message.channel.send(`${client.config.emojis.error}Ces channels ne sont pas lié.`)

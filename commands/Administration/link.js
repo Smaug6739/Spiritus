@@ -14,6 +14,7 @@ module.exports.run = async (client, message, args,settings) => {
         if(settings.links.length > 2) return message.channel.send(`${client.config.emojis.error}Votre serveur à atteint la limite des links (3).`)
         const otherGuild = client.resolveGuild(args[0]);
         if (!otherGuild) return message.channel.send(`${client.config.emojis.error}Je n'ai pas trouver ce serveur.`);
+        if(otherGuild.id === message.guild.id)return message.channel.send(`${client.config.emojis.error}Vous ne pouvez pas link un channel sur la meme guild.`)
         const botMember = otherGuild.members.cache.get(client.user.id);
         if (!botMember) return message.channel.send(`${client.config.emojis.error}Le bot n'est pas sur ce serveur.`);
         const otherChannel = client.resolveChannel(otherGuild, args[1]);
@@ -45,7 +46,7 @@ module.exports.run = async (client, message, args,settings) => {
         });
     }catch(e){
         message.channel.bulkDelete(1)
-        if(e.message.match('Maximum number of webhooks reached (10)'))return message.channel.send(`${client.config.emojis.error}Le nombre maximum de webhoks à été atteint dans un channel (10).`)
+        if(e.message.match('Maximum number of webhooks reached'))return message.channel.send(`${client.config.emojis.error}Le nombre maximum de webhoks à été atteint dans un channel (10).`)
         else {
             message.channel.send(`${client.config.emojis.error}Une erreur s'est produite. Merci de vérifier les paramètres.`)
             client.channels.cache.get(client.config.CHANNELCONSOLE).send(`<@${client.config.owner.id}> __**Rapport d'erreur sur le fichier**__ \`link.js\` \n __Arguments :__ ${args.join(' ')}\n Erreur : ${e.stack} `)
