@@ -57,6 +57,37 @@ module.exports = async(client, message) => {
     .setFooter(`BOT ID : ${client.user.id}`)
     return message.channel.send(embed)
   }*/
+  //-------------------------------LINKS---------------------------------------------------------------------------------------
+  try{
+    let stop = false;
+    let webhooks = await message.channel.fetchWebhooks().catch(() => stop = true);
+    if (!stop){
+      webhooks = webhooks.map(w => w.id);
+      if(settings.links){
+        if (settings.links.length > 0 && settings.links.find(a => a.find(w => webhooks.includes(w)))) {
+          firstWebhookID = settings.links.find(a => a.find(w => webhooks.includes(w))).find(b => webhooks.includes(b));
+          if (!firstWebhookID) return;
+          let otherWebhook = await client.fetchWebhook(settings.links.find(a => a.includes(firstWebhookID)).find(w => w !== firstWebhookID));
+          const link  = new WebhookClient(`${otherWebhook.id}`, `${otherWebhook.token}`);
+          link.send({
+              auth: true,
+              content: message.content,
+              username: message.author.username,
+              avatarURL: message.author.displayAvatarURL(),
+              allowedMentions: {
+                  everyone: false,
+                  roles: false,
+              }
+          }).catch();
+        }
+      }
+    }
+    
+  }catch(e){
+  }
+  
+  
+
   if (!message.content.startsWith(settings.prefix)) return;
 
 

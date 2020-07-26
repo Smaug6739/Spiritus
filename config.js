@@ -8,7 +8,7 @@ module.exports = {
 
   ADMIN: ["611468402263064577"],
 
-  
+  CHANNELCONSOLE : '725251200660013136',
   
   color: {
     EMBEDCOLOR: '#d91414',

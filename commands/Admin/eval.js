@@ -1,5 +1,5 @@
 const util = require('util');
-module.exports.run = async (client, message, args) =>{
+module.exports.run = async (client, message, args, settings) =>{
     if(!client.config.ADMIN.includes(message.author.id)) return message.channel.send(`${client.config.emojis.FALSE}Tu n'est pas admin du BOT `)
    
      /*async function clean(text) {

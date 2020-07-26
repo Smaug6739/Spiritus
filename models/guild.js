@@ -45,6 +45,10 @@ const guildSchema = mongoose.Schema({
     "type": Array,
     "default":[]
   },
+  links:{
+    "type": Array,
+    "default":[]
+  },
   commandes:{
     "type": Array,
     "default":[]
