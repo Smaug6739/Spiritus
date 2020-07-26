@@ -36,7 +36,6 @@ module.exports.run = async (client, message, args,settings) => {
             const otherGuildDoc = await client.getGuild(otherGuild)
             const otherDoc = otherGuildDoc.links.find(a => a.includes(firstWebhookID) && a.includes(otherWebhookID));
             const otherIndex = await otherGuildDoc.links.indexOf(otherDoc);
-            console.log(otherIndex)
             if (otherIndex === -1) return messageLoading.edit({content: `${client.config.emojis.error}Je n'ai trouver aucun lien entre ces 2 channels.`});
             const webhook2 = otherGuildDoc.links.join(' ')
             if(!webhook2)return messageLoading.edit(`${client.config.emojis.error}Le 2eme serveur n'est lié à aucun autre.`)
