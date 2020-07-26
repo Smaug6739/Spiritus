@@ -17,13 +17,12 @@ module.exports.run = async (client, message, args,settings) => {
         if(otherGuild.id === message.guild.id)return message.channel.send(`${client.config.emojis.error}Vous ne pouvez pas link un channel sur la meme guild.`)
         const botMember = otherGuild.members.cache.get(client.user.id);
         if (!botMember) return message.channel.send(`${client.config.emojis.error}Le bot n'est pas sur ce serveur.`);
-        const otherChannel = client.resolveChannel(otherGuild, args[1]);
-        if(otherChannel.id === message.channel.id) return message.channel.send(`${client.config.emojis.error}Vous ne pouvez pas lié le meme channel.`)
+        const otherChannel = await client.resolveChannel(otherGuild, args[1]);
         if (!otherChannel || otherChannel.type != 'text') return message.channel.send(`${client.config.emojis.error}Je n'ai pas trouver ce channel`);
         const otherGuildMember = await otherGuild.members.fetch(message.author.id)
         if (!otherGuildMember.hasPermission('MANAGE_GUILD')) return message.channel.send(`${client.config.emojis.error}Vous devez avoir la permission de gérer l'autre serveur pour utiliser cette commande.`);
         if (!botMember.hasPermission('MANAGE_WEBHOOKS')) return message.channel.send(`${client.config.emojis.error}J'ai besoin de la permission de gérer les webhooks sur l'autre serveur.`);
-        const messageLoading = await message.channel.send(`${client.config.emojis.loading}Loading...`);
+        const messageLoading = await message.channel.send(`${client.config.emojis.loading} Chargement...`);
         let otherGuildDB = await Guild.findOne({guildID: otherGuild.id});
         if (!otherGuildDB) return messageLoading.edit(`${client.config.emojis.error}Impossible de lié ces 2 serveurs.`)
         if(settings.links.length > 2) return messageLoading.edit(`${client.config.emojis.error}L'autre serveur à atteint la limite maximale des links (3).`)
