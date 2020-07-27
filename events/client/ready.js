@@ -9,7 +9,7 @@ module.exports =async client => {
     setInterval(() => {
       client.user.setPresence({ activity: { name: `${status [i++ % status.length]}`, type: 'WATCHING' }, status: 'online' });
     },60000)*/
-  client.user.setPresence({ activity: { name: `${client.config.PREFIX}help | ${client.config.PREFIX}cmds`, type: 'WATCHING' }, status: 'online' });
+  client.user.setPresence({ activity: { name: `${client.config.PREFIX}help | ${client.configuration.DEFAULTSETTINGS.prefix}cmds`, type: 'WATCHING' }, status: 'online' });
   const webhookClient  = new WebhookClient(`${client.configuration.WEBHOOKS.CONNECTIONS.DISCORD.ID}`, `${client.configuration.WEBHOOKS.CONNECTIONS.DISCORD.TOKEN}`);
   const embed = new MessageEmbed()
   .setTitle(`BOT ${client.user.tag} à démarer avec succès.`)
