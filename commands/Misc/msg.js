@@ -1,6 +1,7 @@
-const { MessageEmbed } = require("discord.js")
+//const { MessageEmbed } = require("discord.js")
 module.exports.run = (client, message, args) => {
-    if (args[1]) {
+    message.channel.send(args.join(' '))
+    /*if (args[1]) {
         if (!message.guild.me.hasPermission('MANAGE_MESSAGES')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de modifier le serveur.`);
         if (typeof message.mentions.channels.first() === 'undefined') {
             if (typeof message.mentions.users.first() !== 'undefined') {
@@ -61,19 +62,19 @@ module.exports.run = (client, message, args) => {
             .setTimestamp()
             .setFooter('BOT ID : 689210215488684044')
         message.channel.send(embed)
-    }
+    }*/
 }
 module.exports.help = {
 
-    name: 'message',
-    aliases: ['message', 'msg', 'm'],
+    name: 'say',
+    aliases: ['say'],
     category: 'misc',
     description: 'Permet d\'envoyer un message.',
     cooldown: 10,
-    usage: '<#channel> <votre_message> où <@user> <votre_message>',
-    exemple: ["message @Smaug Message", "message #spiritus Message"],
+    usage: 'text',
+    exemple: ["say Spiritus is ce best bot !"],
     isUserAdmin: false,
     permissions: true,
-    args: false,
+    args: true,
     sousCommdandes: []
 }
