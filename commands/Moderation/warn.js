@@ -9,7 +9,7 @@ module.exports.run = async (client, message, args) => {
         .setTitle('Avertissement :')
         .setAuthor(`${user.username} (${user.id})`)
         .setColor(`${client.config.color.ORANGE}`)
-        .setDescription(`**Action**: Warn\n**Raison**: ${reason}`)
+        .setDescription(`**Action**: Warn\n**Raison**: ${reason}\nServeur : ${message.guild.name}\nModérateur : ${message.author.username}`)
         .setThumbnail(user.displayAvatarURL())
         .setTimestamp()
         .setFooter(message.author.username, message.author.avatarURL());
