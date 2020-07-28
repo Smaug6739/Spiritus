@@ -85,7 +85,8 @@ module.exports.run = async(client, message, args,settings) => {
         if(!args[1]) return message.channel.send(`${client.config.emojis.error}Merci d'indiquer en premier argument le nom ou la mention du role a changer`)
         let role = client.resolveRole(message.guild, args[1])
         if(role == undefined) return message.channel.send(`${client.config.emojis.error}Je n'ai pas trouver ce role`)
-        
+        if(message.guild.me.roles.highest.comparePositionTo(role) <= 0) return message.channel.send(`${client.config.emojis.error}Je n'ai pas un role sufisant pour modifier ce role.`)
+
             let roleName = args.slice(2).join(" ") || 'new role'
             if(roleName.length > 99) return message.channel.send(`${client.config.emojis.error}Le nom du role doit etre inferieur a 100 caractères.`);
             await role.edit({ name: `${roleName}` }).then(

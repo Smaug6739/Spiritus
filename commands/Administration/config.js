@@ -55,6 +55,7 @@ module.exports.run = async (client, message, args, settings) => {
         }
         case  'rank-salon' : {
                 if(newSetting){
+                    /*
                     if(!isNaN(args[1])){
                         await client.updateGuild(message.guild, {salonranks : newSetting});
                         return message.channel.send(`rank-salon mis à jour : \`${newSetting}\``)
@@ -62,7 +63,20 @@ module.exports.run = async (client, message, args, settings) => {
                         client.updateGuild(message.guild, {salonranks : ""});
                         return message.channel.send(`Rank salon à bien été désactiver.`)
                     }
-                    else return message.channel.send(`L'id du salon n'est pas valide.`)
+                    else return message.channel.send(`L'id du salon n'est pas valide.`)*/
+                    if(args[1] === 'desactiver'){
+                        client.updateGuild(message.guild, {salonranks : ""});
+                        return message.channel.send(`Rank salon à bien été désactiver.`)
+                    }else{
+                        const channel = client.resolveChannel(message.guild, newSetting)
+                        if(!channel || channel == undefined)return message.channel.send(`${client.config.emojis.error}Je n'ai pas trouver ce channel`)
+                        else{
+                            await client.updateGuild(message.guild, {salonranks : channel.id});
+                            return message.channel.send(`${client.config.emojis.success}rank-salon mis à jour : \`${newSetting}\``)
+                        }
+                    }
+
+                    
                 }
                 message.channel.send(`rank-salon actuel : \`${settings.salonranks || 'Aucun salon'}\``);
             break;
