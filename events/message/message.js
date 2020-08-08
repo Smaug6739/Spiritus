@@ -57,8 +57,9 @@ module.exports = async(client, message) => {
     .setFooter(`BOT ID : ${client.user.id}`)
     return message.channel.send(embed)
   }*/
+
   //-------------------------------LINKS---------------------------------------------------------------------------------------
-  try{
+  /*try{
     let stop = false;
     let webhooks = await message.channel.fetchWebhooks().catch(() => stop = true);
     if (!stop){
@@ -85,7 +86,7 @@ module.exports = async(client, message) => {
     
   }catch(e){
   }
-  
+  */
   
 
   if (!message.content.startsWith(settings.prefix)) return;
