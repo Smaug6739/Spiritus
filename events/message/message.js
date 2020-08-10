@@ -103,7 +103,12 @@ module.exports = async(client, message) => {
   }
   //--------------------------------------------------------------------------
   if (!command) return;
-  if (command.help.permissions && !message.member.hasPermission('BAN_MEMBERS')) return message.reply("tu n'as pas les permissions pour taper cette commande.");
+  if(command.help.permissions){
+    const isMod = await client.checkMod(message.member, settings)
+    if(!isMod || isMod == false)return message.reply("tu n'as pas les permissions pour taper cette commande.");
+  }
+      
+  //if (command.help.permissions && !message.member.hasPermission('BAN_MEMBERS')) return message.reply("tu n'as pas les permissions pour taper cette commande.");
   if (command.help.args && !args.length) {
     let noArgsReply = `Il nous faut des arguments pour cette commande, ${message.author}!`;
    /* if (command.help.usage) noArgsReply += `\nVoici comment utiliser la commande: \`${settings.prefix}${command.help.name} ${command.help.usage}\``;

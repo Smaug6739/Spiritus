@@ -45,6 +45,10 @@ const guildSchema = mongoose.Schema({
     "type": Array,
     "default":[]
   },
+  modRoles:{
+    "type": Array,
+    "default":[]
+  },
   links:{
     "type": Array,
     "default":[]

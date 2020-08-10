@@ -57,6 +57,14 @@ module.exports = client => {
         return emoji;
         //console.log(guild.emojis.cache.find(e => e.id == '713119015186333716' ))
     }
+    client.checkMod = async (member, settings) => {
+        let isMod = false;
+        settings.modRoles.forEach(modRole => {
+            if (member.roles.cache.map(r => r.id).includes(modRole)) isMod = true;
+        });
+        if (member.hasPermission('ADMINISTRATOR') || member.hasPermission('MANAGE_GUILD') || (settings.modRoles && settings.modRoles.length > 0 && isMod)) return true;
+        return false;
+    }
    /* client.listenToReactionRole = async(client, message, emote, role) => {
         if (!emote.id && !this.isUnicode(emote)) emote = await this.resolveGuildEmoji(message.channel.guild, emote);
         // eslint-disable-next-line new-cap

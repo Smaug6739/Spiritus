@@ -101,6 +101,32 @@ module.exports.run = async (client, message, args,settings) => {
         .setFooter('BOT ID : 689210215488684044')
         return message.channel.send(embed);
     //-------------------------------------------EMOJIS-DELETE----------------------------------------------------
+    }else if(args[0].toLowerCase() === 'update'){
+        if(!message.member.hasPermission('MANAGE_EMOJIS'))return message.channel.send(`${client.config.emojis.error}Vous devez avoir la permission de gérer les emojis pour utiliser cette commande.`);
+        if(!message.guild.me.hasPermission('MANAGE_EMOJIS')) return message.channel.send(`${client.config.emojis.error}Je n'ai pas la permission de gérer les emojis.`);
+      const emojiUpdateDescription = new MessageEmbed()
+          .setTitle(`Sous commande : ${settings.prefix}emoji update`)
+          .setColor(client.config.color.EMBEDCOLOR)
+          .setDescription(`**Module :** Manangement\n**Description :** Permet de mettre à jour un emoji sur le serveur\n**Usage : **${settings.prefix}emoji update [nom/emoji/id]\n**Exemples :** \n ${settings.prefix}emoji update Bot Spiritus`)
+          .setFooter(`BOT ID : ${client.user.id}`)
+          .setTimestamp()
+          if(!args[2])return message.channel.send(emojiUpdateDescription)
+          const emoji = await client.resolveGuildEmoji(message.channel.guild, args[1]);
+          if(!emoji)return message.channel.send(`${client.config.emojis.error}Je n'ai pas trouver cet emoji.`)
+          else{
+              emoji.edit({
+                  name : `${args.slice(2).join(' ').toLowerCase()}`
+              })
+              const successEmbed = new MessageEmbed()
+              .setTitle(`Emoji update`)
+              .setColor(`${client.config.color.EMBEDCOLOR}`)
+              .setThumbnail(`https://cdn.discordapp.com/emojis/${emoji.id}${emoji.animated ? '.gif' : '.png'}`)
+              .addField(`Action :`,`Update`,true)
+              .addField(`Nom :`,`${emoji.name}`,true)
+              .setTimestamp()
+              .setFooter(`BOT ID : ${client.user.id}`)
+              message.channel.send(successEmbed)
+          }
     }else if(args[0].toLowerCase() === 'delete'){
         if(!message.member.hasPermission('MANAGE_EMOJIS'))return message.channel.send(`${client.config.emojis.error}Vous devez avoir la permission de gérer les emojis pour utiliser cette commande.`);
         if(!message.guild.me.hasPermission('MANAGE_EMOJIS')) return message.channel.send(`${client.config.emojis.error}Je n'ai pas la permission de gérer les emojis.`);
