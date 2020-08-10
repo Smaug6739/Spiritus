@@ -1,10 +1,13 @@
 const { Collection,MessageEmbed,WebhookClient } = require('discord.js');
 module.exports = async(client, message) => {
   if (message.channel.type === "dm") return //client.emit("directMessage", message);
-  if (!message.channel.permissionsFor(message.guild.me).has('SEND_MESSAGES')) return console.log('Je n\'ai pas la permission d\'envoyer messages');
+  if (!message.channel.permissionsFor(message.guild.me).has('SEND_MESSAGES')) return ;
   if (message.author.bot) return;
   const settings = await client.getGuild(message.guild);
   const dbUser = await client.getUser(message.member, message.guild.id);
+
+  //------------------------------SYSTEME-IGNORE-CHANNEL---------------------
+  if(settings.ignoreChannel.includes(message.channel.id))return;
   //--------------------------------SYSTEME-ANTI-INVITS----------------------
   if(settings.invitations){
     if(message.content.includes('discord.gg/')){

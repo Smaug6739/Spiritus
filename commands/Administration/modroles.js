@@ -42,7 +42,7 @@ module.exports.run = async (client, message, args,settings) => {
             description: null,
             fields: []   
         };
-        embed.description = '<@&'+settings.modRoles.join('')+'>';
+        embed.description = '<@&'+settings.modRoles.join('>, <@&') + '>';
         return message.channel.send({embed});
     }
 }
