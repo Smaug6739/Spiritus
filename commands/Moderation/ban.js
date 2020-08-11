@@ -14,7 +14,7 @@ module.exports.run = async (client, message, args, settings) => {
     }
     //if(!args[1])return message.channel.send(`${client.config.emojis.FALSE} Merci d'indiquer le contenu d'un message.`)
     let query;
-    let reason = 'Aucune raison';
+    let reason = 'No reason provided';
     query = args.slice(1).join(' ')
     reason = encodeURIComponent(reason);
     const msgs = await message.channel.messages.fetch()
