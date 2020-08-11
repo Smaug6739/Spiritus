@@ -14,7 +14,7 @@ module.exports.run = async (client, message, args, settings) => {
     }
     //if(!args[1])return message.channel.send(`${client.config.emojis.FALSE} Merci d'indiquer le contenu d'un message.`)
     let query;
-    let reason = 'No reason provided';
+    let reason = 'Aucune raison donnée';
     query = args.slice(1).join(' ')
     reason = encodeURIComponent(reason);
     const msgs = await message.channel.messages.fetch()
@@ -27,14 +27,15 @@ module.exports.run = async (client, message, args, settings) => {
     for (const id of ids) {
         let add = true;
         let user = await client.resolveMember(message.channel.guild, id);
-        if (users.includes(id)) add = false;
+        console.log(user)
+       /* if (users.includes(id)) add = false;
         if (!user && id.match(/^\d+$/)) {
             user = await client.getRESTUser(id).catch(() => {
                 add = false;
             });
-        }
-        if (!user) add = false;
-        if(user.id != message.author.id){
+        }*/
+        if (!user) add = false ;
+        if(id != message.author.id){
             if (add) users.push(user.id);
 
         }
