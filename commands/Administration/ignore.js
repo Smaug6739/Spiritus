@@ -3,7 +3,7 @@ module.exports.run = async (client, message, args,settings) => {
     if(!args[0]){
         const embed = new MessageEmbed()
         .setTitle('Commande ignore')
-        .setDescription(`La commande __ignore__ permet de gérer les salons ignorés par le bot graces aux sous commandes suivantes :\n\n${client.config.emojis.fleche}__ignore add__ permet d'ignorer un salon pour le serveur.\n${client.config.emojis.fleche}__ignore rem__ permet de supprimer un salon ignoré du serveur.\n${client.config.emojis.fleche}__ignore liste__ permet de voir la liste des salons ignorés du serveur du serveur.`)
+        .setDescription(`La commande __ignore__ permet de gérer les salons ignorés par le bot graces aux sous commandes suivantes :\n\n${client.config.emojis.fleche}__ignore add__ permet d'ignorer un salon pour le serveur.\n${client.config.emojis.fleche}__ignore rem__ permet de supprimer un salon ignoré du serveur.\n${client.config.emojis.fleche}__ignore liste__ permet de voir la liste des salons ignorés du serveur.`)
         .setColor(`${client.config.color.EMBEDCOLOR}`)
         .setTimestamp()
         .setFooter(`BOR ID : ${client.user.id}`)

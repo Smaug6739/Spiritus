@@ -49,6 +49,10 @@ const guildSchema = mongoose.Schema({
     "type": Array,
     "default":[]
   },
+  filter:{
+    "type": Array,
+    "default":[]
+  },
   ignoreChannel:{
     "type": Array,
     "default":[]
