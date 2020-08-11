@@ -34,6 +34,7 @@ module.exports.run = async (client, message, args, settings) => {
                 add = false;
             });
         }*/
+        
         if (!user) add = false ;
         if(id != message.author.id){
             if (add) users.push(user.id);
