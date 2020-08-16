@@ -7,7 +7,20 @@ module.exports = async(client, message) => {
   const dbUser = await client.getUser(message.member, message.guild.id);
 
   //------------------------------SYSTEME-IGNORE-CHANNEL---------------------
-  if(settings.ignoreChannel.includes(message.channel.id))return;
+  if(settings.ignoreChannel){
+    if(settings.ignoreChannel.includes(message.channel.id)) return;
+  }
+  //----------------------------------SYSTEME-FILTER-------------------------
+  if(settings.filter){
+    settings.filter.forEach(content => {
+      if(message.content.includes(content)){
+        message.delete()
+        message.reply(`ce mot est interdit sur ce serveur !`)
+      }
+    });
+      
+     
+  }
   //--------------------------------SYSTEME-ANTI-INVITS----------------------
   if(settings.invitations){
     if(message.content.includes('discord.gg/')){
