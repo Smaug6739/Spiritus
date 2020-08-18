@@ -17,9 +17,7 @@ module.exports = async(client, message) => {
         message.delete()
         message.reply(`ce mot est interdit sur ce serveur !`)
       }
-    });
-      
-     
+    });  
   }
   //--------------------------------SYSTEME-ANTI-INVITS----------------------
   if(settings.invitations){
