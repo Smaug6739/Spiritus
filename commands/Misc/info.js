@@ -1,6 +1,6 @@
 const { MessageEmbed } = require("discord.js");
 const moment = require('moment');
-module.exports.run = (client, message, args, settings) => {
+module.exports.run = async (client, message, args, settings) => {
     if (!args[0]) {
         const embed = new MessageEmbed()
             .setTitle('Commande info')
@@ -18,21 +18,23 @@ module.exports.run = (client, message, args, settings) => {
             .setFooter('BOT ID : 689210215488684044')
             .setTimestamp()
         if (!args[1]) return message.channel.send(infoUserDescription)
-        let use = client.resolveMember(message.guild, args.slice(1).join(' '))//message.mentions.members.first()||message.member
-        if (use == undefined) {
-            let user = client.resolveUser(args[1])
-            if (user != undefined) {
-                if (user.bot) BOTSTATUS = 'Vrai'
+        let userInfo = await client.resolveMember(message.guild , args[1])//message.mentions.members.first()||message.member
+        await console.log(userInfo)
+        if (!userInfo) {
+            client.users.fetch(args[1]).then(u => {
+                if(!u) return message.channel.send(`${client.config.emojis.error}Je n'ai pas trouver cet utilisateur.`)
+                if (u.bot) BOTSTATUS = 'Vrai'
                 else BOTSTATUS = 'Faux'
                 const embed = new MessageEmbed()
-                    .setAuthor(`${user.username}#${user.discriminator}`, `${user.avatarURL()}`)
+                    .setAuthor(`${u.username}#${u.discriminator}`, `${u.displayAvatarURL()}`)
                     .setColor(`${client.config.color.EMBEDCOLOR}`)
-                    .setThumbnail(user.displayAvatarURL())
+                    .setThumbnail(u.displayAvatarURL())
                     .addField(`\u200b`, `BOT : ${BOTSTATUS}`)
                     .setDescription('Cette personne n\'est pas sur le serveur')
-                    .setFooter(`User ID : ${user.id}`)
-                return message.channel.send(embed)
-            } else message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver cet utilisateur.`)
+                    .setFooter(`User ID : ${u.id}`)
+                    return message.channel.send(embed)
+            })
+            
         } else {
             //if (use.user.presence.status === 'online') status = `${client.config.emojis.ONLINE}Online`  ;
             //if (use.user.presence.status === 'idle') status = `${client.config.emojis.IDLE}Idle`;
@@ -40,26 +42,27 @@ module.exports.run = (client, message, args, settings) => {
             //if (use.user.presence.status === 'offline') status = `${client.config.emojis.OFFLINE}Offline`;
             //if (use.user.presence.clientStatus != null && use.user.presence.clientStatus.desktop === 'online') plateforme = '🖥️ Ordinateur'
             //if (use.user.presence.clientStatus != null && use.user.presence.clientStatus.mobile === 'online') plateforme = '📱 Mobile'
-            let permissions_arr = use.permissions.toArray().join(', ');
+            let permissions_arr = userInfo.permissions.toArray().join(', ');
             let permissions = permissions_arr.toString()
             permissions = permissions.replace(/\_/g, ' ');
             const embed = new MessageEmbed()
-            embed.setFooter(`${use.user.username} ID : ${use.user.id}`, use.user.displayAvatarURL(), true) //OK
-            embed.setThumbnail(use.user.displayAvatarURL())//OK
+            embed.setFooter(`${userInfo.user.username} ID : ${userInfo.user.id}`, userInfo.user.displayAvatarURL(), true) //OK
+            embed.setThumbnail(userInfo.user.displayAvatarURL())//OK
             embed.setColor(`${client.config.color.EMBEDCOLOR}`)//OK
-            embed.setTitle(`${use.user.username}`)//OK
-            embed.addField('ID :', `${use.user.id}`, true)//OK
-            embed.addField('Tag :', `${use.user.tag}`, true)//OK
-            embed.addField('A rejoins :', `${moment.utc(use.joinedAt).format('DD/MM/YYYY - hh:mm')}`, true)//OK --------- IDLE
-            embed.addField('Compte crée le :', `${moment.utc(use.user.createdAt).format('DD/MM/YYYY - hh:mm')}`, true)//
-            embed.addField('Roles :', `${use.roles.cache.map(r => r.toString()).join('')}`)//OK            
-            embed.addField('User information:', `** Permissions:** ${use.permissions.toArray().sort().map(permissions => `${permissions.split("_").map(x => x[0] + x.slice(1).toLowerCase()).join(" ")}`).join(", ") || "none"}`)//OK
+            embed.setTitle(`${userInfo.user.username}`)//OK
+            embed.addField('ID :', `${userInfo.user.id}`, true)//OK
+            embed.addField('Tag :', `${userInfo.user.tag}`, true)//OK
+            embed.addField('A rejoins :', `${moment.utc(userInfo.joinedAt).format('DD/MM/YYYY - hh:mm')}`, true)//OK --------- IDLE
+            embed.addField('Compte crée le :', `${moment.utc(userInfo.user.createdAt).format('DD/MM/YYYY - hh:mm')}`, true)//
+            embed.addField('Roles :', `${userInfo.roles.cache.map(r => r.toString()).join('')}`)//OK            
+            embed.addField('User information:', `** Permissions:** ${userInfo.permissions.toArray().sort().map(permissions => `${permissions.split("_").map(x => x[0] + x.slice(1).toLowerCase()).join(" ")}`).join(", ") || "none"}`)//OK
             embed.setTimestamp();
             message.channel.send(embed);
         }
     } else if (args[0].toLowerCase() === 'bot') {
-        let v = require('./../../package.json')
-        v = v.version
+        let package = require('./../../package.json')
+        const verssionBot = package.version
+        const verssionDjs = package.dependencies["discord.js"]
         const embed = new MessageEmbed()
             .setColor(`${client.config.color.EMBEDCOLOR}`)
             .setAuthor(`${client.user.username} Info`, client.user.avatarURL())
@@ -71,9 +74,9 @@ module.exports.run = (client, message, args, settings) => {
                 { name: 'Serveurs', value: `${client.guilds.cache.size.toString()}`, inline: true },
                 { name: 'Salons', value: `${client.channels.cache.size.toString()}`, inline: true },
                 { name: 'Utilisateurs', value: `${client.guilds.cache.map(g => g.memberCount).reduce((a, b) => a + b)}`, inline: true },
-                { name: 'Version', value: `${v}`, inline: true },
+                { name: 'Version', value: `${verssionBot}`, inline: true },
                 { name: 'Librairie ', value: `discord.js (javascript)`, inline: true },
-                { name: 'Librairie verssion', value: `12.2.0`, inline: true },
+                { name: 'Librairie verssion', value: `${verssionDjs.replace('^','')}`, inline: true },
                 { name: 'Support', value: `[Serveur support ](https://discord.gg/TC7Qjfs)`, inline: true },
                 { name: 'Invitation :', value: `[Invite](https://discordapp.com/oauth2/authorize?client_id=689210215488684044&scope=bot&permissions=1946446974)`, inline: true },
                 { name: 'Site internet :', value: `[Site](https://mail.spiritus-tech.mon.world)`, inline: true })
