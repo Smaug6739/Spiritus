@@ -1,10 +1,24 @@
 const { Collection,MessageEmbed,WebhookClient } = require('discord.js');
 module.exports = async(client, message) => {
   if (message.channel.type === "dm") return //client.emit("directMessage", message);
-  if (!message.channel.permissionsFor(message.guild.me).has('SEND_MESSAGES')) return console.log('Je n\'ai pas la permission d\'envoyer messages');
+  if (!message.channel.permissionsFor(message.guild.me).has('SEND_MESSAGES')) return ;
   if (message.author.bot) return;
   const settings = await client.getGuild(message.guild);
   const dbUser = await client.getUser(message.member, message.guild.id);
+
+  //------------------------------SYSTEME-IGNORE-CHANNEL---------------------
+  if(settings.ignoreChannel){
+    if(settings.ignoreChannel.includes(message.channel.id)) return;
+  }
+  //----------------------------------SYSTEME-FILTER-------------------------
+  if(settings.filter){
+    settings.filter.forEach(content => {
+      if(message.content.includes(content)){
+        message.delete()
+        message.reply(`ce mot est interdit sur ce serveur !`)
+      }
+    });  
+  }
   //--------------------------------SYSTEME-ANTI-INVITS----------------------
   if(settings.invitations){
     if(message.content.includes('discord.gg/')){
@@ -103,7 +117,12 @@ module.exports = async(client, message) => {
   }
   //--------------------------------------------------------------------------
   if (!command) return;
-  if (command.help.permissions && !message.member.hasPermission('BAN_MEMBERS')) return message.reply("tu n'as pas les permissions pour taper cette commande.");
+  if(command.help.permissions){
+    const isMod = await client.checkMod(message.member, settings)
+    if(!isMod || isMod == false)return message.reply("tu n'as pas les permissions pour taper cette commande.");
+  }
+      
+  //if (command.help.permissions && !message.member.hasPermission('BAN_MEMBERS')) return message.reply("tu n'as pas les permissions pour taper cette commande.");
   if (command.help.args && !args.length) {
     let noArgsReply = `Il nous faut des arguments pour cette commande, ${message.author}!`;
    /* if (command.help.usage) noArgsReply += `\nVoici comment utiliser la commande: \`${settings.prefix}${command.help.name} ${command.help.usage}\``;
@@ -123,9 +142,12 @@ module.exports = async(client, message) => {
 
   //if (command.help.isUserAdmin && !user) return message.reply('il faut mentionner un utilisateur.');
   if (command.help.isUserAdmin && args[0]){
-    let user = client.resolveMember(message.guild,args[0])
+    let user = await client.resolveMember(message.guild,args[0])
+    const isMod = await client.checkMod(user, settings)
+
     if(user){
-    if(user.hasPermission('BAN_MEMBERS')) return message.reply("tu ne peux pas utiliser cette commande sur cet utilisateur.");
+      if(isMod == true)return message.reply("tu ne peux pas utiliser cette commande sur cet utilisateur.");
+    //if(user.hasPermission('BAN_MEMBERS')) return message.reply("tu ne peux pas utiliser cette commande sur cet utilisateur.");
     }
   }
   //if (command.help.isUserAdmin && message.guild.member(user).hasPermission('BAN_MEMBERS')) return message.reply("tu ne peux pas utiliser cette commande sur cet utilisateur.");

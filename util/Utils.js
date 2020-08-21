@@ -4,11 +4,11 @@ module.exports = client => {
     client.console = message =>{
         console.log(message)
     }
-    client.resolveMember = (guild, arg) => {
+    client.resolveMember = async (guild, arg) => {
         if (!arg || !guild || guild.avalaible) {
             return;
         }
-        let user = guild.members.cache.find(mem => mem.id === arg.replace('!', '').replace(/<@|>/g, '') || mem.user.username.toLowerCase().startsWith(arg.toLowerCase()) || mem.user.username.toLowerCase() === arg.toLowerCase() || `${mem.user.username.toLowerCase()}#${mem.user.discriminator}` === arg.toLowerCase() || (mem.nick && mem.nick.toLowerCase().startsWith(arg)) || (mem.nick && mem.nick.toLowerCase() === arg.toLowerCase()));
+        let user = guild.members.cache.find(mem => mem.id === arg||mem.id === arg.replace('!', '').replace(/<@|>/g, '') || mem.user.username.toLowerCase().startsWith(arg.toLowerCase()) || mem.user.username.toLowerCase() === arg.toLowerCase() || `${mem.user.username.toLowerCase()}#${mem.user.discriminator}` === arg.toLowerCase() || (mem.nick && mem.nick.toLowerCase().startsWith(arg)) || (mem.nick && mem.nick.toLowerCase() === arg.toLowerCase()));
         return user;
     }
     client.resolveUser = (arg) => {
@@ -56,6 +56,16 @@ module.exports = client => {
         emoji = guild.emojis.cache.find(e => e.id == arg || e.name == arg) || guild.emojis.cache.find(e => e.id == arg.replace('<:', '').replace('<a:', '').replace('>', '').split(':')[1] ) // await guild.emojis.cache.find(arg.replace('<:', '').replace('<a:', '').replace('>', '').split(':')[1]).catch(() => null);
         return emoji;
         //console.log(guild.emojis.cache.find(e => e.id == '713119015186333716' ))
+    }
+    client.checkMod = async (member, settings) => {
+        let isMod = false;
+        if(settings.modRoles){
+            settings.modRoles.forEach(modRole => {
+                if (member.roles.cache.map(r => r.id).includes(modRole)) isMod = true;
+            });
+        }
+        if (member.hasPermission('ADMINISTRATOR') || member.hasPermission('MANAGE_GUILD') || (settings.modRoles && settings.modRoles.length > 0 && isMod)) return true;
+        return false;
     }
    /* client.listenToReactionRole = async(client, message, emote, role) => {
         if (!emote.id && !this.isUnicode(emote)) emote = await this.resolveGuildEmoji(message.channel.guild, emote);

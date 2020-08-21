@@ -4,7 +4,7 @@ module.exports.run = async(client, message, args,settings) => {
         const embed = new MessageEmbed()
         .setTitle('Commande role')
         .setColor(client.config.color.EMBEDCOLOR)
-        .setDescription(`La commande __roles__ permet de gérer les roles du serveur graces aux sous commandes suivantes :\n\n${client.config.emojis.fleche}__role liste__ donne la liste des roles du serveur.\n${client.config.emojis.fleche}__role create__ permet de crée un role.\n${client.config.emojis.fleche}__role update__ permet de mettre a jour le nom d'un role.\n${client.config.emojis.fleche}__role delete__ permet de supprimer un role.\n${client.config.emojis.fleche}__role add__ permet de donner un role a une personne.\n${client.config.emojis.fleche}__role rem__ permet de retirer le role d'une personne.`)
+        .setDescription(`La commande __roles__ permet de gérer les roles du serveur graces aux sous commandes suivantes :\n\n${client.config.emojis.fleche}__role liste__ donne la liste des roles du serveur.\n${client.config.emojis.fleche}__role create__ permet de crée un role.\n${client.config.emojis.fleche}__role update__ permet de mettre a jour le nom d'un role.\n${client.config.emojis.fleche}__role delete__ permet de supprimer un role.\n${client.config.emojis.fleche}__role color__ permet de mettre a jour la couleur d'un role.\n${client.config.emojis.fleche}__role add__ permet de donner un role a une personne.\n${client.config.emojis.fleche}__role rem__ permet de retirer le role d'une personne.`)
         .setTimestamp()
         .setFooter('BOT ID : 689210215488684044')
         return message.channel.send(embed)
@@ -116,6 +116,31 @@ module.exports.run = async(client, message, args,settings) => {
         message.guild.setRolePositions([{ role: role, position: newPosition}]).then(message.channel.send(`${client.config.emojis.success}J'ai bien mis à jour la position du role \`${role.name}\``))
 
     
+    }
+    if(args[0].toLowerCase() === 'color'){
+        if(!message.member.hasPermission('MANAGE_ROLES'))return message.channel.send(`${client.config.emojis.error}Vous devez avoir la permission de gérer les roles pour utiliser cette commande.`)
+        if(!message.guild.me.hasPermission('MANAGE_ROLES')) return message.channel.send(`${client.config.emojis.error}Je n'ai pas la permission de modifier les roles.`);
+        const roleUpdateDescription = new MessageEmbed()
+        .setTitle(`Sous commande : ${settings.prefix}role color`)
+        .setColor(client.config.color.EMBEDCOLOR)
+        .setDescription(`**Module :** Manangement\n**Description :** Permet de modifier un role sur le serveur\n**Usage : ** ${settings.prefix}role color [nom/id/mention]\n**Exemples :** \n ${settings.prefix}role color @Spiritus`)
+        .setFooter('BOT ID : 689210215488684044')
+        .setTimestamp()
+        if(!args[1])return message.channel.send(roleUpdateDescription)
+        let role = client.resolveRole(message.guild, args[1])
+        if(role == undefined) return message.channel.send(`${client.config.emojis.error}Je n'ai pas trouver ce role`)
+        if(message.guild.me.roles.highest.comparePositionTo(role) <= 0) return message.channel.send(`${client.config.emojis.error}Je n'ai pas un role sufisant pour modifier ce role.`)
+        let roleColor = `#${Math.floor(Math.random() * 10)}${Math.floor(Math.random() * 10)}${Math.floor(Math.random() * 10)}${Math.floor(Math.random() * 10)}${Math.floor(Math.random() * 10)}${Math.floor(Math.random() * 10)}`
+        const embedColorSuccess = new MessageEmbed()
+        .setTitle(`Mise à jour d'un role`)
+        .addField(`Nom :`,`${role.name}`,true)
+        .addField(`Couleur : `,`${roleColor}`,true)
+        .setColor(roleColor)
+        .setTimestamp()
+        
+            await role.edit({ color: `${roleColor}` }).then(
+                message.channel.send(embedColorSuccess)
+            )
     }
     if(args[0].toLowerCase() === 'add'){
         if(!message.member.hasPermission('MANAGE_ROLES'))return message.channel.send(`${client.config.emojis.error}Vous devez avoir la permission de gérer les roles pour utiliser cette commande.`)

@@ -45,6 +45,18 @@ const guildSchema = mongoose.Schema({
     "type": Array,
     "default":[]
   },
+  modRoles:{
+    "type": Array,
+    "default":[]
+  },
+  filter:{
+    "type": Array,
+    "default":[]
+  },
+  ignoreChannel:{
+    "type": Array,
+    "default":[]
+  },
   links:{
     "type": Array,
     "default":[]

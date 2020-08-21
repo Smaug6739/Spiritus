@@ -4,6 +4,7 @@ const { loadCommands, loadEvents } = require("./util/loader");
 //myIntents.add('GUILDS','GUILD_MEMBERS','GUILD_MESSAGES','DIRECT_MESSAGES');
 const client = new Client({// ws: { intents: myIntents }
   //messageCacheMaxSize : 0,
+  disableMentions : 'everyone',
   ws: { intents: ['GUILDS','GUILD_MEMBERS','GUILD_MESSAGES'] },
   /*partials: ['MESSAGE', 'CHANNEL', 'REACTION']*/});
 require('./util/functions')(client);
