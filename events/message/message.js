@@ -142,9 +142,12 @@ module.exports = async(client, message) => {
 
   //if (command.help.isUserAdmin && !user) return message.reply('il faut mentionner un utilisateur.');
   if (command.help.isUserAdmin && args[0]){
-    let user = client.resolveMember(message.guild,args[0])
+    let user = await client.resolveMember(message.guild,args[0])
+    const isMod = await client.checkMod(user, settings)
+
     if(user){
-    if(user.hasPermission('BAN_MEMBERS')) return message.reply("tu ne peux pas utiliser cette commande sur cet utilisateur.");
+      if(isMod == true)return message.reply("tu ne peux pas utiliser cette commande sur cet utilisateur.");
+    //if(user.hasPermission('BAN_MEMBERS')) return message.reply("tu ne peux pas utiliser cette commande sur cet utilisateur.");
     }
   }
   //if (command.help.isUserAdmin && message.guild.member(user).hasPermission('BAN_MEMBERS')) return message.reply("tu ne peux pas utiliser cette commande sur cet utilisateur.");
