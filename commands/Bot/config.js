@@ -1,5 +1,6 @@
 const { MessageEmbed} = require("discord.js");
 module.exports.run = async (client, message, args, settings) => {
+    if(!message.member.hasPermission('MANAGE_GUILD'))return message.channel.send(`${client.config.emojis.error}Vous devez avoir la permission de gérer le serveur pour utiliser cette commande.`)
     const getSetting = args[0];
     const newSetting = args.slice(1).join(" ");
     switch(getSetting){
@@ -116,7 +117,7 @@ module.exports.help = {
     usage: '[paramètre] (valeur)',
     exemple :[],
     isUserAdmin: false,
-    permissions: true,
+    permissions: false,
     args: true,
     sousCommdandes : ["config prefix"/*,"config logChannel","config welcomeMessage"*/,"config experience","config admin-invites","config rankcard","config rank-salon",/*"config serveurstats"*/]
 }

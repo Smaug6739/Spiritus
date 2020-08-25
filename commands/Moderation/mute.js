@@ -1,6 +1,6 @@
 const ms = require("ms");
 const { MessageEmbed } = require("discord.js");
-module.exports.run = async (client, message, args) => {
+module.exports.run = async (client, message, args, settings) => {
   if(!message.guild.me.hasPermission('MANAGE_CHANNELS')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de mute.`);
   if(!message.guild.me.hasPermission('MANAGE_ROLES')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de modifier les roles.`);
   if(!message.mentions.members.first())return message.channel.send(`${client.config.emojis.FALSE}Vous devez mentionner une personne.`)
@@ -32,14 +32,21 @@ module.exports.run = async (client, message, args) => {
   setTimeout(() => {
     user.roles.remove(muteRole.id);
   }, ms(muteTime));
-
   const embed = new MessageEmbed()
     .setAuthor(`${user.user.username} (${user.id})`, user.user.avatarURL())
     .setColor(`${client.config.color.ORANGE}`)
     .setDescription(`**Action**: mute\n**Temps**: ${ms(ms(muteTime))}`)
     .setTimestamp()
     .setFooter(message.author.username, message.author.avatarURL());
-    message.channel.send(embed);
+    if(settings.modLogs){
+    const channel = client.resolveChannel(message.guild, settings.modLogs)
+      if(channel){
+          if(channel.permissionsFor(message.guild.me).has('SEND_MESSAGES')){
+              channel.send(embed)
+          }
+      }
+    }
+  
 };
 
 module.exports.help = {

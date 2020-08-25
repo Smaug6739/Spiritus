@@ -37,6 +37,10 @@ const guildSchema = mongoose.Schema({
     "type": String,
     "default": ""
   },
+  modLogs :{
+    "type": String,
+    "default": ""
+  },
   premium:{
     "type": Boolean,
     "default": false
