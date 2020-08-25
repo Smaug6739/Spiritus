@@ -55,9 +55,9 @@ module.exports.run = async(client, message, args, settings) => {
     };
 };
 module.exports.help = {
-    name : 'experience',
-    aliases : ['experience'],
-    category : 'misc',
+    name : 'adminxp',
+    aliases : ['adminxp'],
+    category : 'experience',
     description : 'Gère l\'exp d\'une personne.',
     cooldown : 10,
     usage : '<@user> <nb_experience>',

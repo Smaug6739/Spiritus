@@ -19,7 +19,7 @@ module.exports.run = async (client, message, args,settings) => {
         .setFooter(`BOT ID : ${client.user.id}`)
         .setTimestamp()
         message.channel.send(embed)*/
-        const emojisListe = message.guild.emojis.forceFetch.cache.map(role => role.toString() );
+        const emojisListe = message.guild.emojis.cache.map(emojis => emojis.toString() );
         let embed = {
             title: `Liste des emojis pour le serveur **${message.guild.name}** | ${emojisListe.length} au totale`,
             thumbnail: {

@@ -14,6 +14,18 @@ const userSchema = mongoose.Schema({
     "type": Number,
     "default": 0
   },
+  coins: {
+    "type": Number,
+    "default": 0
+  },
+  daily: {
+    "type": Date,
+    "default": 0
+  },
+  objets:{
+    "type": Array,
+    "default":[]
+  },
   warns: {
     "type": Number,
     "default": 0

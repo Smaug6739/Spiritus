@@ -1,6 +1,6 @@
 module.exports = async (client, messageReaction, user) => {
 
-
+  //console.log('RR add')
   /*const guild = messageReaction.message.channel.guild
   const member = guild.members
   console.log(member)*/

@@ -65,6 +65,10 @@ const guildSchema = mongoose.Schema({
     "type": Array,
     "default":[]
   },
+  shop:{
+    "type": Array,
+    "default":[]
+  },
   kickauto:{
     "type": Boolean,
     "default": defaults.kickauto

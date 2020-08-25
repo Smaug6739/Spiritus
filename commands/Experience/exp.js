@@ -48,8 +48,7 @@ module.exports.run = async (client, message, args, settings, dbUser) => {
                 const attachment = new MessageAttachment(canvas.toBuffer(), 'rank-image.png');
                 channel.send(`\u200b`, attachment);
             } else {
-                //Si la persnne mentionné a pas de rank
-                return message.channel.send(`${client.config.emojis.FALSE} La personne mentionné n'a pas de rank.`)
+                return message.channel.send(`${client.config.emojis.FALSE} La personne mentionnée n'a pas de rank.`)
             }
         } else {
             let pourcentage = dbUser.experience
@@ -91,7 +90,7 @@ module.exports.run = async (client, message, args, settings, dbUser) => {
 module.exports.help = {
     name: 'rank',
     aliases: ['rank', 'uexp', 'exp', 'userexperience'],
-    category: 'misc',
+    category: 'experience',
     description: 'Donne l\'exp d\'une personne.',
     cooldown: 10,
     usage: '<@user>',

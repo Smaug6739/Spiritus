@@ -73,7 +73,7 @@ module.exports = async(client, message) => {
   }*/
 
   //-------------------------------LINKS---------------------------------------------------------------------------------------
-  /*try{
+  try{
     let stop = false;
     let webhooks = await message.channel.fetchWebhooks().catch(() => stop = true);
     if (!stop){
@@ -100,7 +100,7 @@ module.exports = async(client, message) => {
     
   }catch(e){
   }
-  */
+  
   
 
   if (!message.content.startsWith(settings.prefix)) return;

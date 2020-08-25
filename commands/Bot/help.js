@@ -6,7 +6,7 @@ module.exports.run = (client, message, args, settings) => {
       const embed = new MessageEmbed()
         .setColor(`${client.config.color.EMBEDCOLOR}`)
         .setAuthor('Liste  des commandes :',`${client.user.avatarURL()}`)
-        .addField("Liste des commandes", `Une liste de toutes les sous-catégories disponibles et leurs commandes.\nPour plus d'informations sur une commande, tapez \`${settings.prefix}help <command_name>\`.`)
+        .addField("Liste des commandes", `Une liste de toutes les sous-catégories disponibles et leurs commandes.\nPour plus d'informations sur une commande, executez \`${settings.prefix}help <command_name>\`.`)
         .setTimestamp()
         if(message.guild.iconURL()) embed.setFooter('BOT ID : 689210215488684044', `${message.guild.iconURL()}`);
         else embed.setFooter(`BOT ID : ${client.user.id}`);
@@ -39,7 +39,7 @@ module.exports.run = (client, message, args, settings) => {
   module.exports.help = {
     name: "help",
     aliases: ['help','cmds'],
-    category: 'misc',
+    category: 'bot',
     description: "Liste des commandes du bot.",
     cooldown: 3,
     usage: '<command_name>',

@@ -81,7 +81,7 @@ module.exports.run = async (client, message, args, settings) => {
                 message.channel.send(`rank-salon actuel : \`${settings.salonranks || 'Aucun salon'}\``);
             break;
         }
-        case 'serveurstats' :{
+        /*case 'serveurstats' :{
             let serverstats ;
             if(settings.serveurstats == true) serverstats = false;
             else serverstats = true;
@@ -94,12 +94,12 @@ module.exports.run = async (client, message, args, settings) => {
                         message.guild.channels.cache.find(c => c.name.startsWith("All Members :")).delete()
                     }
                     break;
-            }
+            }*/
         default : {
             const config = new MessageEmbed()
             .setTitle(`Commande config`)
             .setColor(client.config.color.EMBEDCOLOR)
-            .setDescription(`**Module :** Admin\n**Description :** Permet de configurer le bot sur votre serveur.\n**Usage : ** ${settings.prefix}config [action] (valeur)\n**Exemples :** \n ${settings.prefix}config prefix // \n ${settings.prefix}config serveurstats`)
+            .setDescription(`**Module :** Admin\n**Description :** Permet de configurer le bot sur votre serveur.\n**Usage : ** ${settings.prefix}config [action] (valeur)\n**Exemples :** \n ${settings.prefix}config prefix //`)
             .setFooter('BOT ID : 689210215488684044')
             .setTimestamp()
             message.channel.send(config)
@@ -110,7 +110,7 @@ module.exports.help = {
     
     name: "config",
     aliases: ['config'],
-    category: 'administration',
+    category: 'bot',
     description: "Permet de configurer le bot.",
     cooldown: 10,
     usage: '[paramètre] (valeur)',
@@ -118,5 +118,5 @@ module.exports.help = {
     isUserAdmin: false,
     permissions: true,
     args: true,
-    sousCommdandes : ["config prefix"/*,"config logChannel","config welcomeMessage"*/,"config experience","config admin-invites","config rankcard","config rank-salon","config serveurstats"]
+    sousCommdandes : ["config prefix"/*,"config logChannel","config welcomeMessage"*/,"config experience","config admin-invites","config rankcard","config rank-salon",/*"config serveurstats"*/]
 }

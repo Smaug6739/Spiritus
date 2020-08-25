@@ -37,7 +37,7 @@ module.exports = {
     error: '<a:Z8Z8:712562703318646844>',
     loading: '<a:loading:688692468195262475>',
     fleche: '<:fleche:721288083974389842>',
-
+    coins : '<:coin:746996861121986610>'
   },
   
 }

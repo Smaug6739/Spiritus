@@ -64,7 +64,7 @@ module.exports = client => {
                 if (member.roles.cache.map(r => r.id).includes(modRole)) isMod = true;
             });
         }
-        if (member.hasPermission('ADMINISTRATOR') || member.hasPermission('MANAGE_GUILD') || (settings.modRoles && settings.modRoles.length > 0 && isMod)) return true;
+        if (await member.hasPermission('ADMINISTRATOR') || await member.hasPermission('MANAGE_GUILD') || (settings.modRoles && settings.modRoles.length > 0 && isMod)) return true;
         return false;
     }
    /* client.listenToReactionRole = async(client, message, emote, role) => {

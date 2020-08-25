@@ -22,7 +22,7 @@ module.exports.help = {
 
     name: 'leaderboard',
     aliases: ['leaderboard', 'lead'],
-    category: 'misc',
+    category: 'experience',
     description: 'Classement du serveur.',
     cooldown: 10,
     usage: '',

@@ -48,7 +48,7 @@ module.exports.run = async (client, message, args,settings) => {
 module.exports.help = {
     name : 'ignore',
     aliases : ['ignore'],
-    category : 'administration',
+    category : 'bot',
     description : 'Desactive le bot dans un channel',
     cooldown : 5,
     usage : '<action> <args>',

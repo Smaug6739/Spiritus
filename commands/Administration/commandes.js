@@ -86,7 +86,7 @@ module.exports.run = async (client, message, args, settings) => {
             const embed = new MessageEmbed()
             .setAuthor(`Liste des commandes personalisées de ce serveur`, client.user.displayAvatarURL())
             .setColor(`${client.config.color.EMBEDCOLOR}`)
-            .setThumbnail(message.guild.iconURL())
+            if (message.guild.iconURL()) embed.setThumbnail(`${message.guild.iconURL()}`)
             let commandes = settings.commandes.forEach(element => {
                 embed.addField(`\u200b`,`Commande : \`${element.nom}\``,false)
             });

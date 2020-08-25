@@ -3,10 +3,9 @@ const { loadCommands, loadEvents } = require("./util/loader");
 //const myIntents = new Intents();
 //myIntents.add('GUILDS','GUILD_MEMBERS','GUILD_MESSAGES','DIRECT_MESSAGES');
 const client = new Client({// ws: { intents: myIntents }
-  //messageCacheMaxSize : 0,
   disableMentions : 'everyone',
-  ws: { intents: ['GUILDS','GUILD_MEMBERS','GUILD_MESSAGES'] },
-  /*partials: ['MESSAGE', 'CHANNEL', 'REACTION']*/});
+  ws: { intents: ['GUILDS','GUILD_MESSAGES','GUILD_MEMBERS','GUILD_EMOJIS','GUILD_WEBHOOKS'] },
+  partials: ['MESSAGE', 'CHANNEL', 'REACTION']});
 require('./util/functions')(client);
 require('./util/Utils')(client);
 client.mongoose = require("./util/mongoose");
