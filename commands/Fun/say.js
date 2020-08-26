@@ -7,11 +7,11 @@ module.exports.help = {
 
     name: 'say',
     aliases: ['say'],
-    category: 'misc',
+    category: 'fun',
     description: 'Permet d\'envoyer un message.',
     cooldown: 10,
     usage: 'text',
-    exemple: ["say Spiritus is ce best bot !"],
+    exemple: ["say Spiritus"],
     isUserAdmin: false,
     permissions: true,
     args: true,
