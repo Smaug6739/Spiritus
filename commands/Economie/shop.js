@@ -43,7 +43,7 @@ module.exports.help = {
     name: 'shop',
     aliases: ['shop'],
     category: 'economie',
-    description: 'Montre la boutique  et .',
+    description: 'Montre la boutique  et permet les achats.',
     cooldown: 10,
     usage: '',
     exemple: [''],
