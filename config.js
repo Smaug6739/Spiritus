@@ -1,6 +1,6 @@
 module.exports = {
   PREFIX: ";",
-
+  IDOFFITIEL : "689210215488684044",
   owner: {
     id: "611468402263064577",
     username: "Smaug#6739"
