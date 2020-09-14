@@ -13,7 +13,7 @@ module.exports.help = {
     usage: 'text',
     exemple: ["say Spiritus"],
     isUserAdmin: false,
-    permissions: true,
+    permissions: false,
     args: true,
     sousCommdandes: []
 }
