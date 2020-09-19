@@ -1,5 +1,4 @@
 const { Client, Collection,WebhookClient/*,Intents*/ } = require('discord.js');
-const DBL = require('dblapi.js');
 const { loadCommands, loadEvents } = require("./util/loader");
 //const myIntents = new Intents();
 //myIntents.add('GUILDS','GUILD_MEMBERS','GUILD_MESSAGES','DIRECT_MESSAGES');
