@@ -32,7 +32,6 @@ module.exports =async client => {
   if(client.user.id === client.config.IDOFFITIEL){
     const dbl = new DBL("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OTIxMDIxNTQ4ODY4NDA0NCIsImJvdCI6dHJ1ZSwiaWF0IjoxNTk4MDI4MzE5fQ.Mcm1t7ehWiS1daU8RW38B2ebwsQPpz3ivsXAC-C0cvc", {
       webhookPort: 5000, 
-      webhookAuth: 'password' 
   }, client);
   dbl.webhook.on('ready', hook => {
       console.log(`Webhook running at http://${hook.hostname}:${hook.port}${hook.path}`);
