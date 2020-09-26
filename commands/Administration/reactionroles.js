@@ -8,11 +8,14 @@ module.exports.run = async (client, message, args, settings) => {
             .setFooter('BOT ID : 689210215488684044')
             .setTimestamp()
             if(args.length < 5)return message.channel.send(rrCreateDescription)
+            if(!message.member.hasPermission('MANAGE_GUILD'))return message.channel.send(`${client.config.emojis.error}Vous devez avoir la permission de gérer les channels pour utiliser cette commande.`);
         if(settings.reactionroles){
+             try{ 
             const guild = settings
             const channel = client.resolveChannel(message.channel.guild, args[1]);
             if (!channel) return message.channel.send(`${client.config.emojis.FALSE} Je n'ai pas trouver ce channel.`);
-            const messageV = await (await client.channels.fetch(channel.id)).messages.fetch(args[2])//await channel.getMessage(args[1].trim().catch(() => undefined));
+            const messageV = await (await client.channels.fetch(channel.id)).messages.fetch(args[2])
+            //await channel.getMessage(args[1].trim().catch(() => undefined));
             if (!messageV) return message.channel.send(`${client.config.emojis.FALSE} Je n'ai pas trouver ce message.`);
             let emote = await client.resolveGuildEmoji(message.channel.guild, args[3].trim());
             if (!emote && client.isUnicode(args[3])) emote = args[3];
@@ -32,7 +35,7 @@ module.exports.run = async (client, message, args, settings) => {
             await client.updateGuild(message.guild, { reactionroles: tableau});
             //await delta.db.Guild.updateOne({ ID: msg.channel.guild.id }, { $addToSet: { reactionRoles: [{channelID: channel.id, messageID: message.id, emoji: emote.id ? emote.id : emote, roleID: role.id }]}});
             //await client.listenToReactionRole(client, message, emote, role);
-            message.channel.send(`${client.config.emojis.TRUE}J'ai bien crée un role-reaction sous ce message `);
+            message.channel.send(`${client.config.emojis.TRUE}J'ai bien crée un role-reaction sous ce message.`);
         /* const newGuild = await delta.db.Guild.findOne({ ID: msg.channel.guild.id });
             let dbRole = newGuild.reactionRoles.find(a => a.messageID == message.id && (a.emoji == emote.id || a.emoji == emote));
             if (!newGuild.reactionRoles.length < 0) return msg.channel.sendErrorMessage('An error occured while creating reaction roles, please report it to the developers.');
@@ -47,6 +50,10 @@ module.exports.run = async (client, message, args, settings) => {
             const rol = msg.channel.guild.roles.get(dbRole.roleID);
             embed.fields.push({ name: 'Role', value: rol.mention, inline: true });
             return msg.channel.createMessage({ embed });*/
+            }catch(e){
+                if(e.message.match('Unknown Message'))return message.channel.send(`${client.config.emojis.error}Je n'ai pas trouver ce message.`);
+                else return message.channel.send(`${client.config.emojis.error}Une erreur s'est produite. Merci de vérifiez les paramètres de la commande.`);
+            }
         }else{
             return message.channel.send(`${client.config.emojis.FALSE}Une erreur s'est produite merci de réessayer.`)
         }
@@ -55,10 +62,12 @@ module.exports.run = async (client, message, args, settings) => {
 
         const guild = settings
         if (args.length == 2 && args[1] == 'all') {
+            if(!message.member.hasPermission('MANAGE_GUILD'))return message.channel.send(`${client.config.emojis.error}Vous devez avoir la permission de gérer les channels pour utiliser cette commande.`);
             settings.reactionroles.splice(0, guild.reactionroles.length);
             guild.save();
             return message.channel.send(`${client.config.emojis.TRUE}Tous les roles-reactions du serveur ont bien été supprimés`);
         }else{
+            try{
             const rrDeleteDescription = new MessageEmbed()
             .setTitle(`Sous commande : ${settings.prefix}reaction-role rem`)
             .setColor(client.config.color.EMBEDCOLOR)
@@ -66,6 +75,7 @@ module.exports.run = async (client, message, args, settings) => {
             .setFooter('BOT ID : 689210215488684044')
             .setTimestamp()
             if(args.length < 5)return message.channel.send(rrDeleteDescription)
+            if(!message.member.hasPermission('MANAGE_GUILD'))return message.channel.send(`${client.config.emojis.error}Vous devez avoir la permission de gérer les channels pour utiliser cette commande.`);
             const channel = client.resolveChannel(message.channel.guild, args[1]);
             if (!channel) return message.channel.send(`${client.config.emojis.FALSE} Je n'ai pas trouver ce channel.`);
             const messageV = await (await client.channels.fetch(channel.id)).messages.fetch(args[2])//await channel.getMessage(args[1].trim().catch(() => undefined));
@@ -83,6 +93,10 @@ module.exports.run = async (client, message, args, settings) => {
             client.updateGuild(message.guild, {$pull:{ reactionroles: {channelID:channel,messageID: messageV.id,emoji:emote,roleID:role.id} }});
             return message.channel.send(`${client.config.emojis.TRUE} J'ai bien supprimer ce role reaction.`);
            // console.log(del)
+            }catch(e){
+                if(e.message.match('Unknown Message'))return message.channel.send(`${client.config.emojis.error}Je n'ai pas trouver ce message.`);
+                else return message.channel.send(`${client.config.emojis.error}Une erreur s'est produite. Merci de vérifiez les paramètres de la commande.`);
+            }
         }
 
     }
@@ -98,7 +112,7 @@ module.exports.help = {
     usage: '[paramètre] (valeur)',
     exemple :['add 714041691904016424 732983983377350676 👍 @Role'],
     isUserAdmin: false,
-    permissions: true,
+    permissions: false,
     args: true,
     sousCommdandes : ["rr add","rr rem"]
 } 

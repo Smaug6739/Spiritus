@@ -15,7 +15,7 @@ module.exports = async (client, messageReaction, user) => {
          if(element.emoji == `${emojiID}`|| element.emoji == `${emoji}`){
           //console.log(element)
             let roleToAdd = message.guild.roles.cache.get(`${element.roleID}`)
-            if(member.roles.highest.comparePositionTo(roleToAdd) <= 0)return console.log(`Vous ne pouvez pas ajouter un role superieur a votre role le plus haut.`);
+            //if(member.roles.highest.comparePositionTo(roleToAdd) <= 0)return console.log(`Vous ne pouvez pas ajouter un role superieur a votre role le plus haut.`);
             if(message.guild.me.roles.highest.comparePositionTo(roleToAdd) <= 0) return console.log(`Je n'ai pas un role sufisant pour vous attribuer ce role`)
             member.roles.add(roleToAdd)
          }
