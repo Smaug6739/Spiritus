@@ -6,6 +6,8 @@ module.exports = async (client, messageReaction, user) => {
   const channel = message.guild.channels.cache.find(c => c.id === '708593997890977823');
   const roleun = message.guild.roles.cache.get("713757081966215269");
   const roledeux = message.guild.roles.cache.get("713757111678664845");
+  if(!member) return;
+  if(!member.user) return;
   if (member.user.bot) return;
   const settings = await client.getGuild(message.guild);
 

@@ -7,6 +7,8 @@ module.exports = async (client, messageReaction, user) => {
   const roleun = message.guild.roles.cache.get("713757081966215269");
   const roledeux = message.guild.roles.cache.get("713757111678664845");
   const settings = await client.getGuild(message.guild);
+  if(!member) return;
+  if(!member.user) return;
   if (member.user.bot) return;
   settings.reactionroles.forEach(element => {
 

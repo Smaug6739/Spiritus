@@ -23,7 +23,7 @@ module.exports.run = async(client, message, args, settings) => {
             const user = message.guild.member(message.mentions.users.first());
             const expToAdd = parseInt(args[2]);
             if((message.mentions.users.first())){
-            if (isNaN(expToAdd)) return message.reply("vous devez entrer un nombre valide !");
+            if (isNaN(expToAdd)) return message.channel.send(`${client.config.emojis.error} Veuillez entrer un nombre valide.`);
             if(!user)return message.channel.send(`${client.config.emojis.error} Je ne peux pas ajouter de l'exp a cette personne.`)
            await client.addExp(client, user, expToAdd);
             message.channel.send(`Vous avez ajouté avec succès ${expToAdd} points d'expérience à l'utilisateur ${user}!`);
@@ -42,7 +42,7 @@ module.exports.run = async(client, message, args, settings) => {
             const user = message.guild.member(message.mentions.users.first());
             const expToRemove = parseInt(args[2]);
             if((message.mentions.users.first())){
-            if (isNaN(expToRemove)) return message.reply("vous devez entrer un nombre valide !");
+            if (isNaN(expToRemove)) return message.channel.send(`${client.config.emojis.error} Veuillez entrer un nombre valide.`);
             if(!user)return message.channel.send(`${client.config.emojis.error} Je ne peux pas enlever de l'exp a cette personne.`)
            await client.removeExp(client, user, expToRemove)
             .then(message.channel.send(`Vous avez enlevé avec succès ${expToRemove} points d'expérience à l'utilisateur ${user}!`))

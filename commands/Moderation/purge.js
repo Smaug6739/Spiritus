@@ -14,7 +14,7 @@ module.exports.run = async (client, message, args) => {
     message.channel.clone().then(message.channel.delete())    
   
   }else if(!isNaN(args[0])){
-    if(isNaN(args[0]) || (args[0] < 1 || args[0] > 100 )) return message.reply('Merci de spécifier un nombre valide.')
+    if(isNaN(args[0]) || (args[0] < 1 || args[0] > 100 )) return message.channel.send(`${client.config.emojis.error} Merci de spécifier un nombre valide.`)
     const messages = await  message.channel.messages.fetch({
         limit : Math.min(args[0],100),
         before : message.id
@@ -39,7 +39,7 @@ module.exports.run = async (client, message, args) => {
       before: message.id,
     })).filter(a => a.author.id === user.id).array();
     messages.length = Math.min(args[1], messages.length);
-    if (messages.length === 0 || !user) return message.reply('aucun message à supprimer sur cet utilisateur (ou cet utilisateur n\'existe pas).');
+    if (messages.length === 0 || !user) return message.channel.send(`${client.config.emojis.error} aucun message à supprimer sur cet utilisateur (ou cet utilisateur n\'existe pas).`);
     if (messages.length === 1) await messages[1].delete();
     else await message.channel.bulkDelete(messages);
     message.delete();

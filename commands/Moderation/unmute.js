@@ -6,7 +6,7 @@ module.exports.run = async (client, message, args, settings) => {
   if(user == undefined)return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver cet utilisateur.`)
   //let user = message.guild.member(message.mentions.users.first());
   let muteRole = message.guild.roles.cache.find(r => r.name === 'Muted');
-  if (!user.roles.cache.has(muteRole.id)) return message.reply("l'utilisateur mentionné n'est pas muté!");
+  if (!user.roles.cache.has(muteRole.id)) return message.channel.send(`${client.config.emojis.error} L'utilisateur mentionné n'est pas muté!`);
   user.roles.remove(muteRole.id);
   message.channel.send(`<@${user.id}> n'est plus muté!`);
   const embed = new MessageEmbed()

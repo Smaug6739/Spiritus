@@ -15,7 +15,7 @@ module.exports = async(client, message) => {
     settings.filter.forEach(content => {
       if(message.content.includes(content)){
         message.delete()
-        message.reply(`ce mot est interdit sur ce serveur !`)
+        message.channel.send(`<@${message.author.id}> ce mot est interdit sur ce serveur !`)
       }
     });  
   }
@@ -23,7 +23,7 @@ module.exports = async(client, message) => {
   if(settings.invitations){
     if(message.content.includes('discord.gg/')){
       message.delete()
-      message.reply('les invitations sont interdites sur ce serveur !')
+      message.channel.send(`<@${message.author.id}>les invitations sont interdites sur ce serveur !`)
     }
   }
   //-----------Si le système d'experience est activé------------------
@@ -52,7 +52,7 @@ module.exports = async(client, message) => {
           if(settings.salonranks != ""){
             message.guild.channels.cache.get(`${settings.salonranks}`).send(`<@${dbUser.userID}> bravo à toi, tu viens de monter niveau **${userLevel}** :muscle: :muscle: `)
           }else{
-            message.reply(` bravo à toi, tu viens de monter niveau **${userLevel}** :muscle: :muscle: `);
+            message.channel.send(`<@${message.author.id}> bravo à toi, tu viens de monter niveau **${userLevel}** :muscle: :muscle: `);
           }
           client.updateUser(message.member, { level: userLevel });
         }else if (dbUser.level > userLevel) {
@@ -118,7 +118,7 @@ module.exports = async(client, message) => {
   if (!command) return;
   if(command.help.permissions){
     const isMod = await client.checkMod(message.member, settings)
-    if(!isMod || isMod == false)return message.reply("tu n'as pas les permissions pour taper cette commande.");
+    if(!isMod || isMod == false)return message.channel.send(`${client.config.emojis.error} Vous n'avez pas les permissions pour utiliser cette commande.`);
   }
       
   //if (command.help.permissions && !message.member.hasPermission('BAN_MEMBERS')) return message.reply("tu n'as pas les permissions pour taper cette commande.");
@@ -145,7 +145,7 @@ module.exports = async(client, message) => {
 
     if(user){
       const isMod = await client.checkMod(user, settings)
-      if(isMod == true)return message.reply("tu ne peux pas utiliser cette commande sur cet utilisateur.");
+      if(isMod == true)return message.channel.send(`${client.config.emojis.error} Vous ne pouvez pas utiliser cette commande sur cet utilisateur.`);
       //if(user.hasPermission('BAN_MEMBERS')) return message.reply("tu ne peux pas utiliser cette commande sur cet utilisateur.");
     }
   }
@@ -160,7 +160,7 @@ module.exports = async(client, message) => {
     const cdExpirationTime = tStamps.get(message.author.id) + cdAmount;
     if (timeNow < cdExpirationTime && message.author.id != client.config.owner.id) {
       timeLeft = (cdExpirationTime - timeNow) / 1000;
-      return message.reply(`merci d'attendre ${timeLeft.toFixed(0)} seconde(s) avant de ré-utiliser la commande \`${command.help.name}\`.`);
+      return message.channel.send(`${client.config.emojis.error} Merci d'attendre ${timeLeft.toFixed(0)} seconde(s) avant de ré-utiliser la commande \`${command.help.name}\`.`);
     }
   }
   tStamps.set(message.author.id, timeNow);
