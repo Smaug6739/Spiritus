@@ -9,5 +9,6 @@ jobs:
     - name: pull
       run: |
         cd /home/smaug/Spiritus/dev
+        git stash
         git pull origin master
         npm install
