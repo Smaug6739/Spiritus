@@ -1,0 +1,14 @@
+name: deploy to dev
+on:
+  push:
+    branches: [ dev ]
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+    - name: pull
+      run: |
+        cd /home/smaug/Spiritus/dev
+        git stash
+        git pull origin master
+        npm install
