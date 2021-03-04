@@ -1,12 +1,12 @@
 name: deploy to dev
 on:
-  release:
-    types: [published]
+  push:
+    branches: [ dev ]
 jobs:
   build:
     runs-on: self-hosted
     steps:
-    - name: pull
+    - name: Deploy to developement
       run: |
         cd /home/smaug/Spiritus/dev
         git stash
