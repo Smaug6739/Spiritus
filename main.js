@@ -39,4 +39,5 @@ process.on('warning', (warning) => {
   if (!client) return;
   client.errorHook.send(warning, {code: 'js'});
 });
-  client.errorHook = new WebhookClient(`${client.configuration.WEBHOOKS.CONSOLE.ID}`, `${client.configuration.WEBHOOKS.CONSOLE.TOKEN}`);
+
+client.errorHook = new WebhookClient(`${client.configuration.WEBHOOKS.CONSOLE.ID}`, `${client.configuration.WEBHOOKS.CONSOLE.TOKEN}`);
