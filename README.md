@@ -1,12 +1,10 @@
 <div align="center">
   <p>
   <a href="https://github.com/SmaugDev/Spiritus/actions"><img src="" alt="GitHub Actions" /></a>
-  <a href="https://deltabot.tech/discord"><img src="https://discord.com/api/guilds/627967081014624294/embed.png" alt="Discord server" /></a>
-  <a href="https://www.patreon.com/deltabot"><img src="https://img.shields.io/badge/donate-patreon-F96854.svg" alt="Patreon" /></a>
   </p>
   <br />
   <p>
-  <a href="https://top.gg/bot/534632914445664267"><img src="https://top.gg/api/widget/534632914445664267.svg" alt="Delta" /></a>
+  <a href="https://top.gg/bot/689210215488684044"><img src="https://top.gg/api/widget/689210215488684044.svg" alt="Spiritus" /></a>
   </p>
 </div>
 
