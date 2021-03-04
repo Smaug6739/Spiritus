@@ -5,5 +5,4 @@ const manager = new ShardingManager('./main.js', { token: `${CONFIG.TOKENS.DISCO
 manager.spawn();
 manager.on('shardCreate', shard => {
     console.log(`Launched shard ${shard.id}`)
-    //console.log(shard)
 });
