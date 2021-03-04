@@ -1,7 +1,7 @@
 name: deploy to dev
 on:
-  push:
-    branches: [ dev ]
+  release:
+    types: [published]
 jobs:
   build:
     runs-on: self-hosted
