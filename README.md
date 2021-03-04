@@ -12,16 +12,16 @@
   </p>
 </div>
 
-# Delta
-Delta has all the tools you will need for your Discord server, just login on the <a href="https://deltabot.tech">dashboard</a> and start configuring it!
-You can invite the hosted version [here](https://deltabot.tech/invite)
+# Spiritus Bot
+Spiritus has all the tools you will need for your Discord server, Spiritus is a multi-function Discord bot.
+You can invite the hosted version [here](https://discord.com/oauth2/authorize?client_id=689210215488684044&scope=bot&permissions=1946446974)
 
 
 ## How to install
 1. Clone the repo
-3. Clone `config.template.json` into the main directory and rename it to `config.json`
+3. Clone `configuration.template.js` into the main directory and rename it to `configuration.js`
 2. Install the dependencies: `npm install`
-3. Start the bot: `npm start`
+3. Start the bot: `node main.js`
 
 ## Permissions/contributions
 This project doesn't have any license, that means that you can't use it for your own usage, nor make copies (private or public) of it 
