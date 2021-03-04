@@ -2,8 +2,8 @@
 
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/SmaugDev/Spiritus)
 [![made-with-Markdown](https://img.shields.io/badge/Made%20with-Markdown-1f425f.svg)](http://commonmark.org)
-[![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/SmaugDev//master/LICENSE)
-[![GitHub release](https://img.shields.io/github/release/SmaugDev/Spiritus/releases.svg)](https://gitHub.com/SmaugDev/Spiritus/releases/)
+[![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/SmaugDev/master/LICENSE)
+[![GitHub tag](https://img.shields.io/github/tag/SmaugDev/Spiritus.svg)](https://github.com/SmaugDev/Spiritus/tags/)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
   <br />
