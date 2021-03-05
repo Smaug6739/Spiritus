@@ -10,5 +10,6 @@ jobs:
       run: |
         cd /home/smaug/Spiritus/dev
         git stash
-        git pull origin master
+        git pull origin dev
         npm install
+        pm2 reload ecosystem.config.js
