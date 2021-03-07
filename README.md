@@ -26,4 +26,4 @@ You can invite the hosted version [here](https://discord.com/oauth2/authorize?cl
 This project has an MIT license.  And you are welcome to contribute.
 
 ## Need help
-If you heve question or need help, open issue. 
+If you have question or need help, open issue. 
