@@ -22,6 +22,8 @@ You can invite the hosted version [here](https://discord.com/oauth2/authorize?cl
 2. Install the dependencies: `npm install`
 3. Start the bot: `node main.js`
 
-## Permissions/contributions
-This project doesn't have any license, that means that you can't use it for your own usage, nor make copies (private or public) of it 
-. However you are welome to contribute!
+## Contributions/Licence 
+This project has an MIT license.  And you are welcome to contribute.
+
+## Need help
+If you heve question or need help, open issue. 
