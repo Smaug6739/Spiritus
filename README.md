@@ -5,6 +5,8 @@
 [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/SmaugDev/master/LICENSE)
 [![GitHub tag](https://img.shields.io/github/tag/SmaugDev/Spiritus.svg)](https://github.com/SmaugDev/Spiritus/tags/)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+[![Github all releases](https://img.shields.io/github/downloads/SmaugDev/Spiritus/total.svg)](https://github.com/SmaugDev/Spiritus)
+
   <br />
   <p>
   <a href="https://top.gg/bot/689210215488684044"><img src="https://top.gg/api/widget/689210215488684044.svg" alt="Spiritus" /></a>
