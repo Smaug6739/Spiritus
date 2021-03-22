@@ -16,6 +16,13 @@
 Spiritus has all the tools you will need for your Discord server, Spiritus is a multi-function Discord bot.
 You can invite the hosted version [here](https://discord.com/oauth2/authorize?client_id=689210215488684044&scope=bot&permissions=1946446974)
 
+## Functions :
+-Reactions-roles <br>
+-Moderation <br>
+-Leveling <br>
+-Admins commands <br>
+-Customs commands <br>
+
 
 ## How to install
 1. Clone the repo
