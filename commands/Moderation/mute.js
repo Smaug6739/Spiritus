@@ -1,11 +1,11 @@
 const ms = require("ms");
 const { MessageEmbed } = require("discord.js");
 module.exports.run = async (client, message, args, settings) => {
-  if(!message.guild.me.hasPermission('MANAGE_CHANNELS')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de mute.`);
-  if(!message.guild.me.hasPermission('MANAGE_ROLES')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de modifier les roles.`);
-  if(!message.mentions.members.first())return message.channel.send(`${client.config.emojis.FALSE}Vous devez mentionner une personne.`)
+  if (!message.guild.me.permissions.has('MANAGE_CHANNELS')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de mute.`);
+  if (!message.guild.me.permissions.has('MANAGE_ROLES')) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission de modifier les roles.`);
+  if (!message.mentions.members.first()) return message.channel.send(`${client.config.emojis.FALSE}Vous devez mentionner une personne.`)
   let user = await message.mentions.members.first()// client.resolveMember(message.guild,args[0])
-  
+
   //let user = message.guild.member(message.mentions.users.first());
   let muteRole = message.guild.roles.cache.find(r => r.name === 'Muted');
   let muteTime = (args[1] || '60s');
@@ -38,27 +38,27 @@ module.exports.run = async (client, message, args, settings) => {
     .setDescription(`**Action**: mute\n**Temps**: ${ms(ms(muteTime))}`)
     .setTimestamp()
     .setFooter(message.author.username, message.author.avatarURL());
-    if(settings.modLogs){
+  if (settings.modLogs) {
     const channel = client.resolveChannel(message.guild, settings.modLogs)
-      if(channel){
-          if(channel.permissionsFor(message.guild.me).has('SEND_MESSAGES')){
-              channel.send(embed)
-          }
+    if (channel) {
+      if (channel.permissionsFor(message.guild.me).has('SEND_MESSAGES')) {
+        channel.send(embed)
       }
     }
-  
+  }
+
 };
 
 module.exports.help = {
   name: "mute",
   aliases: ['mute'],
-  category : 'moderation',
+  category: 'moderation',
   description: "Mute un utilisateur.",
   cooldown: 10,
   usage: '<@user> <time>',
-  exemple :["mute @Smaug 1h"],
+  exemple: ["mute @Smaug 1h"],
   isUserAdmin: true,
   permissions: true,
   args: true,
-  sousCommdandes : []
+  sousCommdandes: []
 };

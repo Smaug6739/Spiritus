@@ -1,7 +1,7 @@
 module.exports = client => {
     //const ReactionHandler = require('./ReactionHandler');
 
-    client.console = message =>{
+    client.console = message => {
         console.log(message)
     }
     client.resolveMember = async (guild, arg) => {
@@ -47,50 +47,50 @@ module.exports = client => {
 
     client.isUnicode = (str) => {
         for (let i = 0, n = str.length; i < n; i++) {
-            if (str.charCodeAt( i ) > 255) return true;
+            if (str.charCodeAt(i) > 255) return true;
             return false;
         }
     }
-     client.resolveGuildEmoji = async (guild, arg) => {
+    client.resolveGuildEmoji = async (guild, arg) => {
         if (!guild || !arg) return;
         let emoji = null;
-        emoji = guild.emojis.cache.find(e => e.id == arg || e.name == arg) || guild.emojis.cache.find(e => e.id == arg.replace('<:', '').replace('<a:', '').replace('>', '').split(':')[1] ) // await guild.emojis.cache.find(arg.replace('<:', '').replace('<a:', '').replace('>', '').split(':')[1]).catch(() => null);
+        emoji = guild.emojis.cache.find(e => e.id == arg || e.name == arg) || guild.emojis.cache.find(e => e.id == arg.replace('<:', '').replace('<a:', '').replace('>', '').split(':')[1]) // await guild.emojis.cache.find(arg.replace('<:', '').replace('<a:', '').replace('>', '').split(':')[1]).catch(() => null);
         return emoji;
         //console.log(guild.emojis.cache.find(e => e.id == '713119015186333716' ))
     }
     client.checkMod = async (member, settings) => {
         let isMod = false;
-        if(settings.modRoles){
+        if (settings.modRoles) {
             settings.modRoles.forEach(modRole => {
                 if (member.roles.cache.map(r => r.id).includes(modRole)) isMod = true;
             });
         }
-        if (await member.hasPermission('ADMINISTRATOR') || await member.hasPermission('MANAGE_GUILD') || (settings.modRoles && settings.modRoles.length > 0 && isMod)) return true;
+        if (await member.permissions.has('ADMINISTRATOR') || await member.permissions.has('MANAGE_GUILD') || (settings.modRoles && settings.modRoles.length > 0 && isMod)) return true;
         return false;
     }
-   /* client.listenToReactionRole = async(client, message, emote, role) => {
-        if (!emote.id && !this.isUnicode(emote)) emote = await this.resolveGuildEmoji(message.channel.guild, emote);
-        // eslint-disable-next-line new-cap
-        const reactionListener = new ReactionHandler.continuousReactionStream(
-            message,
-            (userID) => !message.channel.guild.members.get(userID).bot,
-            true
-        );
-        reactionListener.on('reacted', async(event) => {
-            const user = client.resolveMember(message.channel.guild, event.userID);
-            if (user.bot) return;
-            if ((event.emoji.id && event.emoji.id !== emote.id) || (!event.emoji.id && event.emoji.name !== emote)) return;
-            if (user.roles.includes(role.id)) return user.removeRole(role.id).catch();
-            return user.addRole(role.id).catch();
-        });
-        reactionListener.on('unReacted', async(event) => {
-            const user = client.resolveMember(message.channel.guild, event.userID);
-            if (user.bot) return;
-            if ((event.emoji.id && event.emoji.id !== emote.id) || (!event.emoji.id && event.emoji.name !== emote)) return;
-            if (!user.roles.includes(role.id)) return user.addRole(role.id).catch();
-            return user.removeRole(role.id).catch();
-        });
-    }*/
+    /* client.listenToReactionRole = async(client, message, emote, role) => {
+         if (!emote.id && !this.isUnicode(emote)) emote = await this.resolveGuildEmoji(message.channel.guild, emote);
+         // eslint-disable-next-line new-cap
+         const reactionListener = new ReactionHandler.continuousReactionStream(
+             message,
+             (userID) => !message.channel.guild.members.get(userID).bot,
+             true
+         );
+         reactionListener.on('reacted', async(event) => {
+             const user = client.resolveMember(message.channel.guild, event.userID);
+             if (user.bot) return;
+             if ((event.emoji.id && event.emoji.id !== emote.id) || (!event.emoji.id && event.emoji.name !== emote)) return;
+             if (user.roles.includes(role.id)) return user.removeRole(role.id).catch();
+             return user.addRole(role.id).catch();
+         });
+         reactionListener.on('unReacted', async(event) => {
+             const user = client.resolveMember(message.channel.guild, event.userID);
+             if (user.bot) return;
+             if ((event.emoji.id && event.emoji.id !== emote.id) || (!event.emoji.id && event.emoji.name !== emote)) return;
+             if (!user.roles.includes(role.id)) return user.addRole(role.id).catch();
+             return user.removeRole(role.id).catch();
+         });
+     }*/
     /*client.banUser = async (delta, msg, user, reason, type) => {
        // if (reason && reason.length > 512) return `${delta.emotes.error} The reason has to be lower than 512 characters`;
         try {
