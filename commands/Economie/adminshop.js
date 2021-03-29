@@ -73,5 +73,5 @@ module.exports.help = {
     isUserAdmin: false,
     permissions: false,
     args: false,
-    sousCommdandes: []
+    subcommands: []
 }

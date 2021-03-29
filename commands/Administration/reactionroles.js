@@ -114,5 +114,5 @@ module.exports.help = {
     isUserAdmin: false,
     permissions: false,
     args: true,
-    sousCommdandes: ["rr add", "rr rem"]
+    subcommands: ["rr add", "rr rem"]
 }

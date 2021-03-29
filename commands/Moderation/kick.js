@@ -1,16 +1,15 @@
 const { MessageEmbed } = require("discord.js");
 module.exports.run = async (client, message, args, settings) => {
-  if (!message.guild.me.permissions.has('KICK_MEMBERS')) return message.channel.send(`${client.config.emojis.error}Je n'ai pas la permission pour kick un utilisateur.`);
-  if (!message.mentions.members.first()) return message.channel.send(`${client.config.emojis.error}Vous devez mentionner une personne.`)
+  if (!message.guild.me.permissions.has('KICK_MEMBERS')) return message.channel.send(`${client.config.emojis.error}I don't have permission for kick user.`);
 
-  let user = message.guild.member(message.mentions.users.first());
-  if (user == undefined) return message.channel.send(`${client.config.emojis.error}Je n'ai pas trouver cet utilisateur.`)
-  if (message.member.roles.highest.comparePositionTo(user.roles.highest) <= 0) return message.channel.send(`${client.config.emojis.error}Vous n'avez pas un role sufisament haut pour kick cette personne.`)
-  let reason = (args.splice(1).join(' ') || 'Aucune raison spécifiée');
+  let user = client.resolveMember(args[0]);
+  if (user == undefined) return message.channel.send(`${client.config.emojis.error}User not found.`)
+  if (message.member.roles.highest.comparePositionTo(user.roles.highest) <= 0) return message.channel.send(`${client.config.emojis.error}You don't have the permission for this.`)
+  let reason = (args.splice(1).join(' ') || 'No reason was given');
   const embed = new MessageEmbed()
     .setAuthor(`${user.user.username} (${user.id})`)
     .setColor(`${client.config.color.ORANGE}`)
-    .setDescription(`**Action**: kick\n**Raison**: ${reason}`)
+    .setDescription(`**Action**: kick\n**Reason**: ${reason}`)
     .setThumbnail(user.user.displayAvatarURL())
     .setTimestamp()
     .setFooter(message.author.username, message.author.avatarURL());
@@ -33,19 +32,19 @@ module.exports.run = async (client, message, args, settings) => {
         }
       })
     }
-  } else message.channel.send(`${client.config.emojis.error}Je n'ai pas trouver cet utilisateur`);
+  } else message.channel.send(`${client.config.emojis.error}User not found`);
 };
 
 module.exports.help = {
   name: "kick",
   aliases: ['kick'],
   category: 'moderation',
-  description: "Kick un utilisateur.",
+  description: "Kick a user.",
   cooldown: 10,
   usage: '<@user> <raison>',
   exemple: ["kick @Smaug spam"],
   isUserAdmin: true,
   permissions: true,
   args: true,
-  sousCommdandes: []
+  subcommands: []
 };

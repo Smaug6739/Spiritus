@@ -1,6 +1,6 @@
 const { MessageEmbed } = require("discord.js");
 module.exports.run = async (client, message, args, settings) => {
-    if (!message.guild.me.permissions.has('BAN_MEMBERS')) return message.channel.send(`${client.config.emojis.error}Je n'ai pas la permission pour ban un utilisateur.`);
+    if (!message.guild.me.permissions.has('BAN_MEMBERS')) return message.channel.send(`${client.config.emojis.error}I don't have permission for ban user.`);
 
     /*if(args[0].toLowerCase() === 'match'){
       if(!args[1]){
@@ -118,15 +118,14 @@ module.exports.run = async (client, message, args, settings) => {
       });*/
 
 
-    if (!message.mentions.users.first()) return message.channel.send(`${client.config.emojis.error}Vous devez mentionner une personne.`)
-    let user = message.mentions.users.first();
-    if (user == undefined) return message.channel.send(`${client.config.emojis.error}Je n'ai pas trouver cet utilisateur.`)
-    let reason = (args.splice(1).join(' ') || 'Aucune raison spécifiée');
-    //let user  = await client.resolveMember(message.guild,args[0])
+    //let user = message.mentions.users.first();
+    let reason = (args.splice(1).join(' ') || 'No reason was given');
+    let user = await client.resolveMember(message.guild, args[0])
+    if (user == undefined) return message.channel.send(`${client.config.emojis.error}User not found.`)
     const embed = new MessageEmbed()
         .setAuthor(`${user.username} (${user.id})`)
         .setColor(`${client.config.color.ROUGE}`)
-        .setDescription(`**Action**: ban\n**Raison**: ${reason}\n**Serveur :** ${message.guild.name}\nModérateur : ${message.author.username}`)
+        .setDescription(`**Action**: ban\n**Reason**: ${reason}\n**Guild :** ${message.guild.name}\nModerator : ${message.author.username}`)
         .setThumbnail(user.displayAvatarURL())
         .setTimestamp()
         .setFooter(message.author.username, message.author.avatarURL());
@@ -148,17 +147,9 @@ module.exports.run = async (client, message, args, settings) => {
                     }
                 }
             })
-        } else message.channel.send(`${client.config.emojis.error} Je ne peux pas bannir cette personne.`)
+        } else message.channel.send(`${client.config.emojis.error}I can't ban this user.`)
 
-    } else message.channel.send(`${client.config.emojis.error}Je n'ai pas trouver cet utilisateur.`);
-
-    /*user ? message.guild.member(user).ban({reason : `${reason}`}).then(
-        message.channel.send(embed)
-        
-        ) : */
-
-
-
+    } else message.channel.send(`${client.config.emojis.error}User not found.`);
 
 };
 
@@ -166,12 +157,12 @@ module.exports.help = {
     name: "ban",
     aliases: ['ban'],
     category: 'moderation',
-    description: "Ban un utilisateur.",
+    description: "Ban a user.",
     cooldown: 10,
-    usage: '<@user> <raison>',
+    usage: '<@user> <reason>',
     exemple: ["ban @Smaug spam"],
     isUserAdmin: false,
     permissions: true,
     args: true,
-    sousCommdandes: []
+    subcommands: []
 };

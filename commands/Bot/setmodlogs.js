@@ -20,6 +20,6 @@ module.exports.help = {
     permissions: false,
     isUserAdmin: false,
     args: false,
-    sousCommdandes: ['serveur icon', 'serveur name', 'serveur region', 'serveur moderation', 'serveur invite-create', 'serveur webhook-create']
+    subcommands: ['serveur icon', 'serveur name', 'serveur region', 'serveur moderation', 'serveur invite-create', 'serveur webhook-create']
 }
 

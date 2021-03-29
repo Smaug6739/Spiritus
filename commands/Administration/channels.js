@@ -245,5 +245,5 @@ module.exports.help = {
     isUserAdmin: false,
     permissions: false,
     args: false,
-    sousCommdandes: ["channel clone", "channel position", "channel parent", "channel synchro", "channel topic", "channel create", "channel update", "channel delete", "channel pin", "channel unpin"]
+    subcommands: ["channel clone", "channel position", "channel parent", "channel synchro", "channel topic", "channel create", "channel update", "channel delete", "channel pin", "channel unpin"]
 };

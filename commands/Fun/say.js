@@ -1,19 +1,19 @@
 module.exports.run = (client, message, args) => {
-    
+
     message.channel.send(args.join(' '))
-    
+
 }
 module.exports.help = {
 
     name: 'say',
     aliases: ['say'],
     category: 'fun',
-    description: 'Permet d\'envoyer un message.',
+    description: 'Send message in a channel.',
     cooldown: 10,
     usage: 'text',
-    exemple: ["say Spiritus"],
+    exemple: ["say Spiritus is the best bot !"],
     isUserAdmin: false,
     permissions: false,
     args: true,
-    sousCommdandes: []
+    subcommands: []
 }

@@ -57,5 +57,5 @@ module.exports.help = {
     permissions: false,
     isUserAdmin: false,
     args: false,
-    sousCommdandes: ["modroles add", "modroles rem", "modroles liste"]
+    subcommands: ["modroles add", "modroles rem", "modroles liste"]
 }

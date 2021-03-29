@@ -98,5 +98,5 @@ module.exports.help = {
     permissions: false,
     isUserAdmin: false,
     args: false,
-    sousCommdandes: []
+    subcommands: []
 }

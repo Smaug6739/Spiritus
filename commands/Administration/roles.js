@@ -211,5 +211,5 @@ module.exports.help = {
     permissions: false,
     isUserAdmin: false,
     args: false,
-    sousCommdandes: ["roles liste", "roles create", "roles update", "roles delete", "roles add", "roles rem"]
+    subcommands: ["roles liste", "roles create", "roles update", "roles delete", "roles add", "roles rem"]
 }

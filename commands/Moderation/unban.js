@@ -1,11 +1,11 @@
 const { MessageEmbed } = require("discord.js");
 module.exports.run = async (client, message, args) => {
-  if (!message.guild.me.permissions.has("BAN_MEMBERS")) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas la permission pour unban un utilisateur.`);
+  if (!message.guild.me.permissions.has("BAN_MEMBERS")) return message.channel.send(`${client.config.emojis.error}I don't have permission to unban members.`);
   try {
     let user = await client.users.fetch(args[0]);
     if (!user)
       return message.channel.send(
-        `${client.config.emojis.FALSE}Je n'ai pas trouver cet utilisateur.`
+        `${client.config.emojis.error}User not found.`
       );
     message.guild.members.unban(user);
     const embed = new MessageEmbed()
@@ -18,11 +18,11 @@ module.exports.run = async (client, message, args) => {
   } catch (e) {
     if (e.message.match("Unknown User"))
       return message.channel.send(
-        `${client.config.emojis.FALSE}Je n'ai pas trouver cette personne.`
+        `${client.config.emojis.error}User not found.`
       );
     else
       return message.channel.send(
-        `${client.config.emojis.FALSE}Une erreur s'est produite. Merci de réessayer.`
+        `${client.config.emojis.error}An error has occurred. Please try again.`
       );
   }
 };
@@ -31,12 +31,12 @@ module.exports.help = {
   name: "unban",
   aliases: ["unban"],
   category: "moderation",
-  description: "Unban un utilisateur.",
+  description: "Unban a user.",
   cooldown: 10,
   usage: "<user_id>",
   exemple: ["unban 611468402263064577"],
   isUserAdmin: false,
   permissions: true,
   args: true,
-  sousCommdandes: [],
+  subcommands: [],
 };

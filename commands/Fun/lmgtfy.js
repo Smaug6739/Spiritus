@@ -1,19 +1,19 @@
 module.exports.run = (client, message, args) => {
-    
+
     message.channel.send(`https://lmgtfy.com/?q=${args.join("+")}`)
-    
+
 }
 module.exports.help = {
 
     name: 'lmgtfy',
     aliases: ['lmgtfy'],
-    category: 'misc',
-    description: 'Permet d\'envoyer un lien lmgtfy.',
+    category: 'fun',
+    description: 'Send link lmgtfy.',
     cooldown: 10,
-    usage: 'question',
+    usage: '<question>',
     exemple: ["lmgtfy question ?"],
     isUserAdmin: false,
     permissions: true,
     args: true,
-    sousCommdandes: []
+    subcommands: []
 }

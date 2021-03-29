@@ -87,7 +87,7 @@ module.exports.run = async (client, message, args, settings) => {
         } catch (err) {
             if (err.message.match('String value did not match validation regex')) return message.channel.send(`${client.config.emojis.error}Le nom de l'emoji n'est pas valide.`);
             else {
-                message.channel.send(`${client.config.emojis.error}Une erreur s'est produite. Merci de réessayer.`)
+                message.channel.send(`${client.config.emojis.error}An error has occurred. Please try again.`)
                 return client.channels.cache.get('725251200660013136').send(`Une erreur sur la commande \`emoji-create\` s'est produite sur le serveur : ${message.guild.name}.\nContenu du message : \`${message.content}\`\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
             }
         }
@@ -175,5 +175,5 @@ module.exports.help = {
     permissions: false,
     isUserAdmin: false,
     args: false,
-    sousCommdandes: ["emojis liste", "emojis create", "emoji delete"]
+    subcommands: ["emojis liste", "emojis create", "emoji delete"]
 }

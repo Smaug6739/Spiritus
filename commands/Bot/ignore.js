@@ -56,5 +56,5 @@ module.exports.help = {
     permissions: false,
     isUserAdmin: false,
     args: false,
-    sousCommdandes: ["ignore add", "ignore rem", "ignore liste"]
+    subcommands: ["ignore add", "ignore rem", "ignore liste"]
 }

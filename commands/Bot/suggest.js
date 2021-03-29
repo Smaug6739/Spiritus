@@ -1,7 +1,7 @@
 module.exports.run = (client, message, args) => {
-    
-        client.channels.cache.get('748078482118017034').send(args.join(' '))
-        message.channel.send(`${client.config.emojis.success}Votre suggestion à bien été envoyée. Merci :heart:`)
+
+    client.channels.cache.get('748078482118017034').send(args.join(' '))
+    message.channel.send(`${client.config.emojis.success}Votre suggestion à bien été envoyée. Merci :heart:`)
 }
 module.exports.help = {
 
@@ -15,5 +15,5 @@ module.exports.help = {
     isUserAdmin: false,
     permissions: false,
     args: false,
-    sousCommdandes: []
+    subcommands: []
 }
