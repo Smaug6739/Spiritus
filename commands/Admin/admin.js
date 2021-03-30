@@ -4,7 +4,7 @@ const child_process = require('child_process');
 const exec = util.promisify(child_process.exec);
 const { MessageEmbed } = require("discord.js");
 module.exports.run = async (client, message, args) => {
-    if (!client.config.ADMIN.includes(message.author.id)) return message.channel.send(`${client.config.emojis.FALSE}Tu n'est pas admin du BOT `)
+    if (!client.config.ADMIN.includes(message.author.id)) return message.channel.sendErrorMessage(`Tu n'est pas admin du BOT `)
     if (!args[0]) {
         const embed = new MessageEmbed()
             .setTitle('Commande admin')
@@ -45,12 +45,12 @@ module.exports.run = async (client, message, args) => {
 
         }
         verifierguild()
-        message.channel.send(`${client.config.emojis.TRUE}Recharge de toutes les guilds lancée.`)
+        message.channel.send(`${client.config.emojis.success}Recharge de toutes les guilds lancée.`)
         //---------------------------------------RESTART--------------------------------------------------
     }
     if (args[0] === 'restart') {
         console.log("Redemarage")
-        await message.channel.send(`${client.config.emojis.TRUE}OK .`)
+        await message.channel.send(`${client.config.emojis.success}OK .`)
         process.exit()
     }
     //---------------------------------------RELOAD-----------------------------------------------------
@@ -64,9 +64,9 @@ module.exports.run = async (client, message, args) => {
             client.commands.delete(command)
             const pull = require(`${chemin}`)
             client.commands.set(command, pull)
-            message.channel.send(`${client.config.emojis.TRUE}Reloaded command \`${command}\``);
+            message.channel.send(`${client.config.emojis.success}Reloaded command \`${command}\``);
         } catch (err) {
-            return message.channel.send(`${client.config.emojis.FALSE}An error occured: \n\`\`\`js\n${err}\n\`\`\``);
+            return message.channel.sendErrorMessage(`An error occured: \n\`\`\`js\n${err}\n\`\`\``);
         }
     }
     //---------------------------------------PREMIUM---------------------------------------------------
@@ -75,7 +75,7 @@ module.exports.run = async (client, message, args) => {
             id: `${args[1]}`
         }
         await client.updateGuild(guild, { premium: true });
-        message.channel.send(`${client.config.emojis.TRUE}Guild premium mise à jour avec succès.`)
+        message.channel.send(`${client.config.emojis.success}Guild premium mise à jour avec succès.`)
     }
     //---------------------------------------PREMIUM-FALSE---------------------------------------------------
     if (args[0] === 'premium-false') {
@@ -83,7 +83,7 @@ module.exports.run = async (client, message, args) => {
             id: `${args[1]}`
         }
         await client.updateGuild(guild, { premium: false });
-        message.channel.send(`${client.config.emojis.TRUE}Guild premium mise à jour avec succès.`)
+        message.channel.send(`${client.config.emojis.success}Guild premium mise à jour avec succès.`)
     }
     //---------------------------------------PULL-REPO--------------------------------------------------
 
@@ -92,9 +92,9 @@ module.exports.run = async (client, message, args) => {
         message.channel.send(`${client.config.emojis.LOADING} Commande en cour d'execution...`).then(async msg => {
             try {
                 await exec(`git pull origin ${args[1]}`);
-                msg.edit(`${client.config.emojis.TRUE} Updated.`);
+                msg.edit(`${client.config.emojis.success} Updated.`);
             } catch (err) {
-                msg.edit(`${client.config.emojis.FALSE} An error occured:\n\`\`\`${err}\n\`\`\``);
+                msg.edit(`${client.config.emojis.error} An error occured:\n\`\`\`${err}\n\`\`\``);
             }
         })
     }
@@ -103,9 +103,9 @@ module.exports.run = async (client, message, args) => {
         message.channel.send(`${client.config.emojis.LOADING} Commande en cour d'execution...`).then(async msg => {
             try {
                 await exec(`${args.slice(1).join(" ")}`);
-                msg.edit(`${client.config.emojis.TRUE} Updated.`);
+                msg.edit(`${client.config.emojis.success} Updated.`);
             } catch (err) {
-                msg.edit(`${client.config.emojis.FALSE} An error occured:\n\`\`\`xl\n${err}\n\`\`\``);
+                msg.edit(`${client.config.emojis.error} An error occured:\n\`\`\`xl\n${err}\n\`\`\``);
             }
         })
     }

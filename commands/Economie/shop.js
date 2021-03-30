@@ -18,13 +18,13 @@ module.exports.run = async (client, message, args, settings, dbUser) => {
         return message.channel.send(embed)
     }
     if (args[0].toLowerCase() === 'buy')
-        if (!dbUser) return message.channel.send(`${client.config.emojis.error}Vous avez 0 ${client.config.emojis.coins} vous ne pouvez donc rien acheté a la boutique !`)
-    if (!dbUser.coins) return message.channel.send(`${client.config.emojis.error}Vous avez 0 ${client.config.emojis.coins} vous ne pouvez donc rien acheté a la boutique !`)
+        if (!dbUser) return message.channel.sendErrorMessage(`Vous avez 0 ${client.config.emojis.coins} vous ne pouvez donc rien acheté a la boutique !`)
+    if (!dbUser.coins) return message.channel.sendErrorMessage(`Vous avez 0 ${client.config.emojis.coins} vous ne pouvez donc rien acheté a la boutique !`)
     const objetName = args[1]
     let existObj = settings.shop.find(e => e.name == objetName)
-    if (!existObj) return message.channel.send(`${client.config.emojis.error}Je n'ai pas trouvé cet objet.`)
+    if (!existObj) return message.channel.sendErrorMessage(`Je n'ai pas trouvé cet objet.`)
     else {
-        if (dbUser.coins < existObj.price) return message.channel.send(`${client.config.emojis.error}Vous n'avez pas asser d'argent pour acheté ceci.`)
+        if (dbUser.coins < existObj.price) return message.channel.sendErrorMessage(`Vous n'avez pas asser d'argent pour acheté ceci.`)
         await client.remCoins(client, message.member, existObj.price)
         let tableau = []
         tableau = dbUser.objets
@@ -34,7 +34,7 @@ module.exports.run = async (client, message, args, settings, dbUser) => {
             description: existObj.description,
         })
         client.updateUser(message.member, { objets: tableau })
-        message.channel.send(`${client.config.emojis.success}Vous venez d'acheter l'objet \`${existObj.name}\` qui à été placé dans votre inventaire.`)
+        message.channel.sendSuccessMessage(`Vous venez d'acheter l'objet \`${existObj.name}\` qui à été placé dans votre inventaire.`)
 
 
     }

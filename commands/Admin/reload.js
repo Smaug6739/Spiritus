@@ -1,5 +1,5 @@
 module.exports.run = async (client, message, args) => {
-    if (!client.config.ADMIN.includes(message.author.id)) return message.channel.send(`${client.config.emojis.FALSE}Tu n'est pas admin du BOT `)
+    if (!client.config.ADMIN.includes(message.author.id)) return message.channel.sendErrorMessage(`Tu n'est pas admin du BOT `)
     command = args.slice(1).join(" ")
     dir = args[0]
     chemin = `./../${dir}/${command}.js`
@@ -8,9 +8,9 @@ module.exports.run = async (client, message, args) => {
         client.commands.delete(command)
         const pull = require(`${chemin}`)
         client.commands.set(command, pull)
-        message.channel.send(`${client.config.emojis.success}Reloaded command \`${command}\``);
+        message.channel.sendSuccessMessage(`Reloaded command \`${command}\``);
     } catch (err) {
-        return message.channel.send(`${client.config.emojis.error}An error occured: \n\`\`\`js\n${err}\n\`\`\``);
+        return message.channel.sendErrorMessage(`An error occured: \n\`\`\`js\n${err}\n\`\`\``);
     }
 
 

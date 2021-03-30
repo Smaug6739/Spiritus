@@ -5,9 +5,9 @@ module.exports.run = async (client, message, args, settings, dbUser) => {
         let objet = settings.shop.find(e => e.name == title)
         if (objet) {
             client.updateUser(message.member, { $pull: { objets: { name: title } } });
-            message.channel.send(`${client.config.emojis.success} J'ai bien supprimer cet objet.`)
+            message.channel.sendSuccessMessage(` J'ai bien supprimer cet objet.`)
         }
-        else return message.channel.send(`${client.config.emojis.error} Je n'ai pas trouver cet objet.`)
+        else return message.channel.sendErrorMessage(` Je n'ai pas trouver cet objet.`)
     } else {
         if (message.mentions.users.first()) {
             const user = message.guild.member(message.mentions.users.first());

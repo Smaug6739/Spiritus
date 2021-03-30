@@ -24,7 +24,7 @@ module.exports.run = async (client, message, args, settings) => {
       user.createDM().then(msg =>
         msg.send(embed)
 
-          .then(message.channel.send(`${client.config.emojis.TRUE}I have warn the user **${user.tag}**`)))
+          .then(message.channel.send(`${client.config.emojis.success}I have warn the user **${user.tag}**`)))
         .catch(() => { })
     } catch {
       return;
@@ -32,7 +32,7 @@ module.exports.run = async (client, message, args, settings) => {
 
 
   } else {
-    message.channel.send(`${client.config.emojis.FALSE}User not found.`)
+    message.channel.sendErrorMessage(`User not found.`)
   }
 
 };

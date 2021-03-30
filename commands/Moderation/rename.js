@@ -1,13 +1,13 @@
 module.exports.run = async (client, message, args) => {
-  if (!message.guild.me.permissions.has('MANAGE_NICKNAMES')) return message.channel.send(`${client.config.emojis.error}I don't have permission to rename users.`);
+  if (!message.guild.me.permissions.has('MANAGE_NICKNAMES')) return message.channel.sendErrorMessage(`I don't have permission to rename users.`);
 
   let utilisateur = await client.resolveMember(message.guild, args[0])
-  if (utilisateur == undefined) return message.channel.send(`${client.config.emojis.error}User not found.`)
+  if (utilisateur == undefined) return message.channel.sendErrorMessage(`User not found.`)
   let newName = args.slice(1).join(" ");
-  if (newName.length > 15) return message.channel.send(`${client.config.emojis.error}The nickname is too long.`)
-  if (newName.length < 2) return message.channel.send(`${client.config.emojis.error}The nickname is too short.`)
+  if (newName.length > 15) return message.channel.sendErrorMessage(`The nickname is too long.`)
+  if (newName.length < 2) return message.channel.sendErrorMessage(`The nickname is too short.`)
   utilisateur.setNickname(newName)
-    .then(message.channel.send(`${client.config.emojis.success}I have updated the nickname of the user ${utilisateur}.`))
+    .then(message.channel.sendSuccessMessage(`I have updated the nickname of the user ${utilisateur}.`))
 
 };
 

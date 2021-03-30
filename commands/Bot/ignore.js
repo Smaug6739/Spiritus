@@ -10,28 +10,28 @@ module.exports.run = async (client, message, args, settings) => {
         return message.channel.send(embed)
     }
     if (args[0].toLowerCase() === 'add') {
-        if (!message.member.permissions.has('MANAGE_GUILD')) return message.channel.send(`${client.config.emojis.error}Vous devez avoir la permission de gérer le serveur pour utiliser cette commande.`);
+        if (!message.member.permissions.has('MANAGE_GUILD')) return message.channel.sendErrorMessage(`Vous devez avoir la permission de gérer le serveur pour utiliser cette commande.`);
         const channel = await client.resolveChannel(message.guild, args[1])
-        if (!channel || channel == undefined) return message.channel.send(`${client.config.emojis.error}Je n'ai pas trouver ce channel.`)
+        if (!channel || channel == undefined) return message.channel.sendErrorMessage(`Je n'ai pas trouver ce channel.`)
         else {
             settings.ignoreChannel.push(channel.id);
             await settings.save();
-            return message.channel.send(`${client.config.emojis.success}Ce channel sera maintanant ignorer.`);
+            return message.channel.sendSuccessMessage(`Ce channel sera maintanant ignorer.`);
         }
     }
     if (args[0].toLowerCase() === 'rem') {
-        if (!message.member.permissions.has('MANAGE_GUILD')) return message.channel.send(`${client.config.emojis.error}Vous devez avoir la permission de gérer le serveur pour utiliser cette commande.`);
+        if (!message.member.permissions.has('MANAGE_GUILD')) return message.channel.sendErrorMessage(`Vous devez avoir la permission de gérer le serveur pour utiliser cette commande.`);
         const channel = client.resolveChannel(message.guild, args[1]);
-        if (!channel) return message.channel.send(`${client.config.emojis.error}Je n'ai pas trouver ce channel.`);
-        if (!settings.ignoreChannel.includes(channel.id)) return message.channel.send(`${client.config.emojis.error}Ce channel n'est pas ignoré.`);
+        if (!channel) return message.channel.sendErrorMessage(`Je n'ai pas trouver ce channel.`);
+        if (!settings.ignoreChannel.includes(channel.id)) return message.channel.sendErrorMessage(`Ce channel n'est pas ignoré.`);
         const index = settings.ignoreChannel.indexOf(channel.id);
         settings.ignoreChannel.splice(index, 1);
         await settings.save();
-        return message.channel.send(`${client.config.emojis.success}Le channel ${channel.name} n'est plus ignoré.`);
+        return message.channel.sendSuccessMessage(`Le channel ${channel.name} n'est plus ignoré.`);
     }
     if (args[0].toLowerCase() === 'liste') {
-        if (!settings.ignoreChannel || settings.ignoreChannel.length < 1) return message.channel.send(`${client.config.emojis.error}Il n'y a aucun channels ignorés pour ce serveur. Pour en ajouter utilisez la commande \`${settings.prefix}ignore add @role\``)
-        if (!message.member.permissions.has('MANAGE_GUILD')) return message.channel.send(`${client.config.emojis.error}Vous devez avoir la permission de gérer le serveur pour utiliser cette commande.`);
+        if (!settings.ignoreChannel || settings.ignoreChannel.length < 1) return message.channel.sendErrorMessage(`Il n'y a aucun channels ignorés pour ce serveur. Pour en ajouter utilisez la commande \`${settings.prefix}ignore add @role\``)
+        if (!message.member.permissions.has('MANAGE_GUILD')) return message.channel.sendErrorMessage(`Vous devez avoir la permission de gérer le serveur pour utiliser cette commande.`);
         let embed = {
             title: `Liste des channels ignorés pour le serveur **${message.guild.name}** | ${settings.ignoreChannel.length} au totale`,
             thumbnail: {

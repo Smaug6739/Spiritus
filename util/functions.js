@@ -73,8 +73,10 @@ module.exports = client => {
   };
   client.addExp = async (client, member, exp) => {
     const userToUpdate = await client.getUser(member, member.guild.id);
+    if (!userToUpdate) return false;
     const updateExp = userToUpdate.experience + exp;
     await client.updateUser(member, { experience: updateExp });
+    return true;
   }
   client.removeExp = async (client, member, exp) => {
     const userToUpdate = await client.getUser(member, member.guild.id);

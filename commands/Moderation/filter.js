@@ -2,27 +2,27 @@ module.exports.run = async (client, message, args, settings) => {
 
   switch (args[0].toLowerCase()) {
     case 'add':
-      if (!message.member.permissions.has('MANAGE_GUILD')) return message.channel.send(`${client.config.emojis.error}You need manage server permission for use this command.`);
+      if (!message.member.permissions.has('MANAGE_GUILD')) return message.channel.sendErrorMessage(`You need manage server permission for use this command.`);
       const wordToAdd = args[1]
-      if (!wordToAdd) return message.channel.send(`${client.config.emojis.error}Please indicate a word to add to the list.`)
+      if (!wordToAdd) return message.channel.sendErrorMessage(`Please indicate a word to add to the list.`)
       settings.filter.push(wordToAdd);
       await settings.save();
-      message.channel.send(`${client.config.emojis.success}This word is now forbidden on the server.`);
+      message.channel.sendSuccessMessage(`This word is now forbidden on the server.`);
       break;
     case 'rem':
-      if (!message.member.permissions.has('MANAGE_GUILD')) return message.channel.send(`${client.config.emojis.error}You need manage server permission for use this command.`);
+      if (!message.member.permissions.has('MANAGE_GUILD')) return message.channel.sendErrorMessage(`You need manage server permission for use this command.`);
       const wordToRemove = args[1]
-      if (!args[1]) return message.channel.send(`${client.config.emojis.error}Please indicate the word to delete from the list.`)
-      if (!settings.filter.includes(wordToRemove)) return message.channel.send(`${client.config.emojis.error}This word is not in the list.`);
+      if (!args[1]) return message.channel.sendErrorMessage(`Please indicate the word to delete from the list.`)
+      if (!settings.filter.includes(wordToRemove)) return message.channel.sendErrorMessage(`This word is not in the list.`);
       const index = settings.filter.indexOf(wordToRemove);
       settings.filter.splice(index, 1);
       await settings.save();
-      message.channel.send(`${client.config.emojis.success}The word \`${wordToRemove}\` is now allowed.`);
+      message.channel.sendSuccessMessage(`The word \`${wordToRemove}\` is now allowed.`);
       break;
 
     case 'list':
-      if (!settings.filter || settings.filter.length < 1) return message.channel.send(`${client.config.emojis.error}There are no forbidden words for this server. To add it use the command \`${settings.prefix}filter add <mot>\``)
-      if (!message.member.permissions.has('MANAGE_GUILD')) return message.channel.send(`${client.config.emojis.error}You need manage server permission for use this command.`);
+      if (!settings.filter || settings.filter.length < 1) return message.channel.sendErrorMessage(`There are no forbidden words for this server. To add it use the command \`${settings.prefix}filter add <mot>\``)
+      if (!message.member.permissions.has('MANAGE_GUILD')) return message.channel.sendErrorMessage(`You need manage server permission for use this command.`);
       let embed = {
         title: `List of words in blacklist of this guild**${message.guild.name}** | ${settings.filter.length} total`,
         thumbnail: {

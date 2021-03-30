@@ -1,6 +1,6 @@
 const { MessageEmbed } = require("discord.js");
 module.exports.run = async (client, message, args, settings) => {
-    if (!message.member.permissions.has('MANAGE_GUILD')) return message.channel.send(`${client.config.emojis.error}Vous devez avoir la permission de gérer le serveur pour utiliser cette commande.`)
+    if (!message.member.permissions.has('MANAGE_GUILD')) return message.channel.sendErrorMessage(`Vous devez avoir la permission de gérer le serveur pour utiliser cette commande.`)
     const getSetting = args[0];
     const newSetting = args.slice(1).join(" ");
     switch (getSetting) {
@@ -49,7 +49,7 @@ module.exports.run = async (client, message, args, settings) => {
                 if (args[1].includes('png') || args[1].includes('PNG') || args[1].includes('JPG') || args[1].includes('jpg') || args[1].includes('JPEG') || args[1].includes('jpeg') || args[1].includes('GIF') || args[1].includes('gif')) {
                     await client.updateGuild(message.guild, { rankcard: newSetting });
                     return message.channel.send(`rank-card mis a jour : \`${settings.rankcard}\` ->\`${newSetting}\``)
-                } else return message.channel.send(`${client.config.emojis.error}Le fichier n'est pas a un format valide. Les formats valides sont : png, jpg, jpeg et gif`)
+                } else return message.channel.sendErrorMessage(`Le fichier n'est pas a un format valide. Les formats valides sont : png, jpg, jpeg et gif`)
             }
             message.channel.send(`rank-card actuel : \`${settings.rankcard}\``);
             break;
@@ -70,10 +70,10 @@ module.exports.run = async (client, message, args, settings) => {
                     return message.channel.send(`Rank salon à bien été désactiver.`)
                 } else {
                     const channel = client.resolveChannel(message.guild, newSetting)
-                    if (!channel || channel == undefined) return message.channel.send(`${client.config.emojis.error}Je n'ai pas trouver ce channel`)
+                    if (!channel || channel == undefined) return message.channel.sendErrorMessage(`Je n'ai pas trouver ce channel`)
                     else {
                         await client.updateGuild(message.guild, { salonranks: channel.id });
-                        return message.channel.send(`${client.config.emojis.success}rank-salon mis à jour : \`${newSetting}\``)
+                        return message.channel.sendSuccessMessage(`rank-salon mis à jour : \`${newSetting}\``)
                     }
                 }
 

@@ -114,22 +114,8 @@ module.exports = async (client, message) => {
   if (!command) return;
   if (command.help.permissions) {
     const isMod = await client.checkMod(message.member, settings)
-    if (!isMod || isMod == false) return message.channel.send(`${client.config.emojis.error} You don't have permissions for use this command.`);
+    if (!isMod || isMod == false) return message.channel.sendErrorMessage(` You don't have permissions for use this command.`);
   }
-
-  if (command.help.args && !args.length) {
-    const embed = new MessageEmbed()
-      .setColor(client.config.color.EMBEDCOLOR)
-      .setAuthor(`Command : ${settings.prefix}${command.help.name}`, `${client.user.avatarURL()}`)
-      .addField("**__Description :__**", `${command.help.description} (cd: ${command.help.cooldown}secs)`)
-      .addField("**__Usage :__**", command.help.usage ? `${settings.prefix}${command.help.name} ${command.help.usage}` : `${settings.prefix}${command.help.name}`, true)
-      .setTimestamp()
-      .setFooter(`BOT ID : ${client.user.id}`, `${message.guild.iconURL()}`);
-    if (command.help.aliases.length > 1) embed.addField("**__Alias :__**", `${command.help.aliases.join(`, `)}`);
-    if (command.help.exemple && command.help.exemple.length > 0) embed.addField("**__Exemples :__**", `${settings.prefix}${command.help.exemple.join(`\r\n${settings.prefix}`)}`);
-    if (command.help.subcommands && command.help.subcommands.length > 0) embed.addField("**__Sous commandes :__**", `${settings.prefix}${command.help.subcommands.join(`\r\n${settings.prefix}`)}`);
-    return message.channel.send(embed);
-  };
   //--------------------------------HELP-SUBCOMMANDS--------------------------------
   if (command.help.subcommands && command.help.subcommands.length) {
     const subcommands = command.help.subcommands
@@ -155,9 +141,9 @@ module.exports = async (client, message) => {
     if (subcommandForHelp.args && !args[1]) {
       let exemple = '';
       let descriptionOfEmbed = `
-      **Module :** ${command.help.category}
-      **Description :** ${subcommandForHelp.description}
-      **Usage :** ${subcommandForHelp.usage}\n`
+    **Module :** ${command.help.category}
+    **Description :** ${subcommandForHelp.description}
+    **Usage :** ${subcommandForHelp.usage}\n`
       for (const ex of subcommandForHelp.exemples) {
         if (ex) exemple += `${settings.prefix}${command.help.name} ${subcommandForHelp.name} ${ex}\n`
       }
@@ -171,12 +157,26 @@ module.exports = async (client, message) => {
       return message.channel.send(help)
     }
   }
+  //-------------------------NO-SUBCOMMAND-ARGS----------------------------------------------------------------
+  if (command.help.args && !args.length) {
+    const embed = new MessageEmbed()
+      .setColor(client.config.color.EMBEDCOLOR)
+      .setAuthor(`Command : ${settings.prefix}${command.help.name}`, `${client.user.avatarURL()}`)
+      .addField("**__Description :__**", `${command.help.description} (cd: ${command.help.cooldown}secs)`)
+      .addField("**__Usage :__**", command.help.usage ? `${settings.prefix}${command.help.name} ${command.help.usage}` : `${settings.prefix}${command.help.name}`, true)
+      .setTimestamp()
+      .setFooter(`BOT ID : ${client.user.id}`, `${message.guild.iconURL()}`);
+    if (command.help.aliases.length > 1) embed.addField("**__Alias :__**", `${command.help.aliases.join(`, `)}`);
+    if (command.help.exemple && command.help.exemple.length > 0) embed.addField("**__Exemples :__**", `${settings.prefix}${command.help.exemple.join(`\r\n${settings.prefix}`)}`);
+    if (command.help.subcommands && command.help.subcommands.length > 0) embed.addField("**__Sous commandes :__**", `${settings.prefix}${command.help.subcommands.join(`\r\n${settings.prefix}`)}`);
+    return message.channel.send(embed);
+  };
   //-----------------------------------PERMISSIONS-----------------------------------
   if (command.help.isUserAdmin && args[0]) {
     let user = message.mentions.members.first()
     if (user) {
       const isMod = await client.checkMod(user, settings)
-      if (isMod == true) return message.channel.send(`${client.config.emojis.error} Vous ne pouvez pas utiliser cette commande sur cet utilisateur.`);
+      if (isMod == true) return message.channel.sendErrorMessage(` Vous ne pouvez pas utiliser cette commande sur cet utilisateur.`);
     }
   }
   //------------------------------------COOLDOWNS------------------------------------
@@ -190,7 +190,7 @@ module.exports = async (client, message) => {
     const cdExpirationTime = tStamps.get(message.author.id) + cdAmount;
     if (timeNow < cdExpirationTime && message.author.id != client.config.owner.id) {
       timeLeft = (cdExpirationTime - timeNow) / 1000;
-      return message.channel.send(`${client.config.emojis.error} Merci d'attendre ${timeLeft.toFixed(0)} seconde(s) avant de ré-utiliser la commande \`${command.help.name}\`.`);
+      return message.channel.sendErrorMessage(` Merci d'attendre ${timeLeft.toFixed(0)} seconde(s) avant de ré-utiliser la commande \`${command.help.name}\`.`);
     }
   }
   tStamps.set(message.author.id, timeNow);

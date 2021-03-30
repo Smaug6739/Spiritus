@@ -35,8 +35,8 @@ module.exports.run = async (client, message, args, settings) => {
     //---------------------------------------------ROLES-CREATE----------------------------------------------------------
 
     if (args[0].toLowerCase() === 'create') {
-        if (!message.member.permissions.has('MANAGE_ROLES')) return message.channel.send(`${client.config.emojis.error}Vous devez avoir la permission de gérer les roles pour utiliser cette commande.`)
-        if (!message.guild.me.permissions.has('MANAGE_ROLES')) return message.channel.send(`${client.config.emojis.error}Je n'ai pas la permission de modifier les roles.`);
+        if (!message.member.permissions.has('MANAGE_ROLES')) return message.channel.sendErrorMessage(`Vous devez avoir la permission de gérer les roles pour utiliser cette commande.`)
+        if (!message.guild.me.permissions.has('MANAGE_ROLES')) return message.channel.sendErrorMessage(`Je n'ai pas la permission de modifier les roles.`);
         const roleCreateDescription = new MessageEmbed()
             .setTitle(`Sous commande : ${settings.prefix}role create`)
             .setColor(client.config.color.EMBEDCOLOR)
@@ -45,19 +45,19 @@ module.exports.run = async (client, message, args, settings) => {
             .setTimestamp()
         if (!args[1]) return message.channel.send(roleCreateDescription)
         let role_name = (args.splice(1).join(' ') || 'new role');
-        if (role_name.length > 99) return message.channel.send(`${client.config.emojis.error}Le nom du role doit etre inferieur à 100 caractères.`);
+        if (role_name.length > 99) return message.channel.sendErrorMessage(`Le nom du role doit etre inferieur à 100 caractères.`);
         message.guild.roles.create({
             data: {
                 name: role_name
             }
         })
-            .then(role => message.channel.send(`${client.config.emojis.success}J'ai bien crée le role ${role}`))
+            .then(role => message.channel.sendSuccessMessage(`J'ai bien crée le role ${role}`))
             .catch(console.error);
         //---------------------------------------------ROLES-DELETE----------------------------------------------------------
     }
     if (args[0].toLowerCase() === 'delete') {
-        if (!message.member.permissions.has('MANAGE_ROLES')) return message.channel.send(`${client.config.emojis.error}Vous devez avoir la permission de gérer les roles pour utiliser cette commande.`)
-        if (!message.guild.me.permissions.has('MANAGE_ROLES')) return message.channel.send(`${client.config.emojis.error}Je n'ai pas la permission de modifier les roles.`);
+        if (!message.member.permissions.has('MANAGE_ROLES')) return message.channel.sendErrorMessage(`Vous devez avoir la permission de gérer les roles pour utiliser cette commande.`)
+        if (!message.guild.me.permissions.has('MANAGE_ROLES')) return message.channel.sendErrorMessage(`Je n'ai pas la permission de modifier les roles.`);
         const roleDeleteDescription = new MessageEmbed()
             .setTitle(`Sous commande : ${settings.prefix}role delete`)
             .setColor(client.config.color.EMBEDCOLOR)
@@ -66,15 +66,15 @@ module.exports.run = async (client, message, args, settings) => {
             .setTimestamp()
         if (!args[1]) return message.channel.send(roleDeleteDescription)
         let role = client.resolveRole(message.guild, args[1])
-        if (role == undefined) return message.channel.send(`${client.config.emojis.error}Je n'ai pas trouver ce role`)
+        if (role == undefined) return message.channel.sendErrorMessage(`Je n'ai pas trouver ce role`)
 
-        message.channel.send(`${client.config.emojis.success}J'ai bien supprimer le role \`${role.name}\``).then(
+        message.channel.sendSuccessMessage(`J'ai bien supprimer le role \`${role.name}\``).then(
             role.delete())
 
     }
     if (args[0].toLowerCase() === 'update') {
-        if (!message.member.permissions.has('MANAGE_ROLES')) return message.channel.send(`${client.config.emojis.error}Vous devez avoir la permission de gérer les roles pour utiliser cette commande.`)
-        if (!message.guild.me.permissions.has('MANAGE_ROLES')) return message.channel.send(`${client.config.emojis.error}Je n'ai pas la permission de modifier les roles.`);
+        if (!message.member.permissions.has('MANAGE_ROLES')) return message.channel.sendErrorMessage(`Vous devez avoir la permission de gérer les roles pour utiliser cette commande.`)
+        if (!message.guild.me.permissions.has('MANAGE_ROLES')) return message.channel.sendErrorMessage(`Je n'ai pas la permission de modifier les roles.`);
         const roleUpdateDescription = new MessageEmbed()
             .setTitle(`Sous commande : ${settings.prefix}role update`)
             .setColor(client.config.color.EMBEDCOLOR)
@@ -82,19 +82,19 @@ module.exports.run = async (client, message, args, settings) => {
             .setFooter('BOT ID : 689210215488684044')
             .setTimestamp()
         if (!args[1]) return message.channel.send(roleUpdateDescription)
-        if (!args[1]) return message.channel.send(`${client.config.emojis.error}Merci d'indiquer en premier argument le nom ou la mention du role a changer`)
+        if (!args[1]) return message.channel.sendErrorMessage(`Merci d'indiquer en premier argument le nom ou la mention du role a changer`)
         let role = client.resolveRole(message.guild, args[1])
-        if (role == undefined) return message.channel.send(`${client.config.emojis.error}Je n'ai pas trouver ce role`)
-        if (message.guild.me.roles.highest.comparePositionTo(role) <= 0) return message.channel.send(`${client.config.emojis.error}Je n'ai pas un role sufisant pour modifier ce role.`)
+        if (role == undefined) return message.channel.sendErrorMessage(`Je n'ai pas trouver ce role`)
+        if (message.guild.me.roles.highest.comparePositionTo(role) <= 0) return message.channel.sendErrorMessage(`Je n'ai pas un role sufisant pour modifier ce role.`)
 
         let roleName = args.slice(2).join(" ") || 'new role'
-        if (roleName.length > 99) return message.channel.send(`${client.config.emojis.error}Le nom du role doit etre inferieur a 100 caractères.`);
+        if (roleName.length > 99) return message.channel.sendErrorMessage(`Le nom du role doit etre inferieur a 100 caractères.`);
         await role.edit({ name: `${roleName}` }).then(
-            message.channel.send(`${client.config.emojis.success}J'ai bien mis a jour le role \`${role.name}\` par \`${roleName}\``))
+            message.channel.sendSuccessMessage(`J'ai bien mis a jour le role \`${role.name}\` par \`${roleName}\``))
     }
     if (args[0].toLowerCase() === 'position') {
-        if (!message.member.permissions.has('MANAGE_ROLES')) return message.channel.send(`${client.config.emojis.error}Vous devez avoir la permission de gérer les roles pour utiliser cette commande.`)
-        if (!message.guild.me.permissions.has('MANAGE_ROLES')) return message.channel.send(`${client.config.emojis.error}Je n'ai pas la permission de modifier les roles.`);
+        if (!message.member.permissions.has('MANAGE_ROLES')) return message.channel.sendErrorMessage(`Vous devez avoir la permission de gérer les roles pour utiliser cette commande.`)
+        if (!message.guild.me.permissions.has('MANAGE_ROLES')) return message.channel.sendErrorMessage(`Je n'ai pas la permission de modifier les roles.`);
         const rolePositionDescription = new MessageEmbed()
             .setTitle(`Sous commande : ${settings.prefix}role position`)
             .setColor(client.config.color.EMBEDCOLOR)
@@ -103,23 +103,23 @@ module.exports.run = async (client, message, args, settings) => {
             .setTimestamp()
         if (!args[1]) return message.channel.send(rolePositionDescription)
         let role = client.resolveRole(message.guild, args[1])
-        if (role == undefined) return message.channel.send(`${client.config.emojis.error}Je n'ai pas trouver ce role`)
+        if (role == undefined) return message.channel.sendErrorMessage(`Je n'ai pas trouver ce role`)
         let newPosition = args.slice(1).join('')
         newPosition = newPosition.split(role)
         newPosition = newPosition.join(' ')
         newPosition = Number(newPosition)
         console.log(newPosition)
-        if (message.guild.me.roles.highest.comparePositionTo(role) <= 0) return message.channel.send(`${client.config.emojis.error}Je n'ai pas un role sufisant pour modifier ce role.`)
-        if (message.guild.me.roles.highest.rawPosition <= newPosition) return message.channel.send(`${client.config.emojis.error}Je n'ai pas un role sufisant pour mettre ce role si haut.`)
-        if (message.member.roles.highest.comparePositionTo(role) <= 0) return message.channel.send(`${client.config.emojis.error}Tu n'a pas un role sufisant pour modifier ce role.`)
-        if (isNaN(newPosition)) return message.channel.send(`${client.config.emojis.error}Merci d'indiquer la nouvelle position du role sous forme d'un nombre.`)
-        message.guild.setRolePositions([{ role: role, position: newPosition }]).then(message.channel.send(`${client.config.emojis.success}J'ai bien mis à jour la position du role \`${role.name}\``))
+        if (message.guild.me.roles.highest.comparePositionTo(role) <= 0) return message.channel.sendErrorMessage(`Je n'ai pas un role sufisant pour modifier ce role.`)
+        if (message.guild.me.roles.highest.rawPosition <= newPosition) return message.channel.sendErrorMessage(`Je n'ai pas un role sufisant pour mettre ce role si haut.`)
+        if (message.member.roles.highest.comparePositionTo(role) <= 0) return message.channel.sendErrorMessage(`Tu n'a pas un role sufisant pour modifier ce role.`)
+        if (isNaN(newPosition)) return message.channel.sendErrorMessage(`Merci d'indiquer la nouvelle position du role sous forme d'un nombre.`)
+        message.guild.setRolePositions([{ role: role, position: newPosition }]).then(message.channel.sendSuccessMessage(`J'ai bien mis à jour la position du role \`${role.name}\``))
 
 
     }
     if (args[0].toLowerCase() === 'color') {
-        if (!message.member.permissions.has('MANAGE_ROLES')) return message.channel.send(`${client.config.emojis.error}Vous devez avoir la permission de gérer les roles pour utiliser cette commande.`)
-        if (!message.guild.me.permissions.has('MANAGE_ROLES')) return message.channel.send(`${client.config.emojis.error}Je n'ai pas la permission de modifier les roles.`);
+        if (!message.member.permissions.has('MANAGE_ROLES')) return message.channel.sendErrorMessage(`Vous devez avoir la permission de gérer les roles pour utiliser cette commande.`)
+        if (!message.guild.me.permissions.has('MANAGE_ROLES')) return message.channel.sendErrorMessage(`Je n'ai pas la permission de modifier les roles.`);
         const roleUpdateDescription = new MessageEmbed()
             .setTitle(`Sous commande : ${settings.prefix}role color`)
             .setColor(client.config.color.EMBEDCOLOR)
@@ -128,8 +128,8 @@ module.exports.run = async (client, message, args, settings) => {
             .setTimestamp()
         if (!args[1]) return message.channel.send(roleUpdateDescription)
         let role = client.resolveRole(message.guild, args[1])
-        if (role == undefined) return message.channel.send(`${client.config.emojis.error}Je n'ai pas trouver ce role`)
-        if (message.guild.me.roles.highest.comparePositionTo(role) <= 0) return message.channel.send(`${client.config.emojis.error}Je n'ai pas un role sufisant pour modifier ce role.`)
+        if (role == undefined) return message.channel.sendErrorMessage(`Je n'ai pas trouver ce role`)
+        if (message.guild.me.roles.highest.comparePositionTo(role) <= 0) return message.channel.sendErrorMessage(`Je n'ai pas un role sufisant pour modifier ce role.`)
         let roleColor = `#${Math.floor(Math.random() * 10)}${Math.floor(Math.random() * 10)}${Math.floor(Math.random() * 10)}${Math.floor(Math.random() * 10)}${Math.floor(Math.random() * 10)}${Math.floor(Math.random() * 10)}`
         const embedColorSuccess = new MessageEmbed()
             .setTitle(`Mise à jour d'un role`)
@@ -143,8 +143,8 @@ module.exports.run = async (client, message, args, settings) => {
         )
     }
     if (args[0].toLowerCase() === 'add') {
-        if (!message.member.permissions.has('MANAGE_ROLES')) return message.channel.send(`${client.config.emojis.error}Vous devez avoir la permission de gérer les roles pour utiliser cette commande.`)
-        if (!message.guild.me.permissions.has('MANAGE_ROLES')) return message.channel.send(`${client.config.emojis.error}Je n'ai pas la permission de modifier les roles.`);
+        if (!message.member.permissions.has('MANAGE_ROLES')) return message.channel.sendErrorMessage(`Vous devez avoir la permission de gérer les roles pour utiliser cette commande.`)
+        if (!message.guild.me.permissions.has('MANAGE_ROLES')) return message.channel.sendErrorMessage(`Je n'ai pas la permission de modifier les roles.`);
         const roleAddDescription = new MessageEmbed()
             .setTitle(`Sous commande : ${settings.prefix}role add`)
             .setColor(client.config.color.EMBEDCOLOR)
@@ -153,25 +153,25 @@ module.exports.run = async (client, message, args, settings) => {
             .setTimestamp()
         if (!args[1]) return message.channel.send(roleAddDescription)
         let role = client.resolveRole(message.guild, args[2]) || message.mentions.roles.first()
-        if (role == undefined) return message.channel.send(`${client.config.emojis.error}Je n'ai pas trouver ce role`)
+        if (role == undefined) return message.channel.sendErrorMessage(`Je n'ai pas trouver ce role`)
         let utilisateur = message.mentions.members.first() || message.member
         if (role) {
-            if (message.guild.me.roles.highest.comparePositionTo(role) <= 0) return message.channel.send(`${client.config.emojis.error}Je n'ai pas un role sufisant pour vous attribuer ce role`)
+            if (message.guild.me.roles.highest.comparePositionTo(role) <= 0) return message.channel.sendErrorMessage(`Je n'ai pas un role sufisant pour vous attribuer ce role`)
             if (message.member.roles.highest.comparePositionTo(role) <= 0) {
-                return message.channel.send(`${client.config.emojis.error}Vous ne pouvez pas ajouter un role superieur a votre role le plus haut.`);
+                return message.channel.sendErrorMessage(`Vous ne pouvez pas ajouter un role superieur a votre role le plus haut.`);
             } else {
-                if (utilisateur.roles.cache.has(role.id)) return message.channel.send(`${client.config.emojis.error}L'utilisateur pocède déja ce role.`);
+                if (utilisateur.roles.cache.has(role.id)) return message.channel.sendErrorMessage(`L'utilisateur pocède déja ce role.`);
                 utilisateur.roles.add(role)
-                    .then(m => message.channel.send(`${client.config.emojis.success}J'ai bien ajouter le role ${role} a ${utilisateur}.`))
+                    .then(m => message.channel.sendSuccessMessage(`J'ai bien ajouter le role ${role} a ${utilisateur}.`))
                     .catch(e => console.log(e));
             }
         } else {
-            message.channel.send(`${client.config.emojis.error}Le rôle n'existe pas...`);
+            message.channel.sendErrorMessage(`Le rôle n'existe pas...`);
         }
     }
     if (args[0].toLowerCase() === 'rem') {
-        if (!message.member.permissions.has('MANAGE_ROLES')) return message.channel.send(`${client.config.emojis.error}Vous devez avoir la permission de gérer les roles pour utiliser cette commande.`)
-        if (!message.guild.me.permissions.has('MANAGE_ROLES')) return message.channel.send(`${client.config.emojis.error}Je n'ai pas la permission de modifier les roles.`);
+        if (!message.member.permissions.has('MANAGE_ROLES')) return message.channel.sendErrorMessage(`Vous devez avoir la permission de gérer les roles pour utiliser cette commande.`)
+        if (!message.guild.me.permissions.has('MANAGE_ROLES')) return message.channel.sendErrorMessage(`Je n'ai pas la permission de modifier les roles.`);
         const roleRemDescription = new MessageEmbed()
             .setTitle(`Sous commande : ${settings.prefix}role rem`)
             .setColor(client.config.color.EMBEDCOLOR)
@@ -180,22 +180,22 @@ module.exports.run = async (client, message, args, settings) => {
             .setTimestamp()
         if (!args[1]) return message.channel.send(roleRemDescription)
         let role = client.resolveRole(message.guild, args[2]) || message.mentions.roles.first()
-        if (role == undefined) return message.channel.send(`${client.config.emojis.error}Je n'ai pas trouver ce role`)
+        if (role == undefined) return message.channel.sendErrorMessage(`Je n'ai pas trouver ce role`)
         let utilisateur = message.mentions.members.first() || message.member
         if (role) {
-            if (message.guild.me.roles.highest.comparePositionTo(role) <= 0) return message.channel.send(`${client.config.emojis.error}Je n'ai pas un role sufisant pour vous supprimer ce role`)
+            if (message.guild.me.roles.highest.comparePositionTo(role) <= 0) return message.channel.sendErrorMessage(`Je n'ai pas un role sufisant pour vous supprimer ce role`)
             if (message.member.roles.highest.comparePositionTo(role) <= 0) {
-                return message.channel.send(`${client.config.emojis.error}Vous ne pouvez pas supprimer un role au superieur ou égale à votre plus haut role.`);
+                return message.channel.sendErrorMessage(`Vous ne pouvez pas supprimer un role au superieur ou égale à votre plus haut role.`);
             } else {
-                if (!utilisateur.roles.cache.has(role.id)) return message.channel.send(`${client.config.emojis.error}L'utilisateur ne possède pas ce role.`);
+                if (!utilisateur.roles.cache.has(role.id)) return message.channel.sendErrorMessage(`L'utilisateur ne possède pas ce role.`);
                 //if (role.permissions.has('KICK_MEMBERS')) return message.channel.send("Vous ne pouvez pas avoir ce rôle!");
                 utilisateur.roles.remove(role)
-                    .then(m => message.channel.send(`${client.config.emojis.success}J'ai bien supprimer le role ${role} de ${utilisateur}.`))
+                    .then(m => message.channel.sendSuccessMessage(`J'ai bien supprimer le role ${role} de ${utilisateur}.`))
                     .catch(e => console.log(e));
                 //console.log('Le role est ajoutable')
             }
         } else {
-            message.channel.send(`${client.config.emojis.error}Le rôle n'existe pas...`);
+            message.channel.sendErrorMessage(`Le rôle n'existe pas...`);
         }
     }
 

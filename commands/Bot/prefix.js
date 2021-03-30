@@ -1,9 +1,9 @@
 module.exports.run = async (client, message, args, settings) => {
-    if (!message.member.permissions.has('MANAGE_GUILD')) return message.channel.send(`${client.config.emojis.error}Vous devez avoir la permission de gérer le serveur pour utiliser cette commande.`);
+    if (!message.member.permissions.has('MANAGE_GUILD')) return message.channel.sendErrorMessage(`Vous devez avoir la permission de gérer le serveur pour utiliser cette commande.`);
     const newSetting = args[0]
     if (newSetting) {
         await client.updateGuild(message.guild, { prefix: newSetting });
-        return message.channel.send(`${client.config.emojis.success}Prefix mis a jour : \`${settings.prefix}\` ->\`${newSetting}\``)
+        return message.channel.sendSuccessMessage(`Prefix mis a jour : \`${settings.prefix}\` ->\`${newSetting}\``)
     }
     message.channel.send(`Prefix actuel : \`${settings.prefix}\``);
 

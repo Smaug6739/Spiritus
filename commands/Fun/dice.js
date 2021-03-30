@@ -2,10 +2,10 @@ const { MessageEmbed } = require('discord.js');
 module.exports.run = (client, message, args) => {
     let nb_dés = args[0]
     let count = args[1]
-    if (isNaN(nb_dés) || Math.sign(nb_dés) != 1) return message.channel.send(`${client.config.emojis.error} The number of dice must be a valid number.`);
-    if (isNaN(count) || Math.sign(count) != 1) return message.channel.send(`${client.config.emojis.error} The number of faces must be a valid number.`);
-    if (nb_dés > 30) return message.channel.send(`${client.config.emojis.error} You cannot roll more than 30 dice at a time.`)
-    if (count > 50) return message.channel.send(`${client.config.emojis.error} The maximum number of faces per dice is 50.`)
+    if (isNaN(nb_dés) || Math.sign(nb_dés) != 1) return message.channel.sendErrorMessage(` The number of dice must be a valid number.`);
+    if (isNaN(count) || Math.sign(count) != 1) return message.channel.sendErrorMessage(` The number of faces must be a valid number.`);
+    if (nb_dés > 30) return message.channel.sendErrorMessage(` You cannot roll more than 30 dice at a time.`)
+    if (count > 50) return message.channel.sendErrorMessage(` The maximum number of faces per dice is 50.`)
     function entierAleatoire(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }

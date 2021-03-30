@@ -44,13 +44,13 @@ module.exports = async (client, messageReaction, user) => {
       }
     }
    })*/
-  /*if(message.guild.me.roles.highest.comparePositionTo(role) <= 0) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas un role sufisant pour vous attribuer ce role`)
+  /*if(message.guild.me.roles.highest.comparePositionTo(role) <= 0) return message.channel.sendErrorMessage(`Je n'ai pas un role sufisant pour vous attribuer ce role`)
   if(message.member.roles.highest.comparePositionTo(role) <= 0){
-  return message.channel.send(`${client.config.emojis.FALSE}Vous ne pouvez pas ajouter un role superieur a votre role le plus haut.`);
+  return message.channel.sendErrorMessage(`Vous ne pouvez pas ajouter un role superieur a votre role le plus haut.`);
   }else{
-      if (utilisateur.roles.cache.has(role.id)) return message.channel.send(`${client.config.emojis.FALSE}L'utilisateur pocède déja ce role.`);
+      if (utilisateur.roles.cache.has(role.id)) return message.channel.sendErrorMessage(`L'utilisateur pocède déja ce role.`);
       utilisateur.roles.add(role)
-      .then(m => message.channel.send(`${client.config.emojis.TRUE}J'ai bien ajouter le role ${role} a ${utilisateur}.`))
+      .then(m => message.channel.send(`${client.config.emojis.success}J'ai bien ajouter le role ${role} a ${utilisateur}.`))
       .catch(e => console.log(e));
   }*/
 

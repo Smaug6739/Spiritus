@@ -1,4 +1,4 @@
-const { Client, Collection, WebhookClient } = require('discord.js');
+const { Client, Collection, WebhookClient, TextChannel } = require('discord.js');
 const { loadCommands, loadEvents } = require("./util/loader");
 const client = new Client({
   disableMentions: 'everyone',
@@ -15,6 +15,13 @@ client.mongoose.init();
 client.config = require("./config")
 client.configuration = require('./configuration')
 client.login(client.configuration.TOKENS.DISCORD);
+
+TextChannel.prototype.sendSuccessMessage = function (content, file) {
+  return this.send(`${client.config.emojis.success} ${content}`, file);
+};
+TextChannel.prototype.sendErrorMessage = function (content, file) {
+  return this.send(`${client.config.emojis.error} ${content}`, file);
+};
 
 process.on('uncaughtException', (error) => {
   console.warn(error);

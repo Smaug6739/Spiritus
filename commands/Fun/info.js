@@ -8,7 +8,7 @@ module.exports.run = async (client, message, args, settings) => {
             if (!userInfo) {
                 client.users.fetch(args[1])
                     .then(u => {
-                        if (!u) return message.channel.send(`${client.config.emojis.error}User not found.`)
+                        if (!u) return message.channel.sendErrorMessage(`User not found.`)
                         if (u.bot) BOTSTATUS = 'yes'
                         else BOTSTATUS = 'no'
                         const embedUser = new MessageEmbed()
@@ -20,7 +20,7 @@ module.exports.run = async (client, message, args, settings) => {
                             .setFooter(`User ID : ${u.id}`)
                         return message.channel.send(embedUser)
                     })
-                    .catch(() => message.channel.send(`${client.config.emojis.error}User not found.`))
+                    .catch(() => message.channel.sendErrorMessage(`User not found.`))
                 break;
 
             } else {
@@ -121,7 +121,7 @@ module.exports.run = async (client, message, args, settings) => {
         case 'role':
             if (!args[1]) return message.channel.send(infoRoleDescription)
             let role = client.resolveRole(message.guild, args.slice(1).join(" "))
-            if (role == undefined) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver ce role`)
+            if (role == undefined) return message.channel.sendErrorMessage(`Je n'ai pas trouver ce role`)
             if (role.mentionable) mention = 'Oui'
             else mention = 'Non'
             if (role.managed) mananger = 'Oui'
@@ -151,7 +151,7 @@ module.exports.run = async (client, message, args, settings) => {
             break;
         case 'channel':
             let channel = client.resolveChannel(message.guild, args[1])
-            if (channel == undefined) return message.channel.send(`${client.config.emojis.FALSE}Je n'ai pas trouver ce channel.`)
+            if (channel == undefined) return message.channel.sendErrorMessage(`Je n'ai pas trouver ce channel.`)
             if (channel.type === 'text') type = `${client.config.emojis.CHANNEL}Texte`
             if (channel.nsfw) nsfw = `${client.config.emojis.CHANNELNSFW} Oui`;
             else nsfw = `${client.config.emojis.CHANNELNSFW} Non`;

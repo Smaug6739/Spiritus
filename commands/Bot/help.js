@@ -20,7 +20,7 @@ module.exports.run = (client, message, args, settings) => {
     return message.channel.send(embed);
   } else {
     const command = client.commands.get(args[0]) || client.commands.find(cmd => cmd.help.aliases && cmd.help.aliases.includes(args[0]));
-    if (!command) return message.channel.send(`${client.config.emojis.FALSE} Je n'ai pas trouver cette commande.`);
+    if (!command) return message.channel.sendErrorMessage(` Je n'ai pas trouver cette commande.`);
     const embed = new MessageEmbed()
 
       .setColor(`${client.config.color.EMBEDCOLOR}`)

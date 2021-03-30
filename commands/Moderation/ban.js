@@ -1,6 +1,6 @@
 const { MessageEmbed } = require("discord.js");
 module.exports.run = async (client, message, args, settings) => {
-    if (!message.guild.me.permissions.has('BAN_MEMBERS')) return message.channel.send(`${client.config.emojis.error}I don't have permission for ban user.`);
+    if (!message.guild.me.permissions.has('BAN_MEMBERS')) return message.channel.sendErrorMessage(`I don't have permission for ban user.`);
 
     /*if(args[0].toLowerCase() === 'match'){
       if(!args[1]){
@@ -12,7 +12,7 @@ module.exports.run = async (client, message, args, settings) => {
           .setTimestamp()
           return message.channel.send(banMatcheDescription)
       }
-      //if(!args[1])return message.channel.send(`${client.config.emojis.FALSE} Merci d'indiquer le contenu d'un message.`)
+      //if(!args[1])return message.channel.sendErrorMessage(` Merci d'indiquer le contenu d'un message.`)
       let query;
       let reason = 'Aucune raison donnée';
       query = args.slice(1).join(' ')
@@ -42,8 +42,8 @@ module.exports.run = async (client, message, args, settings) => {
           }
       }
   
-      if (users.length === 0) return messge.edit(`${client.config.emojis.error} Aucun utilisateur trouver.`);//message.channel.send(`${client.config.emojis.FALSE} Aucun utilisateur trouver.`);
-      //messge.edit({ content: `Vous etes sur le point de banir **${users.length}** user(s). Vous pouvez confirmer en réagissant avec ${client.config.emojis.TRUE} où annuler la commande en réagissant avec ${client.config.emojis.FALSE} .` });
+      if (users.length === 0) return messge.edit(`${client.config.emojis.error} Aucun utilisateur trouver.`);//message.channel.sendErrorMessage(` Aucun utilisateur trouver.`);
+      //messge.edit({ content: `Vous etes sur le point de banir **${users.length}** user(s). Vous pouvez confirmer en réagissant avec ${client.config.emojis.success} où annuler la commande en réagissant avec ${client.config.emojis.error} .` });
           usersList = [];
           success = 0;
           errored = 0;
@@ -82,7 +82,7 @@ module.exports.run = async (client, message, args, settings) => {
                   if(channel.permissionsFor(message.guild.me).has('SEND_MESSAGES')){
                       channel.send({content: '',
                       embed: {
-                         // title: `${client.config.emojis.TRUE} Banmass Users : `,
+                         // title: `${client.config.emojis.success} Banmass Users : `,
                           title : `${title}`,
                           color: client.config.color.VERT,
                           description: desc,
@@ -100,7 +100,7 @@ module.exports.run = async (client, message, args, settings) => {
           messge.edit({
               content: '',
               embed: {
-                 // title: `${client.config.emojis.TRUE} Banmass Users : `,
+                 // title: `${client.config.emojis.success} Banmass Users : `,
                   title : `${title}`,
                   color: client.config.color.VERT,
                   description: desc,
@@ -121,7 +121,7 @@ module.exports.run = async (client, message, args, settings) => {
     //let user = message.mentions.users.first();
     let reason = (args.splice(1).join(' ') || 'No reason was given');
     let user = await client.resolveMember(message.guild, args[0])
-    if (user == undefined) return message.channel.send(`${client.config.emojis.error}User not found.`)
+    if (user == undefined) return message.channel.sendErrorMessage(`User not found.`)
     const embed = new MessageEmbed()
         .setAuthor(`${user.username} (${user.id})`)
         .setColor(`${client.config.color.ROUGE}`)
@@ -147,9 +147,9 @@ module.exports.run = async (client, message, args, settings) => {
                     }
                 }
             })
-        } else message.channel.send(`${client.config.emojis.error}I can't ban this user.`)
+        } else message.channel.sendErrorMessage(`I can't ban this user.`)
 
-    } else message.channel.send(`${client.config.emojis.error}User not found.`);
+    } else message.channel.sendErrorMessage(`User not found.`);
 
 };
 

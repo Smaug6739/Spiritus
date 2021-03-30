@@ -40,8 +40,8 @@ module.exports.run = async (client, message, args, settings) => {
 
         //--------------------------------------EMOJIS-CREATE------------------------------------------------------
     } else if (args[0].toLowerCase() === 'create') {
-        if (!message.member.permissions.has('MANAGE_EMOJIS')) return message.channel.send(`${client.config.emojis.error}Vous devez avoir la permission de gérer les emojis pour utiliser cette commande.`);
-        if (!message.guild.me.permissions.has('MANAGE_EMOJIS')) return message.channel.send(`${client.config.emojis.error}Je n'ai pas la permission de gérer les emojis.`);
+        if (!message.member.permissions.has('MANAGE_EMOJIS')) return message.channel.sendErrorMessage(`Vous devez avoir la permission de gérer les emojis pour utiliser cette commande.`);
+        if (!message.guild.me.permissions.has('MANAGE_EMOJIS')) return message.channel.sendErrorMessage(`Je n'ai pas la permission de gérer les emojis.`);
         if (args.length < 3 && !message.attachments.first()) {
             const emojiCreateDescription = new MessageEmbed()
                 .setTitle(`Sous commande : ${settings.prefix}emoji create`)
@@ -51,8 +51,8 @@ module.exports.run = async (client, message, args, settings) => {
                 .setTimestamp()
             return message.channel.send(emojiCreateDescription)
         }
-        if (args[1].length < 2) return message.channel.send(`${client.config.emojis.error}Le nom de l'emoji doit contenir au moins 2 caractères `);
-        if ((/\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff]/).test(args[2])) return message.channel.send(`${client.config.emojis.FALSE}Vous ne pouvez pas crée un emojis présent sur discord`);
+        if (args[1].length < 2) return message.channel.sendErrorMessage(`Le nom de l'emoji doit contenir au moins 2 caractères `);
+        if ((/\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff]/).test(args[2])) return message.channel.sendErrorMessage(`Vous ne pouvez pas crée un emojis présent sur discord`);
         let base64Image;
         if (args[2] && (/<a?:([a-z0-9-_]+):(\d+)>/gi).test(args[2])) {
             let extension = args[1].startsWith('<a:') ? '.gif' : '.png';
@@ -69,7 +69,7 @@ module.exports.run = async (client, message, args, settings) => {
             const query = await axios({
                 url: args[2],
                 responseType: 'arraybuffer'
-            }).catch(_ => { return message.channel.send(`${client.config.emojis.error}URL invalide`) })
+            }).catch(_ => { return message.channel.sendErrorMessage(`URL invalide`) })
             base64Image = args[2];
         }
         if (!args[2] && message.attachments.first()) {
@@ -81,13 +81,13 @@ module.exports.run = async (client, message, args, settings) => {
             base64Image = message.attachments.first().url
         }
         name = args[1]
-        if (name.includes(':')) return message.channel.send(`${client.config.emojis.error}Nom de l'emoji *(${name})* est invalide.`)
+        if (name.includes(':')) return message.channel.sendErrorMessage(`Nom de l'emoji *(${name})* est invalide.`)
         try {
             emote = await message.channel.guild.emojis.create(base64Image, name);
         } catch (err) {
-            if (err.message.match('String value did not match validation regex')) return message.channel.send(`${client.config.emojis.error}Le nom de l'emoji n'est pas valide.`);
+            if (err.message.match('String value did not match validation regex')) return message.channel.sendErrorMessage(`Le nom de l'emoji n'est pas valide.`);
             else {
-                message.channel.send(`${client.config.emojis.error}An error has occurred. Please try again.`)
+                message.channel.sendErrorMessage(`An error has occurred. Please try again.`)
                 return client.channels.cache.get('725251200660013136').send(`Une erreur sur la commande \`emoji-create\` s'est produite sur le serveur : ${message.guild.name}.\nContenu du message : \`${message.content}\`\n\`ERREUR :\`\n\`\`\`xl\n${err}\`\`\``);
             }
         }
@@ -102,8 +102,8 @@ module.exports.run = async (client, message, args, settings) => {
         return message.channel.send(embed);
         //-------------------------------------------EMOJIS-DELETE----------------------------------------------------
     } else if (args[0].toLowerCase() === 'update') {
-        if (!message.member.permissions.has('MANAGE_EMOJIS')) return message.channel.send(`${client.config.emojis.error}Vous devez avoir la permission de gérer les emojis pour utiliser cette commande.`);
-        if (!message.guild.me.permissions.has('MANAGE_EMOJIS')) return message.channel.send(`${client.config.emojis.error}Je n'ai pas la permission de gérer les emojis.`);
+        if (!message.member.permissions.has('MANAGE_EMOJIS')) return message.channel.sendErrorMessage(`Vous devez avoir la permission de gérer les emojis pour utiliser cette commande.`);
+        if (!message.guild.me.permissions.has('MANAGE_EMOJIS')) return message.channel.sendErrorMessage(`Je n'ai pas la permission de gérer les emojis.`);
         const emojiUpdateDescription = new MessageEmbed()
             .setTitle(`Sous commande : ${settings.prefix}emoji update`)
             .setColor(client.config.color.EMBEDCOLOR)
@@ -112,7 +112,7 @@ module.exports.run = async (client, message, args, settings) => {
             .setTimestamp()
         if (!args[2]) return message.channel.send(emojiUpdateDescription)
         const emoji = await client.resolveGuildEmoji(message.channel.guild, args[1]);
-        if (!emoji) return message.channel.send(`${client.config.emojis.error}Je n'ai pas trouver cet emoji.`)
+        if (!emoji) return message.channel.sendErrorMessage(`Je n'ai pas trouver cet emoji.`)
         else {
             emoji.edit({
                 name: `${args.slice(2).join(' ').toLowerCase()}`
@@ -128,8 +128,8 @@ module.exports.run = async (client, message, args, settings) => {
             message.channel.send(successEmbed)
         }
     } else if (args[0].toLowerCase() === 'delete') {
-        if (!message.member.permissions.has('MANAGE_EMOJIS')) return message.channel.send(`${client.config.emojis.error}Vous devez avoir la permission de gérer les emojis pour utiliser cette commande.`);
-        if (!message.guild.me.permissions.has('MANAGE_EMOJIS')) return message.channel.send(`${client.config.emojis.error}Je n'ai pas la permission de gérer les emojis.`);
+        if (!message.member.permissions.has('MANAGE_EMOJIS')) return message.channel.sendErrorMessage(`Vous devez avoir la permission de gérer les emojis pour utiliser cette commande.`);
+        if (!message.guild.me.permissions.has('MANAGE_EMOJIS')) return message.channel.sendErrorMessage(`Je n'ai pas la permission de gérer les emojis.`);
         const emojiDeleteDescription = new MessageEmbed()
             .setTitle(`Sous commande : ${settings.prefix}emoji delete`)
             .setColor(client.config.color.EMBEDCOLOR)
@@ -138,7 +138,7 @@ module.exports.run = async (client, message, args, settings) => {
             .setTimestamp()
         if (!args[1]) return message.channel.send(emojiDeleteDescription)
         const emoji = await client.resolveGuildEmoji(message.channel.guild, args[1]);
-        if (!emoji) return message.channel.send(`${client.config.emojis.error}Je n'ai pas trouver cet emoji.`)
+        if (!emoji) return message.channel.sendErrorMessage(`Je n'ai pas trouver cet emoji.`)
         else {
             emoji.delete()
             const embed = new MessageEmbed()
@@ -153,7 +153,7 @@ module.exports.run = async (client, message, args, settings) => {
         }
     } else {
         const emoteID = await args[0].trim().replace('<:', '').replace('<a:', '').replace('>', '').split(':')[1];
-        if (!emoteID) return message.channel.send(`${client.config.emojis.error}Je n'ai pas trouver cet emoji.`);
+        if (!emoteID) return message.channel.sendErrorMessage(`Je n'ai pas trouver cet emoji.`);
         const emoteURL = `https://cdn.discordapp.com/emojis/${emoteID}${args[0].startsWith('<a:') ? '.gif' : '.png'}`;
         const embed = new MessageEmbed()
             .setTitle('Emoji view')

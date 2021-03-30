@@ -1,6 +1,6 @@
 const { Guild } = require("../../models/index");
 module.exports.run = async (client, message, args) => {
-    if (!client.config.ADMIN.includes(message.author.id)) return message.channel.send(`${client.config.emojis.error}Tu n'est pas admin du BOT `)
+    if (!client.config.ADMIN.includes(message.author.id)) return message.channel.sendErrorMessage(`Tu n'est pas admin du BOT `)
     //---------------------------------------CHARGE-DES-GUILDS--------------------------------------------------
     async function verifierguild() {
         client.guilds.cache.forEach(async guild => {
@@ -17,7 +17,7 @@ module.exports.run = async (client, message, args) => {
         })
     }
     verifierguild()
-    message.channel.send(`${client.config.emojis.success}Recharge de toutes les guilds lancée.`)
+    message.channel.sendSuccessMessage(`Recharge de toutes les guilds lancée.`)
 }
 module.exports.help = {
 

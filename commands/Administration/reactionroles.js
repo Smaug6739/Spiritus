@@ -8,25 +8,25 @@ module.exports.run = async (client, message, args, settings) => {
             .setFooter('BOT ID : 689210215488684044')
             .setTimestamp()
         if (args.length < 5) return message.channel.send(rrCreateDescription)
-        if (!message.member.permissions.has('MANAGE_GUILD')) return message.channel.send(`${client.config.emojis.error}Vous devez avoir la permission de gérer les channels pour utiliser cette commande.`);
+        if (!message.member.permissions.has('MANAGE_GUILD')) return message.channel.sendErrorMessage(`Vous devez avoir la permission de gérer les channels pour utiliser cette commande.`);
         if (settings.reactionroles) {
             try {
                 const guild = settings
                 const channel = client.resolveChannel(message.channel.guild, args[1]);
-                if (!channel) return message.channel.send(`${client.config.emojis.FALSE} Je n'ai pas trouver ce channel.`);
+                if (!channel) return message.channel.sendErrorMessage(` Je n'ai pas trouver ce channel.`);
                 const messageV = await (await client.channels.fetch(channel.id)).messages.fetch(args[2])
                 //await channel.getMessage(args[1].trim().catch(() => undefined));
-                if (!messageV) return message.channel.send(`${client.config.emojis.FALSE} Je n'ai pas trouver ce message.`);
+                if (!messageV) return message.channel.sendErrorMessage(` Je n'ai pas trouver ce message.`);
                 let emote = await client.resolveGuildEmoji(message.channel.guild, args[3].trim());
                 if (!emote && client.isUnicode(args[3])) emote = args[3];
-                if (!emote) return message.channel.send(`${client.config.emojis.FALSE} Je n'ai pas trouver cet emoji.`);
+                if (!emote) return message.channel.sendErrorMessage(` Je n'ai pas trouver cet emoji.`);
                 args.splice(0, 4);
                 const role = client.resolveRole(message.channel.guild, args.join(' '));
-                if (!role || role.id == message.channel.guild.id) return message.channel.send(`${client.config.emojis.FALSE} Impossible de trouver ce rôle.`);
+                if (!role || role.id == message.channel.guild.id) return message.channel.sendErrorMessage(` Impossible de trouver ce rôle.`);
                 let existingReactionRole = await settings.reactionroles.find(r => r.emoji == emote.id ? emote.id : emote && r.messageID == messageV.id && r.roleID == role.id)
-                if (existingReactionRole) return message.channel.send(`${client.config.emojis.FALSE} Cet émoji est déja associé a un role sous ce message.`);
+                if (existingReactionRole) return message.channel.sendErrorMessage(` Cet émoji est déja associé a un role sous ce message.`);
                 //.find(r => r.emoji == emote && r.messageID == message.id);
-                //if (existingReactionRole) return message.channel.send(`${client.config.emojis.FALSE} Il  y a déja un role associé a cet emoji sous ce message.`);
+                //if (existingReactionRole) return message.channel.sendErrorMessage(` Il  y a déja un role associé a cet emoji sous ce message.`);
                 await messageV.react(emote.id ? `${emote.name}:${emote.id}` : emote);
                 let tableau = []
                 tableau = settings.reactionroles
@@ -35,7 +35,7 @@ module.exports.run = async (client, message, args, settings) => {
                 await client.updateGuild(message.guild, { reactionroles: tableau });
                 //await delta.db.Guild.updateOne({ ID: msg.channel.guild.id }, { $addToSet: { reactionRoles: [{channelID: channel.id, messageID: message.id, emoji: emote.id ? emote.id : emote, roleID: role.id }]}});
                 //await client.listenToReactionRole(client, message, emote, role);
-                message.channel.send(`${client.config.emojis.TRUE}J'ai bien crée un role-reaction sous ce message.`);
+                message.channel.send(`${client.config.emojis.success}J'ai bien crée un role-reaction sous ce message.`);
                 /* const newGuild = await delta.db.Guild.findOne({ ID: msg.channel.guild.id });
                     let dbRole = newGuild.reactionRoles.find(a => a.messageID == message.id && (a.emoji == emote.id || a.emoji == emote));
                     if (!newGuild.reactionRoles.length < 0) return msg.channel.sendErrorMessage('An error occured while creating reaction roles, please report it to the developers.');
@@ -51,21 +51,21 @@ module.exports.run = async (client, message, args, settings) => {
                     embed.fields.push({ name: 'Role', value: rol.mention, inline: true });
                     return msg.channel.createMessage({ embed });*/
             } catch (e) {
-                if (e.message.match('Unknown Message')) return message.channel.send(`${client.config.emojis.error}Je n'ai pas trouver ce message.`);
-                else return message.channel.send(`${client.config.emojis.error}Une erreur s'est produite. Merci de vérifiez les paramètres de la commande.`);
+                if (e.message.match('Unknown Message')) return message.channel.sendErrorMessage(`Je n'ai pas trouver ce message.`);
+                else return message.channel.sendErrorMessage(`Une erreur s'est produite. Merci de vérifiez les paramètres de la commande.`);
             }
         } else {
-            return message.channel.send(`${client.config.emojis.FALSE}Une erreur s'est produite merci de réessayer.`)
+            return message.channel.sendErrorMessage(`Une erreur s'est produite merci de réessayer.`)
         }
     }
     if (args[0].toLowerCase() === 'rem') {
 
         const guild = settings
         if (args.length == 2 && args[1] == 'all') {
-            if (!message.member.permissions.has('MANAGE_GUILD')) return message.channel.send(`${client.config.emojis.error}Vous devez avoir la permission de gérer les channels pour utiliser cette commande.`);
+            if (!message.member.permissions.has('MANAGE_GUILD')) return message.channel.sendErrorMessage(`Vous devez avoir la permission de gérer les channels pour utiliser cette commande.`);
             settings.reactionroles.splice(0, guild.reactionroles.length);
             guild.save();
-            return message.channel.send(`${client.config.emojis.TRUE}Tous les roles-reactions du serveur ont bien été supprimés`);
+            return message.channel.send(`${client.config.emojis.success}Tous les roles-reactions du serveur ont bien été supprimés`);
         } else {
             try {
                 const rrDeleteDescription = new MessageEmbed()
@@ -75,27 +75,27 @@ module.exports.run = async (client, message, args, settings) => {
                     .setFooter('BOT ID : 689210215488684044')
                     .setTimestamp()
                 if (args.length < 5) return message.channel.send(rrDeleteDescription)
-                if (!message.member.permissions.has('MANAGE_GUILD')) return message.channel.send(`${client.config.emojis.error}Vous devez avoir la permission de gérer les channels pour utiliser cette commande.`);
+                if (!message.member.permissions.has('MANAGE_GUILD')) return message.channel.sendErrorMessage(`Vous devez avoir la permission de gérer les channels pour utiliser cette commande.`);
                 const channel = client.resolveChannel(message.channel.guild, args[1]);
-                if (!channel) return message.channel.send(`${client.config.emojis.FALSE} Je n'ai pas trouver ce channel.`);
+                if (!channel) return message.channel.sendErrorMessage(` Je n'ai pas trouver ce channel.`);
                 const messageV = await (await client.channels.fetch(channel.id)).messages.fetch(args[2])//await channel.getMessage(args[1].trim().catch(() => undefined));
                 //const message = await channel.getMessage(args[2]).catch(() => undefined);
-                if (!messageV) return message.channel.send(`${client.config.emojis.FALSE} Je n'ai pas trouver ce message.`);
-                if (!guild.reactionroles.find(r => r.messageID === messageV.id)) return message.channel.send(`${client.config.emojis.FALSE} Il n'y a pas de role-reaction sous ce message.`);
+                if (!messageV) return message.channel.sendErrorMessage(` Je n'ai pas trouver ce message.`);
+                if (!guild.reactionroles.find(r => r.messageID === messageV.id)) return message.channel.sendErrorMessage(` Il n'y a pas de role-reaction sous ce message.`);
                 let emote = await client.resolveGuildEmoji(message.channel.guild, args[3].trim());
                 if (!emote && client.isUnicode(args[3])) emote = args[3];
-                if (!emote) return message.channel.send(`${client.config.emojis.FALSE} Je n'ai pas trouver cet emoji.`);
+                if (!emote) return message.channel.sendErrorMessage(` Je n'ai pas trouver cet emoji.`);
                 args.splice(0, 4);
                 const role = client.resolveRole(message.channel.guild, args.join(' '));
-                if (!role || role.id == message.channel.guild.id) return message.channel.send(`${client.config.emojis.FALSE} Impossible de trouver ce rôle.`);
+                if (!role || role.id == message.channel.guild.id) return message.channel.sendErrorMessage(` Impossible de trouver ce rôle.`);
                 //await message.removeReactions();
                 //await settings.updateOne({ ID: message.channel.guild.id }, { $pull: {messageID: message.id} });
                 client.updateGuild(message.guild, { $pull: { reactionroles: { channelID: channel, messageID: messageV.id, emoji: emote, roleID: role.id } } });
-                return message.channel.send(`${client.config.emojis.TRUE} J'ai bien supprimer ce role reaction.`);
+                return message.channel.send(`${client.config.emojis.success} J'ai bien supprimer ce role reaction.`);
                 // console.log(del)
             } catch (e) {
-                if (e.message.match('Unknown Message')) return message.channel.send(`${client.config.emojis.error}Je n'ai pas trouver ce message.`);
-                else return message.channel.send(`${client.config.emojis.error}Une erreur s'est produite. Merci de vérifiez les paramètres de la commande.`);
+                if (e.message.match('Unknown Message')) return message.channel.sendErrorMessage(`Je n'ai pas trouver ce message.`);
+                else return message.channel.sendErrorMessage(`Une erreur s'est produite. Merci de vérifiez les paramètres de la commande.`);
             }
         }
 

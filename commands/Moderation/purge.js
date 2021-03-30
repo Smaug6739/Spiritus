@@ -1,13 +1,13 @@
 const { MessageEmbed } = require("discord.js");
 module.exports.run = async (client, message, args) => {
 
-  if (!message.guild.me.permissions.has('MANAGE_MESSAGES')) return message.channel.send(`${client.config.emojis.error}I don't have permission to delete messages.`);
+  if (!message.guild.me.permissions.has('MANAGE_MESSAGES')) return message.channel.sendErrorMessage(`I don't have permission to delete messages.`);
   switch (args[0].toLowerCase()) {
     case 'channel':
       message.channel.clone().then(message.channel.delete())
       break;
     case 'messages':
-      if (isNaN(args[1]) || (args[1] < 1 || args[1] > 100)) return message.channel.send(`${client.config.emojis.error} Please give a valid number.`)
+      if (isNaN(args[1]) || (args[1] < 1 || args[1] > 100)) return message.channel.sendErrorMessage(` Please give a valid number.`)
       const messagesToDelete = await message.channel.messages.fetch({
         limit: Math.min(args[1], 100),
         before: message.id
@@ -26,13 +26,13 @@ module.exports.run = async (client, message, args) => {
       break;
     case 'user':
       let user = await client.resolveMember(message.guild, args[1])
-      if (isNaN(args[2]) || (args[2] < 1 || args[2] > 100)) return message.channel.send(`${client.config.emojis.error}You must specify a number between 1 and 100.`);
+      if (isNaN(args[2]) || (args[2] < 1 || args[2] > 100)) return message.channel.sendErrorMessage(`You must specify a number between 1 and 100.`);
       const messagesOfUser = (await message.channel.messages.fetch({
         limit: 100,
         before: message.id,
       })).filter(a => a.author.id === user.id).array();
       messagesOfUser.length = Math.min(args[1], messagesOfUser.length);
-      if (messagesOfUser.length === 0 || !user) return message.channel.send(`${client.config.emojis.error}No message to delete`);
+      if (messagesOfUser.length === 0 || !user) return message.channel.sendErrorMessage(`No message to delete`);
       if (messagesOfUser.length === 1) await messagesOfUser[1].delete();
       else await message.channel.bulkDelete(messagesOfUser);
       message.delete();
