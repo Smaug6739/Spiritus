@@ -1,7 +1,6 @@
 const { MessageEmbed } = require("discord.js");
 module.exports.run = async (client, message, args) => {
 
-  if (!message.guild.me.permissions.has('MANAGE_MESSAGES')) return message.channel.sendErrorMessage(`I don't have permission to delete messages.`);
   switch (args[0].toLowerCase()) {
     case 'channel':
       message.channel.clone().then(message.channel.delete())
@@ -54,8 +53,10 @@ module.exports.help = {
   usage: '<nb_messages>',
   exemple: ["purge 50"],
   isUserAdmin: false,
-  permissions: true,
+  moderator: true,
   args: false,
+  userPermissions: [],
+  botPermissions: ['MANAGE_MESSAGES'],
   subcommands: [
     {
       name: 'channel',

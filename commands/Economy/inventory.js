@@ -1,6 +1,6 @@
 const { MessageEmbed } = require('discord.js')
 module.exports.run = async (client, message, args, settings, dbUser) => {
-    if (args[0].toLowerCase() === 'rem') {
+    if (args[0] && args[0].toLowerCase() === 'rem') {
         const title = args[1]
         let objet = settings.shop.find(e => e.name == title)
         if (objet) {
@@ -45,7 +45,7 @@ module.exports.run = async (client, message, args, settings, dbUser) => {
             } else {
                 if (!dbUser.coins) client.updateUser(message.member, { coins: 0 })
                 const embed = new MessageEmbed()
-                embed.setTitle(`Inventaire de **${message.member.user.username}**`)
+                embed.setTitle(`Inventory of **${message.member.user.username}**`)
                 embed.setColor(client.config.color.EMBEDCOLOR)
                 if (message.guild.iconURL()) embed.setThumbnail(`${message.guild.iconURL()}`)
                 embed.addField(`\u200b`, `**${message.member.user.tag}** has ${dbUser.coins} ${client.config.emojis.coins} .`, false)
@@ -54,7 +54,7 @@ module.exports.run = async (client, message, args, settings, dbUser) => {
                     dbUser.objets.slice(0, 15).forEach(objet => {
                         embed.addField(`\u200b`, `${client.config.emojis.fleche} ${objet.name}\n__Value :__ ${objet.price} ${client.config.emojis.coins}\n__Description :__ ${objet.description}`, false)
                     });
-                    embed.addField(`\u200b`, `You can delete items with the command \`inventaire rem\``, false)
+                    embed.addField(`\u200b`, `You can delete items with the command \`inventory rem\``, false)
                 }
                 embed.setTimestamp()
                 embed.setFooter(`Inventory of ${message.member.user.tag} (${message.member.user.id})`)
@@ -73,7 +73,9 @@ module.exports.help = {
     usage: '<user>',
     exemple: ['inventory rem Item'],
     isUserAdmin: false,
-    permissions: false,
+    moderator: false,
     args: false,
+    userPermissions: [],
+    botPermissions: [],
     subcommands: []
 }

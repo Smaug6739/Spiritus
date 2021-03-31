@@ -13,8 +13,10 @@ module.exports.help = {
     cooldown: 3,
     usage: '',
     exemple: ['ping'],
-    permissions: false,
+    moderator: false,
     isUserAdmin: false,
     args: false,
+    userPermissions: [],
+    botPermissions: [],
     subcommands: []
 }

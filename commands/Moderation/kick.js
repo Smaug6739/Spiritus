@@ -1,8 +1,6 @@
 const { MessageEmbed } = require("discord.js");
 module.exports.run = async (client, message, args, settings) => {
-  if (!message.guild.me.permissions.has('KICK_MEMBERS')) return message.channel.sendErrorMessage(`I don't have permission for kick user.`);
-
-  let user = client.resolveMember(message.guild, args[0]);
+  let user = await client.resolveMember(message.guild, args[0]);
   if (user == undefined) return message.channel.sendErrorMessage(`User not found.`)
   if (message.member.roles.highest.comparePositionTo(user.roles.highest) <= 0) return message.channel.sendErrorMessage(`You don't have the permission for this.`)
   let reason = (args.splice(1).join(' ') || 'No reason was given');
@@ -44,7 +42,9 @@ module.exports.help = {
   usage: '<@user> <raison>',
   exemple: ["kick @Smaug spam"],
   isUserAdmin: true,
-  permissions: true,
+  moderator: true,
   args: true,
+  userPermissions: [],
+  botPermissions: ['KICK_MEMBERS'],
   subcommands: []
 };

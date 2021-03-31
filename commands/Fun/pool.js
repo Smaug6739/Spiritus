@@ -23,7 +23,9 @@ module.exports.help = {
     usage: '<question>',
     exemple: ["pool <question>"],
     isUserAdmin: false,
-    permissions: false,
+    moderator: false,
     args: true,
+    userPermissions: [],
+    botPermissions: [],
     subcommands: []
 };

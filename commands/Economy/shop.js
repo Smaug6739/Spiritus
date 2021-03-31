@@ -8,7 +8,7 @@ module.exports.run = async (client, message, args, settings, dbUser) => {
         embed.setFooter(`Command module: Economy`)
         if (settings.shop) {
             settings.shop.slice(0, 20).forEach(objet => {
-                embed.addField(`${client.config.emojis.fleche} ${objet.name} __Prix :__ ${objet.price} ${client.config.emojis.coins}`, `__Description :__ ${objet.description}`)
+                embed.addField(`${client.config.emojis.fleche} ${objet.name} __Price :__ ${objet.price} ${client.config.emojis.coins}`, `__Description :__ ${objet.description}`)
             });
             embed.addField(`\u200b`, `You can buy object with the command \`${settings.prefix}shop buy <item_name>\``, false)
         } else {
@@ -48,7 +48,9 @@ module.exports.help = {
     usage: 'buy <item_name>',
     exemple: ['shop buy Objetc'],
     isUserAdmin: false,
-    permissions: false,
+    moderator: false,
     args: false,
+    userPermissions: [],
+    botPermissions: [],
     subcommands: []
 }

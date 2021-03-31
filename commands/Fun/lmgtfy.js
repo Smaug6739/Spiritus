@@ -13,7 +13,9 @@ module.exports.help = {
     usage: '<question>',
     exemple: ["lmgtfy question ?"],
     isUserAdmin: false,
-    permissions: true,
+    moderator: false,
     args: true,
+    userPermissions: [],
+    botPermissions: [],
     subcommands: []
 }

@@ -1,12 +1,9 @@
 const { MessageEmbed } = require("discord.js");
 module.exports.run = async (client, message, args) => {
-  if (!message.guild.me.permissions.has("BAN_MEMBERS")) return message.channel.sendErrorMessage(`I don't have permission to unban members.`);
   try {
     let user = await client.users.fetch(args[0]);
     if (!user)
-      return message.channel.send(
-        `${client.config.emojis.error}User not found.`
-      );
+      return message.channel.send(`${client.config.emojis.error}User not found.`);
     message.guild.members.unban(user);
     const embed = new MessageEmbed()
       .setAuthor(`${user.username} (${user.id})`, user.avatarURL())
@@ -21,9 +18,7 @@ module.exports.run = async (client, message, args) => {
         `${client.config.emojis.error}User not found.`
       );
     else
-      return message.channel.send(
-        `${client.config.emojis.error}An error has occurred. Please try again.`
-      );
+      return message.channel.send(`${client.config.emojis.error}An error has occurred. Please try again.`);
   }
 };
 
@@ -36,7 +31,9 @@ module.exports.help = {
   usage: "<user_id>",
   exemple: ["unban 611468402263064577"],
   isUserAdmin: false,
-  permissions: true,
+  moderator: true,
   args: true,
+  userPermissions: [],
+  botPermissions: ['BAN_MEMBERS'],
   subcommands: [],
 };

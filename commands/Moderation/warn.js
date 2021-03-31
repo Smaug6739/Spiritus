@@ -1,6 +1,6 @@
 const { MessageEmbed } = require("discord.js");
 module.exports.run = async (client, message, args, settings) => {
-  let user = message.mentions.users.first();
+  let user = await client.resolveMember(message.guild, args[0]);
   let reason = (args.splice(1).join(' ') || 'No reason was given');
 
   if (user) {
@@ -43,10 +43,12 @@ module.exports.help = {
   category: 'moderation',
   description: "Warn a user.",
   cooldown: 10,
-  usage: '<@user> <reason>',
+  usage: '<user> <reason>',
   exemple: ["warn @Smaug spam"],
   isUserAdmin: true,
-  permissions: true,
+  moderator: true,
   args: true,
+  userPermissions: [],
+  botPermissions: [],
   subcommands: []
 };

@@ -111,11 +111,8 @@ module.exports = async (client, message) => {
     let customCommand = settings.commandes.find(e => e.nom == message.content.slice(settings.prefix.length).toLowerCase())
     if (customCommand) return message.channel.send(customCommand.contenu)
   }
+
   if (!command) return;
-  if (command.help.permissions) {
-    const isMod = await client.checkMod(message.member, settings)
-    if (!isMod || isMod == false) return message.channel.sendErrorMessage(` You don't have permissions for use this command.`);
-  }
   //--------------------------------HELP-SUBCOMMANDS--------------------------------
   if (command.help.subcommands && command.help.subcommands.length) {
     const subcommands = command.help.subcommands
@@ -172,11 +169,25 @@ module.exports = async (client, message) => {
     return message.channel.send(embed);
   };
   //-----------------------------------PERMISSIONS-----------------------------------
+  if (command.help.moderator) {
+    const isMod = await client.checkMod(message.member, settings)
+    if (!isMod || isMod == false) return message.channel.sendErrorMessage(` You don't have permissions for use this command.`);
+  }
   if (command.help.isUserAdmin && args[0]) {
     let user = message.mentions.members.first()
     if (user) {
       const isMod = await client.checkMod(user, settings)
-      if (isMod == true) return message.channel.sendErrorMessage(` Vous ne pouvez pas utiliser cette commande sur cet utilisateur.`);
+      if (isMod == true) return message.channel.sendErrorMessage(`Vous ne pouvez pas utiliser cette commande sur cet utilisateur.`);
+    }
+  }
+  if (command.help.userPermissions && command.help.userPermissions.length) {
+    for (const permission of command.help.userPermissions) {
+      if (!message.member.permissions.has(permission)) return message.channel.sendErrorMessage(`You need the \`${command.help.userPermissions.map(command => command.split("_").map(x => x[0] + x.slice(1).toLowerCase()).join(" ")).join(', ')}\` permission(s) for use this command.`)
+    }
+  }
+  if (command.help.botPermissions && command.help.botPermissions.length) {
+    for (const permission of command.help.botPermissions) {
+      if (!message.guild.me.permissions.has(permission)) return message.channel.sendErrorMessage(`I need the \`${command.help.botPermissions.map(command => command.split("_").map(x => x[0] + x.slice(1).toLowerCase()).join(" ")).join(', ')}\` permission(s) for this command.`)
     }
   }
   //------------------------------------COOLDOWNS------------------------------------
@@ -190,7 +201,7 @@ module.exports = async (client, message) => {
     const cdExpirationTime = tStamps.get(message.author.id) + cdAmount;
     if (timeNow < cdExpirationTime && message.author.id != client.config.owner.id) {
       timeLeft = (cdExpirationTime - timeNow) / 1000;
-      return message.channel.sendErrorMessage(` Merci d'attendre ${timeLeft.toFixed(0)} seconde(s) avant de ré-utiliser la commande \`${command.help.name}\`.`);
+      return message.channel.sendErrorMessage(`Merci d'attendre ${timeLeft.toFixed(0)} seconde(s) avant de ré-utiliser la commande \`${command.help.name}\`.`);
     }
   }
   tStamps.set(message.author.id, timeNow);

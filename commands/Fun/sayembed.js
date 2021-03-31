@@ -19,7 +19,9 @@ module.exports.help = {
     usage: '<texte>',
     exemple: ["sayembed Spiritus is the best bot !"],
     isUserAdmin: false,
-    permissions: false,
+    moderator: false,
     args: true,
+    userPermissions: [],
+    botPermissions: [],
     subcommands: []
 };

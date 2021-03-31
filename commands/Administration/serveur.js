@@ -1,126 +1,105 @@
 const { MessageEmbed } = require('discord.js')
-module.exports.run = (client, message, args, settings) => {
-    if (!args[0]) {
-        const embed = new MessageEmbed()
-            .setTitle('Commande serveur')
-            .setColor(`${client.config.color.EMBEDCOLOR}`)
-            .setDescription(`La commande __serveur__ permet de gérer le serveur graces aux sous commandes suivantes :\n\n${client.config.emojis.fleche}__serveur icon__ permet de changer l'icon du serveur.\n${client.config.emojis.fleche}__serveur name__ permet de changer le nom du serveur\n${client.config.emojis.fleche}__serveur region__ permet de gérer la région du servur.\n${client.config.emojis.fleche}__serveur moderation__ permet de gérer le niveau de moderation du serveur.\n${client.config.emojis.fleche}__serveur invite-create__ permet de crée une invitation.\n${client.config.emojis.fleche}__serveur webhook-create__ permet de crée un webhook.`)
-            .setTimestamp()
-            .setFooter('BOT ID : 689210215488684044')
-        return message.channel.send(embed)
-    }
+module.exports.run = (client, message, args) => {
 
-    if (args[0].toLowerCase() === 'icon') {
-        if (!message.member.permissions.has('MANAGE_GUILD')) return message.channel.sendErrorMessage(`Vous devez avoir la permission de gérer le serveur pour utiliser cette commande.`)
-        if (!message.guild.me.permissions.has('MANAGE_GUILD')) return message.channel.sendErrorMessage(`Je n'ai pas la permission de modifier le serveur.`);
-        if (message.attachments.first()) {
+    switch (args[0].toLowerCase()) {
+        case 'icon':
+            if (!message.attachments.first()) return message.channel.send(`Please send file in attachement.`)
             icon = message.attachments.first().url
             message.guild.setIcon(icon)
-                .then(message.channel.sendSuccessMessage(`L'icon du serveur a bien été changé.`))
-                .catch(`${client.config.emojis.error}Une erreur s'est produite. Merci de vérifier la taille du fichier et de réessayer`)
-        } else {
-            const serveurIconDescription = new MessageEmbed()
-                .setTitle(`Sous commande : ${settings.prefix}serveur icon`)
-                .setColor(client.config.color.EMBEDCOLOR)
-                .setDescription(`**Module :** Manangement\n**Description :** Permet de changer l'icon du serveur\n**Usage : **${settings.prefix}serveur icon [Aucun]\n**Exemples :** \n ${settings.prefix}serveur icon (attachement)`)
-                .setFooter('BOT ID : 689210215488684044')
-                .setTimestamp()
-            return message.channel.send(serveurIconDescription)
-        }
-    }
-    if (args[0].toLowerCase() === 'name') {
-        if (!message.member.permissions.has('MANAGE_GUILD')) return message.channel.sendErrorMessage(`Vous devez avoir la permission de gérer le serveur pour utiliser cette commande.`)
-        if (!message.guild.me.permissions.has('MANAGE_GUILD')) return message.channel.sendErrorMessage(`Je n'ai pas la permission de modifier le serveur.`);
-        const serveurNameDescription = new MessageEmbed()
-            .setTitle(`Sous commande : ${settings.prefix}serveur name`)
-            .setColor(client.config.color.EMBEDCOLOR)
-            .setDescription(`**Module :** Manangement\n**Description :** Permet de changer le nom du serveur\n**Usage : ** ${settings.prefix}serveur name [new_name]\n**Exemples :** \n ${settings.prefix}serveur name Spiritus support`)
-            .setFooter('BOT ID : 689210215488684044')
-            .setTimestamp()
-        if (!args[1]) return message.channel.send(serveurNameDescription)
-        let newName = args.slice(1).join(" ")
-        if (newName.length < 2) return message.channel.sendErrorMessage(`Le nom doit comporter au moins 2 caractères.`)
-        message.guild.setName(newName)
-            .then(message.channel.sendSuccessMessage(`J'ai bien mis a jour le nom du serveur avec \`${newName}\``))
-    }
-    if (args[0].toLowerCase() === 'region') {
-        if (!message.member.permissions.has('MANAGE_GUILD')) return message.channel.sendErrorMessage(`Vous devez avoir la permission de gérer le serveur pour utiliser cette commande.`)
-        if (!message.guild.me.permissions.has('MANAGE_GUILD')) return message.channel.sendErrorMessage(`Je n'ai pas la permission de modifier le serveur.`);
-        const serveurRegionDescription = new MessageEmbed()
-            .setTitle(`Sous commande : ${settings.prefix}serveur region`)
-            .setColor(client.config.color.EMBEDCOLOR)
-            .setDescription(`**Module :** Manangement\n**Description :** Permet de changer la région du serveur\n**Usage : **${settings.prefix}serveur region [region]\n**Exemples :** \n ${settings.prefix}serveur region singapore`)
-            .setFooter('BOT ID : 689210215488684044')
-            .setTimestamp()
-        if (!args[1]) return message.channel.send(serveurRegionDescription)
-        //let region = ['us-south'||'russia'||'japan'||'dubai'||'us-west'||'brazil'||'hongkong'||'singapore'||'us-central'||'india'||'europe'||'eu-west'||'us-east'||'london'||'frankfurt'||'eu-central'||'sydney'||'southafrica'||'south-korea'||'amsterdam']
-        if (args[1] === 'us-south' || args[1] === 'russia' || args[1] === 'japan' || args[1] === 'dubai' || args[1] === 'us-west' || args[1] === 'brazil' || args[1] === 'hongkong' || args[1] === 'singapore' || args[1] === 'us-central' || args[1] === 'india' || args[1] === 'europe' || args[1] === 'eu-west' || args[1] === 'us-east' || args[1] === 'london' || args[1] === 'frankfurt' || args[1] === 'eu-central' || args[1] === 'sydney' || args[1] === 'southafrica' || args[1] === 'south-korea' || args[1] === 'amsterdam') {
-            message.guild.setRegion(args[1]).then(
-                message.channel.sendSuccessMessage(`J'ai bien mis a jour la région du serveur avec \`${args[1]}\``)
-            )
-        } else {
-            return message.channel.sendErrorMessage(`Merci de choisir une valeur valide (\`south-korea\`, \`dubai\`, \`london\`, \`us-central\`, \`eu-west\`, \`brazil\`, \`japan\`, \`southafrica\`, \`frankfurt\`, \`sydney\`, \`india\`, \`us-south\`, \`europe\`, \`us-east\`, \`hongkong\`, \`eu-central\`, \`singapore\`, \`russia\`, \`us-west\`, \`amsterdam\`). `)
-        }
-    }
-    if (args[0].toLowerCase() === 'moderation') {
-        if (!message.member.permissions.has('MANAGE_GUILD')) return message.channel.sendErrorMessage(`Vous devez avoir la permission de gérer le serveur pour utiliser cette commande.`)
-        if (!message.guild.me.permissions.has('MANAGE_GUILD')) return message.channel.sendErrorMessage(`Je n'ai pas la permission de modifier le serveur.`);
-        const serveurModerationDescription = new MessageEmbed()
-            .setTitle(`Sous commande : ${settings.prefix}serveur moderation`)
-            .setColor(client.config.color.EMBEDCOLOR)
-            .setDescription(`**Module :** Manangement\n**Description :** Permet de changer le niveau de modération du serveur\n**Usage : **${settings.prefix}serveur moderation [Niveau modération]\n**Exemples :** \n ${settings.prefix}serveur moderation 3`)
-            .setFooter('BOT ID : 689210215488684044')
-            .setTimestamp()
-        if (!args[1]) return message.channel.send(serveurModerationDescription)
-        let newLevel = args[1];
-        let levelEdit = '';
-        if (args[1] != 1 && args[1] != 2 && args[1] != 3 && args[1] != 4 && args[1] != 5) return message.channel.sendErrorMessage(` Merci d'indiquer une valeur entre 1 et 5`)
-        if (newLevel === '1') levelEdit = 'NONE'
-        if (newLevel === '2') levelEdit = 'LOW'
-        if (newLevel === '3') levelEdit = 'MEDIUM'
-        if (newLevel === '4') levelEdit = 'HIGH'
-        if (newLevel === '5') levelEdit = 'VERY_HIGH'
-        message.guild.edit({ verificationLevel: levelEdit })
-            .then(message.channel.sendSuccessMessage(`J'ai bien mis a jour le niveau de moderation du serveur par \`${newLevel}\``))
-    }
-    if (args[0].toLowerCase() === 'invite-create') {
-        if (!message.member.permissions.has('CREATE_INSTANT_INVITE')) return message.channel.sendErrorMessage(`Vous devez avoir la permission de crée une invitation.`)
-        if (!message.guild.me.permissions.has('CREATE_INSTANT_INVITE')) return message.channel.sendErrorMessage(`Je n'ai pas la permission de crée une invitation.`);
-        message.channel.createInvite().then(invite =>
-            invite.channel.send(new MessageEmbed()
-                .setAuthor('Création d\'une invitation')
-                .setColor(client.config.color.EMBEDCOLOR)
-                .setDescription(`Une invitation à été crée avec le code \`${invite.code}\``)
-                .addFields({ name: '\u200b', value: `https://discord.gg/${invite.code}`, inline: false })
-                .setTimestamp())
-        ).catch(console.error);
-    }
-    if (args[0].toLowerCase() === 'webhook-create') {
-        if (!message.member.permissions.has('MANAGE_WEBHOOKS')) return message.channel.sendErrorMessage(`Vous devez avoir la permission de gérer les webhooks.`)
-        if (!message.guild.me.permissions.has('MANAGE_WEBHOOKS')) return message.channel.sendErrorMessage(`Je n'ai pas la permission de gérer les webhooks.`);
-        message.channel.createWebhook('Webhook', {
-            reason: 'Création d\'un webhook'
-        }).then(webhook =>
-            client.channels.cache.get(webhook.channelID).send(new MessageEmbed()
-                .setAuthor('Création d\'un webhook')
-                .setColor(client.config.color.EMBEDCOLOR)
-                .setThumbnail(message.guild.iconURL())
-                .setDescription(`__Name :__ ${webhook.name}\n__ID :__ ${webhook.id}\n__Type :__ ${webhook.type}\n__Guild :__ ${webhook.guildID}\n__Channel :__ ${webhook.channelID}`))
-        ).catch(console.error);
-    }
+                .then(message.channel.sendSuccessMessage(`The icon of the guild has been changed.`))
+                .catch(`${client.config.emojis.error}An error has occurred. Please check the file size and try again.`)
+            break;
+        case 'name':
+            let newName = args.slice(1).join(" ")
+            if (newName.length < 2) return message.channel.sendErrorMessage(`The name must be at least 2 characters long.`)
+            message.guild.setName(newName)
+                .then(message.channel.sendSuccessMessage(`The name of the guild has been changed with \`${newName}\``))
+            break;
+        case 'moderation':
+            let newLevel = args[1];
+            let levelEdit = '';
+            if (args[1] != 1 && args[1] != 2 && args[1] != 3 && args[1] != 4 && args[1] != 5) return message.channel.sendErrorMessage(` Merci d'indiquer une valeur entre 1 et 5`)
+            if (newLevel === '1') levelEdit = 'NONE'
+            if (newLevel === '2') levelEdit = 'LOW'
+            if (newLevel === '3') levelEdit = 'MEDIUM'
+            if (newLevel === '4') levelEdit = 'HIGH'
+            if (newLevel === '5') levelEdit = 'VERY_HIGH'
+            message.guild.edit({ verificationLevel: levelEdit })
+                .then(message.channel.sendSuccessMessage(`I have updated the moderation level of the server by \`${newLevel}\``))
+            break;
 
+        case 'invite-create':
+            message.channel.createInvite().then(invite =>
+                invite.channel.send(new MessageEmbed()
+                    .setAuthor('Creating an invitation')
+                    .setColor(client.config.color.EMBEDCOLOR)
+                    .setDescription(`An invitation was created with the code \`${invite.code}\``)
+                    .addFields({ name: '\u200b', value: `https://discord.gg/${invite.code}`, inline: false })
+                    .setTimestamp())
+            ).catch(console.error);
+            break;
+        case 'webhook-create':
+            message.channel.createWebhook('Webhook', {
+                reason: 'Creating an webhook'
+            }).then(webhook =>
+                client.channels.cache.get(webhook.channelID).send(new MessageEmbed()
+                    .setAuthor('Creating an webhook')
+                    .setColor(client.config.color.EMBEDCOLOR)
+                    .setThumbnail(message.guild.iconURL())
+                    .setDescription(`__Name :__ ${webhook.name}\n__ID :__ ${webhook.id}\n__Type :__ ${webhook.type}\n__Guild :__ ${webhook.guildID}\n__Channel :__ ${webhook.channelID}`))
+            ).catch(console.error);
+            break;
+    }
 }
 module.exports.help = {
-    name: 'serveur',
-    aliases: ['serveur'],
+    name: 'server',
+    aliases: ['server'],
     category: 'administration',
-    description: 'Permet de gérer le serveur.',
+    description: 'Commands for manage server settings.',
     cooldown: 5,
     usage: '<action> <value>',
-    exemple: ['serveur name Spiritus'],
-    permissions: false,
+    exemple: ['server name Spiritus'],
+    moderator: false,
     isUserAdmin: false,
-    args: false,
-    subcommands: ['serveur icon', 'serveur name', 'serveur region', 'serveur moderation', 'serveur invite-create', 'serveur webhook-create']
+    args: true,
+    userPermissions: ['MANAGE_GUILD'],
+    botPermissions: ['MANAGE_GUILD', 'CREATE_INSTANT_INVITE', 'MANAGE_WEBHOOKS'],
+    subcommands: [
+        {
+            name: 'icon',
+            description: 'Change the icon of the guild',
+            usage: '[attachement]',
+            args: 0,
+            exemples: []
+        },
+        {
+            name: 'name',
+            description: 'Change the name of the guild',
+            usage: '<name>',
+            args: 1,
+            exemples: ['Spiritus support']
+        },
+        {
+            name: 'moderation',
+            description: 'Change the moderation level of the guild',
+            usage: '<level>',
+            args: 1,
+            exemples: ['3']
+        },
+        {
+            name: 'invite-create',
+            description: 'Create invitation on the guild',
+            usage: '',
+            args: 0,
+            exemples: []
+        },
+        {
+            name: 'webhook-create',
+            description: 'Create webhook on the channel where the command is typing.',
+            usage: '',
+            args: 0,
+            exemples: []
+        },
+    ]
 }
 

@@ -1,5 +1,4 @@
 module.exports.run = async (client, message, args) => {
-    if (!message.member.permissions.has('MANAGE_GUILD')) return message.channel.sendErrorMessage(`You need MANAGE_GUILD permission for use this command.`)
     const channel = await client.resolveChannel(message.guild, args[0])
     if (channel) {
         client.updateGuild(message.guild, { modLogs: channel.id })
@@ -15,9 +14,11 @@ module.exports.help = {
     cooldown: 5,
     usage: '<channel>',
     exemple: ['setmodlogs #logs'],
-    permissions: false,
+    moderator: false,
     isUserAdmin: false,
     args: false,
+    userPermissions: ['MANAGE_GUILD'],
+    botPermissions: [],
     subcommands: []
 }
 

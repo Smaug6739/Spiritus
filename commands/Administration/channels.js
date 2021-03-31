@@ -243,7 +243,7 @@ module.exports.help = {
     usage: '<action> <args>',
     exemple: [],
     isUserAdmin: false,
-    permissions: false,
+    moderator: false,
     args: false,
     subcommands: ["channel clone", "channel position", "channel parent", "channel synchro", "channel topic", "channel create", "channel update", "channel delete", "channel pin", "channel unpin"]
 };

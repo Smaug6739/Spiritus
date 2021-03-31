@@ -30,7 +30,7 @@ module.exports = async (client, messageReaction, user) => {
   console.log(member)
   message = await  messageReaction.message;
   //member = await message.guild.members.cache.get(`${user.id}`);
-  member = client.resolveMember(message.guild,`611468402263064577`)
+  member = await client.resolveMember(message.guild,`611468402263064577`)
     
     */
 /*

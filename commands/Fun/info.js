@@ -184,9 +184,11 @@ module.exports.help = {
     cooldown: 5,
     usage: '<action> <valeur>',
     exemple: ["info user @Smaug"],
-    permissions: false,
+    moderator: false,
     isUserAdmin: false,
     args: false,
+    userPermissions: [],
+    botPermissions: [],
     subcommands: [
         {
             name: 'user',

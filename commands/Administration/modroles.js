@@ -54,7 +54,7 @@ module.exports.help = {
     cooldown: 5,
     usage: '<action> <args>',
     exemple: ["modroles add @Moderateur"],
-    permissions: false,
+    moderator: false,
     isUserAdmin: false,
     args: false,
     subcommands: ["modroles add", "modroles rem", "modroles liste"]

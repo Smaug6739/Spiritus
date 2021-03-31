@@ -13,7 +13,9 @@ module.exports.help = {
     usage: '<your_suggestion>',
     exemple: ['suggest new awsome feature'],
     isUserAdmin: false,
-    permissions: false,
+    moderator: false,
     args: true,
+    userPermissions: [],
+    botPermissions: [],
     subcommands: []
 }

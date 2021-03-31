@@ -107,7 +107,7 @@ module.exports.help = {
     usage: '<action> <valeur>',
     exemple: [''],
     isUserAdmin: false,
-    permissions: true,
+    moderator: true,
     args: false,
     subcommands: ["commande liste", "commande create", "commande delete"]
 }

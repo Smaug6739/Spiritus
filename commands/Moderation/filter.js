@@ -2,7 +2,6 @@ module.exports.run = async (client, message, args, settings) => {
 
   switch (args[0].toLowerCase()) {
     case 'add':
-      if (!message.member.permissions.has('MANAGE_GUILD')) return message.channel.sendErrorMessage(`You need manage server permission for use this command.`);
       const wordToAdd = args[1]
       if (!wordToAdd) return message.channel.sendErrorMessage(`Please indicate a word to add to the list.`)
       settings.filter.push(wordToAdd);
@@ -47,8 +46,10 @@ module.exports.help = {
   usage: '<word>',
   exemple: ["filter fck"],
   isUserAdmin: false,
-  permissions: true,
+  moderator: true,
   args: false,
+  userPermissions: ['MANAGE_GUILD'],
+  botPermissions: [],
   subcommands: [
     {
       name: 'add',

@@ -5,6 +5,7 @@ module.exports.run = async (client, message, args, settings) => {
         .setColor(client.config.color.EMBEDCOLOR)
         .setDescription(`https://discordapp.com/oauth2/authorize?client_id=${client.user.id}&scope=bot&permissions=1946446974`)
         .setTimestamp()
+        .setFooter()
     message.channel.send(embed)
 }
 module.exports.help = {
@@ -15,8 +16,10 @@ module.exports.help = {
     cooldown: 10,
     usage: '',
     exemple: [],
-    permissions: false,
+    moderator: false,
     isUserAdmin: false,
     args: false,
+    userPermissions: [],
+    botPermissions: [],
     subcommands: []
 }

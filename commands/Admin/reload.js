@@ -24,7 +24,7 @@ module.exports.help = {
     cooldown: 5,
     usage: '[dir] [file]',
     exemple: [],
-    permissions: true,
+    moderator: true,
     isUserAdmin: false,
     args: true,
     subcommands: [""]

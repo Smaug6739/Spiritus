@@ -1,5 +1,4 @@
 module.exports.run = async (client, message, args, settings) => {
-    if (!message.member.permissions.has('MANAGE_GUILD')) return message.channel.sendErrorMessage(`Vous devez avoir la permission de gérer le serveur pour utiliser cette commande.`);
     switch (args[0].toLowerCase()) {
         case 'add':
             const channelToAdd = await client.resolveChannel(message.guild, args[1])
@@ -43,9 +42,11 @@ module.exports.help = {
     cooldown: 5,
     usage: '<action> <args>',
     exemple: ["ignore add @Channel"],
-    permissions: false,
+    moderator: false,
     isUserAdmin: false,
     args: false,
+    userPermissions: ['MANAGE_GUILD'],
+    botPermissions: [],
     subcommands: [
         {
             name: 'add',

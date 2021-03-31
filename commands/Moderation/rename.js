@@ -1,6 +1,4 @@
 module.exports.run = async (client, message, args) => {
-  if (!message.guild.me.permissions.has('MANAGE_NICKNAMES')) return message.channel.sendErrorMessage(`I don't have permission to rename users.`);
-
   let utilisateur = await client.resolveMember(message.guild, args[0])
   if (utilisateur == undefined) return message.channel.sendErrorMessage(`User not found.`)
   let newName = args.slice(1).join(" ");
@@ -20,7 +18,9 @@ module.exports.help = {
   usage: '<user> <new_name>',
   exemple: ["rename @Smaug Smaug6739"],
   isUserAdmin: false,
-  permissions: true,
+  moderator: true,
   args: true,
+  userPermissions: [],
+  botPermissions: ['MANAGE_NICKNAMES'],
   subcommands: []
 };

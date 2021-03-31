@@ -89,8 +89,10 @@ module.exports.help = {
     cooldown: 10,
     usage: '<@user>',
     exemple: ["rank @Smaug"],
-    permissions: false,
+    moderator: false,
     isUserAdmin: false,
     args: false,
+    userPermissions: [],
+    botPermissions: [],
     subcommands: []
 }

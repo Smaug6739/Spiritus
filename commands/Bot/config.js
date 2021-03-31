@@ -1,5 +1,4 @@
 module.exports.run = async (client, message, args, settings) => {
-    if (!message.member.permissions.has('MANAGE_GUILD')) return message.channel.sendErrorMessage(`Vous devez avoir la permission de gérer le serveur pour utiliser cette commande.`)
     const getSetting = args[0].toLowerCase();
     const newSetting = args.slice(1).join(" ");
     switch (getSetting) {
@@ -77,13 +76,15 @@ module.exports.help = {
     name: "config",
     aliases: ['config'],
     category: 'bot',
-    description: "Permet de configurer le bot.",
+    description: "Config the bot.",
     cooldown: 10,
-    usage: '[paramètre] (valeur)',
+    usage: '[parameter] (value)',
     exemple: [],
     isUserAdmin: false,
-    permissions: false,
+    moderator: false,
     args: true,
+    userPermissions: ['MANAGE_GUILD'],
+    botPermissions: [],
     subcommands: [
         {
             name: 'prefix',

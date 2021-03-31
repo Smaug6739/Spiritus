@@ -1,6 +1,5 @@
 const { MessageEmbed } = require("discord.js");
 module.exports.run = async (client, message, args, settings) => {
-    if (!message.guild.me.permissions.has('BAN_MEMBERS')) return message.channel.sendErrorMessage(`I don't have permission for ban user.`);
 
     /*if(args[0].toLowerCase() === 'match'){
       if(!args[1]){
@@ -52,7 +51,7 @@ module.exports.run = async (client, message, args, settings) => {
           messge.edit({ content: descrip });
           for (const user of users) {
                   try {
-                      userToBan = client.resolveMember(message.guild,user)
+                      userToBan = await client.resolveMember(message.guild,user)
                       usr = user
                       await usersList.push(`${userToBan.user.username}#${userToBan.user.discriminator}`);
                       if(userToBan.bannable){
@@ -162,7 +161,9 @@ module.exports.help = {
     usage: '<@user> <reason>',
     exemple: ["ban @Smaug spam"],
     isUserAdmin: false,
-    permissions: true,
+    moderator: true,
     args: true,
+    userPermissions: ['BAN_MEMBERS'],
+    botPermissions: ['BAN_MEMBERS'],
     subcommands: []
 };

@@ -44,7 +44,9 @@ module.exports.help = {
   usage: '<command_name>',
   exemple: ["help", "help ping"],
   isUserAdmin: false,
-  permissions: false,
+  moderator: false,
   args: false,
+  userPermissions: [],
+  botPermissions: [],
   subcommands: []
 };

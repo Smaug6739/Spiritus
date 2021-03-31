@@ -37,7 +37,7 @@ module.exports = async (client, messageReaction, user) => {
     if(element.messageID === `${message.id}` && element.channelID === `${message.channel.id}`){
       if(element.emoji == `${emojiID}`|| element.emoji == `${emoji}`){      //console.log(element)
         let roleToRem = message.guild.roles.cache.get(`${element.roleID}`)
-        let mem = client.resolveMember()
+        let mem = await client.resolveMember()
         //if(member.roles.highest.comparePositionTo(roleToRem) <= 0)return console.log(`Vous ne pouvez pas enlever un role superieur a votre role le plus haut.`);
         if(message.guild.me.roles.highest.comparePositionTo(roleToRem) <= 0) return console.log(`Je n'ai pas un role sufisant pour vous enlever ce role`)
         member.roles.remove(roleToRem)

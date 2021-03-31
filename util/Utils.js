@@ -5,11 +5,15 @@ module.exports = client => {
         console.log(message)
     }
     client.resolveMember = async (guild, arg) => {
-        if (!arg || !guild || guild.avalaible) {
+        if (!arg || !guild || !guild.avalaible) {
             return;
         }
-        //let user = guild.members.cache.find(mem => mem.id === arg.replace('!', '').replace(/<@|>/g, '') || mem.user.username.toLowerCase().startsWith(arg.toLowerCase()) || mem.user.username.toLowerCase() === arg.toLowerCase() || `${mem.user.username.toLowerCase()}#${mem.user.discriminator}` === arg.toLowerCase() || (mem.nick && mem.nick.toLowerCase().startsWith(arg)) || (mem.nick && mem.nick.toLowerCase() === arg.toLowerCase()));
-        let user = guild.members.cache.find(mem => mem.id === arg.replace('!', '').replace(/<@|>/g, '') || mem.user.username.toLowerCase().startsWith(arg.toLowerCase()) || mem.user.username.toLowerCase() === arg.toLowerCase() || `${mem.user.username.toLowerCase()}#${mem.user.discriminator}` === arg.toLowerCase() || (mem.nick && mem.nick.toLowerCase().startsWith(arg)) || (mem.nick && mem.nick.toLowerCase() === arg.toLowerCase()));
+        let user = guild.members.cache.find(mem => mem.id === arg.replace('!', '').replace(/<@|>/g, '') ||
+            mem.user.username.toLowerCase().startsWith(arg.toLowerCase()) ||
+            mem.user.username.toLowerCase() === arg.toLowerCase() ||
+            `${mem.user.username.toLowerCase()}#${mem.user.discriminator}` === arg.toLowerCase() ||
+            (mem.nick && mem.nick.toLowerCase().startsWith(arg)) ||
+            (mem.nick && mem.nick.toLowerCase() === arg.toLowerCase()));
         return user;
     }
     client.resolveUser = (arg) => {
@@ -77,14 +81,14 @@ module.exports = client => {
              true
          );
          reactionListener.on('reacted', async(event) => {
-             const user = client.resolveMember(message.channel.guild, event.userID);
+             const user = await client.resolveMember(message.channel.guild, event.userID);
              if (user.bot) return;
              if ((event.emoji.id && event.emoji.id !== emote.id) || (!event.emoji.id && event.emoji.name !== emote)) return;
              if (user.roles.includes(role.id)) return user.removeRole(role.id).catch();
              return user.addRole(role.id).catch();
          });
          reactionListener.on('unReacted', async(event) => {
-             const user = client.resolveMember(message.channel.guild, event.userID);
+             const user = await client.resolveMember(message.channel.guild, event.userID);
              if (user.bot) return;
              if ((event.emoji.id && event.emoji.id !== emote.id) || (!event.emoji.id && event.emoji.name !== emote)) return;
              if (!user.roles.includes(role.id)) return user.addRole(role.id).catch();

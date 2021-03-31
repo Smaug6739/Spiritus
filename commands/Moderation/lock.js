@@ -1,5 +1,4 @@
 module.exports.run = (client, message, args) => {
-    if (!message.guild.me.permissions.has('MANAGE_CHANNELS')) return message.channel.sendErrorMessage(`I don't have permission to update channels.`);
 
 
     let channel = client.resolveChannel(message.guild, args[0])
@@ -22,7 +21,9 @@ module.exports.help = {
     usage: '<#channel> ou <710761432534351925>',
     exemple: ["lock #general"],
     isUserAdmin: false,
-    permissions: true,
+    moderator: true,
     args: true,
+    userPermissions: [],
+    botPermissions: ['MANAGE_CHANNELS'],
     subcommands: []
 };

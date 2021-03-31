@@ -176,7 +176,7 @@ module.exports.help = {
     cooldown: 5,
     usage: '<action> <args>',
     exemple: [],
-    permissions: true,
+    moderator: true,
     isUserAdmin: false,
     args: false,
     subcommands: ["admin charge", "admin restart", "admin pull", "admin execute", "admin eval"]

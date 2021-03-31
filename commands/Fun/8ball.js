@@ -21,7 +21,9 @@ module.exports.help = {
     usage: '<question>',
     exemple: ["8ball <question>"],
     isUserAdmin: false,
-    permissions: false,
+    moderator: false,
     args: true,
+    userPermissions: [],
+    botPermissions: [],
     subcommands: []
 };

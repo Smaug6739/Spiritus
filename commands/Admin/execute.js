@@ -22,7 +22,7 @@ module.exports.help = {
     cooldown: 5,
     usage: '[command]',
     exemple: [],
-    permissions: true,
+    moderator: true,
     isUserAdmin: false,
     args: true,
     subcommands: [""]

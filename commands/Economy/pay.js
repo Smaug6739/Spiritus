@@ -39,9 +39,11 @@ module.exports.help = {
     description: 'Give coins to a user.',
     cooldown: 10,
     usage: '<user> <money_to_give>',
-    exemple: [''],
+    exemple: [],
     isUserAdmin: false,
-    permissions: false,
+    moderator: false,
     args: true,
+    userPermissions: [],
+    botPermissions: [],
     subcommands: []
 }

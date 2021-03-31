@@ -13,7 +13,9 @@ module.exports.help = {
     usage: '',
     exemple: [],
     isUserAdmin: false,
-    permissions: false,
+    moderator: false,
     args: false,
+    userPermissions: [],
+    botPermissions: [],
     subcommands: []
 }

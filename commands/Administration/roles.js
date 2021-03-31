@@ -1,203 +1,104 @@
 const { MessageEmbed } = require("discord.js")
 module.exports.run = async (client, message, args, settings) => {
-    if (!args[0]) {
-        const embed = new MessageEmbed()
-            .setTitle('Commande role')
-            .setColor(client.config.color.EMBEDCOLOR)
-            .setDescription(`La commande __roles__ permet de gérer les roles du serveur graces aux sous commandes suivantes :\n\n${client.config.emojis.fleche}__role liste__ donne la liste des roles du serveur.\n${client.config.emojis.fleche}__role create__ permet de crée un role.\n${client.config.emojis.fleche}__role update__ permet de mettre a jour le nom d'un role.\n${client.config.emojis.fleche}__role delete__ permet de supprimer un role.\n${client.config.emojis.fleche}__role color__ permet de mettre a jour la couleur d'un role.\n${client.config.emojis.fleche}__role add__ permet de donner un role a une personne.\n${client.config.emojis.fleche}__role rem__ permet de retirer le role d'une personne.`)
-            .setTimestamp()
-            .setFooter('BOT ID : 689210215488684044')
-        return message.channel.send(embed)
-    }
-    if (args[0].toLowerCase() === 'liste') {
-        const rolesListe = message.channel.guild.roles.cache.map(role => role.toString());
-        let embed = {
-            title: `Liste des roles pour le serveur **${message.guild.name}** | ${rolesListe.length} au totale`,
-            thumbnail: {
-                url: `${message.guild.iconURL()}`,
-            },
-            color: `${client.config.color.EMBEDCOLOR}`,
-            description: null,
-            fields: []
-        };
-        if (rolesListe.join(' ').length > 2048) {
-            let i = '';
-            // eslint-disable-next-line guard-for-in
-            rolesListe.forEach(role => {
-                if (i.length <= 1024 && i.length + role.length > 1024) embed.fields.push({ name: '\u200b', value: i, inline: true });
-                i = i.concat(' ', role);
-            });
-        } else {
-            embed.description = rolesListe.join(' ');
-        }
-        return message.channel.send({ embed });
-    }
-    //---------------------------------------------ROLES-CREATE----------------------------------------------------------
+    switch (args[0].toLowerCase()) {
+        case 'list':
+            const rolesListe = message.channel.guild.roles.cache.map(role => role.toString());
+            let embed = {
+                title: `List of roles on the guild **${message.guild.name}** | ${rolesListe.length} in total`,
+                thumbnail: {
+                    url: `${message.guild.iconURL()}`,
+                },
+                color: `${client.config.color.EMBEDCOLOR}`,
+                description: null,
+                fields: []
+            };
+            if (rolesListe.join(' ').length > 2048) {
+                let i = '';
+                rolesListe.forEach(role => {
+                    if (i.length <= 1024 && i.length + role.length > 1024) embed.fields.push({ name: '\u200b', value: i, inline: true });
+                    i = i.concat(' ', role);
+                });
+            } else embed.description = rolesListe.join(' ');
+            message.channel.send({ embed });
+            break;
+        case 'create':
+            let role_name = (args.splice(1).join(' ') || 'new role');
+            if (role_name.length > 99) return message.channel.sendErrorMessage(`The name must be inferior to 100 chars.`);
+            message.guild.roles.create({
+                data: {
+                    name: role_name
+                }
+            })
+                .then(role => message.channel.sendSuccessMessage(`I have created the role ${role}`))
+                .catch(console.error);
+            break;
+        case 'update':
+            const roleToUpdate = client.resolveRole(message.guild, args[1])
+            if (roleToUpdate == undefined) return message.channel.sendErrorMessage(`Role not found`)
+            if (message.guild.me.roles.highest.comparePositionTo(roleToUpdate) <= 0) return message.channel.sendErrorMessage(`Je n'ai pas un role sufisant pour modifier ce role.`)
 
-    if (args[0].toLowerCase() === 'create') {
-        if (!message.member.permissions.has('MANAGE_ROLES')) return message.channel.sendErrorMessage(`Vous devez avoir la permission de gérer les roles pour utiliser cette commande.`)
-        if (!message.guild.me.permissions.has('MANAGE_ROLES')) return message.channel.sendErrorMessage(`Je n'ai pas la permission de modifier les roles.`);
-        const roleCreateDescription = new MessageEmbed()
-            .setTitle(`Sous commande : ${settings.prefix}role create`)
-            .setColor(client.config.color.EMBEDCOLOR)
-            .setDescription(`**Module :** Manangement\n**Description :** Permet de crée un role sur le serveur\n**Usage : **${settings.prefix}role create [nom]\n**Exemples :** \n ${settings.prefix}role create Spiritus`)
-            .setFooter('BOT ID : 689210215488684044')
-            .setTimestamp()
-        if (!args[1]) return message.channel.send(roleCreateDescription)
-        let role_name = (args.splice(1).join(' ') || 'new role');
-        if (role_name.length > 99) return message.channel.sendErrorMessage(`Le nom du role doit etre inferieur à 100 caractères.`);
-        message.guild.roles.create({
-            data: {
-                name: role_name
+            const roleName = args.slice(2).join(" ") || 'new role'
+            if (roleName.length > 99) return message.channel.sendErrorMessage(`The name must be inferior to 100 chars.`);
+            await roleToUpdate.edit({ name: `${roleName}` }).then(
+                message.channel.sendSuccessMessage(`J'ai bien mis a jour le role \`${roleToUpdate.name}\` par \`${roleName}\``))
+            break;
+        case 'delete':
+            const roleToDelete = client.resolveRole(message.guild, args[1])
+            if (roleToDelete == undefined) return message.channel.sendErrorMessage(`Role not found`)
+            message.channel.sendSuccessMessage(`J'ai bien supprimer le role \`${roleToDelete.name}\``).then(
+                roleToDelete.delete())
+            break;
+        case 'position':
+            let role = client.resolveRole(message.guild, args[1])
+            if (role == undefined) return message.channel.sendErrorMessage(`Role not found`)
+            let newPosition = args.slice(1).join('')
+            newPosition = newPosition.split(role)
+            newPosition = newPosition.join(' ')
+            newPosition = Number(newPosition)
+            console.log(newPosition)
+            if (message.guild.me.roles.highest.comparePositionTo(role) <= 0) return message.channel.sendErrorMessage(`I do not have a role sufficient to modify this role.`)
+            if (message.guild.me.roles.highest.rawPosition <= newPosition) return message.channel.sendErrorMessage(`I do not have a role sufficient to put this role so high.`)
+            if (message.member.roles.highest.comparePositionTo(role) <= 0) return message.channel.sendErrorMessage(`You do not have a role sufficient to modify this role.`)
+            if (isNaN(newPosition)) return message.channel.sendErrorMessage(`Please indicate the new position of the role as a number.`)
+            message.guild.setRolePositions([{ role: role, position: newPosition }]).then(message.channel.sendSuccessMessage(`I have updated the role \`${role.name}\``))
+            break;
+        case 'add':
+            const userToAdd = await client.resolveMember(message.guild, args[1]) || message.member;
+            const roleToAdd = client.resolveRole(message.guild, args[2]) || message.mentions.roles.first()
+            if (!roleToAdd) return message.channel.sendErrorMessage(`Role not found`)
+            if (roleToAdd) {
+                if (message.guild.me.roles.highest.comparePositionTo(roleToAdd) <= 0) return message.channel.sendErrorMessage(`I do not have a sufficient role to give you this role.`)
+                if (message.member.roles.highest.comparePositionTo(roleToAdd) <= 0) {
+                    return message.channel.sendErrorMessage(`You cannot add a higher role to your highest role.`);
+                } else {
+                    if (userToAdd.roles.cache.has(roleToAdd.id)) return message.channel.sendErrorMessage(`The user already have this role.`);
+                    userToAdd.roles.add(roleToAdd)
+                        .then(() => message.channel.sendSuccessMessage(`I have add the role \`${roleToAdd.name}\` to ${userToAdd}.`))
+                        .catch(e => console.log(e));
+                }
+            } else message.channel.sendErrorMessage(`Role not found`);
+            break;
+        case 'rem':
+            if (args[0].toLowerCase() === 'rem') {
+                const userToRem = await client.resolveMember(message.guild, args[1]) || message.member
+                const roleToRemove = client.resolveRole(message.guild, args[2]) || message.mentions.roles.first()
+                if (!roleToRemove) return message.channel.sendErrorMessage(`Role not found`)
+                if (roleToRemove) {
+                    if (message.guild.me.roles.highest.comparePositionTo(roleToRemove) <= 0) return message.channel.sendErrorMessage(`I do not have a sufficient role to remove this role from you`)
+                    if (message.member.roles.highest.comparePositionTo(roleToRemove) <= 0) {
+                        return message.channel.sendErrorMessage(`You cannot remove a role greater than or equal to your highest role.`);
+                    } else {
+                        if (!userToRem.roles.cache.has(roleToRemove.id)) return message.channel.sendErrorMessage(`The user does not have this role.`);
+                        userToRem.roles.remove(roleToRemove)
+                            .then(() => message.channel.sendSuccessMessage(`I have removed the role \`${roleToRemove.name}\` of \`${userToRem.user.username}\`.`))
+                            .catch(e => console.log(e));
+                    }
+                } else message.channel.sendErrorMessage(`Role not found`);
             }
-        })
-            .then(role => message.channel.sendSuccessMessage(`J'ai bien crée le role ${role}`))
-            .catch(console.error);
-        //---------------------------------------------ROLES-DELETE----------------------------------------------------------
+            break;
     }
-    if (args[0].toLowerCase() === 'delete') {
-        if (!message.member.permissions.has('MANAGE_ROLES')) return message.channel.sendErrorMessage(`Vous devez avoir la permission de gérer les roles pour utiliser cette commande.`)
-        if (!message.guild.me.permissions.has('MANAGE_ROLES')) return message.channel.sendErrorMessage(`Je n'ai pas la permission de modifier les roles.`);
-        const roleDeleteDescription = new MessageEmbed()
-            .setTitle(`Sous commande : ${settings.prefix}role delete`)
-            .setColor(client.config.color.EMBEDCOLOR)
-            .setDescription(`**Module :** Manangement\n**Description :** Permet de supprimer un role sur le serveur\n**Usage : ** ${settings.prefix}role delete [nom/id/mention]\n**Exemples :** \n ${settings.prefix}role delete Spiritus`)
-            .setFooter('BOT ID : 689210215488684044')
-            .setTimestamp()
-        if (!args[1]) return message.channel.send(roleDeleteDescription)
-        let role = client.resolveRole(message.guild, args[1])
-        if (role == undefined) return message.channel.sendErrorMessage(`Je n'ai pas trouver ce role`)
-
-        message.channel.sendSuccessMessage(`J'ai bien supprimer le role \`${role.name}\``).then(
-            role.delete())
-
-    }
-    if (args[0].toLowerCase() === 'update') {
-        if (!message.member.permissions.has('MANAGE_ROLES')) return message.channel.sendErrorMessage(`Vous devez avoir la permission de gérer les roles pour utiliser cette commande.`)
-        if (!message.guild.me.permissions.has('MANAGE_ROLES')) return message.channel.sendErrorMessage(`Je n'ai pas la permission de modifier les roles.`);
-        const roleUpdateDescription = new MessageEmbed()
-            .setTitle(`Sous commande : ${settings.prefix}role update`)
-            .setColor(client.config.color.EMBEDCOLOR)
-            .setDescription(`**Module :** Manangement\n**Description :** Permet de modifier un role sur le serveur\n**Usage : ** ${settings.prefix}role update [nom/id/mention] (Nouveau nom)\n**Exemples :** \n ${settings.prefix}role update BOT Spiritus`)
-            .setFooter('BOT ID : 689210215488684044')
-            .setTimestamp()
-        if (!args[1]) return message.channel.send(roleUpdateDescription)
-        if (!args[1]) return message.channel.sendErrorMessage(`Merci d'indiquer en premier argument le nom ou la mention du role a changer`)
-        let role = client.resolveRole(message.guild, args[1])
-        if (role == undefined) return message.channel.sendErrorMessage(`Je n'ai pas trouver ce role`)
-        if (message.guild.me.roles.highest.comparePositionTo(role) <= 0) return message.channel.sendErrorMessage(`Je n'ai pas un role sufisant pour modifier ce role.`)
-
-        let roleName = args.slice(2).join(" ") || 'new role'
-        if (roleName.length > 99) return message.channel.sendErrorMessage(`Le nom du role doit etre inferieur a 100 caractères.`);
-        await role.edit({ name: `${roleName}` }).then(
-            message.channel.sendSuccessMessage(`J'ai bien mis a jour le role \`${role.name}\` par \`${roleName}\``))
-    }
-    if (args[0].toLowerCase() === 'position') {
-        if (!message.member.permissions.has('MANAGE_ROLES')) return message.channel.sendErrorMessage(`Vous devez avoir la permission de gérer les roles pour utiliser cette commande.`)
-        if (!message.guild.me.permissions.has('MANAGE_ROLES')) return message.channel.sendErrorMessage(`Je n'ai pas la permission de modifier les roles.`);
-        const rolePositionDescription = new MessageEmbed()
-            .setTitle(`Sous commande : ${settings.prefix}role position`)
-            .setColor(client.config.color.EMBEDCOLOR)
-            .setDescription(`**Module :** Manangement\n**Description :** Permet de modifier la position un role sur le serveur\n**Usage : ** ${settings.prefix}role position [nom/id/mention] (Position)\n**Exemples :** \n ${settings.prefix}role position Spiritus 5`)
-            .setFooter('BOT ID : 689210215488684044')
-            .setTimestamp()
-        if (!args[1]) return message.channel.send(rolePositionDescription)
-        let role = client.resolveRole(message.guild, args[1])
-        if (role == undefined) return message.channel.sendErrorMessage(`Je n'ai pas trouver ce role`)
-        let newPosition = args.slice(1).join('')
-        newPosition = newPosition.split(role)
-        newPosition = newPosition.join(' ')
-        newPosition = Number(newPosition)
-        console.log(newPosition)
-        if (message.guild.me.roles.highest.comparePositionTo(role) <= 0) return message.channel.sendErrorMessage(`Je n'ai pas un role sufisant pour modifier ce role.`)
-        if (message.guild.me.roles.highest.rawPosition <= newPosition) return message.channel.sendErrorMessage(`Je n'ai pas un role sufisant pour mettre ce role si haut.`)
-        if (message.member.roles.highest.comparePositionTo(role) <= 0) return message.channel.sendErrorMessage(`Tu n'a pas un role sufisant pour modifier ce role.`)
-        if (isNaN(newPosition)) return message.channel.sendErrorMessage(`Merci d'indiquer la nouvelle position du role sous forme d'un nombre.`)
-        message.guild.setRolePositions([{ role: role, position: newPosition }]).then(message.channel.sendSuccessMessage(`J'ai bien mis à jour la position du role \`${role.name}\``))
 
 
-    }
-    if (args[0].toLowerCase() === 'color') {
-        if (!message.member.permissions.has('MANAGE_ROLES')) return message.channel.sendErrorMessage(`Vous devez avoir la permission de gérer les roles pour utiliser cette commande.`)
-        if (!message.guild.me.permissions.has('MANAGE_ROLES')) return message.channel.sendErrorMessage(`Je n'ai pas la permission de modifier les roles.`);
-        const roleUpdateDescription = new MessageEmbed()
-            .setTitle(`Sous commande : ${settings.prefix}role color`)
-            .setColor(client.config.color.EMBEDCOLOR)
-            .setDescription(`**Module :** Manangement\n**Description :** Permet de modifier un role sur le serveur\n**Usage : ** ${settings.prefix}role color [nom/id/mention]\n**Exemples :** \n ${settings.prefix}role color @Spiritus`)
-            .setFooter('BOT ID : 689210215488684044')
-            .setTimestamp()
-        if (!args[1]) return message.channel.send(roleUpdateDescription)
-        let role = client.resolveRole(message.guild, args[1])
-        if (role == undefined) return message.channel.sendErrorMessage(`Je n'ai pas trouver ce role`)
-        if (message.guild.me.roles.highest.comparePositionTo(role) <= 0) return message.channel.sendErrorMessage(`Je n'ai pas un role sufisant pour modifier ce role.`)
-        let roleColor = `#${Math.floor(Math.random() * 10)}${Math.floor(Math.random() * 10)}${Math.floor(Math.random() * 10)}${Math.floor(Math.random() * 10)}${Math.floor(Math.random() * 10)}${Math.floor(Math.random() * 10)}`
-        const embedColorSuccess = new MessageEmbed()
-            .setTitle(`Mise à jour d'un role`)
-            .addField(`Nom :`, `${role.name}`, true)
-            .addField(`Couleur : `, `${roleColor}`, true)
-            .setColor(roleColor)
-            .setTimestamp()
-
-        await role.edit({ color: `${roleColor}` }).then(
-            message.channel.send(embedColorSuccess)
-        )
-    }
-    if (args[0].toLowerCase() === 'add') {
-        if (!message.member.permissions.has('MANAGE_ROLES')) return message.channel.sendErrorMessage(`Vous devez avoir la permission de gérer les roles pour utiliser cette commande.`)
-        if (!message.guild.me.permissions.has('MANAGE_ROLES')) return message.channel.sendErrorMessage(`Je n'ai pas la permission de modifier les roles.`);
-        const roleAddDescription = new MessageEmbed()
-            .setTitle(`Sous commande : ${settings.prefix}role add`)
-            .setColor(client.config.color.EMBEDCOLOR)
-            .setDescription(`**Module :** Manangement\n**Description :** Permet d'ajouter un role a une personne du serveur\n**Usage : **${settings.prefix}role add [nom/id/mention] (@User)\n**Exemples :** \n ${settings.prefix}role add @Smaug @Spiritus`)
-            .setFooter('BOT ID : 689210215488684044')
-            .setTimestamp()
-        if (!args[1]) return message.channel.send(roleAddDescription)
-        let role = client.resolveRole(message.guild, args[2]) || message.mentions.roles.first()
-        if (role == undefined) return message.channel.sendErrorMessage(`Je n'ai pas trouver ce role`)
-        let utilisateur = message.mentions.members.first() || message.member
-        if (role) {
-            if (message.guild.me.roles.highest.comparePositionTo(role) <= 0) return message.channel.sendErrorMessage(`Je n'ai pas un role sufisant pour vous attribuer ce role`)
-            if (message.member.roles.highest.comparePositionTo(role) <= 0) {
-                return message.channel.sendErrorMessage(`Vous ne pouvez pas ajouter un role superieur a votre role le plus haut.`);
-            } else {
-                if (utilisateur.roles.cache.has(role.id)) return message.channel.sendErrorMessage(`L'utilisateur pocède déja ce role.`);
-                utilisateur.roles.add(role)
-                    .then(m => message.channel.sendSuccessMessage(`J'ai bien ajouter le role ${role} a ${utilisateur}.`))
-                    .catch(e => console.log(e));
-            }
-        } else {
-            message.channel.sendErrorMessage(`Le rôle n'existe pas...`);
-        }
-    }
-    if (args[0].toLowerCase() === 'rem') {
-        if (!message.member.permissions.has('MANAGE_ROLES')) return message.channel.sendErrorMessage(`Vous devez avoir la permission de gérer les roles pour utiliser cette commande.`)
-        if (!message.guild.me.permissions.has('MANAGE_ROLES')) return message.channel.sendErrorMessage(`Je n'ai pas la permission de modifier les roles.`);
-        const roleRemDescription = new MessageEmbed()
-            .setTitle(`Sous commande : ${settings.prefix}role rem`)
-            .setColor(client.config.color.EMBEDCOLOR)
-            .setDescription(`**Module :** Manangement\n**Description :** Permet d'enlever un role à une personne du serveur\n**Usage : **${settings.prefix}role rem [nom/id/mention] (@User)\n**Exemples :** \n ${settings.prefix}role rem @Smaug @Spiritus`)
-            .setFooter('BOT ID : 689210215488684044')
-            .setTimestamp()
-        if (!args[1]) return message.channel.send(roleRemDescription)
-        let role = client.resolveRole(message.guild, args[2]) || message.mentions.roles.first()
-        if (role == undefined) return message.channel.sendErrorMessage(`Je n'ai pas trouver ce role`)
-        let utilisateur = message.mentions.members.first() || message.member
-        if (role) {
-            if (message.guild.me.roles.highest.comparePositionTo(role) <= 0) return message.channel.sendErrorMessage(`Je n'ai pas un role sufisant pour vous supprimer ce role`)
-            if (message.member.roles.highest.comparePositionTo(role) <= 0) {
-                return message.channel.sendErrorMessage(`Vous ne pouvez pas supprimer un role au superieur ou égale à votre plus haut role.`);
-            } else {
-                if (!utilisateur.roles.cache.has(role.id)) return message.channel.sendErrorMessage(`L'utilisateur ne possède pas ce role.`);
-                //if (role.permissions.has('KICK_MEMBERS')) return message.channel.send("Vous ne pouvez pas avoir ce rôle!");
-                utilisateur.roles.remove(role)
-                    .then(m => message.channel.sendSuccessMessage(`J'ai bien supprimer le role ${role} de ${utilisateur}.`))
-                    .catch(e => console.log(e));
-                //console.log('Le role est ajoutable')
-            }
-        } else {
-            message.channel.sendErrorMessage(`Le rôle n'existe pas...`);
-        }
-    }
 
 }
 module.exports.help = {
@@ -208,8 +109,60 @@ module.exports.help = {
     cooldown: 5,
     usage: '<action> <args>',
     exemple: ["roles create Admin"],
-    permissions: false,
+    moderator: false,
     isUserAdmin: false,
     args: false,
-    subcommands: ["roles liste", "roles create", "roles update", "roles delete", "roles add", "roles rem"]
+    userPermissions: ['MANAGE_ROLES'],
+    botPermissions: ['MANAGE_ROLES'],
+    subcommands: [
+        {
+            name: 'list',
+            description: 'View roles of the guild.',
+            usage: '',
+            args: 0,
+            exemples: []
+        },
+        {
+            name: 'create',
+            description: 'Create role on the guild.',
+            usage: '<name>',
+            args: 1,
+            exemples: ['helpers']
+        },
+        {
+            name: 'update',
+            description: 'Update role on the guild.',
+            usage: '<role> <name>',
+            args: 2,
+            exemples: ['@admins staff']
+        },
+        {
+            name: 'delete',
+            description: 'Delete role on the guild.',
+            usage: '<role>',
+            args: 1,
+            exemples: ['@staff']
+        },
+        {
+            name: 'position',
+            description: 'Update position of role on the guild.',
+            usage: '<role> <position>',
+            args: 2,
+            exemples: ['@role 5']
+        },
+        {
+            name: 'add',
+            description: 'Add role to a user.',
+            usage: '<user> <role>',
+            args: 2,
+            exemples: ['@Smaug admin']
+        },
+        {
+            name: 'rem',
+            description: 'Remove role to a user.',
+            usage: '<user> <role>',
+            args: 2,
+            exemples: ['@Smaug admin']
+        },
+    ]
 }

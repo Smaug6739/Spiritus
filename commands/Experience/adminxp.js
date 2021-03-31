@@ -28,9 +28,11 @@ module.exports.help = {
     cooldown: 10,
     usage: '<@user> <nb_experience>',
     exemple: ["rem @Smaug 1500"],
-    permissions: true,
+    moderator: false,
     isUserAdmin: false,
     args: true,
+    userPermissions: ['MANAGE_GUILD'],
+    botPermissions: [],
     subcommands: [
         {
             name: 'add',

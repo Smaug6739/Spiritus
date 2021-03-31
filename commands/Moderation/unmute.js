@@ -1,7 +1,5 @@
 const { MessageEmbed } = require("discord.js");
 module.exports.run = async (client, message, args, settings) => {
-
-  if (!message.guild.me.permissions.has('MANAGE_ROLES')) return message.channel.sendErrorMessage(`I don't have permission to change roles.`);
   let user = await client.resolveMember(message.guild, args[0])
   if (user == undefined) return message.channel.sendErrorMessage(`User not found.`)
   let muteRole = message.guild.roles.cache.find(r => r.name === 'Muted');
@@ -34,7 +32,9 @@ module.exports.help = {
   usage: '<@user>',
   exemple: ["unmute @Smaug"],
   isUserAdmin: true,
-  permissions: true,
+  moderator: true,
   args: true,
+  userPermissions: [],
+  botPermissions: ['MANAGE_ROLES'],
   subcommands: []
 };

@@ -32,7 +32,9 @@ module.exports.help = {
     usage: '<numbre_dice> <max_dice>',
     exemple: ["dice 3 6"],
     isUserAdmin: false,
-    permissions: false,
+    moderator: false,
     args: true,
+    userPermissions: [],
+    botPermissions: [],
     subcommands: []
 }

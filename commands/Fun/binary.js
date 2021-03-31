@@ -25,7 +25,9 @@ module.exports.help = {
     usage: '<text>',
     exemple: ["binary Spiritus"],
     isUserAdmin: false,
-    permissions: false,
+    moderator: false,
     args: true,
+    userPermissions: [],
+    botPermissions: [],
     subcommands: []
 };

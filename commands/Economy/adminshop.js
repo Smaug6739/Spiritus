@@ -1,5 +1,4 @@
 module.exports.run = async (client, message, args, settings) => {
-    if (!message.member.permissions.has('MANAGE_GUILD')) return message.channel.sendErrorMessage(`You need MANAGE_GUILD permissions for use this command.`);
     switch (args[0].toLowerCase()) {
         case 'add':
             if (settings.shop.length > 14) return message.channel.sendErrorMessage(`Your guild has reached the maximum number of items that can be contained in the shop (15).`)
@@ -54,8 +53,10 @@ module.exports.help = {
     usage: '',
     exemple: [],
     isUserAdmin: false,
-    permissions: false,
+    moderator: false,
     args: false,
+    userPermissions: ['MANAGE_GUILD'],
+    botPermissions: [],
     subcommands: [
         {
             name: 'add',

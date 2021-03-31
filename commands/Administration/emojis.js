@@ -172,7 +172,7 @@ module.exports.help = {
     cooldown: 5,
     usage: '<action> <args>',
     exemple: ["emoji create lien Spiritus "],
-    permissions: false,
+    moderator: false,
     isUserAdmin: false,
     args: false,
     subcommands: ["emojis liste", "emojis create", "emoji delete"]
