@@ -1,6 +1,6 @@
-module.exports.run = (client, message, args) => {
+module.exports.run = (client, message) => {
 
-    message.channel.send(`Le lien du serveur support est : https://discord.gg/TC7Qjfs`)
+    message.channel.send(`Support server is : https://discord.gg/TC7Qjfs`)
 
 }
 module.exports.help = {
@@ -8,7 +8,7 @@ module.exports.help = {
     name: 'support',
     aliases: ['support'],
     category: 'bot',
-    description: 'Permet d\'envoyer le lien du support.',
+    description: 'Send link to the support.',
     cooldown: 10,
     usage: '',
     exemple: [],

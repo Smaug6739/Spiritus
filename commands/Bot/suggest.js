@@ -1,19 +1,19 @@
 module.exports.run = (client, message, args) => {
 
     client.channels.cache.get('748078482118017034').send(args.join(' '))
-    message.channel.sendSuccessMessage(`Votre suggestion à bien été envoyée. Merci :heart:`)
+    message.channel.sendSuccessMessage(`Your suggestion has been sent. Thank you :heart:`)
 }
 module.exports.help = {
 
     name: 'suggest',
     aliases: ['suggest'],
     category: 'bot',
-    description: 'Permet d\'envoyer une suggestion.',
+    description: 'Send suggestion for the bot.',
     cooldown: 15,
-    usage: '',
-    exemple: [],
+    usage: '<your_suggestion>',
+    exemple: ['suggest new awsome feature'],
     isUserAdmin: false,
     permissions: false,
-    args: false,
+    args: true,
     subcommands: []
 }

@@ -138,7 +138,7 @@ module.exports = async (client, message) => {
         .setFooter(`BOT ID : ${client.user.id}`)
       return message.channel.send(subcommandsEmbed)
     }
-    if (subcommandForHelp.args && !args[1]) {
+    if (subcommandForHelp.args && !args[(subcommandForHelp.args)]) {
       let exemple = '';
       let descriptionOfEmbed = `
     **Module :** ${command.help.category}

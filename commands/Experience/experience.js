@@ -36,14 +36,14 @@ module.exports.help = {
             name: 'add',
             description: 'Add exp to a user.',
             usage: '<user> [number]',
-            args: true,
+            args: 2,
             exemples: ['@Smaug 1500']
         },
         {
             name: 'rem',
             description: 'Remove exp to a user.',
             usage: '<user> [number]',
-            args: true,
+            args: 2,
             exemples: ['@Smaug 1500']
         },
     ]

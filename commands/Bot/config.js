@@ -1,31 +1,30 @@
-const { MessageEmbed } = require("discord.js");
 module.exports.run = async (client, message, args, settings) => {
     if (!message.member.permissions.has('MANAGE_GUILD')) return message.channel.sendErrorMessage(`Vous devez avoir la permission de gérer le serveur pour utiliser cette commande.`)
-    const getSetting = args[0];
+    const getSetting = args[0].toLowerCase();
     const newSetting = args.slice(1).join(" ");
     switch (getSetting) {
         case 'prefix': {
             if (newSetting) {
                 await client.updateGuild(message.guild, { prefix: newSetting });
-                return message.channel.send(`Prefix mis a jour : \`${settings.prefix}\` ->\`${newSetting}\``)
+                return message.channel.send(`Prefix updated : \`${settings.prefix}\` ->\`${newSetting}\``)
             }
-            message.channel.send(`Prefix actuel : \`${settings.prefix}\``);
+            message.channel.send(`Current prefix : \`${settings.prefix}\``);
             break;
         }
         case 'logChannel': {
             if (newSetting) {
                 await client.updateGuild(message.guild, { logChannel: newSetting });
-                return message.channel.send(`logChannel mis a jour : \`${settings.logChannel}\` ->\`${newSetting}\``)
+                return message.channel.send(`logChannel updated : \`${settings.logChannel}\` ->\`${newSetting}\``)
             }
-            message.channel.send(`logChannel actuel : \`${settings.logChannel}\``);
+            message.channel.send(`Current logs channel : \`${settings.logChannel}\``);
             break;
         }
         case 'welcomeMessage': {
             if (newSetting) {
                 await client.updateGuild(message.guild, { welcomeMessage: newSetting });
-                return message.channel.send(`welcomeMessage mis a jour : \`${settings.welcomeMessage}\` ->\`${newSetting}\``)
+                return message.channel.send(`welcomeMessage updated : \`${settings.welcomeMessage}\` ->\`${newSetting}\``)
             }
-            message.channel.send(`welcomeMessage actuel : \`${settings.welcomeMessage}\``);
+            message.channel.send(`Current welcome message : \`${settings.welcomeMessage}\``);
             break;
         }
         case 'experience': {
@@ -33,7 +32,7 @@ module.exports.run = async (client, message, args, settings) => {
             if (settings.expsysteme == true) uexp = false;
             else uexp = true;
             await client.updateGuild(message.guild, { expsysteme: uexp });
-            message.channel.send(`Système d'experience du serveur mis à jour : \`${settings.expsysteme}\` ->\`${uexp}\``)
+            message.channel.send(`Leveling system updated : \`${settings.expsysteme}\` ->\`${uexp}\``)
             break;
         }
         case 'admin-invites': {
@@ -41,69 +40,35 @@ module.exports.run = async (client, message, args, settings) => {
             if (settings.invitations == true) invit = false;
             else invit = true;
             await client.updateGuild(message.guild, { invitations: invit });
-            message.channel.send(`Système d'anti-invits du serveur mis à jour : \`${settings.invitations}\` ->\`${invit}\``)
+            message.channel.send(`System anti-invitations of the guild updated : \`${settings.invitations}\` ->\`${invit}\``)
             break;
         }
-        case 'rankcard': {
+        case 'rank-card': {
             if (newSetting) {
                 if (args[1].includes('png') || args[1].includes('PNG') || args[1].includes('JPG') || args[1].includes('jpg') || args[1].includes('JPEG') || args[1].includes('jpeg') || args[1].includes('GIF') || args[1].includes('gif')) {
                     await client.updateGuild(message.guild, { rankcard: newSetting });
-                    return message.channel.send(`rank-card mis a jour : \`${settings.rankcard}\` ->\`${newSetting}\``)
-                } else return message.channel.sendErrorMessage(`Le fichier n'est pas a un format valide. Les formats valides sont : png, jpg, jpeg et gif`)
+                    return message.channel.send(`rank-card updated : \`${settings.rankcard}\` ->\`${newSetting}\``)
+                } else return message.channel.sendErrorMessage(`The file is not in a valid format. Valid formats are : png, jpg, jpeg et gif`)
             }
-            message.channel.send(`rank-card actuel : \`${settings.rankcard}\``);
+            message.channel.send(`Current rank-card : \`${settings.rankcard}\``);
             break;
         }
-        case 'rank-salon': {
+        case 'rank-channel': {
             if (newSetting) {
-                /*
-                if(!isNaN(args[1])){
-                    await client.updateGuild(message.guild, {salonranks : newSetting});
-                    return message.channel.send(`rank-salon mis à jour : \`${newSetting}\``)
-                }else if(args[1] === 'desactiver'){
-                    client.updateGuild(message.guild, {salonranks : ""});
-                    return message.channel.send(`Rank salon à bien été désactiver.`)
-                }
-                else return message.channel.send(`L'id du salon n'est pas valide.`)*/
-                if (args[1] === 'desactiver') {
+                if (args[1] === 'disable') {
                     client.updateGuild(message.guild, { salonranks: "" });
                     return message.channel.send(`Rank salon à bien été désactiver.`)
                 } else {
                     const channel = client.resolveChannel(message.guild, newSetting)
-                    if (!channel || channel == undefined) return message.channel.sendErrorMessage(`Je n'ai pas trouver ce channel`)
+                    if (!channel || channel == undefined) return message.channel.sendErrorMessage(`Channel not found.`)
                     else {
                         await client.updateGuild(message.guild, { salonranks: channel.id });
-                        return message.channel.sendSuccessMessage(`rank-salon mis à jour : \`${newSetting}\``)
+                        return message.channel.sendSuccessMessage(`rank-salon updated : \`${newSetting}\``)
                     }
                 }
-
-
             }
-            message.channel.send(`rank-salon actuel : \`${settings.salonranks || 'Aucun salon'}\``);
+            message.channel.send(`Current rank-salon : \`${settings.salonranks || 'none'}\``);
             break;
-        }
-        /*case 'serveurstats' :{
-            let serverstats ;
-            if(settings.serveurstats == true) serverstats = false;
-            else serverstats = true;
-                await client.updateGuild(message.guild, {serveurstats : serverstats});
-                    message.channel.send(`Système de serveur stats du serveur mis a jour : \`${settings.serveurstats }\` ->\`${serverstats}\``)
-                    const logs = await message.guild.channels.cache.find(c => c.name.startsWith("All Members :"))
-                    if(!logs && serverstats == true){
-                    await message.guild.channels.create(`All Members : ${message.guild.memberCount}`, {type : "voice"})
-                    }else if(logs && serverstats == false){
-                        message.guild.channels.cache.find(c => c.name.startsWith("All Members :")).delete()
-                    }
-                    break;
-            }*/
-        default: {
-            const config = new MessageEmbed()
-                .setTitle(`Commande config`)
-                .setColor(client.config.color.EMBEDCOLOR)
-                .setDescription(`**Module :** Admin\n**Description :** Permet de configurer le bot sur votre serveur.\n**Usage : ** ${settings.prefix}config [action] (valeur)\n**Exemples :** \n ${settings.prefix}config prefix //`)
-                .setFooter('BOT ID : 689210215488684044')
-                .setTimestamp()
-            message.channel.send(config)
         }
     }
 };
@@ -119,5 +84,55 @@ module.exports.help = {
     isUserAdmin: false,
     permissions: false,
     args: true,
-    subcommands: ["config prefix"/*,"config logChannel","config welcomeMessage"*/, "config experience", "config admin-invites", "config rankcard", "config rank-salon",/*"config serveurstats"*/]
+    subcommands: [
+        {
+            name: 'prefix',
+            description: 'Change prefix of the guild.',
+            usage: '[prefix]',
+            args: 1,
+            exemples: ['!']
+        },
+        {
+            name: 'log-channel',
+            description: 'Change log-channel of the guild.',
+            usage: '[channel]',
+            args: 1,
+            exemples: ['#general']
+        },
+        {
+            name: 'welcome-message',
+            description: 'Change welcome-message of the guild.',
+            usage: '<message>',
+            args: 1,
+            exemples: ['Welcome to the server {{user}} !']
+        },
+        {
+            name: 'experience',
+            description: 'Change status of leveling system of the guild.',
+            usage: '',
+            args: 0,
+            exemples: []
+        },
+        {
+            name: 'admin-invites',
+            description: 'Change status of anti invitations system of the guild.',
+            usage: '',
+            args: 0,
+            exemples: []
+        },
+        {
+            name: 'rank-card',
+            description: 'Change rank-card.',
+            usage: '<image_link>',
+            args: 1,
+            exemples: ['https://domain.com/image.png']
+        },
+        {
+            name: 'rank-channel',
+            description: 'Change rank-channel setting.',
+            usage: '<channel> | disable',
+            args: 1,
+            exemples: ['#ranks']
+        },
+    ]
 }

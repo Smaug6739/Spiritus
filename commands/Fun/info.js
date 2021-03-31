@@ -146,7 +146,7 @@ module.exports.run = async (client, message, args, settings) => {
                     { name: 'Created at  :', value: `${moment.utc(role.createdTimestamp).format('DD/MM/YYYY - hh:mm')}`, inline: true },
                     { name: 'Permissions :', value: `${role.permissions.toArray().sort().map(permissions => `${permissions.split("_").map(x => x[0] + x.slice(1).toLowerCase()).join(" ")}`).join(", ") || "none"}`, inline: true })
                 .setTimestamp()
-                .setFooter('BOT ID : 689210215488684044')
+                .setFooter('Command module: Fun')
             message.channel.send(embedRole)
             break;
         case 'channel':
@@ -171,7 +171,7 @@ module.exports.run = async (client, message, args, settings) => {
                     { name: 'Type channel:', value: `${type}`, inline: true },
                     { name: 'Channel NSFW :', value: `${nsfw}`, inline: true })
                 .setTimestamp()
-                .setFooter('BOT ID : 689210215488684044')
+                .setFooter('Command module: Fun')
             message.channel.send(embedChannel)
             break;
     }
@@ -192,35 +192,35 @@ module.exports.help = {
             name: 'user',
             description: 'Allows to have information about a user.',
             usage: '<user>',
-            args: true,
+            args: 1,
             exemples: ['611468402263064577', 'Smaug']
         },
         {
             name: 'bot',
             description: 'Allows to have information about bot.',
             usage: '',
-            args: false,
+            args: 0,
             exemples: []
         },
         {
             name: 'guild',
             description: 'Allows to have information about guild.',
             usage: '',
-            args: false,
+            args: 0,
             exemples: []
         },
         {
             name: 'role',
             description: 'Allows to have information about role.',
             usage: '<role>',
-            args: true,
+            args: 1,
             exemples: ['@Role', '710759495483129876']
         },
         {
             name: 'channel',
             description: 'Allows to have information about channel.',
             usage: '<channel>',
-            args: true,
+            args: 1,
             exemples: ['#channel', '710759495483129876']
         }
     ]

@@ -1,7 +1,7 @@
 const { MessageEmbed } = require('discord.js');
 module.exports.run = async (client, message, args, settings) => {
     const embed = new MessageEmbed()
-        .setTitle(`Lien d'invitation :`)
+        .setTitle(`Invite link :`)
         .setColor(client.config.color.EMBEDCOLOR)
         .setDescription(`https://discordapp.com/oauth2/authorize?client_id=${client.user.id}&scope=bot&permissions=1946446974`)
         .setTimestamp()
@@ -11,12 +11,12 @@ module.exports.help = {
     name: 'invite',
     aliases: ['invite'],
     category: 'bot',
-    description: 'Donne le lien d\'invitetion du bot.',
+    description: 'Send link invite for the bot.',
     cooldown: 10,
-    usage: '<action> <args>',
-    exemple: ["ignore add @Channel"],
+    usage: '',
+    exemple: [],
     permissions: false,
     isUserAdmin: false,
     args: false,
-    subcommands: ["ignore add", "ignore rem", "ignore liste"]
+    subcommands: []
 }

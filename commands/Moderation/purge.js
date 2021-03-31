@@ -61,21 +61,21 @@ module.exports.help = {
       name: 'channel',
       description: 'Fully purge a channel',
       usage: '<channel>',
-      args: true,
+      args: 1,
       exemples: ['#channel', '710759495483129876']
     },
     {
       name: 'messages',
       description: 'Delete messages in a channel',
       usage: '<number_messages>',
-      args: true,
+      args: 1,
       exemples: ['5', '25']
     },
     {
       name: 'user',
       description: 'Fully purge a channel',
       usage: '<@user> <number_messages>',
-      args: true,
+      args: 1,
       exemples: ['@Smaug 25', '710759495483129876 69']
     }
 

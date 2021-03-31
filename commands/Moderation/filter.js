@@ -54,21 +54,21 @@ module.exports.help = {
       name: 'add',
       description: 'Add word to the blacklist',
       usage: '<word>',
-      args: true,
+      args: 1,
       exemples: ['bad_word']
     },
     {
       name: 'rem',
       description: 'Remove word to the blacklist',
       usage: '<word>',
-      args: true,
+      args: 1,
       exemples: ['bad_word']
     },
     {
       name: 'list',
       description: 'View blacklist',
       usage: '',
-      args: false,
+      args: 0,
       exemples: []
     },
   ]
