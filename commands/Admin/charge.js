@@ -1,6 +1,6 @@
 const { Guild } = require("../../models/index");
 module.exports.run = async (client, message, args) => {
-    if (!client.config.ADMIN.includes(message.author.id)) return message.channel.sendErrorMessage(`Tu n'est pas admin du BOT `)
+    if (!client.config.ADMIN.includes(message.author.id)) return message.channel.sendErrorMessage(`You are not admin of the bot.`)
     //---------------------------------------CHARGE-DES-GUILDS--------------------------------------------------
     async function verifierguild() {
         client.guilds.cache.forEach(async guild => {
@@ -24,13 +24,13 @@ module.exports.help = {
     name: 'charge',
     aliases: ['charge'],
     category: 'admin',
-    description: 'Lance une recherge de toutes les guilds du bot.',
+    description: 'Reload guilds database.',
     cooldown: 5,
     usage: '',
     exemple: [],
-    moderator: true,
+    moderator: false,
     isUserAdmin: false,
     args: false,
-    subcommands: [""]
+    subcommands: []
 
 }

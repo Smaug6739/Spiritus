@@ -24,7 +24,7 @@ module.exports.help = {
     name: 'adminxp',
     aliases: ['adminxp'],
     category: 'experience',
-    description: 'Gère l\'exp d\'une personne.',
+    description: 'Manage exp of users.',
     cooldown: 10,
     usage: '<@user> <nb_experience>',
     exemple: ["rem @Smaug 1500"],

@@ -2,8 +2,7 @@ const util = require('util');
 const child_process = require('child_process');
 const exec = util.promisify(child_process.exec);
 module.exports.run = async (client, message, args) => {
-    if (!client.config.ADMIN.includes(message.author.id)) return message.channel.sendErrorMessage(`Tu n'est pas admin du BOT `)
-    //---------------------------------------CHARGE-DES-GUILDS--------------------------------------------------
+    if (!client.config.ADMIN.includes(message.author.id)) return message.channel.sendErrorMessage(`You are not admin of the bot.`)
     console.log("Pull")
     message.channel.send(`${client.config.emojis.loading} Commande en cour d'execution...`).then(async msg => {
         try {
@@ -19,13 +18,13 @@ module.exports.help = {
     name: 'pull',
     aliases: ['pull', 'git-pull'],
     category: 'admin',
-    description: 'Pull le repo github.',
+    description: 'Pull the github repo.',
     cooldown: 5,
     usage: '',
     exemple: ['pull'],
-    moderator: true,
+    moderator: false,
     isUserAdmin: false,
     args: false,
-    subcommands: [""]
+    subcommands: []
 
 }

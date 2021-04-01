@@ -10,7 +10,7 @@ module.exports.help = {
     name: 'setmodlogs',
     aliases: ['setmodlogs'],
     category: 'bot',
-    description: 'Choisis un channel de logs pour les commandes de modération.',
+    description: 'Choose a log channel for moderation commands.',
     cooldown: 5,
     usage: '<channel>',
     exemple: ['setmodlogs #logs'],

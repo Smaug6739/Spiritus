@@ -48,7 +48,7 @@ module.exports.help = {
     name: 'adminshop',
     aliases: ['adminshop', 'admin-shop'],
     category: 'economy',
-    description: 'Configure la boutique.',
+    description: 'Configure the shop of guild.',
     cooldown: 10,
     usage: '',
     exemple: [],

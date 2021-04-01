@@ -105,7 +105,7 @@ module.exports.help = {
     name: 'roles',
     aliases: ['roles', 'role'],
     category: 'administration',
-    description: 'Permet de gérer, add/rem les roles.',
+    description: 'Manage and add/rem roles.',
     cooldown: 5,
     usage: '<action> <args>',
     exemple: ["roles create Admin"],

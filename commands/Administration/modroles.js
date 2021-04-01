@@ -41,7 +41,7 @@ module.exports.help = {
     name: 'modroles',
     aliases: ['modroles', 'moderators-roles'],
     category: 'administration',
-    description: 'Permet de gérer les modérateurs du serveur.',
+    description: 'Manage moderator roles.',
     cooldown: 5,
     usage: '<action> <args>',
     exemple: ["modroles add @moderator"],

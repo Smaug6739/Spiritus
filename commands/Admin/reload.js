@@ -1,5 +1,5 @@
 module.exports.run = async (client, message, args) => {
-    if (!client.config.ADMIN.includes(message.author.id)) return message.channel.sendErrorMessage(`Tu n'est pas admin du BOT `)
+    if (!client.config.ADMIN.includes(message.author.id)) return message.channel.sendErrorMessage(`You are not admin of the bot.`)
     command = args.slice(1).join(" ")
     dir = args[0]
     chemin = `./../${dir}/${command}.js`
@@ -20,13 +20,13 @@ module.exports.help = {
     name: 'reload',
     aliases: ['reload'],
     category: 'admin',
-    description: 'Recharge une commande.',
+    description: 'Reload command.',
     cooldown: 5,
     usage: '[dir] [file]',
     exemple: [],
-    moderator: true,
+    moderator: false,
     isUserAdmin: false,
     args: true,
-    subcommands: [""]
+    subcommands: []
 
 }

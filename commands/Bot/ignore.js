@@ -38,7 +38,7 @@ module.exports.help = {
     name: 'ignore',
     aliases: ['ignore'],
     category: 'bot',
-    description: 'Desactive le bot dans un channel.',
+    description: 'Disable the bot in a channel.',
     cooldown: 5,
     usage: '<action> <args>',
     exemple: ["ignore add @Channel"],

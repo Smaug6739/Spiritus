@@ -29,7 +29,7 @@ module.exports.help = {
     name: 'daily',
     aliases: ['daily'],
     category: 'economy',
-    description: 'Récupère give your money.',
+    description: 'Give your money every day.',
     cooldown: 10,
     usage: '',
     exemple: [],

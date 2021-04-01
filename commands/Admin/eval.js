@@ -1,6 +1,6 @@
 const util = require('util');
 module.exports.run = async (client, message, args, settings) => {
-    if (!client.config.ADMIN.includes(message.author.id)) return message.channel.sendErrorMessage(`Tu n'est pas admin du BOT `)
+    if (!client.config.ADMIN.includes(message.author.id)) return message.channel.sendErrorMessage(`You are not admin of the bot.`)
 
     /*async function clean(text) {
            if (typeof(text) === "string")
@@ -61,13 +61,13 @@ module.exports.help = {
     name: 'eval',
     aliases: ['eval', 'e'],
     category: 'admin',
-    description: 'Execute du code javascript.',
+    description: 'Execute javascript code.',
     cooldown: 5,
     usage: '',
-    exemple: [],
+    exemple: ['eval 5 + 5'],
     moderator: true,
     isUserAdmin: false,
     args: true,
-    subcommands: [""]
+    subcommands: []
 
 }

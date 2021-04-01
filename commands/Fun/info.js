@@ -121,14 +121,14 @@ module.exports.run = async (client, message, args, settings) => {
         case 'role':
             if (!args[1]) return message.channel.send(infoRoleDescription)
             let role = client.resolveRole(message.guild, args.slice(1).join(" "))
-            if (role == undefined) return message.channel.sendErrorMessage(`Je n'ai pas trouver ce role`)
-            if (role.mentionable) mention = 'Oui'
-            else mention = 'Non'
-            if (role.managed) mananger = 'Oui'
-            else manenger = 'Non'
+            if (role == undefined) return message.channel.sendErrorMessage(`Role not found.`)
+            if (role.mentionable) mention = 'yes'
+            else mention = 'no'
+            if (role.managed) mananger = 'yes'
+            else manenger = 'no'
             let membersWithRole = message.guild.roles.cache.get(role.id).members;
-            if (role.hoist) separation = 'Oui'
-            else separation = 'Non'
+            if (role.hoist) separation = 'yes'
+            else separation = 'no'
             const embedRole = new MessageEmbed()
                 .setColor(`${client.config.color.EMBEDCOLOR}`)
                 .setThumbnail(`${message.guild.iconURL()}`)
@@ -156,7 +156,7 @@ module.exports.run = async (client, message, args, settings) => {
             if (channel.nsfw) nsfw = `${client.config.emojis.CHANNELNSFW} Oui`;
             else nsfw = `${client.config.emojis.CHANNELNSFW} Non`;
             const embedChannel = new MessageEmbed()
-                .setAuthor(`Information sur un channel :`, `${message.guild.iconURL()}`)
+                .setAuthor(`Information of a channel :`, `${message.guild.iconURL()}`)
                 .setThumbnail(message.guild.iconURL())
                 .setColor(`${client.config.color.EMBEDCOLOR}`)
                 .setTitle(`Channel : ${channel.name}`)
@@ -180,9 +180,9 @@ module.exports.help = {
     name: 'info',
     aliases: ['info', 'infos', 'information', 'informations'],
     category: 'fun',
-    description: 'Donne des informations.',
+    description: 'Send informations.',
     cooldown: 5,
-    usage: '<action> <valeur>',
+    usage: '<action> <value>',
     exemple: ["info user @Smaug"],
     moderator: false,
     isUserAdmin: false,

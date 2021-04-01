@@ -6,7 +6,7 @@ module.exports.run = async (client, message, args) => {
             id: `${args[1]}`
         }
         await client.updateGuild(guild, { premium: true });
-        message.channel.sendSuccessMessage(`Guild premium mise à jour avec succès.`)
+        message.channel.sendSuccessMessage(`Guild premium updated.`)
     }
     //---------------------------------------PREMIUM-REM---------------------------------------------------
     if (args[0] === 'rem') {
@@ -14,7 +14,7 @@ module.exports.run = async (client, message, args) => {
             id: `${args[1]}`
         }
         await client.updateGuild(guild, { premium: false });
-        message.channel.sendSuccessMessage(`Guild premium mise à jour avec succès.`)
+        message.channel.sendSuccessMessage(`Guild premium updated.`)
     }
 }
 module.exports.help = {
@@ -22,13 +22,12 @@ module.exports.help = {
     name: 'premium',
     aliases: ['premium'],
     category: 'admin',
-    description: 'Met à jour les guilds premium du bot.',
+    description: 'Update premium guild.',
     cooldown: 5,
     usage: '',
     exemple: [],
-    moderator: true,
+    moderator: false,
     isUserAdmin: false,
     args: true,
-    subcommands: [""]
-
+    subcommands: []
 }
