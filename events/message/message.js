@@ -15,7 +15,7 @@ module.exports = async (client, message) => {
     settings.filter.forEach(content => {
       if (message.content.includes(content)) {
         message.delete()
-        message.channel.send(`<@${message.author.id}> ce mot est interdit sur ce serveur !`)
+        message.channel.send(`<@${message.author.id}> this word is forbidden on this server.`)
       }
     });
   }
@@ -23,7 +23,7 @@ module.exports = async (client, message) => {
   if (settings.invitations) {
     if (message.content.includes('discord.gg/')) {
       message.delete()
-      message.channel.send(`<@${message.author.id}>les invitations sont interdites sur ce serveur !`)
+      message.channel.send(`<@${message.author.id}> invitations are prohibited on this server`)
     }
   }
   //-----------Si le système d'experience est activé------------------
@@ -177,7 +177,7 @@ module.exports = async (client, message) => {
     let user = message.mentions.members.first()
     if (user) {
       const isMod = await client.checkMod(user, settings)
-      if (isMod == true) return message.channel.sendErrorMessage(`Vous ne pouvez pas utiliser cette commande sur cet utilisateur.`);
+      if (isMod == true) return message.channel.sendErrorMessage(`You cannot use this command on this user.`);
     }
   }
   if (command.help.userPermissions && command.help.userPermissions.length) {
@@ -201,7 +201,7 @@ module.exports = async (client, message) => {
     const cdExpirationTime = tStamps.get(message.author.id) + cdAmount;
     if (timeNow < cdExpirationTime && message.author.id != client.config.owner.id) {
       timeLeft = (cdExpirationTime - timeNow) / 1000;
-      return message.channel.sendErrorMessage(`Merci d'attendre ${timeLeft.toFixed(0)} seconde(s) avant de ré-utiliser la commande \`${command.help.name}\`.`);
+      return message.channel.sendErrorMessage(`Please wait ${timeLeft.toFixed(0)} second(s) before using the command \`${command.help.name}\` again .`);
     }
   }
   tStamps.set(message.author.id, timeNow);
@@ -217,11 +217,11 @@ module.exports = async (client, message) => {
       .addField('Mention :', `User : <@${message.author.id}>`, true)
       .addField('Guild :', `ID : \`${message.guild.id}\` Name : \`${message.guild.name}\``, false)
       .addField('Channel :', `ID : \`${message.channel.id}\` Name : \`${message.channel.name}\``, true)
-      .addField(`Erreur message :`, `\`\`\`js\n${e.message}\`\`\``, false)
-      .addField(`Erreur complète :`, `\`\`\`js\n${e.stack}\`\`\``, false)
+      .addField(`Error message :`, `\`\`\`js\n${e.message}\`\`\``, false)
+      .addField(`Error stack :`, `\`\`\`js\n${e.stack}\`\`\``, false)
       .setColor('#0099ff')
       .setTimestamp()
-      .setFooter('BOT ID : 689210215488684044');
+      .setFooter(`BOT ID : ${client.user.id}`);
     webhookClient.send(`<@${client.config.owner.id}>`, {
       username: `${client.configuration.WEBHOOKS.ERRORS.NAME}`,
       avatarURL: `${client.configuration.WEBHOOKS.ERRORS.AVATAR}`,

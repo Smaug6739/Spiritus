@@ -163,7 +163,7 @@ module.exports.help = {
     isUserAdmin: false,
     moderator: true,
     args: true,
-    userPermissions: ['BAN_MEMBERS'],
+    userPermissions: [],
     botPermissions: ['BAN_MEMBERS'],
     subcommands: []
 };

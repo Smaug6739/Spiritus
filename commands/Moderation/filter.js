@@ -48,7 +48,7 @@ module.exports.help = {
   isUserAdmin: false,
   moderator: true,
   args: false,
-  userPermissions: ['MANAGE_GUILD'],
+  userPermissions: [],
   botPermissions: [],
   subcommands: [
     {

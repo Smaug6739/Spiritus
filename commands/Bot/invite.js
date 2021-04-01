@@ -1,11 +1,11 @@
 const { MessageEmbed } = require('discord.js');
-module.exports.run = async (client, message, args, settings) => {
+module.exports.run = async (client, message) => {
     const embed = new MessageEmbed()
         .setTitle(`Invite link :`)
         .setColor(client.config.color.EMBEDCOLOR)
         .setDescription(`https://discordapp.com/oauth2/authorize?client_id=${client.user.id}&scope=bot&permissions=1946446974`)
         .setTimestamp()
-        .setFooter()
+        .setFooter(`Command module: Bot`)
     message.channel.send(embed)
 }
 module.exports.help = {

@@ -45,6 +45,6 @@ module.exports.help = {
   moderator: true,
   args: true,
   userPermissions: [],
-  botPermissions: ['KICK_MEMBERS'],
+  botPermissions: [],
   subcommands: []
 };
