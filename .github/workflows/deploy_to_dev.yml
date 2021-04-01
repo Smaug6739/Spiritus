@@ -12,4 +12,4 @@ jobs:
         git stash
         git pull origin dev
         npm install
-        pm2 reload ecosystem.config.js
+        pm2 reload beta.ecosystem.config.js
