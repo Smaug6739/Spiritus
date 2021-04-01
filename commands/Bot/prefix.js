@@ -1,6 +1,7 @@
 module.exports.run = async (client, message, args, settings) => {
     const newSetting = args[0]
     if (newSetting) {
+        if (newSetting.length > 5) return message.channel.sendErrorMessage(`Prefix is too long (max 5 chars).`)
         await client.updateGuild(message.guild, { prefix: newSetting });
         return message.channel.sendSuccessMessage(`Prefix updated : \`${settings.prefix}\` ->\`${newSetting}\``)
     }
