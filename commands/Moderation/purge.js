@@ -12,16 +12,22 @@ module.exports.run = async (client, message, args) => {
         before: message.id
       });
       message.delete();
-      message.channel.bulkDelete(messagesToDelete);
-      const embed = new MessageEmbed()
-        .setAuthor(message.author.username, message.author.avatarURL())
-        .setColor(`${client.config.color.ROUGE}`)
-        .setDescription(`**Action**: purge\n**Messages**: ${args[1]}\n**Channel**: ${message.channel}`)
-      message.channel.send(embed).then(m => {
-        setTimeout(function () {
-          m.delete()
-        }, 3000)
-      })
+      message.channel.bulkDelete(messagesToDelete)
+        .then(() => {
+          message.channel.send(new MessageEmbed()
+            .setAuthor(message.author.username, message.author.avatarURL())
+            .setColor(`${client.config.color.ROUGE}`)
+            .setDescription(`**Action**: purge\n**Messages**: ${args[1]}\n**Channel**: ${message.channel}`)
+          ).then(m => {
+            setTimeout(function () {
+              m.delete()
+            }, 3000)
+          })
+        })
+        .catch((err) => {
+          if (err.message.match('You can only bulk delete messages that are under 14 days old')) message.channel.sendErrorMessage(`You cannot delete messages older than 14 days.`)
+          else message.channel.sendErrorMessage(`An error occurred. Please try again.`)
+        })
       break;
     case 'user':
       let user = await client.resolveMember(message.guild, args[1])
