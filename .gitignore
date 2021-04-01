@@ -13,3 +13,7 @@ package-lock.json
 configuration.js
 configurationdev.js
 configurationbot.js
+
+#ecosystem
+beta.ecosystem.config.js
+prod.ecosystem.config.js
