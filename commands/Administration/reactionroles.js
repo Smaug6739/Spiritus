@@ -5,17 +5,16 @@ module.exports.run = async (client, message, args, settings) => {
                 if (settings.reactionroles) {
                     try {
                         const channelRRAdd = client.resolveChannel(message.channel.guild, args[1]);
-                        if (!channelRRAdd) return message.channel.sendErrorMessage(` Je n'ai pas trouver ce channel.`);
+                        if (!channelRRAdd) return message.channel.sendErrorMessage(`Channel not found.`);
                         const messageRRAdd = await message.channel.messages.fetch(args[2]);
                         if (!messageRRAdd) return message.channel.sendErrorMessage(`Message not found`);
                         let emoteRRAdd = await client.resolveGuildEmoji(message.channel.guild, args[3].trim());
                         if (!emoteRRAdd && client.isUnicode(args[3])) emoteRRAdd = args[3];
                         if (!emoteRRAdd) return message.channel.sendErrorMessage(`Emoji not found.`);
-                        args.splice(0, 4);
                         const role = client.resolveRole(message.channel.guild, args[4]);
                         if (!role || role.id == message.channel.guild.id) return message.channel.sendErrorMessage(`Impossible de trouver ce rôle.`);
                         let existingReactionRole = await settings.reactionroles.find(r => r.emoji == emoteRRAdd.id ? emoteRRAdd.id : emoteRRAdd && r.messageID == messageRRAdd.id && r.roleID == role.id)
-                        if (existingReactionRole) return message.channel.sendErrorMessage(` Cet émoji est déja associé a un role sous ce message.`);
+                        if (existingReactionRole) return message.channel.sendErrorMessage(`Emoji already use for this message.`);
                         await messageRRAdd.react(emoteRRAdd.id ? `${emoteRRAdd.name}:${emoteRRAdd.id}` : emoteRRAdd);
                         let arrayRRAdd = settings.reactionroles
                         arrayRRAdd.push({ channelID: channelRRAdd.id, messageID: messageRRAdd.id, emoji: emoteRRAdd.id ? emoteRRAdd.id : emoteRRAdd, roleID: role.id })
@@ -37,17 +36,17 @@ module.exports.run = async (client, message, args, settings) => {
             } else {
                 try {
                     const channel = client.resolveChannel(message.channel.guild, args[1]);
-                    if (!channel) return message.channel.sendErrorMessage(` Je n'ai pas trouver ce channel.`);
+                    if (!channel) return message.channel.sendErrorMessage(`Channel not found.`);
                     const messageRR = await (await client.channels.fetch(channel.id)).messages.fetch(args[2])
                     if (!messageRR) return message.channel.sendErrorMessage(`Message not found`);
                     if (!guild.reactionroles.find(r => r.messageID === messageRR.id)) return message.channel.sendErrorMessage(`There is no role-reaction under this message.`);
-                    let emote = await client.resolveGuildEmoji(message.channel.guild, args[3].trim());
-                    if (!emote && client.isUnicode(args[3])) emote = args[3];
-                    if (!emote) return message.channel.sendErrorMessage(`Emoji not found.`);
+                    let emojiToRemove = await client.resolveGuildEmoji(message.channel.guild, args[3].trim());
+                    if (!emojiToRemove && client.isUnicode(args[3])) emojiToRemove = args[3];
+                    if (!emojiToRemove) return message.channel.sendErrorMessage(`Emoji not found.`);
                     args.splice(0, 4);
                     const role = client.resolveRole(message.channel.guild, args.join(' '));
                     if (!role || role.id == message.channel.guild.id) return message.channel.sendErrorMessage(` Impossible de trouver ce rôle.`);
-                    client.updateGuild(message.guild, { $pull: { reactionroles: { channelID: channel, messageID: messageRR.id, emoji: emote, roleID: role.id } } });
+                    client.updateGuild(message.guild, { $pull: { reactionroles: { channelID: channel, messageID: messageRR.id, emoji: emojiToRemove, roleID: role.id } } });
                     message.channel.sendSuccessMessage(`I have deleted this role-reaction.`);
                 } catch (e) {
                     if (e.message.match('Unknown Message')) return message.channel.sendErrorMessage(`Message not found`);
@@ -55,13 +54,7 @@ module.exports.run = async (client, message, args, settings) => {
                 }
             }
             break;
-
     }
-    if (args[0].toLowerCase() === 'rem') {
-
-
-    }
-
 };
 module.exports.help = {
 
@@ -77,5 +70,20 @@ module.exports.help = {
     args: true,
     userPermissions: ['MANAGE_GUILD'],
     botPermissions: [],
-    subcommands: ["rr add", "rr rem"]
+    subcommands: [
+        {
+            name: 'add',
+            description: 'Add role-reaction in the guild.',
+            usage: '<channel> <message_id> <emoji> <role>',
+            args: 4,
+            exemples: ['#general 827084071611662336 👍 @role']
+        },
+        {
+            name: 'rem',
+            description: 'Remove role-reaction in the guild.',
+            usage: '<channel> <message_id> <emoji> <role> | all',
+            args: 4,
+            exemples: ['#general 827084071611662336 👍 @role', 'all']
+        },
+    ]
 }
