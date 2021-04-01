@@ -1,6 +1,6 @@
 module.exports = {
   PREFIX: ";",
-  IDOFFITIEL : "689210215488684044",
+  IDOFFITIEL: "689210215488684044",
   owner: {
     id: "611468402263064577",
     username: "Smaug#6739"
@@ -8,10 +8,10 @@ module.exports = {
 
   ADMIN: ["611468402263064577"],
 
-  CHANNELCONSOLE : '725251200660013136',
-  
+  CHANNELCONSOLE: '725251200660013136',
+
   color: {
-    EMBEDCOLOR: '#d91414',
+    EMBEDCOLOR: '#3498db',
     ROUGE: '#ff0004',
     ORANGE: '#ff8400',
     VERT: '#02ff30',
@@ -37,7 +37,7 @@ module.exports = {
     error: '<a:Z8Z8:712562703318646844>',
     loading: '<a:loading:688692468195262475>',
     fleche: '<:fleche:721288083974389842>',
-    coins : '<:coin:746996861121986610>'
+    coins: '<:coin:746996861121986610>'
   },
-  
+
 }
