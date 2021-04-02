@@ -22,7 +22,8 @@ You can invite the hosted version [here](https://discord.com/oauth2/authorize?cl
 -Leveling <br>
 -Admins commands <br>
 -Customs commands <br>
-
+-Economy module <br>
+-Fun commands <br>
 
 ## How to install
 1. Clone the repo
