@@ -16,7 +16,7 @@ module.exports.run = async (client, message, args, settings) => {
                             .setColor(`${client.config.color.EMBEDCOLOR}`)
                             .setThumbnail(u.displayAvatarURL())
                             .addField(`\u200b`, `BOT : ${BOTSTATUS}`)
-                            .setDescription('This user is no on the guild.')
+                            .setDescription('This user is no on the server.')
                             .setFooter(`User ID : ${u.id}`)
                         return message.channel.send(embedUser)
                     })
@@ -60,7 +60,7 @@ module.exports.run = async (client, message, args, settings) => {
                     { name: 'Developer', value: `Smaug#6739`, inline: true },
                     { name: 'Data', value: `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`, inline: true },
                     { name: 'Uptime', value: `${Math.floor(client.uptime / 1000 / 60).toString()} minutes`, inline: true },
-                    { name: 'Guilds', value: `${client.guilds.cache.size.toString()}`, inline: true },
+                    { name: 'Servers', value: `${client.guilds.cache.size.toString()}`, inline: true },
                     { name: 'Channels', value: `${client.channels.cache.size.toString()}`, inline: true },
                     { name: 'Users', value: `${client.guilds.cache.map(g => g.memberCount).reduce((a, b) => a + b)}`, inline: true },
                     { name: 'Version', value: `${verssionBot}`, inline: true },
@@ -73,13 +73,13 @@ module.exports.run = async (client, message, args, settings) => {
                 .setFooter(`Infos of ${client.user.username}. BOT ID : ${client.user.id}`)
             message.channel.send(embedBot);
             break;
-        case 'guild':
+        case 'server':
             var guild_name = message.guild.name,
                 owner = message.guild.owner,
                 region = message.guild.region.toUpperCase()
             var boost = message.guild.premiumSubscriptionCount
             if (boost === 0) boost = "This server no have boost"
-            else if (boost >= 1) boost = `Guild have ${boost} boost${boost > 1 ? "s" : ""}`
+            else if (boost >= 1) boost = `Server have ${boost} boost${boost > 1 ? "s" : ""}`
             var members = message.guild.memberCount;
             // message.guild.members.fetch().then(fetchedMembers => {     
             // const online = fetchedMembers.filter(member => member.presence.status === 'online').size;
@@ -103,7 +103,7 @@ module.exports.run = async (client, message, args, settings) => {
             embed.setTitle(`**Informations sur le serveur :**`)
             embed.setColor(`${client.config.color.EMBEDCOLOR}`)
             embed.addFields(
-                { name: 'Guild name', value: `${guild_name}`, inline: true },
+                { name: 'Name', value: `${guild_name}`, inline: true },
                 { name: 'Region', value: `${region}`, inline: true },
                 { name: 'Owner', value: `${owner}`, inline: true },
                 { name: 'Members', value: `${members}`, inline: true },
@@ -111,7 +111,7 @@ module.exports.run = async (client, message, args, settings) => {
                 { name: 'Roles', value: `${roles}`, inline: true },
                 { name: 'Chanels', value: `${client.config.emojis.CHANNEL}Texte : ${channel_t}\n${client.config.emojis.VOICE}Voice : ${channel_v}\n${client.config.emojis.ETIQUETTE}Categories : ${channel_c}`, inline: true },
                 { name: 'Verification level', value: `${message.guild.verificationLevel}`, inline: true },
-                { name: `${client.config.emojis.BOOST}Nitro(s) of guild`, value: `${boost}`, inline: true },
+                { name: `${client.config.emojis.BOOST}Nitro(s) of server`, value: `${boost}`, inline: true },
                 //{ name: 'Status des membres', value: `${client.config.emojis.ONLINE}Online : ${online}\n${client.config.emojis.IDLE}Idle : ${idle}\n${client.config.emojis.DND}Dnd : ${dnd}\n${client.config.emojis.OFFLINE}Offline : ${off}`, inline: true }
             )
             embed.setTimestamp()
@@ -132,7 +132,7 @@ module.exports.run = async (client, message, args, settings) => {
             const embedRole = new MessageEmbed()
                 .setColor(`${client.config.color.EMBEDCOLOR}`)
                 .setThumbnail(`${message.guild.iconURL()}`)
-                .setAuthor(`Information sur un role :`, `${message.guild.iconURL()}`)
+                .setAuthor(`Information of role :`, `${message.guild.iconURL()}`)
                 .setTitle(`${role.name}`)
                 .addFields(
                     { name: 'Role', value: `${role}`, inline: true },
@@ -151,7 +151,7 @@ module.exports.run = async (client, message, args, settings) => {
             break;
         case 'channel':
             let channel = client.resolveChannel(message.guild, args[1])
-            if (channel == undefined) return message.channel.sendErrorMessage(`Je n'ai pas trouver ce channel.`)
+            if (channel == undefined) return message.channel.sendErrorMessage(`Channel not found.`)
             if (channel.type === 'text') type = `${client.config.emojis.CHANNEL}Texte`
             if (channel.nsfw) nsfw = `${client.config.emojis.CHANNELNSFW} Oui`;
             else nsfw = `${client.config.emojis.CHANNELNSFW} Non`;
@@ -205,8 +205,8 @@ module.exports.help = {
             exemples: []
         },
         {
-            name: 'guild',
-            description: 'Allows to have information about guild.',
+            name: 'server',
+            description: 'Allows to have information about server.',
             usage: '',
             args: 0,
             exemples: []
