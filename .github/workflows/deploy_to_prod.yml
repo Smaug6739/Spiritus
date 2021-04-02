@@ -12,4 +12,4 @@ jobs:
         git stash
         git pull origin master
         npm install
-        pm2 prod beta.ecosystem.config.js
+        pm2 reload prod.ecosystem.config.js
