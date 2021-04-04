@@ -5,7 +5,7 @@ module.exports.run = (client, message, args, settings) => {
   if (!args.length) {
     const embed = new MessageEmbed()
       .setColor(`${client.config.color.EMBEDCOLOR}`)
-      .setAuthor('Liste  des commandes :', `${client.user.avatarURL()}`)
+      .setAuthor('Liste  of commands :', `${client.user.avatarURL()}`)
       .addField("List of commands", `A list of all available subcategories and their commands.\nFor more information on an order, run \`${settings.prefix}help <command_name>\`.`)
       .setTimestamp()
       .setFooter(`Command module: Bot`, `${message.guild.iconURL() ? message.guild.iconURL() : ''}`);
@@ -30,7 +30,7 @@ module.exports.run = (client, message, args, settings) => {
       .setFooter(`Command module: Bot`, `${message.guild.iconURL() ? message.guild.iconURL() : ''}`);
     if (command.help.aliases.length > 1) embed.addField("**__Alias :__**", `${command.help.aliases.join(`, `)}`);
     if (command.help.exemple && command.help.exemple.length > 0) embed.addField("**__Exemples :__**", `${settings.prefix}${command.help.exemple.join(`\r\n${settings.prefix}`)}`);
-    if (command.help.subcommands && command.help.subcommands.length > 0) embed.addField("**__Subcommands :__**", `${settings.prefix}${command.help.subcommands.join(`\r\n${settings.prefix}`)}`);
+    if (command.help.subcommands && command.help.subcommands.length > 0) embed.addField("**__Subcommands :__**", command.help.subcommands.map(cmd => `${settings.prefix}${command.help.name} ${cmd.name} ${cmd.description} (\`${cmd.usage}\`)`));
     return message.channel.send(embed);
   }
 };
