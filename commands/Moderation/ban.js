@@ -125,7 +125,7 @@ module.exports.run = async (client, message, args, settings) => {
         .setAuthor(`${user.username} (${user.id})`)
         .setColor(`${client.config.color.ROUGE}`)
         .setDescription(`**Action**: ban\n**Reason**: ${reason}\n**Guild :** ${message.guild.name}\nModerator : ${message.author.username}`)
-        .setThumbnail(user.displayAvatarURL())
+        .setThumbnail(user.user.displayAvatarURL())
         .setTimestamp()
         .setFooter(message.author.username, message.author.avatarURL());
     if (user) {

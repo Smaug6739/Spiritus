@@ -5,9 +5,10 @@ module.exports = client => {
         console.log(message)
     }
     client.resolveMember = async (guild, arg) => {
-        if (!arg || !guild || !guild.avalaible) {
+        if (!arg || !guild || !guild.available) {
             return;
         }
+
         let user = guild.members.cache.find(mem => mem.id === arg.replace('!', '').replace(/<@|>/g, '') ||
             mem.user.username.toLowerCase().startsWith(arg.toLowerCase()) ||
             mem.user.username.toLowerCase() === arg.toLowerCase() ||
