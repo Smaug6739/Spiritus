@@ -70,14 +70,14 @@ You can invite the hosted version [here](https://discord.com/oauth2/authorize?cl
 |pay | Give coins to a user.|none|\<user> \<money_to_give>|10secs|
 |shop | Show the store and allow purchases.|none|buy \<item_name>|10secs|
 
-###Experience 
+### Experience 
 | Name | Description | Sub-commands | Usage | Cd|
 |------|-------------|--------------|-------|----|
 |adminxp | Manage exp of users.|add, rem|\<@​user> \<nb_experience>|10secs|
 |leaderboard | Ranking of users on the guild.|none|none|10secs|
 |rank | View your rank or rank of member.|none|\<@​user>|10secs|
 
-###Fun
+### Fun
 | Name | Description | Sub-commands | Usage | Cd|
 |------|-------------|--------------|-------|----|
 |8ball|Ask a question to the magic ball.| none |\<question>|5secs|
@@ -89,7 +89,7 @@ You can invite the hosted version [here](https://discord.com/oauth2/authorize?cl
 |say|Send message in a channel.| none |\<text>|10secs|
 |sayembed|Send message in an embed.| none |\<text>|3secs|
 
-###Moderation
+### Moderation
 | Name | Description | Usage | Cd|
 |------|-------------|-------|----|
 |ban|Ban a user.|\<@​user> \<reason>|10secs|
