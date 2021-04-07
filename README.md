@@ -1,3 +1,5 @@
+![spiritus](https://cdn.discordapp.com/attachments/734318123510923324/734318158642544650/spiritus_banniere.png)
+
 <div align="center">
 
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/SmaugDev/Spiritus)
@@ -7,9 +9,7 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
   <br />
-  <p>
-  <a href="https://top.gg/bot/689210215488684044"><img src="https://top.gg/api/widget/689210215488684044.svg" alt="Spiritus" /></a>
-  </p>
+
 </div>
 
 # Spiritus Bot
@@ -117,4 +117,3 @@ This project has an MIT license.  And you are welcome to contribute.
 If you have question or need help, open issue. 
 
 
-# ![spiritus](https://cdn.discordapp.com/attachments/734318123510923324/734318158642544650/spiritus_banniere.png)
