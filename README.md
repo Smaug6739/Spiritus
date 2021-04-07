@@ -9,9 +9,7 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
   <br />
-  <p>
-  <a href="https://top.gg/bot/689210215488684044"><img src="https://top.gg/api/widget/689210215488684044.svg" alt="Spiritus" /></a>
-  </p>
+
 </div>
 
 # Spiritus Bot
