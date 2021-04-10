@@ -1,15 +1,15 @@
 const { MessageEmbed } = require("discord.js");
 module.exports.run = async (client, message, args, settings) => {
-  let user = await client.resolveMember(message.guild, args[0]);
+  let member = await client.resolveMember(message.guild, args[0]);
   let reason = (args.splice(1).join(' ') || 'No reason was given');
 
-  if (user) {
+  if (member) {
     const embed = new MessageEmbed()
       .setTitle('Avertissement :')
-      .setAuthor(`${user.username} (${user.id})`)
+      .setAuthor(`${member.user.username} (${member.user.id})`)
       .setColor(`${client.config.color.ORANGE}`)
       .setDescription(`**Action :** Warn\n**Reason :** ${reason}\n**Guild :** ${message.guild.name}\n**Moderator :** ${message.author.username}`)
-      .setThumbnail(user.displayAvatarURL())
+      .setThumbnail(member.user.displayAvatarURL())
       .setTimestamp()
       .setFooter(message.author.username, message.author.avatarURL());
     try {
@@ -21,10 +21,10 @@ module.exports.run = async (client, message, args, settings) => {
           }
         }
       }
-      user.createDM().then(msg =>
+      member.createDM().then(msg =>
         msg.send(embed)
 
-          .then(message.channel.send(`${client.config.emojis.success}I have warn the user **${user.tag}**`)))
+          .then(message.channel.send(`${client.config.emojis.success}I have warn the user **${member.user.tag}**`)))
         .catch(() => { })
     } catch {
       return;
@@ -45,7 +45,7 @@ module.exports.help = {
   cooldown: 10,
   usage: '<user> <reason>',
   exemple: ["warn @Smaug spam"],
-  isUserAdmin: true,
+  isUserAdmin: false,
   moderator: true,
   args: true,
   userPermissions: [],
