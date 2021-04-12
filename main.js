@@ -46,4 +46,4 @@ process.on('warning', (warning) => {
 client.errorHook = new WebhookClient(`${client.configuration.WEBHOOKS.CONSOLE.ID}`, `${client.configuration.WEBHOOKS.CONSOLE.TOKEN}`);
 
 client.commands.filter(cmd => cmd.help.category === 'administration')
-    .map(cmd => `|${cmd.help.name}|${cmd.help.description}|${cmd.help.subcommands.map(sub =>sub.name).join(', ')}|${cmd.help.cooldown}secs|`)
+  .map(cmd => `|${cmd.help.name}|${cmd.help.description}|${cmd.help.subcommands.map(sub => sub.name).join(', ')}|${cmd.help.cooldown}secs|`)
