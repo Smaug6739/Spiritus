@@ -6,13 +6,13 @@ module.exports.run = async (client, message, args, settings) => {
                     try {
                         const channelRRAdd = client.resolveChannel(message.channel.guild, args[1]);
                         if (!channelRRAdd) return message.channel.sendErrorMessage(`Channel not found.`);
-                        const messageRRAdd = await message.channel.messages.fetch(args[2]);
+                        const messageRRAdd = await channelRRAdd.messages.fetch(args[2]);
                         if (!messageRRAdd) return message.channel.sendErrorMessage(`Message not found`);
                         let emoteRRAdd = await client.resolveGuildEmoji(message.channel.guild, args[3].trim());
                         if (!emoteRRAdd && client.isUnicode(args[3])) emoteRRAdd = args[3];
                         if (!emoteRRAdd) return message.channel.sendErrorMessage(`Emoji not found.`);
                         const role = client.resolveRole(message.channel.guild, args[4]);
-                        if (!role || role.id == message.channel.guild.id) return message.channel.sendErrorMessage(`Impossible de trouver ce rôle.`);
+                        if (!role || role.id == message.channel.guild.id) return message.channel.sendErrorMessage(`Role not found.`);
                         let existingReactionRole = await settings.reactionroles.find(r => r.emoji == emoteRRAdd.id ? emoteRRAdd.id : emoteRRAdd && r.messageID == messageRRAdd.id && r.roleID == role.id)
                         if (existingReactionRole) return message.channel.sendErrorMessage(`Emoji already use for this message.`);
                         await messageRRAdd.react(emoteRRAdd.id ? `${emoteRRAdd.name}:${emoteRRAdd.id}` : emoteRRAdd);
