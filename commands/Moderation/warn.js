@@ -1,38 +1,38 @@
 const { MessageEmbed } = require("discord.js");
-module.exports.run = async (client, message, args, settings) => {
-  let member = await client.resolveMember(message.guild, args[0]);
-  let reason = (args.splice(1).join(' ') || 'No reason was given');
+module.exports.run = async (client, interaction, args, settings) => {
+  const memberArg = client.getArg(args, 'user')
+  const reasonArg = client.getArg(args, 'reason')
+  const member = await client.resolveMember(interaction.guild, memberArg);
+  const reason = (reasonArg || 'No reason was given');
 
   if (member) {
     const embed = new MessageEmbed()
       .setTitle('Avertissement :')
       .setAuthor(`${member.user.username} (${member.user.id})`)
       .setColor(`${client.config.color.ORANGE}`)
-      .setDescription(`**Action :** Warn\n**Reason :** ${reason}\n**Guild :** ${message.guild.name}\n**Moderator :** ${message.author.username}`)
+      .setDescription(`**Action :** Warn\n**Reason :** ${reason}\n**Guild :** ${interaction.guild.name}\n**Moderator :** ${interaction.author.username}`)
       .setThumbnail(member.user.displayAvatarURL())
       .setTimestamp()
-      .setFooter(message.author.username, message.author.avatarURL());
+      .setFooter(interaction.author.username, interaction.author.avatarURL());
     try {
       if (settings.modLogs) {
-        const channel = client.resolveChannel(message.guild, settings.modLogs)
+        const channel = client.resolveChannel(interaction.guild, settings.modLogs)
         if (channel) {
-          if (channel.permissionsFor(message.guild.me).has('SEND_MESSAGES')) {
+          if (channel.permissionsFor(interaction.guild.me).has('SEND_MESSAGES')) {
             channel.send(embed)
           }
         }
       }
       member.createDM().then(msg =>
         msg.send(embed)
-
-          .then(message.channel.send(`${client.config.emojis.success}I have warn the user **${member.user.tag}**`)))
-        .catch(() => { })
+          .then(interaction.replySuccessMessage(`I have warn the user \`${member.user.tag}\``)))
     } catch {
-      return;
+      return message.replyErrorMessage(`An error has occurred. Please try again.`);
     }
 
 
   } else {
-    message.channel.sendErrorMessage(`User not found.`)
+    interaction.channel.sendErrorinteraction(`User not found.`)
   }
 
 };
@@ -47,7 +47,20 @@ module.exports.help = {
   exemple: ["warn @Smaug spam"],
   isUserAdmin: false,
   moderator: true,
-  args: true,
+  args: [
+    {
+      name: 'user',
+      description: 'User',
+      type: 'STRING',
+      required: true
+    },
+    {
+      name: 'reason',
+      description: 'The reason of warn',
+      type: 'STRING',
+      required: false
+    },
+  ],
   userPermissions: [],
   botPermissions: [],
   subcommands: []

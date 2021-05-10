@@ -2,7 +2,7 @@ const { Client, Collection, WebhookClient, TextChannel } = require('discord.js')
 const { loadCommands, loadEvents } = require("./util/loader");
 const client = new Client({
   disableMentions: 'everyone',
-  ws: { intents: ['GUILDS', 'GUILD_MESSAGES', 'GUILD_MEMBERS', 'GUILD_EMOJIS', 'GUILD_MESSAGE_REACTIONS'] },
+  intents: ['GUILDS', 'GUILD_MESSAGES', 'GUILD_MEMBERS', 'GUILD_EMOJIS', 'GUILD_MESSAGE_REACTIONS'],
   partials: ['MESSAGE', 'CHANNEL', 'REACTION']
 });
 require('./util/functions')(client);
@@ -22,7 +22,19 @@ TextChannel.prototype.sendSuccessMessage = function (content, file) {
 TextChannel.prototype.sendErrorMessage = function (content, file) {
   return this.send(`${client.config.emojis.error} ${content}`, file);
 };
-
+TextChannel.prototype.replySuccessMessage = function (content, file) {
+  return this.reply(`${client.config.emojis.success} ${content}`, file);
+};
+TextChannel.prototype.replyErrorMessage = function (content, file) {
+  return this.reply(`${client.config.emojis.error} ${content}`, file);
+};
+client.getArg = (array, name) => {
+  let pos = undefined;
+  array.map(function (e) {
+    if (e[name]) pos = e[name];
+  })
+  return pos
+}
 process.on('uncaughtException', (error) => {
   console.warn(error);
   if (!client) return;
@@ -45,5 +57,5 @@ process.on('warning', (warning) => {
 });
 client.errorHook = new WebhookClient(`${client.configuration.WEBHOOKS.CONSOLE.ID}`, `${client.configuration.WEBHOOKS.CONSOLE.TOKEN}`);
 
-client.commands.filter(cmd => cmd.help.category === 'administration')
-  .map(cmd => `|${cmd.help.name}|${cmd.help.description}|${cmd.help.subcommands.map(sub => sub.name).join(', ')}|${cmd.help.cooldown}secs|`)
+// client.commands.filter(cmd => cmd.help.category === 'administration')
+//   .map(cmd => `|${cmd.help.name}|${cmd.help.description}|${cmd.help.subcommands.map(sub => sub.name).join(', ')}|${cmd.help.cooldown}secs|`)

@@ -64,7 +64,7 @@ module.exports.help = {
         },
         {
             name: 'list',
-            description: 'Ignore a channel for bot commands.',
+            description: 'View ignore a channels for bot commands.',
             usage: '[channel]',
             args: 0,
             exemples: []

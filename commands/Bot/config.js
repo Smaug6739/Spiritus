@@ -102,13 +102,6 @@ module.exports.help = {
             exemples: ['#general']
         },
         {
-            name: 'welcome-message',
-            description: 'Change welcome-message of the guild.',
-            usage: '<message>',
-            args: 1,
-            exemples: ['Welcome to the server {{user}} !']
-        },
-        {
             name: 'experience',
             description: 'Change status of leveling system of the guild.',
             usage: '',
