@@ -43,7 +43,20 @@ module.exports.help = {
   exemple: ["kick @Smaug spam"],
   isUserAdmin: true,
   moderator: true,
-  args: true,
+  args: [
+    {
+      name: 'user',
+      description: 'User to kick',
+      type: 'STRING',
+      required: true
+    },
+    {
+      name: 'reason',
+      description: 'Reason of kick',
+      type: 'STRING',
+      required: false
+    },
+  ],
   userPermissions: [],
   botPermissions: [],
   subcommands: []

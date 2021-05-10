@@ -47,7 +47,7 @@ module.exports.help = {
   exemple: ["filter fck"],
   isUserAdmin: false,
   moderator: true,
-  args: false,
+  args: null,
   userPermissions: [],
   botPermissions: [],
   subcommands: [
@@ -55,21 +55,35 @@ module.exports.help = {
       name: 'add',
       description: 'Add word to the blacklist',
       usage: '<word>',
-      args: 1,
+      args: [
+        {
+          name: 'word',
+          description: 'Word to add to the blacklist',
+          type: 'STRING',
+          required: true
+        },
+      ],
       exemples: ['bad_word']
     },
     {
       name: 'rem',
       description: 'Remove word to the blacklist',
       usage: '<word>',
-      args: 1,
+      args: [
+        {
+          name: 'word',
+          description: 'Word to remove to the blacklist',
+          type: 'STRING',
+          required: true
+        },
+      ],
       exemples: ['bad_word']
     },
     {
       name: 'list',
       description: 'View blacklist',
       usage: '',
-      args: 0,
+      args: null,
       exemples: []
     },
   ]

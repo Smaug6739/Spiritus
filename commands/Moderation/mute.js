@@ -1,19 +1,19 @@
 const ms = require("ms");
 const { MessageEmbed } = require("discord.js");
-module.exports.run = async (client, message, args, settings) => {
-
-  let user = await client.resolveMember(message.guild, args[0])
-  let muteRole = message.guild.roles.cache.find(r => r.name === 'Muted');
-  let muteTime = (args[1] || '60s');
+module.exports.run = async (client, interaction, args, settings) => {
+  const argUser = client.getArg(args, 'user');
+  const argTime = client.getArg(args, 'time')
+  const user = await client.resolveMember(interaction.guild, argUser)
+  let muteRole = interaction.guild.roles.cache.find(r => r.name === 'Muted');
+  const muteTime = (argTime || '60s');
+  if (!user) return interaction.replyErrorMessage(`User not found.`)
   if (!muteRole) {
-    muteRole = await message.guild.roles.create({
-      data: {
-        name: 'Muted',
-        color: '#2f3136',
-        permissions: []
-      }
+    muteRole = await interaction.guild.roles.create({
+      name: 'Muted',
+      color: '#2f3136',
+      permissions: []
     });
-    message.guild.channels.cache.forEach(async (channel, id) => {
+    interaction.guild.channels.cache.forEach(async (channel, id) => {
       await channel.updateOverwrite(muteRole, {
         SEND_MESSAGES: false,
         ADD_REACTIONS: false,
@@ -23,7 +23,7 @@ module.exports.run = async (client, message, args, settings) => {
   };
 
   await user.roles.add(muteRole.id);
-  message.channel.send(`<@${user.id}> is muted for ${ms(ms(muteTime))}.`);
+  interaction.replySuccessMessage(`<@${user.id}> is muted for ${ms(ms(muteTime))}.`);
 
   setTimeout(() => {
     user.roles.remove(muteRole.id);
@@ -33,11 +33,11 @@ module.exports.run = async (client, message, args, settings) => {
     .setColor(`${client.config.color.ORANGE}`)
     .setDescription(`**Action**: mute\n**Time**: ${ms(ms(muteTime))}`)
     .setTimestamp()
-    .setFooter(message.author.username, message.author.avatarURL());
+    .setFooter(interaction.user.username, interaction.user.avatarURL());
   if (settings.modLogs) {
-    const channel = client.resolveChannel(message.guild, settings.modLogs)
+    const channel = client.resolveChannel(interaction.guild, settings.modLogs)
     if (channel) {
-      if (channel.permissionsFor(message.guild.me).has('SEND_MESSAGES')) {
+      if (channel.permissionsFor(interaction.guild.me).has('SEND_MESSAGES')) {
         channel.send(embed)
       }
     }
@@ -55,7 +55,20 @@ module.exports.help = {
   exemple: ["mute @Smaug 1h"],
   isUserAdmin: true,
   moderator: true,
-  args: true,
+  args: [
+    {
+      name: 'user',
+      description: 'User for mute',
+      type: 'STRING',
+      required: true
+    },
+    {
+      name: 'time',
+      description: 'Time of mute',
+      type: 'STRING',
+      required: false
+    },
+  ],
   userPermissions: [],
   botPermissions: ['MANAGE_CHANNELS', 'MANAGE_ROLES'],
   subcommands: []

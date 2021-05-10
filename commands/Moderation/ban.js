@@ -162,7 +162,20 @@ module.exports.help = {
     exemple: ["ban @Smaug spam"],
     isUserAdmin: false,
     moderator: true,
-    args: true,
+    args: [
+        {
+            name: 'user',
+            description: 'User to ban',
+            type: 'STRING',
+            required: true
+        },
+        {
+            name: 'reason',
+            description: 'Resaon of ban',
+            type: 'STRING',
+            required: false
+        },
+    ],
     userPermissions: [],
     botPermissions: ['BAN_MEMBERS'],
     subcommands: []

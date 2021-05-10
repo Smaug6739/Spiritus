@@ -1,11 +1,16 @@
-module.exports.run = async (client, message, args) => {
-  let utilisateur = await client.resolveMember(message.guild, args[0])
-  if (utilisateur == undefined) return message.channel.sendErrorMessage(`User not found.`)
-  let newName = args.slice(1).join(" ");
-  if (newName.length > 15) return message.channel.sendErrorMessage(`The nickname is too long.`)
-  if (newName.length < 2) return message.channel.sendErrorMessage(`The nickname is too short.`)
-  utilisateur.setNickname(newName)
-    .then(message.channel.sendSuccessMessage(`I have updated the nickname of the user ${utilisateur}.`))
+module.exports.run = async (client, interaction, args) => {
+  const argMember = client.getArg(args, 'user')
+  const argNewName = client.getArg(args, 'new_name')
+  const member = await client.resolveMember(interaction.guild, argMember)
+  if (member == undefined) return interaction.replyErrorMessage(`User not found.`)
+  if (argNewName.length > 15) return interaction.replyErrorMessage(`The nickname is too long.`)
+  if (argNewName.length < 2) return interaction.replyErrorMessage(`The nickname is too short.`)
+  await member.setNickname(argNewName)
+    .catch((err) => {
+      console.log(err)
+      interaction.replyErrorMessage(`An error has occurred. Please try again.`)
+    })
+  interaction.replySuccessMessage(`I have updated the nickname of the user ${member}.`)
 
 };
 
@@ -19,7 +24,20 @@ module.exports.help = {
   exemple: ["rename @Smaug Smaug6739"],
   isUserAdmin: false,
   moderator: true,
-  args: true,
+  args: [
+    {
+      name: 'user',
+      description: 'User to change',
+      type: 'STRING',
+      required: true
+    },
+    {
+      name: 'new_name',
+      description: 'New username',
+      type: 'STRING',
+      required: true
+    },
+  ],
   userPermissions: [],
   botPermissions: ['MANAGE_NICKNAMES'],
   subcommands: []

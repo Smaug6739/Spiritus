@@ -1,14 +1,12 @@
-module.exports.run = (client, message, args) => {
-
-
-    let channel = client.resolveChannel(message.guild, args[0])
-    if (channel == undefined) return message.channel.sendErrorMessage(`Channel not found.`)
-
-    channel.updateOverwrite(message.guild.roles.everyone, {
+module.exports.run = async (client, interaction, args) => {
+    const argChannel = client.getArg(args, 'channel')
+    let channel = client.resolveChannel(interaction.guild, argChannel)
+    if (channel == undefined) return interaction.replyErrorMessage(`Channel not found.`)
+    await channel.updateOverwrite(interaction.guild.roles.everyone, {
         SEND_MESSAGES: false
     })
-        .then(message.channel.sendSuccessMessage(`I have lock the channel ${channel}`))
-        .catch(console.error);
+        .catch(() => interaction.replyErrorMessage(`An error occurred. Please try again.`));
+    interaction.replySuccessMessage(`I have lock the channel ${channel}`)
 
 }
 
@@ -22,7 +20,14 @@ module.exports.help = {
     exemple: ["lock #general"],
     isUserAdmin: false,
     moderator: true,
-    args: true,
+    args: [
+        {
+            name: 'channel',
+            description: 'Channel to lock',
+            type: 'STRING',
+            required: true
+        },
+    ],
     userPermissions: [],
     botPermissions: ['MANAGE_CHANNELS'],
     subcommands: []

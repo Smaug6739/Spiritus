@@ -1,24 +1,22 @@
 const { MessageEmbed } = require("discord.js");
-module.exports.run = async (client, message, args) => {
+module.exports.run = async (client, interaction, args) => {
   try {
-    let user = await client.users.fetch(args[0]);
+    const argUser = client.getArg(args, 'user')
+    const user = await client.users.fetch(argUser);
     if (!user)
-      return message.channel.send(`${client.config.emojis.error}User not found.`);
-    message.guild.members.unban(user);
+      return interaction.replyErrorMessage(`User not found.`);
+    await interaction.guild.members.unban(user)
+      .catch(() => { interaction.replyErrorMessage('This user isn\'t ban.') })
     const embed = new MessageEmbed()
       .setAuthor(`${user.username} (${user.id})`, user.avatarURL())
       .setColor(`${client.config.color.ROUGE}`)
       .setDescription(`**Action**: unban`)
       .setTimestamp()
-      .setFooter(message.author.username, message.author.avatarURL());
-    message.channel.send(embed);
+      .setFooter(interaction.user.username, interaction.user.avatarURL());
+    interaction.reply(embed);
   } catch (e) {
-    if (e.message.match("Unknown User"))
-      return message.channel.send(
-        `${client.config.emojis.error}User not found.`
-      );
-    else
-      return message.channel.send(`${client.config.emojis.error}An error has occurred. Please try again.`);
+    if (e.message.match("Unknown User")) return interaction.replyErrorMessage(`User not found.`);
+    else return interaction.replyErrorMessage(`An error has occurred. Please try again.`);
   }
 };
 
@@ -32,7 +30,14 @@ module.exports.help = {
   exemple: ["unban 611468402263064577"],
   isUserAdmin: false,
   moderator: true,
-  args: true,
+  args: [
+    {
+      name: 'user',
+      description: 'User for unban',
+      type: 'STRING',
+      required: true
+    },
+  ],
   userPermissions: [],
   botPermissions: ['BAN_MEMBERS'],
   subcommands: [],

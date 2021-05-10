@@ -1,4 +1,4 @@
-const { Client, Collection, WebhookClient, TextChannel } = require('discord.js');
+const { Client, Collection, WebhookClient, TextChannel, CommandInteraction } = require('discord.js');
 const { loadCommands, loadEvents } = require("./util/loader");
 const client = new Client({
   disableMentions: 'everyone',
@@ -22,10 +22,10 @@ TextChannel.prototype.sendSuccessMessage = function (content, file) {
 TextChannel.prototype.sendErrorMessage = function (content, file) {
   return this.send(`${client.config.emojis.error} ${content}`, file);
 };
-TextChannel.prototype.replySuccessMessage = function (content, file) {
+CommandInteraction.prototype.replySuccessMessage = function (content, file) {
   return this.reply(`${client.config.emojis.success} ${content}`, file);
 };
-TextChannel.prototype.replyErrorMessage = function (content, file) {
+CommandInteraction.prototype.replyErrorMessage = function (content, file) {
   return this.reply(`${client.config.emojis.error} ${content}`, file);
 };
 client.getArg = (array, name) => {

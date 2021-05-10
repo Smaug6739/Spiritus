@@ -8,13 +8,13 @@ module.exports = client => {
         if (!arg || !guild || !guild.available) {
             return;
         }
-
         let user = guild.members.cache.find(mem => mem.id === arg.replace('!', '').replace(/<@|>/g, '') ||
             mem.user.username.toLowerCase().startsWith(arg.toLowerCase()) ||
             mem.user.username.toLowerCase() === arg.toLowerCase() ||
             `${mem.user.username.toLowerCase()}#${mem.user.discriminator}` === arg.toLowerCase() ||
             (mem.nick && mem.nick.toLowerCase().startsWith(arg)) ||
             (mem.nick && mem.nick.toLowerCase() === arg.toLowerCase()));
+        if (!user) user = await guild.members.fetch(arg.replace('!', '').replace(/<@|>/g, ''))
         return user;
     }
     client.resolveUser = (arg) => {

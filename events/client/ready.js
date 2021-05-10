@@ -20,7 +20,7 @@ module.exports = async client => {
                 name: s.name || 'default_name',
                 description: s.description || 'default description',
                 type: s.type || 'STRING',
-                require: s.required || false
+                required: s.required || false
               })
             }
           }

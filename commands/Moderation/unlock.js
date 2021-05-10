@@ -1,13 +1,13 @@
-module.exports.run = (client, message, args) => {
+module.exports.run = async (client, interaction, args) => {
+    const argChannel = client.getArg(args, 'channel')
+    let channel = client.resolveChannel(interaction.guild, argChannel)
+    if (channel == undefined) return interaction.replyErrorMessage(`Channel not found.`)
 
-    let channel = client.resolveChannel(message.guild, args[0])
-    if (channel == undefined) return message.channel.sendErrorMessage(`Channel not found.`)
-
-    channel.updateOverwrite(message.guild.roles.everyone, {
+    await channel.updateOverwrite(interaction.guild.roles.everyone, {
         SEND_MESSAGES: true
     })
-        .then(message.channel.sendSuccessMessage(`I have unlock the channel ${channel}`))
-        .catch(console.error);
+        .catch(() => interaction.replyErrorMessage('An error occurred. Please try again'));
+    interaction.replySuccessMessage(`I have unlock the channel ${channel}`)
 
 }
 
@@ -21,7 +21,14 @@ module.exports.help = {
     exemple: ["unlock #general"],
     isUserAdmin: false,
     moderator: true,
-    args: true,
+    args: [
+        {
+            name: 'channel',
+            description: 'Channel to unlock',
+            type: 'STRING',
+            required: true
+        },
+    ],
     userPermissions: [],
     botPermissions: ['MANAGE_CHANNELS'],
     subcommands: []

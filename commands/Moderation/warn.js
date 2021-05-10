@@ -5,36 +5,31 @@ module.exports.run = async (client, interaction, args, settings) => {
   const member = await client.resolveMember(interaction.guild, memberArg);
   const reason = (reasonArg || 'No reason was given');
 
-  if (member) {
-    const embed = new MessageEmbed()
-      .setTitle('Avertissement :')
-      .setAuthor(`${member.user.username} (${member.user.id})`)
-      .setColor(`${client.config.color.ORANGE}`)
-      .setDescription(`**Action :** Warn\n**Reason :** ${reason}\n**Guild :** ${interaction.guild.name}\n**Moderator :** ${interaction.author.username}`)
-      .setThumbnail(member.user.displayAvatarURL())
-      .setTimestamp()
-      .setFooter(interaction.author.username, interaction.author.avatarURL());
-    try {
-      if (settings.modLogs) {
-        const channel = client.resolveChannel(interaction.guild, settings.modLogs)
-        if (channel) {
-          if (channel.permissionsFor(interaction.guild.me).has('SEND_MESSAGES')) {
-            channel.send(embed)
-          }
+  if (!member) return interaction.replyErrorMessage(`User not found.`)
+
+  const embed = new MessageEmbed()
+    .setTitle('Avertissement :')
+    .setAuthor(`${member.user.username} (${member.user.id})`)
+    .setColor(`${client.config.color.ORANGE}`)
+    .setDescription(`**Action :** Warn\n**Reason :** ${reason}\n**Guild :** ${interaction.guild.name}\n**Moderator :** ${interaction.user.username}`)
+    .setThumbnail(member.user.displayAvatarURL())
+    .setTimestamp()
+    .setFooter(interaction.user.username, interaction.user.avatarURL());
+  try {
+    if (settings.modLogs) {
+      const channel = client.resolveChannel(interaction.guild, settings.modLogs)
+      if (channel) {
+        if (channel.permissionsFor(interaction.guild.me).has('SEND_MESSAGES')) {
+          channel.send(embed)
         }
       }
-      member.createDM().then(msg =>
-        msg.send(embed)
-          .then(interaction.replySuccessMessage(`I have warn the user \`${member.user.tag}\``)))
-    } catch {
-      return message.replyErrorMessage(`An error has occurred. Please try again.`);
     }
-
-
-  } else {
-    interaction.channel.sendErrorinteraction(`User not found.`)
+    member.createDM().then(msg =>
+      msg.send(embed)
+        .then(interaction.replySuccessMessage(`I have warn the user \`${member.user.tag}\``)))
+  } catch {
+    return message.replyErrorMessage(`An error has occurred. Please try again.`);
   }
-
 };
 
 module.exports.help = {

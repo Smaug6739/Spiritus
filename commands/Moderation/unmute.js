@@ -1,21 +1,23 @@
 const { MessageEmbed } = require("discord.js");
-module.exports.run = async (client, message, args, settings) => {
-  let user = await client.resolveMember(message.guild, args[0])
-  if (user == undefined) return message.channel.sendErrorMessage(`User not found.`)
-  let muteRole = message.guild.roles.cache.find(r => r.name === 'Muted');
-  if (!user.roles.cache.has(muteRole.id)) return message.channel.sendErrorMessage(`This user is not muted.`);
+module.exports.run = async (client, interaction, args, settings) => {
+  const argUser = client.getArg(args, 'user')
+  const user = await client.resolveMember(interaction.guild, argUser)
+  if (!user) return interaction.replyErrorMessage(`User not found.`)
+  const muteRole = interaction.guild.roles.cache.find(r => r.name === 'Muted');
+  if (!muteRole) return interaction.replyErrorMessage(`This user is not muted.`);
+  if (!user.roles.cache.has(muteRole.id)) return interaction.replyErrorMessage(`This user is not muted.`);
   user.roles.remove(muteRole.id);
-  message.channel.send(`<@${user.id}> is now unmuted`);
+  interaction.replySuccessMessage(`<@${user.id}> is now unmuted`);
   const embed = new MessageEmbed()
     .setAuthor(`${user.user.username} (${user.id})`, user.user.avatarURL())
     .setColor(`${client.config.color.VERT}`)
     .setDescription(`**Action**: unmute`)
     .setTimestamp()
-    .setFooter(message.author.username, message.author.avatarURL());
+    .setFooter(interaction.user.username, interaction.user.avatarURL());
   if (settings.modLogs) {
-    const channel = client.resolveChannel(message.guild, settings.modLogs)
+    const channel = client.resolveChannel(interaction.guild, settings.modLogs)
     if (channel) {
-      if (channel.permissionsFor(message.guild.me).has('SEND_MESSAGES')) {
+      if (channel.permissionsFor(interaction.guild.me).has('SEND_MESSAGES')) {
         channel.send(embed)
       }
     }
@@ -33,8 +35,15 @@ module.exports.help = {
   exemple: ["unmute @Smaug"],
   isUserAdmin: true,
   moderator: true,
-  args: true,
+  args: [
+    {
+      name: 'user',
+      description: 'User for unmute',
+      type: 'STRING',
+      required: true
+    },
+  ],
   userPermissions: [],
-  botPermissions: ['MANAGE_ROLES'],
+  botPermissions: ['MANAGE_ROLES', 'MANAGE_MEMBERS'],
   subcommands: []
 };
