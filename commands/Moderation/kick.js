@@ -1,36 +1,34 @@
 const { MessageEmbed } = require("discord.js");
-module.exports.run = async (client, message, args, settings) => {
-  let user = await client.resolveMember(message.guild, args[0]);
-  if (user == undefined) return message.channel.sendErrorMessage(`User not found.`)
-  if (message.member.roles.highest.comparePositionTo(user.roles.highest) <= 0) return message.channel.sendErrorMessage(`You don't have the permission for this.`)
-  let reason = (args.splice(1).join(' ') || 'No reason was given');
+module.exports.run = async (client, interaction, args, settings) => {
+  const argUser = client.getArg(args, 'user')
+  const argReason = client.getArg(args, 'reason')
+  const user = await client.resolveMember(interaction.guild, argUser);
+  if (!user) return interaction.replyErrorMessage(`User not found.`)
+  if (interaction.member.roles.highest.comparePositionTo(user.roles.highest) <= 0 && interaction.guild.ownerID !== interaction.user.id) return interaction.replyErrorMessage(`You don't have the permission for this.`)
+  let reason = (argReason || 'No reason was given');
   const embed = new MessageEmbed()
     .setAuthor(`${user.user.username} (${user.id})`)
     .setColor(`${client.config.color.ORANGE}`)
     .setDescription(`**Action**: kick\n**Reason**: ${reason}`)
     .setThumbnail(user.user.displayAvatarURL())
     .setTimestamp()
-    .setFooter(message.author.username, message.author.avatarURL());
-  if (user) {
-    if (user.kickable) {
-      try {
-        await user.send(embed)
-      } catch {
-
-      }
-      message.guild.member(user).kick(reason).then(() => {
-        message.channel.send(embed)
-        if (settings.modLogs) {
-          const channel = client.resolveChannel(message.guild, settings.modLogs)
-          if (channel) {
-            if (channel.permissionsFor(message.guild.me).has('SEND_MESSAGES')) {
-              channel.send(embed)
-            }
+    .setFooter(interaction.user.username, interaction.user.avatarURL());
+  if (user.kickable) {
+    try {
+      await user.send(embed)
+    } catch { }
+    user.kick(reason).then(() => {
+      interaction.reply(embed)
+      if (settings.modLogs) {
+        const channel = client.resolveChannel(interaction.guild, settings.modLogs)
+        if (channel) {
+          if (channel.permissionsFor(interaction.guild.me).has('SEND_MESSAGES')) {
+            channel.send(embed)
           }
         }
-      })
-    }
-  } else message.channel.sendErrorMessage(`User not found`);
+      }
+    })
+  }
 };
 
 module.exports.help = {
@@ -58,6 +56,6 @@ module.exports.help = {
     },
   ],
   userPermissions: [],
-  botPermissions: [],
+  botPermissions: ['KICK_MEMBERS'],
   subcommands: []
 };

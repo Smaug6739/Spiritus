@@ -14,7 +14,9 @@ module.exports = client => {
             `${mem.user.username.toLowerCase()}#${mem.user.discriminator}` === arg.toLowerCase() ||
             (mem.nick && mem.nick.toLowerCase().startsWith(arg)) ||
             (mem.nick && mem.nick.toLowerCase() === arg.toLowerCase()));
-        if (!user) user = await guild.members.fetch(arg.replace('!', '').replace(/<@|>/g, ''))
+        try {
+            if (!user) user = await guild.members.fetch(arg.replace('!', '').replace(/<@|>/g, ''))
+        } catch { }
         return user;
     }
     client.resolveUser = (arg) => {
