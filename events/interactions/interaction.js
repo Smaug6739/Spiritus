@@ -51,12 +51,16 @@ module.exports = async (client, interaction) => {
 	}
 	if (command.help.subcommands && command.help.subcommands.length) {
 		data.push({ subcommand: interaction.options[0].name, })
-		interaction.options[0].options.map(a => {
-			data.push({
-				[a.name]: a.value
+		const hasArgs = command.help.subcommands.map(sub => {
+			if (interaction.options[0].name === sub.name && sub.args) return sub.args.length >= 1
+		});
+		if (hasArgs.includes(true)) {
+			interaction.options[0].options.map(a => {
+				data.push({
+					[a.name]: a.value
+				})
 			})
-		})
-
+		}
 	}
 	/* ---------------ARGS--------------- */
 	try {

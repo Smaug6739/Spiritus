@@ -1,38 +1,34 @@
-module.exports.run = async (client, message, args, settings) => {
+const { MessageEmbed } = require('discord.js')
+module.exports.run = async (client, interaction, args, settings) => {
 
-  switch (args[0].toLowerCase()) {
+  switch (args[0].subcommand) {
     case 'add':
-      const wordToAdd = args[1]
-      if (!wordToAdd) return message.channel.sendErrorMessage(`Please indicate a word to add to the list.`)
+      const wordToAdd = client.getArg(args, 'word')
       settings.filter.push(wordToAdd);
       await settings.save();
-      message.channel.sendSuccessMessage(`This word is now forbidden on the server.`);
+      interaction.replySuccessMessage(`This word is now forbidden on the server.`);
       break;
     case 'rem':
-      if (!message.member.permissions.has('MANAGE_GUILD')) return message.channel.sendErrorMessage(`You need manage server permission for use this command.`);
-      const wordToRemove = args[1]
-      if (!args[1]) return message.channel.sendErrorMessage(`Please indicate the word to delete from the list.`)
-      if (!settings.filter.includes(wordToRemove)) return message.channel.sendErrorMessage(`This word is not in the list.`);
+      if (!interaction.member.permissions.has('MANAGE_GUILD')) return interaction.replyErrorMessage(`You need manage server permission for use this command.`);
+      const wordToRemove = client.getArg(args, 'word')
+      if (!settings.filter.includes(wordToRemove)) return interaction.replyErrorMessage(`This word is not in the list.`);
       const index = settings.filter.indexOf(wordToRemove);
       settings.filter.splice(index, 1);
       await settings.save();
-      message.channel.sendSuccessMessage(`The word \`${wordToRemove}\` is now allowed.`);
+      interaction.replySuccessMessage(`The word \`${wordToRemove}\` is now allowed.`);
       break;
 
     case 'list':
-      if (!settings.filter || settings.filter.length < 1) return message.channel.sendErrorMessage(`There are no forbidden words for this server. To add it use the command \`${settings.prefix}filter add <mot>\``)
-      if (!message.member.permissions.has('MANAGE_GUILD')) return message.channel.sendErrorMessage(`You need manage server permission for use this command.`);
-      let embed = {
-        title: `List of words in blacklist of this guild**${message.guild.name}** | ${settings.filter.length} total`,
-        thumbnail: {
-          url: `${message.guild.iconURL()}`,
-        },
-        color: `${client.config.color.EMBEDCOLOR}`,
-        description: null,
-        fields: []
-      };
-      embed.description = `${settings.filter.join(', ')}`;
-      message.channel.send({ embed });
+      if (!settings.filter || settings.filter.length < 1) return interaction.replyErrorMessage(`There are no forbidden words for this server. To add it use the command \`${settings.prefix}filter add <mot>\``)
+      if (!interaction.member.permissions.has('MANAGE_GUILD')) return interaction.replyErrorMessage(`You need manage server permission for use this command.`);
+      const embed = new MessageEmbed()
+        .setTitle(`List of words in blacklist of this guild**${interaction.guild.name}** | ${settings.filter.length} total`)
+        .setThumbnail(interaction.guild.iconURL() ? interaction.guild.iconURL() : '')
+        .setColor(client.config.color.EMBEDCOLOR)
+        .setDescription(`\`${settings.filter.join('\`, \`')}\``)
+        .setFooter('Command module: Moderation')
+        .setTimestamp()
+      interaction.reply(embed);
       break;
   }
 };
