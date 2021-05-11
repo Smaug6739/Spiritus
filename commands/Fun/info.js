@@ -2,9 +2,10 @@ const { MessageEmbed } = require("discord.js");
 const moment = require('moment');
 module.exports.run = async (client, message, args, settings) => {
 
-    switch (args[0].toLowerCase()) {
+    switch (args[0].subcommand) {
         case 'user':
-            let userInfo = await client.resolveMember(message.guild, args[1])
+            const argUser = client.getArg(args, 'user')
+            const userInfo = await client.resolveMember(message.guild, argUser)
             if (!userInfo) {
                 client.users.fetch(args[1])
                     .then(u => {
@@ -20,7 +21,7 @@ module.exports.run = async (client, message, args, settings) => {
                             .setFooter(`User ID : ${u.id}`)
                         return message.channel.send(embedUser)
                     })
-                    .catch(() => message.channel.sendErrorMessage(`User not found.`))
+                    .catch(() => message.replyErrorMessage(`User not found.`))
                 break;
 
             } else {
@@ -45,7 +46,7 @@ module.exports.run = async (client, message, args, settings) => {
                 embedMember.addField('Roles :', `${userInfo.roles.cache.map(r => r.toString()).join('')}`)//OK            
                 embedMember.addField('User information:', `** Permissions:** ${userInfo.permissions.toArray().sort().map(permissions => `${permissions.split("_").map(x => x[0] + x.slice(1).toLowerCase()).join(" ")}`).join(", ") || "none"}`)//OK
                 embedMember.setTimestamp();
-                message.channel.send(embedMember);
+                message.reply(embedMember);
                 break;
             }
         case 'bot':
@@ -194,35 +195,56 @@ module.exports.help = {
             name: 'user',
             description: 'Allows to have information about a user.',
             usage: '<user>',
-            args: 1,
+            args: [
+                {
+                    name: 'user',
+                    description: 'User to get infos',
+                    type: 'STRING',
+                    required: true
+                },
+            ],
             exemples: ['611468402263064577', 'Smaug']
         },
         {
             name: 'bot',
             description: 'Allows to have information about bot.',
             usage: '',
-            args: 0,
+            args: null,
             exemples: []
         },
         {
             name: 'server',
             description: 'Allows to have information about server.',
             usage: '',
-            args: 0,
+            args: null,
             exemples: []
         },
         {
             name: 'role',
             description: 'Allows to have information about role.',
             usage: '<role>',
-            args: 1,
+            args: [
+                {
+                    name: 'role',
+                    description: 'Role to get infos',
+                    type: 'STRING',
+                    required: true
+                },
+            ],
             exemples: ['@Role', '710759495483129876']
         },
         {
             name: 'channel',
             description: 'Allows to have information about channel.',
             usage: '<channel>',
-            args: 1,
+            args: [
+                {
+                    name: 'channel',
+                    description: 'Channel to get infos',
+                    type: 'STRING',
+                    required: true
+                },
+            ],
             exemples: ['#channel', '710759495483129876']
         }
     ]

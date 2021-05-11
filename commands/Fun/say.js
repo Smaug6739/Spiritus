@@ -1,6 +1,6 @@
-module.exports.run = (client, message, args) => {
+module.exports.run = (client, interaction, args) => {
 
-    message.channel.send(args.join(' '))
+    interaction.reply(client.getArg(args, 'message'))
 
 }
 module.exports.help = {
@@ -14,7 +14,14 @@ module.exports.help = {
     exemple: ["say Spiritus is the best bot !"],
     isUserAdmin: false,
     moderator: false,
-    args: true,
+    args: [
+        {
+            name: 'message',
+            description: 'Message to send',
+            type: 'STRING',
+            required: true
+        },
+    ],
     userPermissions: [],
     botPermissions: [],
     subcommands: []

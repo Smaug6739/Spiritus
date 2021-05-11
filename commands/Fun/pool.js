@@ -1,17 +1,18 @@
 const { MessageEmbed } = require('discord.js')
-module.exports.run = async (client, message, args, settings) => {
-    const question = args.join(' ')
+module.exports.run = async (client, interaction, args) => {
+    const question = client.getArg(args, 'question')
     const embed = new MessageEmbed()
-        .setAuthor(`${message.author.username}`, `${message.author.displayAvatarURL()}`)
+        .setAuthor(`${interaction.user.username}`, `${interaction.user.displayAvatarURL()}`)
         .setColor(client.config.color.EMBEDCOLOR)
-        .setDescription(`**Sondage de ${message.author.username} :**\n${question}`)
+        .setDescription(`**Pool by ${interaction.user.username} :**\n${question}`)
         .addField(`\u200b`, `🟩 Yes \n🟦 Neutral \n🟥 No`)
         .setTimestamp()
         .setFooter(`Command module: Fun`)
-    const msg = await message.channel.send(embed)
-    await msg.react('🟩')
-    await msg.react('🟦')
-    await msg.react('🟥')
+    interaction.reply(embed)
+    const reply = await interaction.fetchReply()
+    await reply.react('🟩')
+    await reply.react('🟦')
+    await reply.react('🟥')
 };
 
 module.exports.help = {
@@ -24,7 +25,14 @@ module.exports.help = {
     exemple: ["pool <question>"],
     isUserAdmin: false,
     moderator: false,
-    args: true,
+    args: [
+        {
+            name: 'question',
+            description: 'Question of pool',
+            type: 'STRING',
+            required: true
+        },
+    ],
     userPermissions: [],
     botPermissions: [],
     subcommands: []

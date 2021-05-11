@@ -26,7 +26,14 @@ module.exports.help = {
     exemple: ["binary Spiritus"],
     isUserAdmin: false,
     moderator: false,
-    args: true,
+    args: [
+        {
+            name: 'message',
+            description: 'Message to convert in binary',
+            type: 'STRING',
+            required: true
+        },
+    ],
     userPermissions: [],
     botPermissions: [],
     subcommands: []

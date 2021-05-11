@@ -22,7 +22,14 @@ module.exports.help = {
     exemple: ["8ball <question>"],
     isUserAdmin: false,
     moderator: false,
-    args: true,
+    args: [
+        {
+            name: 'question',
+            description: 'Question to ask',
+            type: 'STRING',
+            required: true
+        },
+    ],
     userPermissions: [],
     botPermissions: [],
     subcommands: []

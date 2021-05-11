@@ -1,13 +1,13 @@
 const { MessageEmbed } = require('discord.js')
-module.exports.run = (client, message, args, settings) => {
-    const texte = args.join(' ')
+module.exports.run = (client, interaction, args) => {
+    const text = client.getArg(args, 'message')
     const embed = new MessageEmbed()
-        .setAuthor(`${message.author.username}`, `${message.author.displayAvatarURL()}`)
+        .setAuthor(`${interaction.user.username}`, `${interaction.user.displayAvatarURL()}`)
         .setColor(client.config.color.EMBEDCOLOR)
-        .setDescription(texte)
+        .setDescription(text)
         .setTimestamp()
         .setFooter(`Command module: Fun`)
-    message.channel.send(embed)
+    interaction.reply(embed)
 };
 
 module.exports.help = {
@@ -16,12 +16,19 @@ module.exports.help = {
     category: 'fun',
     description: "Send message in an embed.",
     cooldown: 3,
-    usage: '<texte>',
+    usage: '<text>',
     exemple: ["sayembed Spiritus is the best bot !"],
     isUserAdmin: false,
     moderator: false,
-    args: true,
+    args: [
+        {
+            name: 'message',
+            description: 'Message to send',
+            type: 'STRING',
+            required: true
+        },
+    ],
     userPermissions: [],
-    botPermissions: [],
+    botPermissions: ['SEND_MESSAGES'],
     subcommands: []
 };

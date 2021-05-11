@@ -1,6 +1,7 @@
-module.exports.run = (client, message, args) => {
-
-    message.channel.send(`https://lmgtfy.com/?q=${args.join("+")}`)
+module.exports.run = (client, interaction, args) => {
+    const argSearch = client.getArg(args, 'search')
+    const argSplit = argSearch.split(' ').join('+')
+    interaction.reply(`https://lmgtfy.com/?q=${argSplit}`)
 
 }
 module.exports.help = {
@@ -14,7 +15,14 @@ module.exports.help = {
     exemple: ["lmgtfy question ?"],
     isUserAdmin: false,
     moderator: false,
-    args: true,
+    args: [
+        {
+            name: 'search',
+            description: 'The search',
+            type: 'STRING',
+            required: true
+        },
+    ],
     userPermissions: [],
     botPermissions: [],
     subcommands: []

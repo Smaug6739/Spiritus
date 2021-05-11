@@ -33,7 +33,20 @@ module.exports.help = {
     exemple: ["dice 3 6"],
     isUserAdmin: false,
     moderator: false,
-    args: true,
+    args: [
+        {
+            name: 'dices',
+            description: 'Number of dices',
+            type: 'STRING',
+            required: true
+        },
+        {
+            name: 'max_value',
+            description: 'Max value of dices',
+            type: 'STRING',
+            required: true
+        },
+    ],
     userPermissions: [],
     botPermissions: [],
     subcommands: []
