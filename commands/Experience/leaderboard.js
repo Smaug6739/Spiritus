@@ -1,20 +1,20 @@
 const { MessageEmbed } = require('discord.js')
-module.exports.run = async (client, message, args, settings) => {
+module.exports.run = async (client, interaction, _, settings) => {
     if (settings.expsysteme) {
         const embed = new MessageEmbed()
-        if (message.guild.iconURL()) embed.setThumbnail(`${message.guild.iconURL()}`)
+        if (interaction.guild.iconURL()) embed.setThumbnail(`${interaction.guild.iconURL()}`)
         embed.setTitle('TOP 10 ranking of guild users')
         embed.setColor(client.config.color.EMBEDCOLOR)
         embed.setTimestamp()
         embed.setFooter('Command module: Experience')
-        await client.getUsers(message.guild).then(p => {
+        await client.getUsers(interaction.guild).then(p => {
             p.sort((a, b) => (a.experience < b.experience) ? 1 : -1).splice(0, 10).forEach(e => {
                 embed.addField(e.username, `${e.experience} experience points, level : ${e.level}`)
             })
         })
-        message.channel.send(embed)
+        interaction.reply(embed)
 
-    } else return message.channel.sendErrorMessage(`The experience system is not activated on this server. To activate it use the command \`${settings.prefix} config experience\`.`)
+    } else return interaction.replyErrorMessage(`The experience system is not activated on this server. To activate it use the command \`${settings.prefix} config experience\`.`)
 };
 
 
@@ -29,7 +29,7 @@ module.exports.help = {
     exemple: [],
     moderator: false,
     isUserAdmin: false,
-    args: false,
+    args: null,
     userPermissions: [],
     botPermissions: [],
     subcommands: []

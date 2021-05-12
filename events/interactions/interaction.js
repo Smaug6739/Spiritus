@@ -42,12 +42,14 @@ module.exports = async (client, interaction) => {
 	/* ---------------ARGS--------------- */
 	let data = [];
 	if (command.help.args && command.help.args.length) {
-		data.push({ subcommand: interaction.options[0].name, })
-		interaction.options.map(arg => {
-			data.push({
-				[arg.name]: arg.value
+		if (interaction.options[0]) {
+			data.push({ subcommand: interaction.options[0].name, })
+			interaction.options.map(arg => {
+				data.push({
+					[arg.name]: arg.value
+				})
 			})
-		})
+		}
 	}
 	if (command.help.subcommands && command.help.subcommands.length) {
 		data.push({ subcommand: interaction.options[0].name, })

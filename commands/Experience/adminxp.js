@@ -1,22 +1,22 @@
-module.exports.run = async (client, message, args, settings) => {
-    if (!settings.expsysteme) return message.channel.sendErrorMessage(`The experience system is not activated on this server. To activate it use the command \`${settings.prefix} config experience\`.`);
+module.exports.run = async (client, interaction, args, settings) => {
+    if (!settings.expsysteme) return interaction.replyErrorMessage(`The experience system is not activated on this server. To activate it use the command \`${settings.prefix} config experience\`.`);
 
-    switch (args[0].toLowerCase()) {
+    switch (args[0].subcommand) {
         case 'add':
-            const userToAdd = await client.resolveMember(message.guild, args[1]);
-            const expToAdd = parseInt(args[2]);
-            if (isNaN(expToAdd)) return message.channel.sendErrorMessage(`Please enter a valid number.`);
-            if (!userToAdd) return message.channel.sendErrorMessage(`User not found.`);
-            if (!await client.addExp(client, userToAdd, expToAdd)) return message.channel.sendErrorMessage(`I can't add exp to this user.`);
-            message.channel.sendSuccessMessage(`Adding ${expToAdd} exp to user ${userToAdd}`);
+            const userToAdd = await client.resolveMember(interaction.guild, client.getArg(args, 'user'));
+            const expToAdd = parseInt(client.getArg(args, 'experience'));
+            if (isNaN(expToAdd)) return interaction.replyErrorMessage(`Please enter a valid number.`);
+            if (!userToAdd) return interaction.replyErrorMessage(`User not found.`);
+            if (!await client.addExp(client, userToAdd, expToAdd)) return interaction.replyErrorMessage(`I can't add exp to this user.`);
+            interaction.replySuccessMessage(`Adding ${expToAdd} exp to user ${userToAdd}`);
             break;
         case 'rem':
-            const userToRemove = await client.resolveMember(message.guild, args[1]);
-            const expToRemove = parseInt(args[2]);
-            if (isNaN(expToRemove)) return message.channel.sendErrorMessage(`Please enter a valid number.`);
-            if (!userToRemove) return message.channel.sendErrorMessage(`User not found.`);
-            if (!await client.addExp(client, userToAdd, expToAdd)) return message.channel.sendErrorMessage(`I can't add exp to this user.`);
-            message.channel.sendSuccessMessage(`Removed ${expToRemove} exp from user ${userToRemove}`);
+            const userToRemove = await client.resolveMember(interaction.guild, client.getArg(args, 'user'));
+            const expToRemove = parseInt(client.getArg(args, 'experience'));
+            if (isNaN(expToRemove)) return interaction.replyErrorMessage(`Please enter a valid number.`);
+            if (!userToRemove) return interaction.replyErrorMessage(`User not found.`);
+            if (!await client.removeExp(client, userToRemove, expToRemove)) return interaction.replyErrorMessage(`I can't remove exp to this user.`);
+            interaction.replySuccessMessage(`Removed ${expToRemove} exp from user ${userToRemove}`);
             break;
     }
 };
@@ -30,7 +30,7 @@ module.exports.help = {
     exemple: ["rem @Smaug 1500"],
     moderator: false,
     isUserAdmin: false,
-    args: true,
+    args: null,
     userPermissions: ['MANAGE_GUILD'],
     botPermissions: [],
     subcommands: [
@@ -38,14 +38,40 @@ module.exports.help = {
             name: 'add',
             description: 'Add exp to a user.',
             usage: '<user> [number]',
-            args: 2,
+            args: [
+                {
+                    name: 'user',
+                    description: 'User to add experience',
+                    type: 'STRING',
+                    required: true
+                },
+                {
+                    name: 'experience',
+                    description: 'Number of experience points to add',
+                    type: 'STRING',
+                    required: true
+                },
+            ],
             exemples: ['@Smaug 1500']
         },
         {
             name: 'rem',
             description: 'Remove exp to a user.',
             usage: '<user> [number]',
-            args: 2,
+            args: [
+                {
+                    name: 'user',
+                    description: 'User to add experience',
+                    type: 'STRING',
+                    required: true
+                },
+                {
+                    name: 'experience',
+                    description: 'Number of experience points to remove',
+                    type: 'STRING',
+                    required: true
+                },
+            ],
             exemples: ['@Smaug 1500']
         },
     ]

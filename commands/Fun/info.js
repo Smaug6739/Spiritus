@@ -1,15 +1,15 @@
 const { MessageEmbed } = require("discord.js");
 const moment = require('moment');
-module.exports.run = async (client, message, args, settings) => {
+module.exports.run = async (client, interaction, args, settings) => {
 
     switch (args[0].subcommand) {
         case 'user':
             const argUser = client.getArg(args, 'user')
-            const userInfo = await client.resolveMember(message.guild, argUser)
+            const userInfo = await client.resolveMember(interaction.guild, argUser)
             if (!userInfo) {
                 client.users.fetch(args[1])
                     .then(u => {
-                        if (!u) return message.channel.sendErrorMessage(`User not found.`)
+                        if (!u) return interaction.replyErrorinteraction(`User not found.`)
                         if (u.bot) BOTSTATUS = 'yes'
                         else BOTSTATUS = 'no'
                         const embedUser = new MessageEmbed()
@@ -19,9 +19,9 @@ module.exports.run = async (client, message, args, settings) => {
                             .addField(`\u200b`, `BOT : ${BOTSTATUS}`)
                             .setDescription('This user is no on the server.')
                             .setFooter(`User ID : ${u.id}`)
-                        return message.channel.send(embedUser)
+                        return interaction.reply(embedUser)
                     })
-                    .catch(() => message.replyErrorMessage(`User not found.`))
+                    .catch(() => interaction.replyErrorMessage(`User not found.`))
                 break;
 
             } else {
@@ -46,7 +46,7 @@ module.exports.run = async (client, message, args, settings) => {
                 embedMember.addField('Roles :', `${userInfo.roles.cache.map(r => r.toString()).join('')}`)//OK            
                 embedMember.addField('User information:', `** Permissions:** ${userInfo.permissions.toArray().sort().map(permissions => `${permissions.split("_").map(x => x[0] + x.slice(1).toLowerCase()).join(" ")}`).join(", ") || "none"}`)//OK
                 embedMember.setTimestamp();
-                message.reply(embedMember);
+                interaction.reply(embedMember);
                 break;
             }
         case 'bot':
@@ -72,31 +72,31 @@ module.exports.run = async (client, message, args, settings) => {
                     { name: 'Top.gg :', value: `[Site](https://top.gg/bot/689210215488684044)`, inline: true })
                 .setTimestamp()
                 .setFooter(`Infos of ${client.user.username}. BOT ID : ${client.user.id}`)
-            message.channel.send(embedBot);
+            interaction.reply(embedBot);
             break;
         case 'server':
-            var guild_name = message.guild.name,
-                owner = message.guild.owner,
-                region = message.guild.region.toUpperCase()
-            var boost = message.guild.premiumSubscriptionCount
+            var guild_name = interaction.guild.name,
+                owner = interaction.guild.owner,
+                region = interaction.guild.region.toUpperCase()
+            var boost = interaction.guild.premiumSubscriptionCount
             if (boost === 0) boost = "This server no have boost"
             else if (boost >= 1) boost = `Server have ${boost} boost${boost > 1 ? "s" : ""}`
-            var members = message.guild.memberCount;
-            // message.guild.members.fetch().then(fetchedMembers => {     
+            var members = interaction.guild.memberCount;
+            // interaction.guild.members.fetch().then(fetchedMembers => {     
             // const online = fetchedMembers.filter(member => member.presence.status === 'online').size;
             // const idle = fetchedMembers.filter(member => member.presence.status === 'idle').size;
             // const dnd = fetchedMembers.filter(member => member.presence.status === 'dnd').size;
             // const off = fetchedMembers.filter(member => member.presence.status === 'offline').size;
-            const channel_t = message.guild.channels.cache.filter(channel => channel.type === "text").size;
-            const channel_v = message.guild.channels.cache.filter(channel => channel.type === "voice").size;
-            const channel_c = message.guild.channels.cache.filter(channel => channel.type === "category").size;
-            const roles = message.guild.roles.cache.size;
-            const salons = message.guild.channels.cache.size;
+            const channel_t = interaction.guild.channels.cache.filter(channel => channel.type === "text").size;
+            const channel_v = interaction.guild.channels.cache.filter(channel => channel.type === "voice").size;
+            const channel_c = interaction.guild.channels.cache.filter(channel => channel.type === "category").size;
+            const roles = interaction.guild.roles.cache.size;
+            const salons = interaction.guild.channels.cache.size;
             const embed = new MessageEmbed()
-            if (message.guild.iconURL()) {
-                embed.setAuthor(`${guild_name}`, `${message.guild.iconURL()}`)
-                embed.setThumbnail(`${message.guild.iconURL()}`)
-                embed.setFooter(`BOT ID : ${client.user.id}`, `${message.guild.iconURL()}`);
+            if (interaction.guild.iconURL()) {
+                embed.setAuthor(`${guild_name}`, `${interaction.guild.iconURL()}`)
+                embed.setThumbnail(`${interaction.guild.iconURL()}`)
+                embed.setFooter(`BOT ID : ${client.user.id}`, `${interaction.guild.iconURL()}`);
             } else {
                 embed.setAuthor(`${guild_name}`)
                 embed.setFooter(`BOT ID : ${client.user.id}`);
@@ -111,29 +111,29 @@ module.exports.run = async (client, message, args, settings) => {
                 { name: 'Channels', value: `${salons}`, inline: true },
                 { name: 'Roles', value: `${roles}`, inline: true },
                 { name: 'Chanels', value: `${client.config.emojis.CHANNEL}Texte : ${channel_t}\n${client.config.emojis.VOICE}Voice : ${channel_v}\n${client.config.emojis.ETIQUETTE}Categories : ${channel_c}`, inline: true },
-                { name: 'Verification level', value: `${message.guild.verificationLevel}`, inline: true },
+                { name: 'Verification level', value: `${interaction.guild.verificationLevel}`, inline: true },
                 { name: `${client.config.emojis.BOOST}Nitro(s) of server`, value: `${boost}`, inline: true },
                 //{ name: 'Status des membres', value: `${client.config.emojis.ONLINE}Online : ${online}\n${client.config.emojis.IDLE}Idle : ${idle}\n${client.config.emojis.DND}Dnd : ${dnd}\n${client.config.emojis.OFFLINE}Offline : ${off}`, inline: true }
             )
             embed.setTimestamp()
-            message.channel.send(embed)
+            interaction.reply(embed)
             //});
             break;
         case 'role':
-            if (!args[1]) return message.channel.send(infoRoleDescription)
-            let role = client.resolveRole(message.guild, args.slice(1).join(" "))
-            if (role == undefined) return message.channel.sendErrorMessage(`Role not found.`)
+            const argRole = client.getArg(args, 'role')
+            let role = client.resolveRole(interaction.guild, argRole)
+            if (role == undefined) return interaction.replyErrorinteraction(`Role not found.`)
             if (role.mentionable) mention = 'yes'
             else mention = 'no'
             if (role.managed) mananger = 'yes'
             else manenger = 'no'
-            let membersWithRole = message.guild.roles.cache.get(role.id).members;
+            let membersWithRole = interaction.guild.roles.cache.get(role.id).members;
             if (role.hoist) separation = 'yes'
             else separation = 'no'
             const embedRole = new MessageEmbed()
                 .setColor(`${client.config.color.EMBEDCOLOR}`)
-                .setThumbnail(`${message.guild.iconURL()}`)
-                .setAuthor(`Information of role :`, `${message.guild.iconURL()}`)
+                .setThumbnail(`${interaction.guild.iconURL()}`)
+                .setAuthor(`Information of role :`, `${interaction.guild.iconURL()}`)
                 .setTitle(`${role.name}`)
                 .addFields(
                     { name: 'Role', value: `${role}`, inline: true },
@@ -148,24 +148,27 @@ module.exports.run = async (client, message, args, settings) => {
                     { name: 'Permissions :', value: `${role.permissions.toArray().sort().map(permissions => `${permissions.split("_").map(x => x[0] + x.slice(1).toLowerCase()).join(" ")}`).join(", ") || "none"}`, inline: true })
                 .setTimestamp()
                 .setFooter('Command module: Fun')
-            message.channel.send(embedRole)
+            interaction.reply(embedRole)
             break;
         case 'channel':
-            let channel = client.resolveChannel(message.guild, args[1])
-            if (channel == undefined) return message.channel.sendErrorMessage(`Channel not found.`)
-            if (channel.type === 'text') type = `${client.config.emojis.CHANNEL}Texte`
-            if (channel.nsfw) nsfw = `${client.config.emojis.CHANNELNSFW} Oui`;
-            else nsfw = `${client.config.emojis.CHANNELNSFW} Non`;
+            let channel = client.resolveChannel(interaction.guild, client.getArg(args, 'channel'))
+            if (channel == undefined) return interaction.replyErrorinteraction(`Channel not found.`)
+            if (channel.type === 'text') type = `${client.config.emojis.CHANNEL}Text`
+            if (channel.type === 'voice') type = `${client.config.emojis.VOICE}Voice`
+            if (channel.type === 'category') type = `Categrory`
+            if (!type) type = `Other`
+            if (channel.nsfw) nsfw = `${client.config.emojis.CHANNELNSFW} Yes`;
+            else nsfw = `${client.config.emojis.CHANNELNSFW} No`;
             const embedChannel = new MessageEmbed()
-                .setAuthor(`Information of a channel :`, `${message.guild.iconURL()}`)
-                .setThumbnail(message.guild.iconURL())
+                .setAuthor(`Information of a channel :`, `${interaction.guild.iconURL()}`)
+                .setThumbnail(interaction.guild.iconURL())
                 .setColor(`${client.config.color.EMBEDCOLOR}`)
                 .setTitle(`Channel : ${channel.name}`)
                 .addFields(
                     { name: 'Channel id :', value: `${channel.id}`, inline: true },
-                    { name: 'Categorie :', value: `${channel.parent}`, inline: true },
-                    { name: 'Topic :', value: `${channel.topic || 'Aucun Topic'}`, inline: false },
-                    { name: 'Catégorie ID :', value: `${channel.parentID}`, inline: true },
+                    { name: 'Category :', value: `${channel.parent ? channel.parent : 'none'}`, inline: true },
+                    { name: 'Topic :', value: `${channel.topic || 'No topic'}`, inline: false },
+                    { name: 'Catégory ID :', value: `${channel.parentID}`, inline: true },
                     { name: 'Position :', value: `${channel.position}`, inline: true },
                     { name: '\u200b', value: `\u200b`, inline: true },
                     { name: 'Created at  :', value: `${moment.utc(channel.createdTimestamp).format('DD/MM/YYYY - hh:mm')}`, inline: true },
@@ -173,7 +176,7 @@ module.exports.run = async (client, message, args, settings) => {
                     { name: 'Channel NSFW :', value: `${nsfw}`, inline: true })
                 .setTimestamp()
                 .setFooter('Command module: Fun')
-            message.channel.send(embedChannel)
+            interaction.reply(embedChannel)
             break;
     }
 }

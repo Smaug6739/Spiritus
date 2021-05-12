@@ -1,6 +1,6 @@
 const { MessageEmbed } = require('discord.js')
-module.exports.run = (client, message, args, settings) => {
-    let text = args.join(' ');
+module.exports.run = (client, interaction, args) => {
+    const text = client.getArg(args, 'message')
     let result = '';
     for (let i = 0; i < text.length; i++) {
         let bin = text[i].charCodeAt().toString(2);
@@ -13,7 +13,7 @@ module.exports.run = (client, message, args, settings) => {
         .setDescription(result)
         .setTimestamp()
         .setFooter(`Command module: Fun`)
-    return message.channel.send(embed);
+    return interaction.reply(embed);
 };
 
 module.exports.help = {
@@ -29,7 +29,7 @@ module.exports.help = {
     args: [
         {
             name: 'message',
-            description: 'Message to convert in binary',
+            description: 'interaction to convert in binary',
             type: 'STRING',
             required: true
         },

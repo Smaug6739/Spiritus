@@ -1,15 +1,15 @@
 const { MessageEmbed } = require('discord.js')
-module.exports.run = (client, message, args, settings) => {
+module.exports.run = (client, interaction, args) => {
     const replies = ['Yes', 'No', 'Maybe']
-    const question = args.join(' ')
+    const question = client.getArg(args, 'question')
     const reponce = Math.floor(Math.random() * replies.length)
     const embed = new MessageEmbed()
-        .setAuthor(`${message.author.username}`, `${message.author.displayAvatarURL()}`)
+        .setAuthor(`${interaction.user.username}`, `${interaction.user.displayAvatarURL()}`)
         .setColor(client.config.color.EMBEDCOLOR)
         .addField(`${question}`, `${replies[reponce]}`, false)
         .setTimestamp()
         .setFooter(`Command module: Fun`)
-    message.channel.send(embed)
+    interaction.reply(embed)
 };
 
 module.exports.help = {
