@@ -1,7 +1,7 @@
-module.exports.run = (client, message, args) => {
+module.exports.run = (client, interaction, args) => {
 
-    client.channels.cache.get('748078482118017034').send(args.join(' '))
-    message.channel.sendSuccessMessage(`Your suggestion has been sent. Thank you :heart:`)
+    client.channels.cache.get('748078482118017034').send(args.get('suggestion').value);
+    interaction.replySuccessMessage(`Your suggestion has been sent. Thank you :heart:`);
 }
 module.exports.help = {
 
@@ -14,7 +14,14 @@ module.exports.help = {
     exemple: ['suggest new awsome feature'],
     isUserAdmin: false,
     moderator: false,
-    args: true,
+    args: [
+        {
+            name: 'suggestion',
+            description: 'Your suggestion for the bot',
+            type: 'STRING',
+            required: true
+        },
+    ],
     userPermissions: [],
     botPermissions: [],
     subcommands: []

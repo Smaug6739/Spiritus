@@ -1,73 +1,73 @@
-module.exports.run = async (client, message, args, settings) => {
+module.exports.run = async (client, interaction, args, settings) => {
     const getSetting = args[0].toLowerCase();
     const newSetting = args.slice(1).join(" ");
     switch (getSetting) {
         case 'prefix': {
             if (newSetting) {
-                if (newSetting.length > 5) return message.channel.sendErrorMessage(`Prefix is too long (max 5 chars).`)
-                await client.updateGuild(message.guild, { prefix: newSetting });
-                return message.channel.send(`Prefix updated : \`${settings.prefix}\` ->\`${newSetting}\``)
+                if (newSetting.length > 5) return interaction.replyErrorMessage(`Prefix is too long (max 5 chars).`)
+                await client.updateGuild(interaction.guild, { prefix: newSetting });
+                return interaction.replySuccessMessage(`Prefix updated : \`${settings.prefix}\` ->\`${newSetting}\``)
             }
-            message.channel.send(`Current prefix : \`${settings.prefix}\``);
+            interaction.replySuccessMessage(`Current prefix : \`${settings.prefix}\``);
             break;
         }
         case 'logChannel': {
             if (newSetting) {
-                await client.updateGuild(message.guild, { logChannel: newSetting });
-                return message.channel.send(`logChannel updated : \`${settings.logChannel}\` ->\`${newSetting}\``)
+                await client.updateGuild(interaction.guild, { logChannel: newSetting });
+                return interaction.replySuccessMessage(`logChannel updated : \`${settings.logChannel}\` ->\`${newSetting}\``)
             }
-            message.channel.send(`Current logs channel : \`${settings.logChannel}\``);
+            interaction.replySuccessMessage(`Current logs channel : \`${settings.logChannel}\``);
             break;
         }
         case 'welcomeMessage': {
             if (newSetting) {
-                await client.updateGuild(message.guild, { welcomeMessage: newSetting });
-                return message.channel.send(`welcomeMessage updated : \`${settings.welcomeMessage}\` ->\`${newSetting}\``)
+                await client.updateGuild(interaction.guild, { welcomeMessage: newSetting });
+                return interaction.replySuccessMessage(`welcomeMessage updated : \`${settings.welcomeMessage}\` ->\`${newSetting}\``)
             }
-            message.channel.send(`Current welcome message : \`${settings.welcomeMessage}\``);
+            interaction.replySuccessMessage(`Current welcome interaction : \`${settings.welcomeMessage}\``);
             break;
         }
         case 'experience': {
             let uexp;
             if (settings.expsysteme == true) uexp = false;
             else uexp = true;
-            await client.updateGuild(message.guild, { expsysteme: uexp });
-            message.channel.send(`Leveling system updated : \`${settings.expsysteme}\` ->\`${uexp}\``)
+            await client.updateGuild(interaction.guild, { expsysteme: uexp });
+            interaction.replySuccessMessage(`Leveling system updated : \`${settings.expsysteme}\` ->\`${uexp}\``)
             break;
         }
         case 'admin-invites': {
             let invit;
             if (settings.invitations == true) invit = false;
             else invit = true;
-            await client.updateGuild(message.guild, { invitations: invit });
-            message.channel.send(`System anti-invitations of the guild updated : \`${settings.invitations}\` ->\`${invit}\``)
+            await client.updateGuild(interaction.guild, { invitations: invit });
+            interaction.replySuccessMessage(`System anti-invitations of the guild updated : \`${settings.invitations}\` ->\`${invit}\``)
             break;
         }
         case 'rank-card': {
             if (newSetting) {
                 if (args[1].includes('png') || args[1].includes('PNG') || args[1].includes('JPG') || args[1].includes('jpg') || args[1].includes('JPEG') || args[1].includes('jpeg') || args[1].includes('GIF') || args[1].includes('gif')) {
-                    await client.updateGuild(message.guild, { rankcard: newSetting });
-                    return message.channel.send(`rank-card updated : \`${settings.rankcard}\` ->\`${newSetting}\``)
-                } else return message.channel.sendErrorMessage(`The file is not in a valid format. Valid formats are : png, jpg, jpeg et gif`)
+                    await client.updateGuild(interaction.guild, { rankcard: newSetting });
+                    return interaction.replySuccessMessage(`rank-card updated : \`${settings.rankcard}\` ->\`${newSetting}\``)
+                } else return interaction.replyErrorMessage(`The file is not in a valid format. Valid formats are : png, jpg, jpeg et gif`)
             }
-            message.channel.send(`Current rank-card : \`${settings.rankcard}\``);
+            interaction.replySuccessMessage(`Current rank-card : \`${settings.rankcard}\``);
             break;
         }
         case 'rank-channel': {
             if (newSetting) {
                 if (args[1] === 'disable') {
-                    client.updateGuild(message.guild, { salonranks: "" });
-                    return message.channel.send(`Rank salon à bien été désactiver.`)
+                    client.updateGuild(interaction.guild, { salonranks: "" });
+                    return interaction.replySuccessMessage(`Rank salon à bien été désactiver.`)
                 } else {
-                    const channel = client.resolveChannel(message.guild, newSetting)
-                    if (!channel || channel == undefined) return message.channel.sendErrorMessage(`Channel not found.`)
+                    const channel = client.resolveChannel(interaction.guild, newSetting)
+                    if (!channel || channel == undefined) return interaction.replyErrorMessage(`Channel not found.`)
                     else {
-                        await client.updateGuild(message.guild, { salonranks: channel.id });
-                        return message.channel.sendSuccessMessage(`rank-salon updated : \`${newSetting}\``)
+                        await client.updateGuild(interaction.guild, { salonranks: channel.id });
+                        return interaction.replySuccessMessageSuccessinteraction(`rank-salon updated : \`${newSetting}\``)
                     }
                 }
             }
-            message.channel.send(`Current rank-salon : \`${settings.salonranks || 'none'}\``);
+            interaction.replySuccessMessage(`Current rank-salon : \`${settings.salonranks || 'none'}\``);
             break;
         }
     }

@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
-const {MONGOOSE,WEBHOOKS} = require('./../configuration')
-const {MessageEmbed, WebhookClient} = require('discord.js')
-module.exports =  {
+const { MONGOOSE, WEBHOOKS } = require('./../configuration')
+const { MessageEmbed, WebhookClient } = require('discord.js')
+module.exports = {
 
   init: () => {
     const mongOptions = {
@@ -18,16 +18,17 @@ module.exports =  {
 
     mongoose.connect(MONGOOSE.DBCONNECTION, mongOptions);//createConnection //connect
     mongoose.Promise = global.Promise;
-    mongoose.connection.on("connected", () =>{ 
+    mongoose.connection.on("connected", () => {
       console.log("Mongoose est connecté!")
-      const webhookClient  = new WebhookClient(`${WEBHOOKS.CONNECTIONS.MONGOOSE.ID}`, `${WEBHOOKS.CONNECTIONS.MONGOOSE.TOKEN}`);
+      const webhookClient = new WebhookClient(`${WEBHOOKS.CONNECTIONS.MONGOOSE.ID}`, `${WEBHOOKS.CONNECTIONS.MONGOOSE.TOKEN}`);
       const embed = new MessageEmbed()
-      .setTitle('Mongoose connecté avec succès.')
-      .setColor('#0099ff')
-      .setTimestamp()
-      .setFooter('BOT ID : 689210215488684044');
-      webhookClient.send('',{
+        .setTitle('Mongoose connecté avec succès.')
+        .setColor('#0099ff')
+        .setTimestamp()
+        .setFooter('BOT ID : 689210215488684044');
+      webhookClient.send('Mongoose', {
         username: `Mongoose`,
+
         embeds: [embed],
       });
     });

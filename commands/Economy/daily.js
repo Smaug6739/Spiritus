@@ -1,27 +1,26 @@
-module.exports.run = async (client, message, args, settings, dbUser) => {
+module.exports.run = async (client, interaction) => {
+    const dbUser = await client.getUser(interaction.user, interaction.guild.id);
     const dailyCD = 8.64e+7
-    if (!dbUser && settings.expsysteme) return message.channel.sendSuccessMessage(`Profile created. Please try again.`)
     if (!dbUser) {
         await client.createUser({
-            guildID: message.member.guild.id,
-            guildName: message.member.guild.name,
-            userID: message.member.id,
-            username: message.member.user.tag,
+            guildID: interaction.member.guild.id,
+            guildName: interaction.member.guild.name,
+            userID: interaction.member.id,
+            username: interaction.member.user.tag,
             coins: 500,
             daily: Date.now(),
         })
-        message.channel.sendSuccessMessage(`You just received 500 coins ${message.author} !`)
+        interaction.replySuccessMessage(`You just received 500 coins ${interaction.author} !`)
     } else {
-
-        if (!dbUser.coins) client.updateUser(message.member, { coins: 0 })
+        if (!dbUser.coins) client.updateUser(interaction.member, { coins: 0 })
         const lastDaly = await dbUser.daily
         if (lastDaly != null && dailyCD - (Date.now() - lastDaly) > 0) {
             const cdTime = dailyCD - (Date.now() - lastDaly)
-            message.channel.sendErrorMessage(`You can't use this command before **${Math.floor(cdTime / (1000 * 60 * 60) % 24)}h** and **${Math.floor(cdTime / (1000 * 60) % 60)}min** ${message.author} !`)
+            interaction.replyErrorMessage(`You can't use this command before **${Math.floor(cdTime / (1000 * 60 * 60) % 24)}h** and **${Math.floor(cdTime / (1000 * 60) % 60)}min** ${interaction.user} !`)
         } else {
-            client.addCoins(client, message.member, 500)
-            client.updateUser(message.member, { daily: Date.now() })
-            message.channel.sendSuccessMessage(`You just received 500 coins ${message.author} !`)
+            client.addCoins(client, interaction.member, 500)
+            client.updateUser(interaction.member, { daily: Date.now() })
+            interaction.replySuccessMessage(`You just received 500 coins ${interaction.author} !`)
         }
     }
 }
@@ -35,7 +34,7 @@ module.exports.help = {
     exemple: [],
     isUserAdmin: false,
     moderator: false,
-    args: false,
+    args: null,
     userPermissions: [],
     botPermissions: [],
     subcommands: []

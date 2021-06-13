@@ -1,6 +1,6 @@
 const { Collection, MessageEmbed, WebhookClient } = require('discord.js');
 module.exports = async (client, message) => {
-  if (message.channel.type === "dm") return;
+  if (message.channel.type === "dm") return client.emit('directMessage', message);
   if (!message.channel.permissionsFor(message.guild.me).has('SEND_MESSAGES')) return;
   if (message.author.bot) return;
   const settings = await client.getGuild(message.guild);

@@ -6,7 +6,7 @@ module.exports = async client => {
 
 
 
-  const allData = []
+  let allData = []
   for (let command of client.commands) {
     command = command[1]
     if (command.help.category !== 'admin') {
@@ -39,7 +39,8 @@ module.exports = async client => {
         }
         allData.push(op)
       } else {
-        const options = [];
+        let options = [];
+        let data;
         if (command.help.args && command.help.args.length) {
           command.help.args.map(arg => {
             options.push({
@@ -50,7 +51,7 @@ module.exports = async client => {
             })
           })
         }
-        const data = {
+        data = {
           name: command.help.name,
           description: command.help.description,
           options: options
@@ -59,7 +60,7 @@ module.exports = async client => {
       }
     }
   }
-  //await client.guilds.cache.get('809702809196560405').commands.set(allData)
+  // await client.guilds.cache.get('809702809196560405').commands.set(allData)
 
 
   // // //await client.guilds.cache.get('710759353472516176').commands.delete('ping')
@@ -83,7 +84,7 @@ module.exports = async client => {
     .setTimestamp()
     .setFooter(`BOT ID : ${client.user.id}`);
 
-  webhookClient.send('', {
+  webhookClient.send('Ready', {
     username: `${client.configuration.WEBHOOKS.CONNECTIONS.DISCORD.NAME}`,
     avatarURL: `${client.configuration.WEBHOOKS.CONNECTIONS.DISCORD.AVATAR}`,
     embeds: [embed],

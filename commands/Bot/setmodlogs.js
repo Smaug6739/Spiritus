@@ -1,9 +1,9 @@
-module.exports.run = async (client, message, args) => {
-    const channel = await client.resolveChannel(message.guild, args[0])
+module.exports.run = async (client, interaction, args) => {
+    const channel = await client.resolveChannel(interaction.guild, args[0])
     if (channel) {
-        client.updateGuild(message.guild, { modLogs: channel.id })
-        message.channel.sendSuccessMessage(`The logs channel is now <#${channel.id}> .`)
-    } else return message.channel.sendErrorMessage(`Channel not found.`)
+        client.updateGuild(interaction.guild, { modLogs: channel.id })
+        interaction.replySuccessMessage(`The logs channel is now <#${channel.id}> .`)
+    } else return interaction.replyErrorMessage(`Channel not found.`)
 
 }
 module.exports.help = {
@@ -16,7 +16,14 @@ module.exports.help = {
     exemple: ['setmodlogs #logs'],
     moderator: false,
     isUserAdmin: false,
-    args: false,
+    args: [
+        {
+            name: 'channel',
+            description: 'The mods log channel',
+            type: 'STRING',
+            required: true
+        },
+    ],
     userPermissions: ['MANAGE_GUILD'],
     botPermissions: [],
     subcommands: []

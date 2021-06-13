@@ -1,7 +1,8 @@
-module.exports.run = async (client, message) => {
+module.exports.run = async (client, interaction) => {
 
     let debut = Date.now();
-    message.channel.send('Pong !').then(async (m) => await m.edit(`Pong  BOT : \`${Date.now() - debut}ms\` API : \`${client.ws.ping}ms\``));
+    interaction.reply('Pong !')
+        .then(async () => await interaction.editReply(`Pong  BOT : \`${Date.now() - debut}ms\` API : \`${client.ws.ping}ms\``));
 
 }
 module.exports.help = {

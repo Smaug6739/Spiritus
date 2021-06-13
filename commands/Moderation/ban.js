@@ -75,7 +75,7 @@ module.exports.help = {
           .setDescription(`**Module :** Moderation\n**Description :** Permet  de bannir plusieurs personnes ayant poster un meme interaction \n**Usage : **${settings.prefix}ban match [texte]\n**Exemples :** \n ${settings.prefix}ban match Rejoignez mon serveur https://discord.gg/TC7Qjfs `)
           .setFooter('BOT ID : 689210215488684044')
           .setTimestamp()
-          return interaction.channel.send(banMatcheDescription)
+          return interaction.reply(banMatcheDescription)
       }
       //if(!args[1])return interaction.replyErrorMessage(` Merci d'indiquer le contenu d'un interaction.`)
       let query;
@@ -83,7 +83,7 @@ module.exports.help = {
       query = args.slice(1).join(' ')
       reason = encodeURIComponent(reason);
       const msgs = await interaction.channel.interactions.fetch()
-      let messge = await interaction.channel.send(`${client.config.emojis.LOADING} Recherche du interaction \`${query}\`...`);
+      let messge = await interaction.reply(`${client.config.emojis.LOADING} Recherche du interaction \`${query}\`...`);
       const interactions = msgs.filter(m => m.content.includes(query) || m.content === query);
       if (!interactions || interactions.length === 0) return messge.edit(`${client.config.emojis.error} Ce interaction n'a pas été trouver.`);
       const ids = interactions.map(m => m.author.id);
@@ -107,7 +107,7 @@ module.exports.help = {
           }
       }
   
-      if (users.length === 0) return messge.edit(`${client.config.emojis.error} Aucun utilisateur trouver.`);//interaction.channel.sendErrorinteraction(` Aucun utilisateur trouver.`);
+      if (users.length === 0) return messge.edit(`${client.config.emojis.error} Aucun utilisateur trouver.`);//interaction.replyErrorMessage(` Aucun utilisateur trouver.`);
       //messge.edit({ content: `Vous etes sur le point de banir **${users.length}** user(s). Vous pouvez confirmer en réagissant avec ${client.config.emojis.success} où annuler la commande en réagissant avec ${client.config.emojis.error} .` });
           usersList = [];
           success = 0;

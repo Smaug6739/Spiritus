@@ -1,30 +1,36 @@
 const { MessageEmbed } = require('discord.js')
-module.exports.run = async (client, message, args, settings, dbUser) => {
-    if (!args[0]) {
+module.exports.run = async (client, interaction, args, settings) => {
+    console.log(args);
+
+    if (!args.first()) {
+        let haveItems = false;
         const embed = new MessageEmbed()
-        embed.setTitle(`Shop of the guild ${message.guild.name} :`)
+        embed.setTitle(`Shop of the guild ${interaction.guild.name} :`)
         embed.setColor(client.config.color.EMBEDCOLOR)
         embed.setTimestamp()
         embed.setFooter(`Command module: Economy`)
         if (settings.shop) {
             settings.shop.slice(0, 20).forEach(objet => {
+                haveItems = true;
                 embed.addField(`${client.config.emojis.fleche} ${objet.name} __Price :__ ${objet.price} ${client.config.emojis.coins}`, `__Description :__ ${objet.description}`)
             });
+            if (!haveItems) embed.addField('\u200b', 'No items to buy at the moment.')
             embed.addField(`\u200b`, `You can buy object with the command \`${settings.prefix}shop buy <item_name>\``, false)
         } else {
             embed.addField(`No items in the shop.`, `\u200b`, true)
         }
 
-        return message.channel.send(embed)
+        return interaction.reply({ embeds: [embed] })
     }
-    if (args[0].toLowerCase() === 'buy') {
-        if (!dbUser || dbUser && !dbUser.coins) return message.channel.sendErrorMessage(`You have 0${client.config.emojis.coins} so you can't buy object in shop.`)
-        const objetName = args[1]
+    if (args.get('buy')) {
+        const dbUser = await client.getUser(interaction.user, interaction.guild.id);
+        if (!dbUser) return interaction.replyErrorMessage(`You have 0${client.config.emojis.coins} so you can't buy object in shop.`)
+        const objetName = args.get('buy').value
         let existObj = settings.shop.find(e => e.name == objetName)
-        if (!existObj) return message.channel.sendErrorMessage(`Object not found.`)
+        if (!existObj) return interaction.replyErrorMessage(`Object not found.`)
         else {
-            if (dbUser.coins < existObj.price) return message.channel.sendErrorMessage(`You don't have enough coins for this.`)
-            await client.remCoins(client, message.member, existObj.price)
+            if (dbUser.coins < existObj.price) return interaction.replyErrorMessage(`You don't have enough coins for this.`)
+            await client.remCoins(client, interaction.member, existObj.price)
             let tableau = []
             tableau = dbUser.objets
             tableau.push({
@@ -32,10 +38,8 @@ module.exports.run = async (client, message, args, settings, dbUser) => {
                 price: existObj.price,
                 description: existObj.description,
             })
-            client.updateUser(message.member, { objets: tableau })
-            message.channel.sendSuccessMessage(`You just bought  \`${existObj.name}\`. This object is now in your inventory.`)
-
-
+            client.updateUser(interaction.member, { objets: tableau })
+            interaction.replySuccessMessage(`You just bought  \`${existObj.name}\`. This object is now in your inventory.`)
         }
     }
 }
@@ -49,7 +53,14 @@ module.exports.help = {
     exemple: ['shop buy Objetc'],
     isUserAdmin: false,
     moderator: false,
-    args: false,
+    args: [
+        {
+            name: 'buy',
+            description: 'Buy an object in shop',
+            type: 'STRING',
+            required: false
+        },
+    ],
     userPermissions: [],
     botPermissions: [],
     subcommands: []

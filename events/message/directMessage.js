@@ -1,6 +1,7 @@
 //const { MessageEmbed } = require("discord.js");
 
 module.exports = (client, message) => {
+  console.log("direct message");
   if(!message.author.bot) { // Si l'auteur du message n'est pas un bot
   let SERVERID = '710759353472516176';
   let CATEGORIEDEMANDES = '710763483955855430';

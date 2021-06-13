@@ -1,6 +1,6 @@
-module.exports.run = (client, message) => {
+module.exports.run = (client, interaction) => {
 
-    message.channel.send(`Support server is : https://discord.gg/TC7Qjfs`)
+    interaction.reply(`Support server is : https://discord.gg/TC7Qjfs`)
 
 }
 module.exports.help = {

@@ -1,36 +1,28 @@
-module.exports.run = async (client, message, args, settings, dbUser) => {
-    if (!dbUser) return message.channel.sendErrorMessage(`You don't have enough coins for this. You can have coins with the command \`daily\` `)
-    if (!dbUser.coins) return message.channel.sendErrorMessage(`You don't have enough coins for this. You can have coins with the command \`daily\` `)
-    const user = await client.resolveMember(message.guild, args[0]);
-    if (!user) return message.channel.sendErrorMessage('User not found.')
-    const mentionUser = await client.getUser(user, message.member.guild.id);
-    const moneyToAdd = parseInt(`${args[1]}`)
-    if (user === message.member) return message.channel.sendErrorMessage(`You can't give coins to you.`)
-    if (isNaN(moneyToAdd) == true) return message.channel.sendErrorMessage(`Please provide number in second argument.`);
-    if (mentionUser == undefined) {
-        if (dbUser.coins < moneyToAdd) return message.channel.sendErrorMessage(`You don't have enough coins for this. You can have coins with the command \`daily\` `)
-        else {
-            await client.createUser({
-                guildID: user.guild.id,
-                guildName: user.guild.name,
-                userID: user.id,
-                username: user.user.tag,
-                coins: moneyToAdd,
-                daily: Date.now(),
-            })
-            await client.remCoins(client, message.member, moneyToAdd)
-            message.channel.sendSuccessMessage(`You have give **${moneyToAdd}** ${client.config.emojis.coins} to ${user.user.username}`)
-        }
-
+module.exports.run = async (client, interaction, args) => {
+    const user = await client.resolveMember(interaction.guild, args.get('user').value);
+    const dbUser = await client.getUser(interaction.user, interaction.guild.id);
+    if (!user) return interaction.replyErrorMessage('User not found.');
+    const mentionUser = await client.getUser(user, interaction.guild.id);
+    const moneyToAdd = parseInt(args.get('money').value)
+    if (user.id === interaction.user.id) return interaction.replyErrorMessage(`You can't give coins to you.`)
+    if (isNaN(moneyToAdd) == true) return interaction.replyErrorMessage(`Please provide number in second argument.`);
+    if (dbUser.coins < moneyToAdd) return interaction.replyErrorMessage(`You don't have enough coins for this. You can have coins with the command \`daily\` `)
+    if (!mentionUser) {
+        await client.createUser({
+            guildID: user.guild.id,
+            guildName: user.guild.name,
+            userID: user.id,
+            username: user.user.tag,
+            coins: moneyToAdd,
+            daily: Date.now(),
+        })
+        await client.remCoins(client, interaction.member, moneyToAdd)
+        interaction.replySuccessMessage(`You have give **${moneyToAdd}** ${client.config.emojis.coins} to ${user.user.username}`)
     } else {
-        if (dbUser.coins < moneyToAdd) return message.channel.sendErrorMessage(`You don't have enough coins for this. You can have coins with the command \`daily\` `)
-        else {
-            await client.addCoins(client, user, moneyToAdd)
-            await client.remCoins(client, message.member, moneyToAdd)
-            message.channel.sendSuccessMessage(`You have give **${moneyToAdd}** ${client.config.emojis.coins} to ${user.user.username} !`)
-        }
+        await client.addCoins(client, user, moneyToAdd)
+        await client.remCoins(client, interaction.member, moneyToAdd)
+        interaction.replySuccessMessage(`You have give **${moneyToAdd}** ${client.config.emojis.coins} to ${user.user.username} !`)
     }
-
 }
 module.exports.help = {
     name: 'pay',
@@ -42,7 +34,20 @@ module.exports.help = {
     exemple: [],
     isUserAdmin: false,
     moderator: false,
-    args: true,
+    args: [
+        {
+            name: 'user',
+            description: 'User to pay',
+            type: 'STRING',
+            required: true
+        },
+        {
+            name: 'money',
+            description: 'Monay to give.',
+            type: 'STRING',
+            required: true
+        },
+    ],
     userPermissions: [],
     botPermissions: [],
     subcommands: []

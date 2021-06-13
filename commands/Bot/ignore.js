@@ -1,36 +1,36 @@
-module.exports.run = async (client, message, args, settings) => {
-    switch (args[0].toLowerCase()) {
+module.exports.run = async (client, interaction, args, settings) => {
+    switch (interaction.subcommand) {
         case 'add':
-            const channelToAdd = await client.resolveChannel(message.guild, args[1])
-            if (!channelToAdd) return message.channel.sendErrorMessage(`Channel not found.`)
+            const channelToAdd = await client.resolveChannel(interaction.guild, args.get('channel').value)
+            if (!channelToAdd) return interaction.replyErrorMessage(`Channel not found.`)
             else {
                 settings.ignoreChannel.push(channelToAdd.id);
                 await settings.save();
-                message.channel.sendSuccessMessage(`This channel is now ignored.`);
+                interaction.replySuccessMessage(`This channel is now ignored.`);
             }
             break;
         case 'rem':
-            const channelToRem = client.resolveChannel(message.guild, args[1]);
-            if (!channelToRem) return message.channel.sendErrorMessage(`Channel not found.`);
-            if (!settings.ignoreChannel.includes(channelToRem.id)) return message.channel.sendErrorMessage(`This channel is not ignored.`);
+            const channelToRem = client.resolveChannel(interaction.guild, args.get('channel').value);
+            if (!channelToRem) return interaction.replyErrorMessage(`Channel not found.`);
+            if (!settings.ignoreChannel.includes(channelToRem.id)) return interaction.replyErrorMessage(`This channel is not ignored.`);
             const index = settings.ignoreChannel.indexOf(channelToRem.id);
             settings.ignoreChannel.splice(index, 1);
             await settings.save();
-            message.channel.sendSuccessMessage(`The channel ${channel.name} is no longer ignored.`);
+            interaction.replySuccessMessage(`The channel ${channelToRem.name} is no longer ignored.`);
             break;
         case 'list':
-            if (!settings.ignoreChannel || settings.ignoreChannel.length < 1) return message.channel.sendErrorMessage(`There are no ignored channels for this guild.`)
-            let embed = {
-                title: `List of ignored channels for the server **${message.guild.name}** | ${settings.ignoreChannel.length} in total`,
+            if (!settings.ignoreChannel || settings.ignoreChannel.length < 1) return interaction.replyErrorMessage(`There are no ignored channels for this guild.`)
+            const embed = {
+                title: `List of ignored channels for the server **${interaction.guild.name}** | ${settings.ignoreChannel.length} in total`,
                 thumbnail: {
-                    url: `${message.guild.iconURL()}`,
+                    url: `${interaction.guild.iconURL()}`,
                 },
                 color: `${client.config.color.EMBEDCOLOR}`,
                 description: null,
                 fields: []
             };
             embed.description = `<#${settings.ignoreChannel.join('>, <#')}>`;
-            message.channel.send({ embed });
+            interaction.reply({ embeds: [embed] });
             break;
     }
 }
@@ -52,20 +52,30 @@ module.exports.help = {
             name: 'add',
             description: 'Ignore a channel for bot commands.',
             usage: '[channel]',
-            args: 1,
+            args: [{
+                name: 'channel',
+                description: 'The channel',
+                type: 'STRING',
+                required: true
+            }],
             exemples: ['#general', '710761432534351925']
         },
         {
             name: 'rem',
             description: 'Enable ignored channel for bot commands.',
             usage: '[channel]',
-            args: 1,
+            args: [{
+                name: 'channel',
+                description: 'The channel',
+                type: 'STRING',
+                required: true
+            }],
             exemples: ['#general', '710761432534351925']
         },
         {
             name: 'list',
-            description: 'View ignore a channels for bot commands.',
-            usage: '[channel]',
+            description: 'View ignore channels for bot commands.',
+            usage: '',
             args: 0,
             exemples: []
         },
