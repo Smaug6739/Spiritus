@@ -1,0 +1,23 @@
+{
+	"version": "2.4.2",
+	"compilerOptions": {
+		"lib": [
+			"es6"
+		],
+		"target": "es6",
+		"module": "commonjs",
+		"noEmitOnError": true,
+		"strict": true,
+		"moduleResolution": "node",
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"sourceMap": false,
+		"outDir": "./dist",
+		"rootDir": "./src",
+		"removeComments": false,
+		"noImplicitAny": true,
+	},
+	"exclude": [
+		"node_modules"
+	]
+}
