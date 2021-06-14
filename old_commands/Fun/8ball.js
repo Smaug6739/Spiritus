@@ -1,7 +1,7 @@
 const { MessageEmbed } = require('discord.js')
 module.exports.run = (client, interaction, args) => {
     const replies = ['Yes', 'No', 'Maybe']
-    const question = client.getArg(args, 'question')
+    const question = args.get('question')
     const reponce = Math.floor(Math.random() * replies.length)
     const embed = new MessageEmbed()
         .setAuthor(`${interaction.user.username}`, `${interaction.user.displayAvatarURL()}`)

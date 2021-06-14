@@ -1,7 +1,7 @@
 const { MessageEmbed } = require('discord.js');
 module.exports.run = (client, interaction, args) => {
-    let dicesCount = client.getArg(args, 'dices')
-    let maxValue = client.getArg(args, 'max_value')
+    let dicesCount = args.get('dices')
+    let maxValue = args.get('max_value')
     if (isNaN(dicesCount) || Math.sign(dicesCount) != 1) return interaction.replyErrorMessage(`The number of dice must be a valid number.`);
     if (isNaN(maxValue) || Math.sign(maxValue) != 1) return interaction.replyErrorMessage(`The number of faces must be a valid number.`);
     if (dicesCount > 30) return interaction.replyErrorMessage(`You cannot roll more than 30 dice at a time.`)

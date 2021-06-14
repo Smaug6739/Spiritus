@@ -3,7 +3,7 @@ const { MessageAttachment } = require('discord.js')
 module.exports.run = async (client, interaction, args, settings) => {
     if (!settings.expsysteme) return interaction.replyErrorMessage(`The experience system is not activated on this server. To activate it use the command \`${settings.prefix} config experience\`.`);
     const dbUser = await client.getUser(interaction.user, interaction.guild.id)
-    const argUser = client.getArg(args, 'user');
+    const argUser = args.get('user').value;
     const memberResolve = await client.resolveMember(interaction.guild, argUser)
     if (!dbUser && !memberResolve) return interaction.replyErrorMessage(`You don't have exp points. Please try again.`)
     const applyText = (canvas, text) => {

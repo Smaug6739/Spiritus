@@ -1,6 +1,6 @@
 module.exports.run = (client, interaction, args) => {
 
-    interaction.reply(client.getArg(args, 'message'))
+    interaction.reply(args.get('message'))
 
 }
 module.exports.help = {

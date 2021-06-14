@@ -1,7 +1,7 @@
 module.exports.run = async (client, interaction, args) => {
-    const argChannel = client.getArg(args, 'channel')
+    const argChannel = args.get('channel').value;
     let channel = client.resolveChannel(interaction.guild, argChannel)
-    if (channel == undefined) return interaction.replyErrorMessage(`Channel not found.`)
+    if (!channel) return interaction.replyErrorMessage(`Channel not found.`)
     await channel.updateOverwrite(interaction.guild.roles.everyone, {
         SEND_MESSAGES: false
     })

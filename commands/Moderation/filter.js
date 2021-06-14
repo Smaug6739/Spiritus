@@ -3,14 +3,14 @@ module.exports.run = async (client, interaction, args, settings) => {
 
   switch (args[0].subcommand) {
     case 'add':
-      const wordToAdd = client.getArg(args, 'word')
+      const wordToAdd = args.get('word').value
       settings.filter.push(wordToAdd);
       await settings.save();
       interaction.replySuccessMessage(`This word is now forbidden on the server.`);
       break;
     case 'rem':
       if (!interaction.member.permissions.has('MANAGE_GUILD')) return interaction.replyErrorMessage(`You need manage server permission for use this command.`);
-      const wordToRemove = client.getArg(args, 'word')
+      const wordToRemove = args.get('word').value
       if (!settings.filter.includes(wordToRemove)) return interaction.replyErrorMessage(`This word is not in the list.`);
       const index = settings.filter.indexOf(wordToRemove);
       settings.filter.splice(index, 1);

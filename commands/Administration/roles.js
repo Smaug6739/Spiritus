@@ -1,12 +1,11 @@
-const { MessageEmbed } = require("discord.js")
-module.exports.run = async (client, message, args, settings) => {
+module.exports.run = async (client, interaction, args) => {
     switch (args[0].toLowerCase()) {
         case 'list':
-            const rolesListe = message.channel.guild.roles.cache.map(role => role.toString());
+            const rolesListe = interaction.guild.roles.cache.map(role => role.toString());
             let embed = {
-                title: `List of roles on the guild **${message.guild.name}** | ${rolesListe.length} in total`,
+                title: `List of roles on the guild **${interaction.guild.name}** | ${rolesListe.length} in total`,
                 thumbnail: {
-                    url: `${message.guild.iconURL()}`,
+                    url: `${interaction.guild.iconURL()}`,
                 },
                 color: `${client.config.color.EMBEDCOLOR}`,
                 description: null,
@@ -19,87 +18,68 @@ module.exports.run = async (client, message, args, settings) => {
                     i = i.concat(' ', role);
                 });
             } else embed.description = rolesListe.join(' ');
-            message.channel.send({ embed });
+            interaction.reply({ embed });
             break;
         case 'create':
-            let role_name = (args.splice(1).join(' ') || 'new role');
-            if (role_name.length > 99) return message.channel.sendErrorMessage(`The name must be inferior to 100 chars.`);
-            message.guild.roles.create({
+            const roleName = args.get('name').value;
+            if (roleName.length > 99) return interaction.replyErrorMessage(`The name must be inferior to 100 chars.`);
+            interaction.guild.roles.create({
                 data: {
-                    name: role_name
+                    name: roleName
                 }
             })
-                .then(role => message.channel.sendSuccessMessage(`I have created the role ${role}`))
+                .then(role => interaction.replySuccessMessage(`I have created the role \`${role.name}\``))
                 .catch(console.error);
             break;
         case 'update':
-            const roleToUpdate = client.resolveRole(message.guild, args[1])
-            if (roleToUpdate == undefined) return message.channel.sendErrorMessage(`Role not found`)
-            if (message.guild.me.roles.highest.comparePositionTo(roleToUpdate) <= 0) return message.channel.sendErrorMessage(`Je n'ai pas un role sufisant pour modifier ce role.`)
-
-            const roleName = args.slice(2).join(" ") || 'new role'
-            if (roleName.length > 99) return message.channel.sendErrorMessage(`The name must be inferior to 100 chars.`);
-            await roleToUpdate.edit({ name: `${roleName}` }).then(
-                message.channel.sendSuccessMessage(`J'ai bien mis a jour le role \`${roleToUpdate.name}\` par \`${roleName}\``))
+            const roleToUpdate = client.resolveRole(interaction.guild, args.get('role').value)
+            if (!roleToUpdate) return interaction.replyErrorMessage(`Role not found`)
+            if (interaction.guild.me.roles.highest.comparePositionTo(roleToUpdate) <= 0) return interaction.replyErrorMessage(`Je n'ai pas un role sufisant pour modifier ce role.`)
+            const roleName = args.get('new_name').value;
+            if (roleName.length > 99) return interaction.replyErrorMessage(`The name must be inferior to 100 chars.`);
+            await roleToUpdate.edit({ name: `${roleName}` })
+                .then(() => interaction.replySuccessMessage(`I have updated the role \`${roleToUpdate.name}\` with \`${roleName}\``))
             break;
         case 'delete':
-            const roleToDelete = client.resolveRole(message.guild, args[1])
-            if (roleToDelete == undefined) return message.channel.sendErrorMessage(`Role not found`)
-            message.channel.sendSuccessMessage(`J'ai bien supprimer le role \`${roleToDelete.name}\``).then(
-                roleToDelete.delete())
+            const roleToDelete = client.resolveRole(interaction.guild, args.get('role').value)
+            if (!roleToDelete) return interaction.replyErrorMessage(`Role not found`);
+            roleToDelete.delete()
+            interaction.replySuccessMessage(`I have deleted the role \`${roleToDelete.name}\``)
             break;
         case 'position':
-            let role = client.resolveRole(message.guild, args[1])
-            if (role == undefined) return message.channel.sendErrorMessage(`Role not found`)
-            let newPosition = args.slice(1).join('')
-            newPosition = newPosition.split(role)
-            newPosition = newPosition.join(' ')
-            newPosition = Number(newPosition)
+            const role = client.resolveRole(interaction.guild, args[1])
+            if (!role) return interaction.replyErrorMessage(`Role not found`)
+            const newPosition = args.get('position').value
             console.log(newPosition)
-            if (message.guild.me.roles.highest.comparePositionTo(role) <= 0) return message.channel.sendErrorMessage(`I do not have a role sufficient to modify this role.`)
-            if (message.guild.me.roles.highest.rawPosition <= newPosition) return message.channel.sendErrorMessage(`I do not have a role sufficient to put this role so high.`)
-            if (message.member.roles.highest.comparePositionTo(role) <= 0) return message.channel.sendErrorMessage(`You do not have a role sufficient to modify this role.`)
-            if (isNaN(newPosition)) return message.channel.sendErrorMessage(`Please indicate the new position of the role as a number.`)
-            message.guild.setRolePositions([{ role: role, position: newPosition }]).then(message.channel.sendSuccessMessage(`I have updated the role \`${role.name}\``))
+            if (interaction.guild.me.roles.highest.comparePositionTo(role) <= 0) return interaction.replyErrorMessage(`I do not have a role sufficient to modify this role.`)
+            if (interaction.guild.me.roles.highest.rawPosition <= newPosition) return interaction.replyErrorMessage(`I do not have a role sufficient to put this role so high.`)
+            if (interaction.member.roles.highest.comparePositionTo(role) <= 0) return interaction.replyErrorMessage(`You do not have a role sufficient to modify this role.`)
+            if (isNaN(newPosition)) return interaction.replyErrorMessage(`Please indicate the new position of the role as a number.`)
+            interaction.guild.setRolePositions([{ role: role, position: newPosition }]).then(interaction.replySuccessMessage(`I have updated the role \`${role.name}\``))
             break;
         case 'add':
-            const userToAdd = await client.resolveMember(message.guild, args[1]) || message.member;
-            const roleToAdd = client.resolveRole(message.guild, args[2]) || message.mentions.roles.first()
-            if (!roleToAdd) return message.channel.sendErrorMessage(`Role not found`)
-            if (roleToAdd) {
-                if (message.guild.me.roles.highest.comparePositionTo(roleToAdd) <= 0) return message.channel.sendErrorMessage(`I do not have a sufficient role to give you this role.`)
-                if (message.member.roles.highest.comparePositionTo(roleToAdd) <= 0) {
-                    return message.channel.sendErrorMessage(`You cannot add a higher role to your highest role.`);
-                } else {
-                    if (userToAdd.roles.cache.has(roleToAdd.id)) return message.channel.sendErrorMessage(`The user already have this role.`);
-                    userToAdd.roles.add(roleToAdd)
-                        .then(() => message.channel.sendSuccessMessage(`I have add the role \`${roleToAdd.name}\` to ${userToAdd}.`))
-                        .catch(e => console.log(e));
-                }
-            } else message.channel.sendErrorMessage(`Role not found`);
+            const userToAdd = await client.resolveMember(interaction.guild, args[1]) || interaction.member;
+            const roleToAdd = client.resolveRole(interaction.guild, args[2]);
+            if (!roleToAdd) return interaction.replyErrorMessage(`Role not found`)
+            if (interaction.guild.me.roles.highest.comparePositionTo(roleToAdd) <= 0) return interaction.replyErrorMessage(`I do not have a sufficient role to give you this role.`)
+            if (interaction.member.roles.highest.comparePositionTo(roleToAdd) <= 0) return interaction.replyErrorMessage(`You cannot add a higher role to your highest role.`);
+            if (userToAdd.roles.cache.has(roleToAdd.id)) return interaction.replyErrorMessage(`The user already have this role.`);
+            userToAdd.roles.add(roleToAdd)
+                .then(() => interaction.replySuccessMessage(`I have add the role \`${roleToAdd.name}\` to ${userToAdd}.`))
+                .catch(e => console.log(e));
             break;
         case 'rem':
-            if (args[0].toLowerCase() === 'rem') {
-                const userToRem = await client.resolveMember(message.guild, args[1]) || message.member
-                const roleToRemove = client.resolveRole(message.guild, args[2]) || message.mentions.roles.first()
-                if (!roleToRemove) return message.channel.sendErrorMessage(`Role not found`)
-                if (roleToRemove) {
-                    if (message.guild.me.roles.highest.comparePositionTo(roleToRemove) <= 0) return message.channel.sendErrorMessage(`I do not have a sufficient role to remove this role from you`)
-                    if (message.member.roles.highest.comparePositionTo(roleToRemove) <= 0) {
-                        return message.channel.sendErrorMessage(`You cannot remove a role greater than or equal to your highest role.`);
-                    } else {
-                        if (!userToRem.roles.cache.has(roleToRemove.id)) return message.channel.sendErrorMessage(`The user does not have this role.`);
-                        userToRem.roles.remove(roleToRemove)
-                            .then(() => message.channel.sendSuccessMessage(`I have removed the role \`${roleToRemove.name}\` of \`${userToRem.user.username}\`.`))
-                            .catch(e => console.log(e));
-                    }
-                } else message.channel.sendErrorMessage(`Role not found`);
-            }
+            const userToRem = await client.resolveMember(interaction.guild, args[1]) || interaction.member
+            const roleToRemove = client.resolveRole(interaction.guild, args[2]);
+            if (!roleToRemove) return interaction.replyErrorMessage(`Role not found`)
+            if (interaction.guild.me.roles.highest.comparePositionTo(roleToRemove) <= 0) return interaction.replyErrorMessage(`I do not have a sufficient role to remove this role from you`)
+            if (interaction.member.roles.highest.comparePositionTo(roleToRemove) <= 0) return interaction.replyErrorMessage(`You cannot remove a role greater than or equal to your highest role.`);
+            if (!userToRem.roles.cache.has(roleToRemove.id)) return interaction.replyErrorMessage(`The user does not have this role.`);
+            userToRem.roles.remove(roleToRemove)
+                .then(() => interaction.replySuccessMessage(`I have removed the role \`${roleToRemove.name}\` of \`${userToRem.user.username}\`.`))
+                .catch(e => console.log(e));
             break;
     }
-
-
-
 }
 module.exports.help = {
     name: 'roles',

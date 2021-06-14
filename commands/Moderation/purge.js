@@ -7,7 +7,7 @@ module.exports.run = async (client, message, args) => {
       break;
     case 'messages':
       const messagesToDelete = await message.channel.messages.fetch({
-        limit: Math.min(client.getArg(args, 'number'), 100),
+        limit: Math.min(args.get('number').value, 100),
         before: message.id
       });
       message.channel.bulkDelete(messagesToDelete)
@@ -15,7 +15,7 @@ module.exports.run = async (client, message, args) => {
           message.reply(new MessageEmbed()
             .setAuthor(message.user.username, message.user.avatarURL())
             .setColor(`${client.config.color.ROUGE}`)
-            .setDescription(`**Action**: purge\n**Messages**: ${client.getArg(args, 'number')}\n**Channel**: ${message.channel}`)
+            .setDescription(`**Action**: purge\n**Messages**: ${args.get('number').value}\n**Channel**: ${message.channel}`)
           ).then(() => {
             setTimeout(function () {
               message.deleteReply()

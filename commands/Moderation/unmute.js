@@ -1,6 +1,6 @@
 const { MessageEmbed } = require("discord.js");
 module.exports.run = async (client, interaction, args, settings) => {
-  const argUser = client.getArg(args, 'user')
+  const argUser = args.get('user').value
   const user = await client.resolveMember(interaction.guild, argUser)
   if (!user) return interaction.replyErrorMessage(`User not found.`)
   const muteRole = interaction.guild.roles.cache.find(r => r.name === 'Muted');

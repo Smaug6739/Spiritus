@@ -4,12 +4,12 @@ module.exports.run = async (client, interaction, args, settings) => {
 
     switch (args[0].subcommand) {
         case 'user':
-            const argUser = client.getArg(args, 'user')
+            const argUser = args.get('user').value
             const userInfo = await client.resolveMember(interaction.guild, argUser)
             if (!userInfo) {
                 client.users.fetch(args[1])
                     .then(u => {
-                        if (!u) return interaction.replyErrorinteraction(`User not found.`)
+                        if (!u) return interaction.replyErrorMessage(`User not found.`)
                         if (u.bot) BOTSTATUS = 'yes'
                         else BOTSTATUS = 'no'
                         const embedUser = new MessageEmbed()
@@ -50,7 +50,7 @@ module.exports.run = async (client, interaction, args, settings) => {
                 break;
             }
         case 'bot':
-            let package = require('./../../package.json')
+            let package = require('../../package.json')
             const verssionBot = package.version
             const verssionDjs = package.dependencies["discord.js"]
             const embedBot = new MessageEmbed()
@@ -120,9 +120,9 @@ module.exports.run = async (client, interaction, args, settings) => {
             //});
             break;
         case 'role':
-            const argRole = client.getArg(args, 'role')
+            const argRole = args.get('role').value
             let role = client.resolveRole(interaction.guild, argRole)
-            if (role == undefined) return interaction.replyErrorinteraction(`Role not found.`)
+            if (role == undefined) return interaction.replyErrorMessage(`Role not found.`)
             if (role.mentionable) mention = 'yes'
             else mention = 'no'
             if (role.managed) mananger = 'yes'
@@ -151,8 +151,8 @@ module.exports.run = async (client, interaction, args, settings) => {
             interaction.reply(embedRole)
             break;
         case 'channel':
-            let channel = client.resolveChannel(interaction.guild, client.getArg(args, 'channel'))
-            if (channel == undefined) return interaction.replyErrorinteraction(`Channel not found.`)
+            let channel = client.resolveChannel(interaction.guild, args.get('channel').value)
+            if (channel == undefined) return interaction.replyErrorMessage(`Channel not found.`)
             if (channel.type === 'text') type = `${client.config.emojis.CHANNEL}Text`
             if (channel.type === 'voice') type = `${client.config.emojis.VOICE}Voice`
             if (channel.type === 'category') type = `Categrory`

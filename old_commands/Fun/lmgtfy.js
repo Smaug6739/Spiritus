@@ -1,5 +1,5 @@
 module.exports.run = (client, interaction, args) => {
-    const argSearch = client.getArg(args, 'search')
+    const argSearch = args.get('search')
     const argSplit = argSearch.split(' ').join('+')
     interaction.reply(`https://lmgtfy.com/?q=${argSplit}`)
 

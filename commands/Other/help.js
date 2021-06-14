@@ -38,7 +38,7 @@ module.exports.run = (client, message, args, settings) => {
 module.exports.help = {
   name: "help",
   aliases: ['help', 'cmds'],
-  category: 'bot',
+  category: 'other',
   description: "List of bot commands.",
   cooldown: 3,
   usage: '<command_name>',

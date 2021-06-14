@@ -1,14 +1,14 @@
 const { MessageEmbed } = require("discord.js")
 const axios = require('axios');
-module.exports.run = async (client, message, args, settings) => {
+module.exports.run = async (client, interaction, args) => {
 
     switch (args[0].toLowerCase()) {
         case 'list':
-            const emojisListe = message.guild.emojis.cache.map(emojis => emojis.toString());
+            const emojisListe = interaction.guild.emojis.cache.map(emojis => emojis.toString());
             let embed = {
-                title: `List of emojis for the guild **${message.guild.name}** | ${emojisListe.length} in total`,
+                title: `List of emojis for the guild **${interaction.guild.name}** | ${emojisListe.length} in total`,
                 thumbnail: {
-                    url: `${message.guild.iconURL()}`,
+                    url: `${interaction.guild.iconURL()}`,
                 },
                 color: `${client.config.color.EMBEDCOLOR}`,
                 description: null,
@@ -21,10 +21,10 @@ module.exports.run = async (client, message, args, settings) => {
                     i = i.concat(' ', emoji);
                 });
             } else embed.description = emojisListe.join(' ');
-            message.channel.send({ embed });
+            interaction.reply({ embeds: [embed] });
             break;
         case 'create':
-            if ((/\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff]/).test(args[2])) return message.channel.sendErrorMessage(`Vous ne pouvez pas crée un emojis présent sur discord`);
+            if ((/\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff]/).test(args[2])) return interaction.replyErrorMessage(`Vous ne pouvez pas crée un emojis présent sur discord`);
             let base64Image;
             if (args[2] && (/<a?:([a-z0-9-_]+):(\d+)>/gi).test(args[2])) {
                 let extension = args[1].startsWith('<a:') ? '.gif' : '.png';
@@ -37,16 +37,16 @@ module.exports.run = async (client, message, args, settings) => {
                 base64Image = `data:image/${extension.slice(1)};base64,` + data.toString('base64');
             }
             if (args[2] && (args[2].startsWith('https://') || args[2].startsWith('http://'))) base64Image = args[2];
-            if (!args[2] && message.attachments.first()) base64Image = message.attachments.first().url
+            if (!args[2] && interaction.attachments.first()) base64Image = interaction.attachments.first().url
             const name = args[1]
-            if (name.includes(':')) return message.channel.sendErrorMessage(`Name of emoji *(${name})* is invalid.`)
+            if (name.includes(':')) return interaction.replyErrorMessage(`Name of emoji *(${name})* is invalid.`)
             try {
-                emote = await message.channel.guild.emojis.create(base64Image, name);
+                emote = await interaction.channel.guild.emojis.create(base64Image, name);
             } catch (err) {
-                if (err.message.match('String value did not match validation regex')) return message.channel.sendErrorMessage(`The name is not valid.`);
-                else return message.channel.sendErrorMessage(`An error has occurred. Please try again.`)
+                if (err.interaction.match('String value did not match validation regex')) return interaction.replyErrorMessage(`The name is not valid.`);
+                else return interaction.replyErrorMessage(`An error has occurred. Please try again.`)
             }
-            message.channel.send(new MessageEmbed()
+            interaction.reply(new MessageEmbed()
                 .setTitle(`${client.config.emojis.success} Emoji created`)
                 .setColor(client.config.color.VERT)
                 .setThumbnail(`https://cdn.discordapp.com/emojis/${emote.id}${emote.animated ? '.gif' : '.png'}`)
@@ -56,13 +56,13 @@ module.exports.run = async (client, message, args, settings) => {
                 .setFooter('Command module: Administration'));
             break;
         case 'update':
-            const emoji = await client.resolveGuildEmoji(message.channel.guild, args[1]);
-            if (!emoji) return message.channel.sendErrorMessage(`Emoji not found.`)
+            const emoji = await client.resolveGuildEmoji(interaction.channel.guild, args[1]);
+            if (!emoji) return interaction.replyErrorMessage(`Emoji not found.`)
             else {
                 emoji.edit({
                     name: `${args.slice(2).join(' ').toLowerCase()}`
                 })
-                message.channel.send(new MessageEmbed()
+                interaction.reply(new MessageEmbed()
                     .setTitle(`Emoji update`)
                     .setColor(`${client.config.color.VERT}`)
                     .setThumbnail(`https://cdn.discordapp.com/emojis/${emoji.id}${emoji.animated ? '.gif' : '.png'}`)
@@ -73,11 +73,11 @@ module.exports.run = async (client, message, args, settings) => {
             }
             break;
         case 'delete':
-            const emojiToDelete = await client.resolveGuildEmoji(message.channel.guild, args[1]);
-            if (!emojiToDelete) return message.channel.sendErrorMessage(`Emoji not found.`)
+            const emojiToDelete = await client.resolveGuildEmoji(interaction.channel.guild, args[1]);
+            if (!emojiToDelete) return interaction.replyErrorMessage(`Emoji not found.`)
             else {
                 emojiToDelete.delete()
-                message.channel.send(new MessageEmbed()
+                interaction.reply(new MessageEmbed()
                     .setTitle('Emoji delete')
                     .setColor(client.config.color.VERT)
                     .setThumbnail(`https://cdn.discordapp.com/emojis/${emojiToDelete.id}${emojiToDelete.animated ? '.gif' : '.png'}`)
@@ -89,9 +89,9 @@ module.exports.run = async (client, message, args, settings) => {
             break;
         case 'view':
             const emoteID = await args[1].trim().replace('<:', '').replace('<a:', '').replace('>', '').split(':')[1];
-            if (!emoteID) return message.channel.sendErrorMessage(`Emoji not found.`);
+            if (!emoteID) return interaction.replyErrorMessage(`Emoji not found.`);
             const emoteURL = `https://cdn.discordapp.com/emojis/${emoteID}${args[0].startsWith('<a:') ? '.gif' : '.png'}`;
-            message.channel.send(new MessageEmbed()
+            interaction.reply(new MessageEmbed()
                 .setTitle('Emoji view')
                 .setColor(`${client.config.color.EMBEDCOLOR}`)
                 .setImage(emoteURL)

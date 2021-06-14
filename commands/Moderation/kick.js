@@ -1,7 +1,7 @@
 const { MessageEmbed } = require("discord.js");
 module.exports.run = async (client, interaction, args, settings) => {
-  const argUser = client.getArg(args, 'user')
-  const argReason = client.getArg(args, 'reason')
+  const argUser = args.get('user').value;
+  const argReason = args.get('reason').value;
   const user = await client.resolveMember(interaction.guild, argUser);
   if (!user) return interaction.replyErrorMessage(`User not found.`)
   if (interaction.member.roles.highest.comparePositionTo(user.roles.highest) <= 0 && interaction.guild.ownerID !== interaction.user.id) return interaction.replyErrorMessage(`You don't have the permission for this.`)

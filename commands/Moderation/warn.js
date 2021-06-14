@@ -1,7 +1,7 @@
 const { MessageEmbed } = require("discord.js");
 module.exports.run = async (client, interaction, args, settings) => {
-  const memberArg = client.getArg(args, 'user')
-  const reasonArg = client.getArg(args, 'reason')
+  const memberArg = args.get('user').value
+  const reasonArg = args.get('reason').value
   const member = await client.resolveMember(interaction.guild, memberArg);
   const reason = (reasonArg || 'No reason was given');
 

@@ -9,7 +9,7 @@ module.exports.help = {
 
     name: 'ping',
     aliases: ['ping'],
-    category: 'bot',
+    category: 'other',
     description: 'Ping the bot.',
     cooldown: 3,
     usage: '',

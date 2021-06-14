@@ -1,6 +1,6 @@
 const { MessageEmbed } = require('discord.js')
 module.exports.run = (client, interaction, args) => {
-    const text = client.getArg(args, 'message')
+    const text = args.get('message')
     let result = '';
     for (let i = 0; i < text.length; i++) {
         let bin = text[i].charCodeAt().toString(2);

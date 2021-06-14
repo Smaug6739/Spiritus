@@ -3,16 +3,16 @@ module.exports.run = async (client, interaction, args, settings) => {
 
     switch (args[0].subcommand) {
         case 'add':
-            const userToAdd = await client.resolveMember(interaction.guild, client.getArg(args, 'user'));
-            const expToAdd = parseInt(client.getArg(args, 'experience'));
+            const userToAdd = await client.resolveMember(interaction.guild, args.get('user').value);
+            const expToAdd = parseInt(args.get('experience').value);
             if (isNaN(expToAdd)) return interaction.replyErrorMessage(`Please enter a valid number.`);
             if (!userToAdd) return interaction.replyErrorMessage(`User not found.`);
             if (!await client.addExp(client, userToAdd, expToAdd)) return interaction.replyErrorMessage(`I can't add exp to this user.`);
             interaction.replySuccessMessage(`Adding ${expToAdd} exp to user ${userToAdd}`);
             break;
         case 'rem':
-            const userToRemove = await client.resolveMember(interaction.guild, client.getArg(args, 'user'));
-            const expToRemove = parseInt(client.getArg(args, 'experience'));
+            const userToRemove = await client.resolveMember(interaction.guild, args.get('user').value);
+            const expToRemove = parseInt(args.get('experience').value);
             if (isNaN(expToRemove)) return interaction.replyErrorMessage(`Please enter a valid number.`);
             if (!userToRemove) return interaction.replyErrorMessage(`User not found.`);
             if (!await client.removeExp(client, userToRemove, expToRemove)) return interaction.replyErrorMessage(`I can't remove exp to this user.`);

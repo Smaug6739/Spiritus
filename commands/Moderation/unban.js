@@ -1,7 +1,7 @@
 const { MessageEmbed } = require("discord.js");
 module.exports.run = async (client, interaction, args) => {
   try {
-    const argUser = client.getArg(args, 'user')
+    const argUser = args.get('user').value
     const user = await client.users.fetch(argUser);
     if (!user)
       return interaction.replyErrorMessage(`User not found.`);

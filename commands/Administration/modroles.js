@@ -1,39 +1,38 @@
-const { MessageEmbed } = require('discord.js');
-module.exports.run = async (client, message, args, settings) => {
+module.exports.run = async (client, interactions, args, settings) => {
 
     switch (args[0].toLowerCase()) {
         case 'list':
-            if (!settings.modRoles || settings.modRoles.length < 1) return message.channel.sendErrorMessage(`Il n'y a aucun roles modérateurs pour ce serveur. Pour en ajouter utilisez la commande \`${settings.prefix}modroles add @role\``)
+            if (!settings.modRoles || settings.modRoles.length < 1) return interactions.channel.sendErrorinteractions(`Il n'y a aucun roles modérateurs pour ce serveur. Pour en ajouter utilisez la commande \`${settings.prefix}modroles add @role\``)
             let embed = {
-                title: `List of moderators roles on the guild **${message.guild.name}** | ${settings.modRoles.length} in total`,
+                title: `List of moderators roles on the guild **${interactions.guild.name}** | ${settings.modRoles.length} in total`,
                 thumbnail: {
-                    url: `${message.guild.iconURL()}`,
+                    url: `${interactions.guild.iconURL()}`,
                 },
                 color: `${client.config.color.EMBEDCOLOR}`,
                 description: null,
                 fields: []
             };
             embed.description = '<@&' + settings.modRoles.join('>, <@&') + '>';
-            message.channel.send({ embed });
+            interactions.channel.send({ embed });
             break;
         case 'add':
-            const roleToAdd = client.resolveRole(message.guild, args[1]);
-            if (!roleToAdd) return message.channel.sendErrorMessage(`Role not found.`);
-            if (settings.modRoles.includes(roleToAdd.id)) return message.channel.sendErrorMessage(`This role is already a moderator.`);
+            const roleToAdd = client.resolveRole(interactions.guild, args[1]);
+            if (!roleToAdd) return interactions.channel.sendErrorinteractions(`Role not found.`);
+            if (settings.modRoles.includes(roleToAdd.id)) return interactions.channel.sendErrorinteractions(`This role is already a moderator.`);
             else {
                 settings.modRoles.push(roleToAdd.id);
                 await settings.save();
-                message.channel.sendSuccessMessage(`This role is now a moderator.`);
+                interactions.channel.sendSuccessinteractions(`This role is now a moderator.`);
             }
             break;
         case 'rem':
-            const roleToRemove = client.resolveRole(message.guild, args[1]);
-            if (!roleToRemove) return message.channel.sendErrorMessage(`Role not found.`);
-            if (!settings.modRoles.includes(roleToRemove.id)) return message.channel.sendErrorMessage(`This role is not a moderator.`);
+            const roleToRemove = client.resolveRole(interactions.guild, args[1]);
+            if (!roleToRemove) return interactions.channel.sendErrorinteractions(`Role not found.`);
+            if (!settings.modRoles.includes(roleToRemove.id)) return interactions.channel.sendErrorinteractions(`This role is not a moderator.`);
             const index = settings.modRoles.indexOf(roleToRemove.id);
             settings.modRoles.splice(index, 1);
             await settings.save();
-            message.channel.sendSuccessMessage(`The role \`${roleToRemove.name}\` no longer moderator.`);
+            interactions.channel.sendSuccessinteractions(`The role \`${roleToRemove.name}\` no longer moderator.`);
             break;
     }
 }

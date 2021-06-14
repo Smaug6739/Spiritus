@@ -47,7 +47,7 @@ module.exports.run = async (client, interaction, args, settings) => {
             if (newSetting) {
                 if (args[1].includes('png') || args[1].includes('PNG') || args[1].includes('JPG') || args[1].includes('jpg') || args[1].includes('JPEG') || args[1].includes('jpeg') || args[1].includes('GIF') || args[1].includes('gif')) {
                     await client.updateGuild(interaction.guild, { rankcard: newSetting });
-                    return interaction.replySuccessMessage(`rank-card updated : \`${settings.rankcard}\` ->\`${newSetting}\``)
+                    return interaction.replySuccessMessage(`Rank-card updated : \`${settings.rankcard}\` ->\`${newSetting}\``)
                 } else return interaction.replyErrorMessage(`The file is not in a valid format. Valid formats are : png, jpg, jpeg et gif`)
             }
             interaction.replySuccessMessage(`Current rank-card : \`${settings.rankcard}\``);
@@ -57,17 +57,17 @@ module.exports.run = async (client, interaction, args, settings) => {
             if (newSetting) {
                 if (args[1] === 'disable') {
                     client.updateGuild(interaction.guild, { salonranks: "" });
-                    return interaction.replySuccessMessage(`Rank salon à bien été désactiver.`)
+                    return interaction.replySuccessMessage(`Rank channel has been disable.`)
                 } else {
                     const channel = client.resolveChannel(interaction.guild, newSetting)
                     if (!channel || channel == undefined) return interaction.replyErrorMessage(`Channel not found.`)
                     else {
                         await client.updateGuild(interaction.guild, { salonranks: channel.id });
-                        return interaction.replySuccessMessageSuccessinteraction(`rank-salon updated : \`${newSetting}\``)
+                        return interaction.replySuccessMessageSuccessinteraction(`Rank-channel updated : \`${newSetting}\``)
                     }
                 }
             }
-            interaction.replySuccessMessage(`Current rank-salon : \`${settings.salonranks || 'none'}\``);
+            interaction.replySuccessMessage(`Current rank-channel : \`${settings.salonranks || 'none'}\``);
             break;
         }
     }
@@ -76,7 +76,7 @@ module.exports.help = {
 
     name: "config",
     aliases: ['config'],
-    category: 'bot',
+    category: 'other',
     description: "Config the bot.",
     cooldown: 10,
     usage: '[parameter] (value)',
@@ -91,42 +91,62 @@ module.exports.help = {
             name: 'prefix',
             description: 'Change prefix of the guild.',
             usage: '[prefix]',
-            args: 1,
+            args: [{
+                name: 'prefix',
+                description: 'The new prefix.',
+                type: 'STRING',
+                required: true
+            }],
             exemples: ['!']
         },
         {
             name: 'log-channel',
             description: 'Change log-channel of the guild.',
             usage: '[channel]',
-            args: 1,
+            args: [{
+                name: 'channel',
+                description: 'The channel for logs',
+                type: 'STRING',
+                required: true
+            }],
             exemples: ['#general']
         },
         {
             name: 'experience',
             description: 'Change status of leveling system of the guild.',
             usage: '',
-            args: 0,
+            args: [],
             exemples: []
         },
         {
             name: 'admin-invites',
             description: 'Change status of anti invitations system of the guild.',
             usage: '',
-            args: 0,
+            args: [],
             exemples: []
         },
         {
             name: 'rank-card',
             description: 'Change rank-card.',
             usage: '<image_link>',
-            args: 1,
+            args: [{
+                name: 'url',
+                description: 'The image url',
+                type: 'STRING',
+                required: true
+            }],
             exemples: ['https://domain.com/image.png']
         },
         {
             name: 'rank-channel',
             description: 'Change rank-channel setting.',
             usage: '<channel> | disable',
-            args: 1,
+            args: [{
+                name: 'channel',
+                description: 'The channel',
+                type: 'STRING',
+                required: true
+            }],
             exemples: ['#ranks']
         },
     ]

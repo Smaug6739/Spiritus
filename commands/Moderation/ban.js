@@ -1,8 +1,8 @@
 const { MessageEmbed } = require("discord.js");
 module.exports.run = async (client, interaction, args, settings) => {
 
-    const argReason = client.getArg(args, 'reason');
-    const argUser = client.getArg(args, 'user');
+    const argReason = args.get('reason').value;
+    const argUser = args.get('user').value;
     const user = await client.resolveMember(interaction.guild, argUser)
     if (!user) return interaction.replyErrorMessage(`User not found.`)
     const embed = new MessageEmbed()

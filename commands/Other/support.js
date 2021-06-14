@@ -7,7 +7,7 @@ module.exports.help = {
 
     name: 'support',
     aliases: ['support'],
-    category: 'bot',
+    category: 'other',
     description: 'Send link to the support.',
     cooldown: 10,
     usage: '',
