@@ -16,20 +16,21 @@ const CommandClass_1 = __importDefault(require("../CommandClass"));
 class Ping extends CommandClass_1.default {
     constructor(spiritus) {
         super(spiritus, {
-            name: 'ping',
+            name: 'warn',
             aliases: [],
             args: [],
-            description: 'Get ping of the bot',
-            category: 'Other',
-            cooldown: 5,
+            description: 'Warn a user.',
+            category: 'Moderation',
+            cooldown: 10,
             userPermissions: [],
             botPermissions: [],
-            subCommands: []
+            subCommands: [],
         });
     }
-    execute(interaction) {
+    execute(interaction, args) {
         return __awaiter(this, void 0, void 0, function* () {
             interaction.reply('Pong !');
+            console.log(args);
         });
     }
 }

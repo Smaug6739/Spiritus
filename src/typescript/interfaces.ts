@@ -1,4 +1,4 @@
-
+import type { CommandInteraction } from 'discord.js'
 export interface IGuildDB {
 	_id: string;
 	guildID: string;
@@ -42,16 +42,6 @@ export interface IWebhookSend {
 	code?: string;
 }
 
-export interface ICommandOptions {
-	name: string;
-	aliases: string[];
-	category: string;
-	description: string;
-	cooldown: number;
-	userPermissions: string[];
-	botPermissions: string[];
-	subCommands: any[]
-}
 
 /* ------------------GUILD-FUNCTIONS------------------ */
 export interface IGuildMinDB {
@@ -62,4 +52,30 @@ export interface IGuildMinDB {
 /* ------------------OTHER------------------ */
 export interface IObject {
 	[index: string]: any
+}
+
+/* ------------------COMMANDS------------------ */
+export interface ICommandOptions {
+	name: string;
+	aliases: string[];
+	args: Array<ICommandArgs>;
+	category: string;
+	description: string;
+	cooldown: number;
+	userPermissions: string[];
+	botPermissions: string[];
+	subCommands: any[]
+}
+
+export interface ICommandArgs {
+	name: string;
+	description: string;
+	type: string;
+	required: boolean;
+}
+
+export interface ICommandInteraction extends CommandInteraction {
+	replySuccessMessage(content: string): Promise<void>
+	replyErrorMessage(content: string): Promise<void>
+	subcommand: string | null
 }

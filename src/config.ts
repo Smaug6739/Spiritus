@@ -13,7 +13,7 @@ export default {
 		invitations: false,
 		kickauto: false
 	},
-	ADMIN: ["611468402263064577"],
+	admins: ["611468402263064577"],
 
 
 	colors: {

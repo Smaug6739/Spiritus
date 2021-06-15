@@ -5,9 +5,16 @@ import Util from './utils/functions';
 import DbFunctions from './utils/databaseFunctions';
 
 import mongoose from 'mongoose';
-import { Client, Intents, WebhookClient, MessageEmbed } from 'discord.js';
-const { CommandInteraction } = require('discord.js');
+import { Client, Intents, WebhookClient, MessageEmbed, CommandInteraction } from 'discord.js';
+// const { CommandInteraction } = require('discord.js');
 import { readdirSync } from 'fs';
+
+declare module 'discord.js' {
+	interface CommandInteraction {
+		replySuccessMessage(content: string): any
+		replyErrorMessage(content: string): any
+	}
+}
 
 CommandInteraction.prototype.replySuccessMessage = function (content: string) {
 	return this.reply(`${config.emojis.success} ${content}`);
@@ -20,7 +27,9 @@ class Spiritus {
 	public client: Client;
 	private errorHook: WebhookClient;
 	public owner: string;
-	protected commands: Map<string, any>;
+	public admins: string[];
+	public commands: Map<string, any>;
+	public cooldowns: Map<string, any>;
 	protected config: IConfig;
 	private privateConfig: IConfig;
 	public models: any;
@@ -37,11 +46,13 @@ class Spiritus {
 		this.errorHook = new WebhookClient(this.privateConfig.logs.error.id, this.privateConfig.logs.error.token);
 		this.owner = config.owner.username;
 		this.commands = new Map();
+		this.cooldowns = new Map();
 		this.util = new Util(this.client);
 		this.models = { Guild: require('./models/guild').default }
 		this.db = new DbFunctions(this);
 		this.emojis = config.emojis;
 		this.colors = config.colors;
+		this.admins = config.admins;
 		this.loadCommands();
 		this.loadEvents();
 		this.handleErrors();
@@ -64,10 +75,10 @@ class Spiritus {
 	}
 	private async loadEvents(dir = "./events") {
 		readdirSync(dir).forEach(async file => {
-			const getFile = await import(`${dir}/${file}`)
-			const evt = getFile.default;
+			const getFile = await import(`${dir}/${file}`).then(e => e.default)
+			const evt = new getFile(this);
 			const evtName = file.split(".")[0];
-			this.client.on(evtName, evt.bind(null, this));
+			this.client.on(evtName, (...args) => evt.run(...args));
 			console.log(`Event loaded: ${evtName}`);
 		});
 	};

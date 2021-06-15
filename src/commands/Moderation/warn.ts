@@ -4,19 +4,20 @@ export default class Ping extends Command {
 
 	constructor(spiritus: any) {
 		super(spiritus, {
-			name: 'ping',
+			name: 'warn',
 			aliases: [],
 			args: [],
-			description: 'Get ping of the bot',
-			category: 'Other',
-			cooldown: 5,
+			description: 'Warn a user.',
+			category: 'Moderation',
+			cooldown: 10,
 			userPermissions: [],
 			botPermissions: [],
-			subCommands: []
+			subCommands: [],
 		})
 	}
-	async execute(interaction: any) {
-		interaction.reply('Pong !')
+	async execute(interaction: any, args: any) {
+		interaction.reply('Pong !');
+		console.log(args);
 
 	}
 }

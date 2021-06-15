@@ -37,12 +37,12 @@ const functions_1 = __importDefault(require("./utils/functions"));
 const databaseFunctions_1 = __importDefault(require("./utils/databaseFunctions"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const discord_js_1 = require("discord.js");
-const { CommandInteraction } = require('discord.js');
+// const { CommandInteraction } = require('discord.js');
 const fs_1 = require("fs");
-CommandInteraction.prototype.replySuccessMessage = function (content) {
+discord_js_1.CommandInteraction.prototype.replySuccessMessage = function (content) {
     return this.reply(`${config_1.default.emojis.success} ${content}`);
 };
-CommandInteraction.prototype.replyErrorMessage = function (content) {
+discord_js_1.CommandInteraction.prototype.replyErrorMessage = function (content) {
     return this.reply(`${config_1.default.emojis.error} ${content}`);
 };
 class Spiritus {
@@ -55,11 +55,13 @@ class Spiritus {
         this.errorHook = new discord_js_1.WebhookClient(this.privateConfig.logs.error.id, this.privateConfig.logs.error.token);
         this.owner = config_1.default.owner.username;
         this.commands = new Map();
+        this.cooldowns = new Map();
         this.util = new functions_1.default(this.client);
         this.models = { Guild: require('./models/guild').default };
         this.db = new databaseFunctions_1.default(this);
         this.emojis = config_1.default.emojis;
         this.colors = config_1.default.colors;
+        this.admins = config_1.default.admins;
         this.loadCommands();
         this.loadEvents();
         this.handleErrors();
@@ -86,10 +88,10 @@ class Spiritus {
     loadEvents(dir = "./events") {
         return __awaiter(this, void 0, void 0, function* () {
             fs_1.readdirSync(dir).forEach((file) => __awaiter(this, void 0, void 0, function* () {
-                const getFile = yield Promise.resolve().then(() => __importStar(require(`${dir}/${file}`)));
-                const evt = getFile.default;
+                const getFile = yield Promise.resolve().then(() => __importStar(require(`${dir}/${file}`))).then(e => e.default);
+                const evt = new getFile(this);
                 const evtName = file.split(".")[0];
-                this.client.on(evtName, evt.bind(null, this));
+                this.client.on(evtName, (...args) => evt.run(...args));
                 console.log(`Event loaded: ${evtName}`);
             }));
         });

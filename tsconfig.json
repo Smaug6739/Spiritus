@@ -5,18 +5,20 @@
 			"es6"
 		],
 		"esModuleInterop": true,
-		"target": "es6",
-		"module": "commonjs",
-		"noEmitOnError": true,
-		"strict": true,
-		"moduleResolution": "node",
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
-		"sourceMap": false,
+		"module": "commonjs",
+		"moduleResolution": "node",
+		"noEmitOnError": true,
+		"noImplicitAny": true,
+		"noUnusedLocals": true, /* Report errors on unused locals. */
+		"noUnusedParameters": true,
 		"outDir": "./dist",
 		"rootDir": "./src",
 		"removeComments": false,
-		"noImplicitAny": true,
+		"sourceMap": false,
+		"strict": true,
+		"target": "es6"
 	},
 	"exclude": [
 		"node_modules"

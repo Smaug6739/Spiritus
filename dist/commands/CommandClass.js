@@ -7,6 +7,7 @@ class Command {
         this.util = this.spiritus.util;
         this.name = options.name;
         this.aliases = options.aliases;
+        this.args = options.args;
         this.category = options.category;
         this.description = options.description;
         this.cooldown = options.cooldown;

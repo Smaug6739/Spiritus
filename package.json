@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@discordjs/voice": "^0.4.0",
-    "discord.js": "^13.0.0-dev.918921e8211fc16e9b12d2502f3168264246ea22",
+    "discord.js": "^13.0.0-dev.f7eeccba4b7015496df811f10cc2da2b0fab0630",
     "mongoose": "^5.12.13"
   }
 }
