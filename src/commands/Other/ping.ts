@@ -12,11 +12,27 @@ export default class Ping extends Command {
 			cooldown: 5,
 			userPermissions: [],
 			botPermissions: [],
-			subCommands: []
+			subCommands: [
+				{
+					name: 'sub',
+					description: 'Delete messages in a channel',
+					args: [
+						{
+							name: 'field',
+							description: 'The field to ping',
+							type: 'STRING',
+							required: true
+						}
+					],
+				},
+			],
 		})
 	}
-	async execute(interaction: any) {
+	async execute(interaction: any, args: any) {
 		interaction.reply('Pong !')
+		console.log(interaction.subCommands);
+		console.log(args);
+
 
 	}
 }

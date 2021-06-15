@@ -24,12 +24,27 @@ class Ping extends CommandClass_1.default {
             cooldown: 5,
             userPermissions: [],
             botPermissions: [],
-            subCommands: []
+            subCommands: [
+                {
+                    name: 'sub',
+                    description: 'Delete messages in a channel',
+                    args: [
+                        {
+                            name: 'field',
+                            description: 'The field to ping',
+                            type: 'STRING',
+                            required: true
+                        }
+                    ],
+                },
+            ],
         });
     }
-    execute(interaction) {
+    execute(interaction, args) {
         return __awaiter(this, void 0, void 0, function* () {
             interaction.reply('Pong !');
+            console.log(interaction.subCommands);
+            console.log(args);
         });
     }
 }

@@ -12,26 +12,58 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const discord_js_1 = require("discord.js");
 const CommandClass_1 = __importDefault(require("../CommandClass"));
-class Ping extends CommandClass_1.default {
+class default_1 extends CommandClass_1.default {
     constructor(spiritus) {
         super(spiritus, {
             name: 'warn',
             aliases: [],
-            args: [],
+            args: [
+                {
+                    name: 'user',
+                    description: 'The user to warn',
+                    type: 'STRING',
+                    required: true
+                },
+                {
+                    name: 'reason',
+                    description: 'The reason of warn',
+                    type: 'STRING',
+                    required: false
+                },
+            ],
             description: 'Warn a user.',
             category: 'Moderation',
-            cooldown: 10,
-            userPermissions: [],
+            cooldown: 5,
+            userPermissions: ['MODERATOR'],
             botPermissions: [],
             subCommands: [],
         });
     }
     execute(interaction, args) {
+        var _a;
         return __awaiter(this, void 0, void 0, function* () {
-            interaction.reply('Pong !');
-            console.log(args);
+            const member = yield this.spiritus.util.resolveMember(interaction.guild, args.get('user').value);
+            if (!member)
+                return interaction.replyErrorMessage('User not found.');
+            const reason = ((_a = args.get('reason')) === null || _a === void 0 ? void 0 : _a.value) || 'No reason was provided.';
+            const dmEmbed = new discord_js_1.MessageEmbed()
+                .setTitle('Warn')
+                .setColor(this.spiritus.colors.orange)
+                .setAuthor(member.user.username, member.user.displayAvatarURL())
+                .setThumbnail(member.user.displayAvatarURL())
+                .setDescription(`**Action :** Warn\n**Reason :** ${reason}${reason.endsWith('.') ? '' : '.'}\n**Server :** ${interaction.guild.name}\n**Moderator :** ${interaction.user.username}`)
+                .setTimestamp()
+                .setFooter(`By : ${interaction.user.username}`, interaction.user.displayAvatarURL());
+            try {
+                yield member.send({ embeds: [dmEmbed] });
+            }
+            catch (_b) {
+                return interaction.replyErrorMessage('I can\'t send a message to this user.');
+            }
+            interaction.replySuccessMessage(`I have successfully warn the user \`${member.user.tag}\`.`);
         });
     }
 }
-exports.default = Ping;
+exports.default = default_1;

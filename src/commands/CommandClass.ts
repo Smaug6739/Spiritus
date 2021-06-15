@@ -1,12 +1,12 @@
 import type Spiritus from '../main';
-import { ICommandOptions, ICommandArgs } from '../typescript/interfaces';
+import { ICommandOptions, ICommandInfosArgs } from '../typescript/interfaces';
 export default class Command {
-	private spiritus;
+	protected spiritus;
 	public emojis;
 	public util;
 	protected name: string;
 	protected aliases: string[];
-	protected args: Array<ICommandArgs>;
+	protected args: Array<ICommandInfosArgs>;
 	protected category: string;
 	protected description: string;
 	protected cooldown: number;

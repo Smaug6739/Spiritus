@@ -58,7 +58,7 @@ export interface IObject {
 export interface ICommandOptions {
 	name: string;
 	aliases: string[];
-	args: Array<ICommandArgs>;
+	args: Array<ICommandInfosArgs>;
 	category: string;
 	description: string;
 	cooldown: number;
@@ -67,7 +67,7 @@ export interface ICommandOptions {
 	subCommands: any[]
 }
 
-export interface ICommandArgs {
+export interface ICommandInfosArgs {
 	name: string;
 	description: string;
 	type: string;
@@ -79,3 +79,5 @@ export interface ICommandInteraction extends CommandInteraction {
 	replyErrorMessage(content: string): Promise<void>
 	subcommand: string | null
 }
+import type { Collection } from 'discord.js';
+export interface ICommandArgs extends Collection<string, any> { }
