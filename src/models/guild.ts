@@ -5,7 +5,6 @@ const defaults = config.defaultSettings;
 const guildSchema = new Schema({
   _id: Schema.Types.ObjectId,
   guildID: String,
-  guildName: String,
   prefix: {
     "type": String,
     "default": defaults.prefix

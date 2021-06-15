@@ -4,10 +4,17 @@ import config from './config';
 import Util from './utils/functions';
 import DbFunctions from './utils/databaseFunctions';
 
-import * as mongoose from 'mongoose';
+import mongoose from 'mongoose';
 import { Client, Intents, WebhookClient, MessageEmbed } from 'discord.js';
-
+const { CommandInteraction } = require('discord.js');
 import { readdirSync } from 'fs';
+
+CommandInteraction.prototype.replySuccessMessage = function (content: string) {
+	return this.reply(`${config.emojis.success} ${content}`);
+};
+CommandInteraction.prototype.replyErrorMessage = function (content: string) {
+	return this.reply(`${config.emojis.error} ${content}`);
+};
 
 class Spiritus {
 	public client: Client;
@@ -31,7 +38,7 @@ class Spiritus {
 		this.owner = config.owner.username;
 		this.commands = new Map();
 		this.util = new Util(this.client);
-		this.models = { Guild: import('./models/index') }
+		this.models = { Guild: require('./models/guild').default }
 		this.db = new DbFunctions(this);
 		this.emojis = config.emojis;
 		this.colors = config.colors;

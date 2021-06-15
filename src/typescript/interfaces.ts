@@ -54,7 +54,7 @@ export interface ICommandOptions {
 }
 
 /* ------------------GUILD-FUNCTIONS------------------ */
-export interface IGuildCreate {
+export interface IGuildMinDB {
 	id: string;
 	name: string;
 }

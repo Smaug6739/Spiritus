@@ -5,6 +5,7 @@ export default {
 		username: "Smaug#6739"
 	},
 	defaultSettings: {
+		guildName: "no name",
 		prefix: ";",
 		logChannel: "bot-logs",
 		welcomeMessage: "Welcome {{user}}",
