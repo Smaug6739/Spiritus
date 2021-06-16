@@ -6,7 +6,7 @@ export default class extends Command {
 
 	constructor(spiritus: any) {
 		super(spiritus, {
-			name: 'N',
+			name: 'filter',
 			aliases: [],
 			args: [
 				{

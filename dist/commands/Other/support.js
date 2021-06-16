@@ -16,10 +16,10 @@ const CommandClass_1 = __importDefault(require("../CommandClass"));
 class Ping extends CommandClass_1.default {
     constructor(spiritus) {
         super(spiritus, {
-            name: 'ping',
+            name: 'support',
             aliases: [],
             args: [],
-            description: 'Get ping of the bot',
+            description: 'Get link of support server.',
             category: 'Other',
             cooldown: 5,
             userPermissions: [],
@@ -29,9 +29,7 @@ class Ping extends CommandClass_1.default {
     }
     execute(interaction) {
         return __awaiter(this, void 0, void 0, function* () {
-            const debut = Date.now();
-            interaction.reply('Pong !')
-                .then(() => __awaiter(this, void 0, void 0, function* () { return yield interaction.editReply(`Pong  BOT : \`${Date.now() - debut}ms\` API : \`${this.spiritus.client.ws.ping}ms\``); }));
+            interaction.reply(`Support server is : https://discord.gg/TC7Qjfs`);
         });
     }
 }

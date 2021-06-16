@@ -5,10 +5,10 @@ export default class Ping extends Command {
 
 	constructor(spiritus: any) {
 		super(spiritus, {
-			name: 'ping',
+			name: 'support',
 			aliases: [],
 			args: [],
-			description: 'Get ping of the bot',
+			description: 'Get link of support server.',
 			category: 'Other',
 			cooldown: 5,
 			userPermissions: [],
@@ -17,8 +17,6 @@ export default class Ping extends Command {
 		})
 	}
 	async execute(interaction: ICommandInteraction) {
-		const debut = Date.now();
-		interaction.reply('Pong !')
-			.then(async () => await interaction.editReply(`Pong  BOT : \`${Date.now() - debut}ms\` API : \`${this.spiritus.client.ws.ping}ms\``));
+		interaction.reply(`Support server is : https://discord.gg/TC7Qjfs`)
 	}
 }
