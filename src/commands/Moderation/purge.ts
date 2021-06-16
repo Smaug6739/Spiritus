@@ -8,14 +8,7 @@ export default class extends Command {
 		super(spiritus, {
 			name: 'purge',
 			aliases: [],
-			args: [
-				{
-					name: 'A',
-					description: 'D',
-					type: 'STRING',
-					required: true
-				},
-			],
+			args: [],
 			description: 'Purge messages from channel.',
 			category: 'Moderation',
 			cooldown: 5,

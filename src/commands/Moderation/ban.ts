@@ -22,8 +22,8 @@ export default class extends Command {
 					required: false
 				},
 			],
-			description: 'D',
-			category: 'C',
+			description: 'Ban user from the server',
+			category: 'Moderation',
 			cooldown: 5,
 			userPermissions: [],
 			botPermissions: ['BAN_MEMBERS'],

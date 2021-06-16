@@ -19,14 +19,7 @@ class default_1 extends CommandClass_1.default {
         super(spiritus, {
             name: 'purge',
             aliases: [],
-            args: [
-                {
-                    name: 'A',
-                    description: 'D',
-                    type: 'STRING',
-                    required: true
-                },
-            ],
+            args: [],
             description: 'Purge messages from channel.',
             category: 'Moderation',
             cooldown: 5,

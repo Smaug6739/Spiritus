@@ -33,8 +33,8 @@ class default_1 extends CommandClass_1.default {
                     required: false
                 },
             ],
-            description: 'D',
-            category: 'C',
+            description: 'Ban user from the server',
+            category: 'Moderation',
             cooldown: 5,
             userPermissions: [],
             botPermissions: ['BAN_MEMBERS'],

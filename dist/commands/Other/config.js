@@ -92,7 +92,7 @@ class Ping extends CommandClass_1.default {
                         uexp = false;
                     else
                         uexp = true;
-                    yield this.spiritus.db.updateGuild(interaction.guild, { expsysteme: uexp });
+                    yield this.spiritus.db.updateGuild(interaction.guild.id, { expsysteme: uexp });
                     interaction.replySuccessMessage(`Leveling system updated : \`${settings.expsysteme}\` ->\`${uexp}\``);
                     break;
                 case 'admin-invites':
@@ -101,14 +101,14 @@ class Ping extends CommandClass_1.default {
                         invit = false;
                     else
                         invit = true;
-                    yield this.spiritus.db.updateGuild(interaction.guild, { invitations: invit });
+                    yield this.spiritus.db.updateGuild(interaction.guild.id, { invitations: invit });
                     interaction.replySuccessMessage(`System anti-invitations of the guild updated : \`${settings.invitations}\` ->\`${invit}\``);
                     break;
                 case 'rank-card':
                     const rankCard = args.get('url').value;
                     if (rankCard) {
                         if (rankCard.includes('png') || rankCard.includes('PNG') || rankCard.includes('JPG') || rankCard.includes('jpg') || rankCard.includes('JPEG') || rankCard.includes('jpeg') || rankCard.includes('GIF') || rankCard.includes('gif')) {
-                            yield this.spiritus.db.updateGuild(interaction.guild, { rankcard: rankCard });
+                            yield this.spiritus.db.updateGuild(interaction.guild.id, { rankcard: rankCard });
                             return interaction.replySuccessMessage(`Rank-card updated : \`${settings.rankcard}\` ->\`${rankCard}\``);
                         }
                         else
@@ -120,7 +120,7 @@ class Ping extends CommandClass_1.default {
                     const rankChannel = args.get('channel').value;
                     if (rankChannel) {
                         if (rankChannel === 'disable') {
-                            this.spiritus.db.updateGuild(interaction.guild, { salonranks: "" });
+                            this.spiritus.db.updateGuild(interaction.guild.id, { salonranks: "" });
                             return interaction.replySuccessMessage(`Rank channel has been disable.`);
                         }
                         else {
@@ -128,7 +128,7 @@ class Ping extends CommandClass_1.default {
                             if (!channel || channel == undefined)
                                 return interaction.replyErrorMessage(`Channel not found.`);
                             else {
-                                yield this.spiritus.db.updateGuild(interaction.guild, { salonranks: channel.id });
+                                yield this.spiritus.db.updateGuild(interaction.guild.id, { salonranks: channel.id });
                                 return interaction.replySuccessMessage(`Rank-channel updated : \`${rankChannel}\``);
                             }
                         }

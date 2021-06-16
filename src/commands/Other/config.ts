@@ -81,7 +81,7 @@ export default class Ping extends Command {
 				let uexp;
 				if (settings.expsysteme == true) uexp = false;
 				else uexp = true;
-				await this.spiritus.db.updateGuild(interaction.guild, { expsysteme: uexp });
+				await this.spiritus.db.updateGuild(interaction.guild!.id, { expsysteme: uexp });
 				interaction.replySuccessMessage(`Leveling system updated : \`${settings.expsysteme}\` ->\`${uexp}\``)
 				break;
 
@@ -89,7 +89,7 @@ export default class Ping extends Command {
 				let invit;
 				if (settings.invitations == true) invit = false;
 				else invit = true;
-				await this.spiritus.db.updateGuild(interaction.guild, { invitations: invit });
+				await this.spiritus.db.updateGuild(interaction.guild!.id, { invitations: invit });
 				interaction.replySuccessMessage(`System anti-invitations of the guild updated : \`${settings.invitations}\` ->\`${invit}\``)
 				break;
 
@@ -97,7 +97,7 @@ export default class Ping extends Command {
 				const rankCard = args.get('url').value
 				if (rankCard) {
 					if (rankCard.includes('png') || rankCard.includes('PNG') || rankCard.includes('JPG') || rankCard.includes('jpg') || rankCard.includes('JPEG') || rankCard.includes('jpeg') || rankCard.includes('GIF') || rankCard.includes('gif')) {
-						await this.spiritus.db.updateGuild(interaction.guild, { rankcard: rankCard });
+						await this.spiritus.db.updateGuild(interaction.guild!.id, { rankcard: rankCard });
 						return interaction.replySuccessMessage(`Rank-card updated : \`${settings.rankcard}\` ->\`${rankCard}\``)
 					} else return interaction.replyErrorMessage(`The file is not in a valid format. Valid formats are : png, jpg, jpeg et gif`)
 				}
@@ -108,13 +108,13 @@ export default class Ping extends Command {
 				const rankChannel = args.get('channel').value;
 				if (rankChannel) {
 					if (rankChannel === 'disable') {
-						this.spiritus.db.updateGuild(interaction.guild, { salonranks: "" });
+						this.spiritus.db.updateGuild(interaction.guild!.id, { salonranks: "" });
 						return interaction.replySuccessMessage(`Rank channel has been disable.`)
 					} else {
 						const channel = this.spiritus.util.resolveChannel(interaction.guild, rankChannel)
 						if (!channel || channel == undefined) return interaction.replyErrorMessage(`Channel not found.`)
 						else {
-							await this.spiritus.db.updateGuild(interaction.guild, { salonranks: channel.id });
+							await this.spiritus.db.updateGuild(interaction.guild!.id, { salonranks: channel.id });
 							return interaction.replySuccessMessage(`Rank-channel updated : \`${rankChannel}\``)
 						}
 					}

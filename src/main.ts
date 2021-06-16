@@ -48,7 +48,7 @@ class Spiritus {
 		this.commands = new Map();
 		this.cooldowns = new Map();
 		this.util = new Util(this.client);
-		this.models = { Guild: require('./models/guild').default }
+		this.models = { Guild: require('./models/guild').default, User: require('./models/user').default }
 		this.db = new DbFunctions(this);
 		this.emojis = config.emojis;
 		this.colors = config.colors;
