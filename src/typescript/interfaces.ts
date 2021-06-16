@@ -1,4 +1,4 @@
-import type { CommandInteraction } from 'discord.js'
+import type { CommandInteraction, GuildMember, Collection } from 'discord.js'
 export interface IGuildDB {
 	_id: string;
 	guildID: string;
@@ -73,11 +73,10 @@ export interface ICommandInfosArgs {
 	type: string;
 	required: boolean;
 }
-
 export interface ICommandInteraction extends CommandInteraction {
 	replySuccessMessage(content: string): Promise<void>
 	replyErrorMessage(content: string): Promise<void>
 	subcommand: string | null
+	member: GuildMember
 }
-import type { Collection } from 'discord.js';
 export interface ICommandArgs extends Collection<string, any> { }
