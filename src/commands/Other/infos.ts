@@ -4,7 +4,7 @@ import { MessageEmbed } from 'discord.js';
 import type { Role } from 'discord.js';
 import moment from 'moment';
 
-export default class Ping extends Command {
+export default class extends Command {
 
 	constructor(spiritus: any) {
 		super(spiritus, {

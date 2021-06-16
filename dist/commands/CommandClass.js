@@ -4,6 +4,7 @@ class Command {
     constructor(spiritus, options) {
         this.spiritus = spiritus;
         this.emojis = this.spiritus.emojis;
+        this.colors = this.spiritus.colors;
         this.util = this.spiritus.util;
         this.db = this.spiritus.db;
         this.name = options.name;

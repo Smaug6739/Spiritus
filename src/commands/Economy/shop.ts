@@ -2,7 +2,7 @@ import { MessageEmbed } from 'discord.js'
 import Command from '../CommandClass';
 import type { ICommandArgs, ICommandInteraction, IGuildDB } from '../../typescript/interfaces'
 
-export default class Ping extends Command {
+export default class extends Command {
 
 	constructor(spiritus: any) {
 		super(spiritus, {

@@ -3,6 +3,7 @@ import { ICommandOptions, ICommandInfosArgs } from '../typescript/interfaces';
 export default class Command {
 	protected spiritus;
 	public emojis;
+	public colors;
 	public util;
 	public db;
 	protected name: string;
@@ -17,6 +18,7 @@ export default class Command {
 	constructor(spiritus: typeof Spiritus, options: ICommandOptions) {
 		this.spiritus = spiritus;
 		this.emojis = this.spiritus.emojis;
+		this.colors = this.spiritus.colors;
 		this.util = this.spiritus.util;
 		this.db = this.spiritus.db;
 		this.name = options.name

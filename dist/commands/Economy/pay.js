@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const CommandClass_1 = __importDefault(require("../CommandClass"));
-class Ping extends CommandClass_1.default {
+class default_1 extends CommandClass_1.default {
     constructor(spiritus) {
         super(spiritus, {
             name: 'pay',
@@ -82,4 +82,4 @@ class Ping extends CommandClass_1.default {
         });
     }
 }
-exports.default = Ping;
+exports.default = default_1;

@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const CommandClass_1 = __importDefault(require("../CommandClass"));
 const discord_js_1 = require("discord.js");
 const moment_1 = __importDefault(require("moment"));
-class Ping extends CommandClass_1.default {
+class default_1 extends CommandClass_1.default {
     constructor(spiritus) {
         super(spiritus, {
             name: 'infos',
@@ -243,4 +243,4 @@ class Ping extends CommandClass_1.default {
         });
     }
 }
-exports.default = Ping;
+exports.default = default_1;

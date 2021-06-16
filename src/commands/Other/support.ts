@@ -1,7 +1,7 @@
 import Command from '../CommandClass';
 import type { ICommandInteraction } from '../../typescript/interfaces'
 
-export default class Ping extends Command {
+export default class extends Command {
 
 	constructor(spiritus: any) {
 		super(spiritus, {
