@@ -16,7 +16,7 @@ const CommandClass_1 = __importDefault(require("../CommandClass"));
 class default_1 extends CommandClass_1.default {
     constructor(spiritus) {
         super(spiritus, {
-            name: 'reaction-role',
+            name: 'mod-roles',
             aliases: [],
             args: [],
             description: 'Manage roles from the server.',

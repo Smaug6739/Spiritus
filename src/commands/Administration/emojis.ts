@@ -6,7 +6,7 @@ import type { ICommandArgs, ICommandInteraction } from '../../typescript/interfa
 export default class extends Command {
 	constructor(spiritus: any) {
 		super(spiritus, {
-			name: 'reaction-role',
+			name: 'emojis',
 			aliases: [],
 			args: [],
 			description: 'Manage roles from the server.',

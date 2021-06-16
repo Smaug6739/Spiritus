@@ -37,6 +37,9 @@ class default_1 {
                 if (!isMod || isMod == false)
                     return interaction.replyErrorMessage(`You don't have permissions for use this command.`);
             }
+            if (command.userPermissions.includes('BOT_ADMIN') && !this.spiritus.admins.includes(interaction.user.id)) {
+                return interaction.replyErrorMessage(`You don't have permissions for use this command.`);
+            }
             if (command.userPermissions.length) {
                 for (const permission of command.userPermissions) {
                     if (!((_a = interaction.guild) === null || _a === void 0 ? void 0 : _a.members.cache.get(interaction.user.id).permissions.has(permission)))

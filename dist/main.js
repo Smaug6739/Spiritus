@@ -48,10 +48,12 @@ discord_js_1.CommandInteraction.prototype.replyErrorMessage = function (content)
 class Spiritus {
     constructor() {
         this.client = new discord_js_1.Client({
-            intents: discord_js_1.Intents.ALL
+            intents: discord_js_1.Intents.ALL,
+            partials: ['CHANNEL', 'REACTION', 'USER', 'MESSAGE']
         });
         this.config = config_1.default;
         this.privateConfig = config_private_1.default;
+        this.token = config_private_1.default.tokens.discord;
         this.errorHook = new discord_js_1.WebhookClient(this.privateConfig.logs.error.id, this.privateConfig.logs.error.token);
         this.owner = config_1.default.owner.username;
         this.commands = new Map();

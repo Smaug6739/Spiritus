@@ -121,7 +121,6 @@ export default class extends Command {
 				}
 				interaction.replySuccessMessage(`Current rank-channel : \`${settings.salonranks || 'none'}\``);
 				break;
-
 		}
 	}
 }

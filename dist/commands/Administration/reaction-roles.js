@@ -118,8 +118,8 @@ class default_1 extends CommandClass_1.default {
                                 return interaction.replyErrorMessage(`Emoji already use for this interaction.`);
                             yield messageRRAdd.react(emoteRRAdd.id ? `${emoteRRAdd.name}:${emoteRRAdd.id}` : emoteRRAdd);
                             let arrayRRAdd = settings.reactionroles;
-                            arrayRRAdd.push({ channelID: channelRRAdd.id, interactionID: messageRRAdd.id, emoji: emoteRRAdd.id ? emoteRRAdd.id : emoteRRAdd, roleID: role.id });
-                            yield this.db.updateGuild(interaction.guild, { reactionroles: arrayRRAdd });
+                            arrayRRAdd.push({ channelID: channelRRAdd.id, messageID: messageRRAdd.id, emoji: emoteRRAdd.id ? emoteRRAdd.id : emoteRRAdd, roleID: role.id });
+                            yield this.db.updateGuild(interaction.guildID, { reactionroles: arrayRRAdd });
                             interaction.replySuccessMessage(`Role-reaction have been created.`);
                         }
                         catch (e) {
@@ -150,7 +150,7 @@ class default_1 extends CommandClass_1.default {
                         const role = this.util.resolveRole(interaction.guild, args.get('role').value);
                         if (!role || role.id == interaction.guildID)
                             return interaction.replyErrorMessage(` Impossible de trouver ce rôle.`);
-                        this.db.updateGuild(interaction.guild, { $pull: { reactionroles: { channelID: channel, interactionID: messageRR.id, emoji: emojiToRemove, roleID: role.id } } });
+                        this.db.updateGuild(interaction.guildID, { $pull: { reactionroles: { channelID: channel, messageID: messageRR.id, emoji: emojiToRemove, roleID: role.id } } });
                         interaction.replySuccessMessage(`I have deleted this role-reaction.`);
                     }
                     catch (e) {
@@ -160,7 +160,7 @@ class default_1 extends CommandClass_1.default {
                             return interaction.replyErrorMessage(`An error occurred. Please try again.`);
                     }
                     break;
-                case 'rem all':
+                case 'rem-all':
                     yield this.db.updateGuild(interaction.guildID, { reactionroles: [] });
                     interaction.replySuccessMessage(`All guild roles-reactions have been deleted`);
                     break;

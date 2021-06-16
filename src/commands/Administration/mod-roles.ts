@@ -4,7 +4,7 @@ import type { ICommandArgs, ICommandInteraction, IGuildDB } from '../../typescri
 export default class extends Command {
 	constructor(spiritus: any) {
 		super(spiritus, {
-			name: 'reaction-role',
+			name: 'mod-roles',
 			aliases: [],
 			args: [],
 			description: 'Manage roles from the server.',

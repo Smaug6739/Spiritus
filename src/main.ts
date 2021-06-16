@@ -32,6 +32,7 @@ class Spiritus {
 	public cooldowns: Map<string, any>;
 	protected config: IConfig;
 	private privateConfig: IConfig;
+	public token: string;
 	public models: any;
 	public db: any;
 	public util: any;
@@ -39,10 +40,12 @@ class Spiritus {
 	public colors: IColors;
 	constructor() {
 		this.client = new Client({
-			intents: Intents.ALL
+			intents: Intents.ALL,
+			partials: ['CHANNEL', 'REACTION', 'USER', 'MESSAGE']
 		})
 		this.config = config;
 		this.privateConfig = configPrivate;
+		this.token = configPrivate.tokens.discord;
 		this.errorHook = new WebhookClient(this.privateConfig.logs.error.id, this.privateConfig.logs.error.token);
 		this.owner = config.owner.username;
 		this.commands = new Map();

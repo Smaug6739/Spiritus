@@ -22,6 +22,9 @@ export default class {
 			const isMod = await this.spiritus.util.checkMod(interaction.member, settings)
 			if (!isMod || isMod == false) return interaction.replyErrorMessage(`You don't have permissions for use this command.`);
 		}
+		if (command.userPermissions.includes('BOT_ADMIN') && !this.spiritus.admins.includes(interaction.user.id)) {
+			return interaction.replyErrorMessage(`You don't have permissions for use this command.`);
+		}
 
 		if (command.userPermissions.length) {
 			for (const permission of command.userPermissions) {

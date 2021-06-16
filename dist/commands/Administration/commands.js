@@ -17,10 +17,10 @@ const CommandClass_1 = __importDefault(require("../CommandClass"));
 class default_1 extends CommandClass_1.default {
     constructor(spiritus) {
         super(spiritus, {
-            name: 'reaction-role',
+            name: 'commands',
             aliases: [],
             args: [],
-            description: 'Manage roles from the server.',
+            description: 'Manage custom commands from the server.',
             category: 'Administration',
             cooldown: 5,
             userPermissions: ['MANAGE_GUILD'],
