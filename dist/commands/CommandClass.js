@@ -5,6 +5,7 @@ class Command {
         this.spiritus = spiritus;
         this.emojis = this.spiritus.emojis;
         this.util = this.spiritus.util;
+        this.db = this.spiritus.db;
         this.name = options.name;
         this.aliases = options.aliases;
         this.args = options.args;

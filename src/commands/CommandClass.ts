@@ -4,6 +4,7 @@ export default class Command {
 	protected spiritus;
 	public emojis;
 	public util;
+	public db;
 	protected name: string;
 	protected aliases: string[];
 	protected args: Array<ICommandInfosArgs>;
@@ -17,6 +18,7 @@ export default class Command {
 		this.spiritus = spiritus;
 		this.emojis = this.spiritus.emojis;
 		this.util = this.spiritus.util;
+		this.db = this.spiritus.db;
 		this.name = options.name
 		this.aliases = options.aliases
 		this.args = options.args
