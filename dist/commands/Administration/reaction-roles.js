@@ -22,8 +22,8 @@ class default_1 extends CommandClass_1.default {
             description: 'Manage roles from the server.',
             category: 'Administration',
             cooldown: 5,
-            userPermissions: ['MANAGE_ROLES', 'MANAGE_MEMBERS'],
-            botPermissions: ['MANAGE_ROLES'],
+            userPermissions: ['MANAGE_ROLES'],
+            botPermissions: ['MANAGE_MEMBERS'],
             subCommands: [
                 {
                     name: 'add',

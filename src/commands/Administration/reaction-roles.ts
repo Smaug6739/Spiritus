@@ -10,8 +10,8 @@ export default class extends Command {
 			description: 'Manage roles from the server.',
 			category: 'Administration',
 			cooldown: 5,
-			userPermissions: ['MANAGE_ROLES', 'MANAGE_MEMBERS'],
-			botPermissions: ['MANAGE_ROLES'],
+			userPermissions: ['MANAGE_ROLES'],
+			botPermissions: ['MANAGE_MEMBERS'],
 			subCommands: [
 				{
 					name: 'add',
