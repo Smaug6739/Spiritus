@@ -1,5 +1,6 @@
 import Command from '../CommandClass';
-import type { ICommandArgs, ICommandInteraction, IGuildDB } from '../../typescript/interfaces'
+import type { ICommandArgs, ICommandInteraction, IGuildDB } from '../../typescript/interfaces';
+import { MessageEmbed } from "discord.js"
 
 export default class extends Command {
 
@@ -63,16 +64,11 @@ export default class extends Command {
 				break;
 			case 'list':
 				if (!settings.ignoreChannel || settings.ignoreChannel.length < 1) return interaction.replyErrorMessage(`There are no ignored channels for this guild.`)
-				const embed = {
-					title: `List of ignored channels for the server **${interaction.guild!.name}** | ${settings.ignoreChannel.length} in total`,
-					thumbnail: {
-						url: `${interaction.guild!.iconURL()}`,
-					},
-					color: `${this.spiritus.colors.embed}`,
-					description: '',
-					fields: []
-				};
-				embed.description = `<#${settings.ignoreChannel.join('>, <#')}>`;
+				const embed = new MessageEmbed()
+					.setTitle(`List of ignored channels for the server **${interaction.guild!.name}** | ${settings.ignoreChannel.length} in total`)
+				if (interaction.guild!.iconURL()) embed.setThumbnail(interaction.guild!.iconURL()!)
+				embed.setColor(this.colors.embed)
+				embed.setDescription(`<#${settings.ignoreChannel.join('>, <#')}>`);
 				interaction.reply({ embeds: [embed] });
 				break;
 		}

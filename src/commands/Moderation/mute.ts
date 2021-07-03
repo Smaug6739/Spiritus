@@ -45,6 +45,7 @@ export default class extends Command {
 				permissions: []
 			});
 			interaction.guild!.channels.cache.forEach(async (channel) => {
+				if (channel.isThread()) return;
 				await channel.updateOverwrite(muteRole!, {
 					SEND_MESSAGES: false,
 					ADD_REACTIONS: false,
@@ -61,7 +62,7 @@ export default class extends Command {
 		}, ms(muteTime));
 		const embed = new MessageEmbed()
 			.setAuthor(`${user.user.username} (${user.id})`, user.user.displayAvatarURL())
-			.setColor(`${this.spiritus.colors.ORANGE}`)
+			.setColor(this.colors.orange)
 			.setDescription(`**Action**: mute\n**Time**: ${ms(ms(muteTime))}`)
 			.setTimestamp()
 			.setFooter(interaction.user.username, interaction.user.displayAvatarURL());

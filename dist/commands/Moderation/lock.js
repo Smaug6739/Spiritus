@@ -1,13 +1,4 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -34,18 +25,16 @@ class default_1 extends CommandClass_1.default {
             subCommands: [],
         });
     }
-    execute(interaction, args) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const argChannel = args.get('channel').value;
-            const channel = this.spiritus.util.resolveChannel(interaction.guild, argChannel);
-            if (!channel)
-                return interaction.replyErrorMessage(`Channel not found.`);
-            yield channel.updateOverwrite(interaction.guild.roles.everyone, {
-                SEND_MESSAGES: false
-            })
-                .catch(() => interaction.replyErrorMessage(`An error occurred. Please try again.`));
-            interaction.replySuccessMessage(`I have lock the channel \`${channel}\``);
-        });
+    async execute(interaction, args) {
+        const argChannel = args.get('channel').value;
+        const channel = this.spiritus.util.resolveChannel(interaction.guild, argChannel);
+        if (!channel)
+            return interaction.replyErrorMessage(`Channel not found.`);
+        await channel.updateOverwrite(interaction.guild.roles.everyone, {
+            SEND_MESSAGES: false
+        })
+            .catch(() => interaction.replyErrorMessage(`An error occurred. Please try again.`));
+        interaction.replySuccessMessage(`I have lock the channel \`${channel}\``);
     }
 }
 exports.default = default_1;

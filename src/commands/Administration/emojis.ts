@@ -106,7 +106,7 @@ export default class extends Command {
 						i = i.concat(' ', emoji);
 					});
 				} else embed.description = emojisListe.join(' ');
-				interaction.channel.send({ embeds: [embed] });
+				interaction.channel!.send({ embeds: [embed] });
 				break;
 			case 'create':
 				if ((/\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff]/).test(args.get('emoji').value)) return interaction.replyErrorMessage(`Vous ne pouvez pas crée un emojis présent sur discord`);
@@ -151,7 +151,7 @@ export default class extends Command {
 					})
 					const embedUpdate = new MessageEmbed()
 						.setTitle(`Emoji update`)
-						.setColor(`${this.colors.green}`)
+						.setColor(this.colors.green)
 						.setThumbnail(`https://cdn.discordapp.com/emojis/${emoji.id}${emoji.animated ? '.gif' : '.png'}`)
 						.addField(`Action :`, `Update`, true)
 						.addField(`Name :`, `${emoji.name}`, true)

@@ -61,9 +61,9 @@ export default class extends Command {
 		if (fullLen > 2000) {
 			evaled = evaled.match(/[\s\S]{1,1900}[\n\r]/g) || [];
 			if (evaled.length > 3) {
-				interaction.channel.send(`\`\`\`js\n${evaled[0]}\`\`\``);
-				interaction.channel.send(`\`\`\`js\n${evaled[1]}\`\`\``);
-				interaction.channel.send(`\`\`\`js\n${evaled[2]}\`\`\``);
+				interaction.channel!.send(`\`\`\`js\n${evaled[0]}\`\`\``);
+				interaction.channel!.send(`\`\`\`js\n${evaled[1]}\`\`\``);
+				interaction.channel!.send(`\`\`\`js\n${evaled[2]}\`\`\``);
 				return;
 			}
 			return evaled.forEach((message: any) => {

@@ -8,6 +8,7 @@ import mongoose from 'mongoose';
 import { Client, Intents, WebhookClient, MessageEmbed, CommandInteraction } from 'discord.js';
 // const { CommandInteraction } = require('discord.js');
 import { readdirSync } from 'fs';
+import { join } from 'path';
 
 declare module 'discord.js' {
 	interface CommandInteraction {
@@ -62,11 +63,11 @@ class Spiritus {
 		this.connectDB();
 		this.client.login(this.privateConfig.tokens.discord)
 	}
-	private async loadCommands(dir = './commands') {
+	private async loadCommands(dir = join(__dirname, './commands')) {
 		readdirSync(dir).filter(f => !f.endsWith('.js')).forEach(async dirs => {
 			const commands = readdirSync(`${dir}/${dirs}/`).filter(files => files.endsWith(".js"));
 			for (const file of commands) {
-				const importFile = await import(`./${dir}/${dirs}/${file}`);
+				const importFile = await import(`${dir}/${dirs}/${file}`);
 				const CommandClass = importFile.default;
 				const command = new CommandClass(this);
 				this.commands.set(command.name, command);
@@ -76,7 +77,7 @@ class Spiritus {
 			};
 		});
 	}
-	private async loadEvents(dir = "./events") {
+	private async loadEvents(dir = join(__dirname, "./events")) {
 		readdirSync(dir).forEach(async file => {
 			const getFile = await import(`${dir}/${file}`).then(e => e.default)
 			const evt = new getFile(this);
@@ -90,22 +91,22 @@ class Spiritus {
 		process.on('uncaughtException', (error) => {
 			console.warn(error);
 			if (!this.client) return;
-			this.errorHook.send({ content: error.toString(), code: 'js' });
+			this.errorHook.send({ content: "```js\n" + error.toString() + "```" });
 		});
 		process.on('unhandledRejection', (listener) => {
 			console.warn(listener);
 			if (!this.client) return;
-			this.errorHook.send({ content: listener!.toString(), code: 'js' });
+			this.errorHook.send({ content: "```js\n" + listener!.toString() + "```" });
 		});
 		process.on('rejectionHandled', (listener) => {
 			console.warn(listener);
 			if (!this.client) return;
-			this.errorHook.send({ content: listener.toString(), code: 'js' });
+			this.errorHook.send({ content: "```js" + listener.toString() + "```" });
 		});
 		process.on('warning', (warning) => {
 			console.warn(warning);
 			if (!this.client) return;
-			this.errorHook.send({ content: warning.toString(), code: 'js' });
+			this.errorHook.send({ content: "```js" + warning.toString() + "```" });
 		});
 	}
 	public log(type: string, options: IWebhookSend) {

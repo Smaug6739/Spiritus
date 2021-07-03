@@ -1,4 +1,5 @@
 import type { Client, Guild, GuildMember, Role, GuildEmoji, GuildChannel, User } from "discord.js";
+import { ThreadChannel } from "discord.js";
 import type { IGuildDB } from '../typescript/interfaces';
 
 export default class Util {
@@ -34,7 +35,7 @@ export default class Util {
 		if (!guild || !arg) {
 			return;
 		}
-		const channel = guild.channels.cache.find((chan: GuildChannel) => chan.id === arg || chan.id === arg.replace(/<#|>/g, '') || chan.name === arg.toLowerCase());
+		const channel = guild.channels.cache.find((chan: GuildChannel | ThreadChannel) => chan.id === arg || chan.id === arg.replace(/<#|>/g, '') || chan.name === arg.toLowerCase());
 		return channel;
 	}
 	resolveGuild = (arg: string) => {

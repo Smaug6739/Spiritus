@@ -5,7 +5,6 @@ class default_1 {
         this.spiritus = spiritus;
     }
     run() {
-        var _a;
         const allData = [];
         for (const [_, command] of this.spiritus.commands) {
             if (command.category.toLowerCase() === 'admin')
@@ -109,7 +108,7 @@ class default_1 {
             }
         }
         this.spiritus.client.guilds.cache.get('809702809196560405').commands.set(allDataAdmin);
-        console.log(`Logged in as ${(_a = this.spiritus.client.user) === null || _a === void 0 ? void 0 : _a.tag}!`);
+        console.log(`Logged in as ${this.spiritus.client.user?.tag}!`);
     }
 }
 exports.default = default_1;

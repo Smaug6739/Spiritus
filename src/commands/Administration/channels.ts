@@ -103,7 +103,9 @@ export default class extends Command {
 						parent: channel.parent ? channel.parent : ''
 					})
 					interaction.replySuccessMessage(`I have created \`${channelName}\``)
-				} catch {
+				} catch (e) {
+					console.log(e);
+
 					interaction.replyErrorMessage(`An error occurred. Please try again.`)
 				};
 				break;

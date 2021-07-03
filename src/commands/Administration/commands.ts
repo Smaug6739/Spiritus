@@ -65,7 +65,7 @@ export default class extends Command {
 					settings.commandes.forEach(element => {
 						embed.addField(`\u200b`, `Command : \`${element.nom}\``, false)
 					});
-					interaction.channel.send({ embeds: [embed] })
+					interaction.channel!.send({ embeds: [embed] })
 				} else return interaction.replyErrorMessage(`No commands found on this guild.`)
 				break;
 			case 'add':

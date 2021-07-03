@@ -18,15 +18,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -39,6 +30,7 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const discord_js_1 = require("discord.js");
 // const { CommandInteraction } = require('discord.js');
 const fs_1 = require("fs");
+const path_1 = require("path");
 discord_js_1.CommandInteraction.prototype.replySuccessMessage = function (content) {
     return this.reply(`${config_1.default.emojis.success} ${content}`);
 };
@@ -70,32 +62,28 @@ class Spiritus {
         this.connectDB();
         this.client.login(this.privateConfig.tokens.discord);
     }
-    loadCommands(dir = './commands') {
-        return __awaiter(this, void 0, void 0, function* () {
-            fs_1.readdirSync(dir).filter(f => !f.endsWith('.js')).forEach((dirs) => __awaiter(this, void 0, void 0, function* () {
-                const commands = fs_1.readdirSync(`${dir}/${dirs}/`).filter(files => files.endsWith(".js"));
-                for (const file of commands) {
-                    const importFile = yield Promise.resolve().then(() => __importStar(require(`./${dir}/${dirs}/${file}`)));
-                    const CommandClass = importFile.default;
-                    const command = new CommandClass(this);
-                    this.commands.set(command.name, command);
-                    // const getFileName = await import(`../${dir}/${dirs}/${file}`);
-                    // this.commands.set(getFileName.help.name, getFileName);
-                    console.log(`Command loaded: ${command.name}`);
-                }
-                ;
-            }));
+    async loadCommands(dir = path_1.join(__dirname, './commands')) {
+        fs_1.readdirSync(dir).filter(f => !f.endsWith('.js')).forEach(async (dirs) => {
+            const commands = fs_1.readdirSync(`${dir}/${dirs}/`).filter(files => files.endsWith(".js"));
+            for (const file of commands) {
+                const importFile = await Promise.resolve().then(() => __importStar(require(`${dir}/${dirs}/${file}`)));
+                const CommandClass = importFile.default;
+                const command = new CommandClass(this);
+                this.commands.set(command.name, command);
+                // const getFileName = await import(`../${dir}/${dirs}/${file}`);
+                // this.commands.set(getFileName.help.name, getFileName);
+                console.log(`Command loaded: ${command.name}`);
+            }
+            ;
         });
     }
-    loadEvents(dir = "./events") {
-        return __awaiter(this, void 0, void 0, function* () {
-            fs_1.readdirSync(dir).forEach((file) => __awaiter(this, void 0, void 0, function* () {
-                const getFile = yield Promise.resolve().then(() => __importStar(require(`${dir}/${file}`))).then(e => e.default);
-                const evt = new getFile(this);
-                const evtName = file.split(".")[0];
-                this.client.on(evtName, (...args) => evt.run(...args));
-                console.log(`Event loaded: ${evtName}`);
-            }));
+    async loadEvents(dir = path_1.join(__dirname, "./events")) {
+        fs_1.readdirSync(dir).forEach(async (file) => {
+            const getFile = await Promise.resolve().then(() => __importStar(require(`${dir}/${file}`))).then(e => e.default);
+            const evt = new getFile(this);
+            const evtName = file.split(".")[0];
+            this.client.on(evtName, (...args) => evt.run(...args));
+            console.log(`Event loaded: ${evtName}`);
         });
     }
     ;
@@ -104,25 +92,25 @@ class Spiritus {
             console.warn(error);
             if (!this.client)
                 return;
-            this.errorHook.send({ content: error.toString(), code: 'js' });
+            this.errorHook.send({ content: "```js\n" + error.toString() + "```" });
         });
         process.on('unhandledRejection', (listener) => {
             console.warn(listener);
             if (!this.client)
                 return;
-            this.errorHook.send({ content: listener.toString(), code: 'js' });
+            this.errorHook.send({ content: "```js\n" + listener.toString() + "```" });
         });
         process.on('rejectionHandled', (listener) => {
             console.warn(listener);
             if (!this.client)
                 return;
-            this.errorHook.send({ content: listener.toString(), code: 'js' });
+            this.errorHook.send({ content: "```js" + listener.toString() + "```" });
         });
         process.on('warning', (warning) => {
             console.warn(warning);
             if (!this.client)
                 return;
-            this.errorHook.send({ content: warning.toString(), code: 'js' });
+            this.errorHook.send({ content: "```js" + warning.toString() + "```" });
         });
     }
     log(type, options) {

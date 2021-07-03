@@ -27,7 +27,7 @@ export interface IEmojis {
 	[index: string]: string
 }
 export interface IColors {
-	[index: string]: string
+	[index: string]: any
 }
 
 export interface IConfig {

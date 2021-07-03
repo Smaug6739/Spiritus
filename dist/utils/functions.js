@@ -1,17 +1,8 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 class Util {
     constructor(client) {
-        this.resolveMember = (guild, arg) => __awaiter(this, void 0, void 0, function* () {
+        this.resolveMember = async (guild, arg) => {
             if (!arg || !guild || !guild.available) {
                 return;
             }
@@ -20,7 +11,7 @@ class Util {
                 `${mem.user.username.toLowerCase()}#${mem.user.discriminator}` === arg.toLowerCase() || // Username + discriminator
                 mem.user.username.toLowerCase().startsWith(arg.toLowerCase())); // Starts with
             return member;
-        });
+        };
         this.resolveUser = (arg) => {
             if (!arg) {
                 return;
@@ -60,14 +51,14 @@ class Util {
                 return false;
             }
         };
-        this.resolveGuildEmoji = (guild, arg) => __awaiter(this, void 0, void 0, function* () {
+        this.resolveGuildEmoji = async (guild, arg) => {
             if (!guild || !arg)
                 return null;
             const emoji = guild.emojis.cache.find((e) => e.id == arg || e.name == arg) ||
                 guild.emojis.cache.find((e) => e.id == arg.replace('<:', '').replace('<a:', '').replace('>', '').split(':')[1]); // await guild.emojis.cache.find(arg.replace('<:', '').replace('<a:', '').replace('>', '').split(':')[1]).catch(() => null);
             return emoji;
-        });
-        this.checkMod = (member, settings) => __awaiter(this, void 0, void 0, function* () {
+        };
+        this.checkMod = async (member, settings) => {
             let isMod = false;
             if (settings.modRoles) {
                 settings.modRoles.forEach((modRole) => {
@@ -78,7 +69,7 @@ class Util {
             if (member.permissions.has('ADMINISTRATOR') || member.permissions.has('MANAGE_GUILD') || (settings.modRoles && settings.modRoles.length > 0 && isMod))
                 return true;
             return false;
-        });
+        };
         this.client = client;
     }
     ;

@@ -80,7 +80,7 @@ export default class extends Command {
 							else BOTSTATUS = 'no'
 							const embedUser = new MessageEmbed()
 								.setAuthor(`${u.username}#${u.discriminator}`, `${u.displayAvatarURL()}`)
-								.setColor(`${this.spiritus.colors.EMBEDCOLOR}`)
+								.setColor(this.colors.embed)
 								.setThumbnail(u.displayAvatarURL())
 								.addField(`\u200b`, `BOT : ${BOTSTATUS}`)
 								.setDescription('This user is no on the server.')
@@ -102,7 +102,7 @@ export default class extends Command {
 					permissions = permissions.replace(/\_/g, ' ');
 					const embedMember = new MessageEmbed()
 					embedMember.setThumbnail(userInfo.user.displayAvatarURL())
-					embedMember.setColor(this.spiritus.colors.embed)
+					embedMember.setColor(this.colors.embed)
 					embedMember.setTitle(`${userInfo.user.username}`)
 					embedMember.addField('ID :', `${userInfo.user.id}`, true)
 					embedMember.addField('Tag :', `${userInfo.user.tag}`, true)
@@ -120,7 +120,7 @@ export default class extends Command {
 				const verssionBot = pck.version
 				const verssionDjs = pck.dependencies["discord.js"]
 				const embedBot = new MessageEmbed()
-					.setColor(this.spiritus.colors.embed)
+					.setColor(this.colors.embed)
 					.setAuthor(`${this.spiritus.client.user!.username} Info`, this.spiritus.client.user!.displayAvatarURL())
 					.setThumbnail(this.spiritus.client.user!.displayAvatarURL())
 					.addFields(
@@ -199,7 +199,7 @@ export default class extends Command {
 				if (role.hoist) separation = 'yes'
 				else separation = 'no'
 				const embedRole = new MessageEmbed()
-					.setColor(this.spiritus.colors.embed)
+					.setColor(this.colors.embed)
 					.setThumbnail(`${interaction.guild!.iconURL() ? interaction.guild!.iconURL() : ''}`)
 					.setAuthor(`Information of role :`, `${interaction.guild!.iconURL() ? interaction.guild!.iconURL() : ''}`)
 					.setTitle(`${role.name}`)
@@ -232,7 +232,7 @@ export default class extends Command {
 				const embedChannel = new MessageEmbed()
 					.setAuthor(`Information of a channel :`, `${interaction.guild!.iconURL()}`)
 					.setThumbnail(`${interaction.guild!.iconURL() ? interaction.guild!.iconURL() : ''}`)
-					.setColor(this.spiritus.colors.embed)
+					.setColor(this.colors.embed)
 					.setTitle(`Channel : ${channel.name}`)
 					.addFields(
 						{ name: 'Channel id :', value: `${channel.id}`, inline: true },

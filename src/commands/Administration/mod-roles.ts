@@ -1,6 +1,6 @@
 import Command from '../CommandClass';
 import type { ICommandArgs, ICommandInteraction, IGuildDB } from '../../typescript/interfaces'
-
+import { MessageEmbed } from "discord.js"
 export default class extends Command {
 	constructor(spiritus: any) {
 		super(spiritus, {
@@ -40,17 +40,12 @@ export default class extends Command {
 	async execute(interaction: ICommandInteraction, args: ICommandArgs, settings: IGuildDB) {
 		switch (interaction.subcommand) {
 			case 'list':
-				if (!settings.modRoles || settings.modRoles.length < 1) return interaction.replyErrorMessage(`Il n'y a aucun roles modérateurs pour ce serveur. Pour en ajouter utilisez la commande \`${settings.prefix}modroles add @role\``)
-				const embed = {
-					title: `List of moderators roles on the guild **${interaction.guild!.name}** | ${settings.modRoles.length} in total`,
-					thumbnail: {
-						url: `${interaction.guild!.iconURL()}`,
-					},
-					color: `${this.colors.embed}`,
-					description: '',
-					fields: []
-				};
-				embed.description = '<@&' + settings.modRoles.join('>, <@&') + '>';
+				if (!settings.modRoles || settings.modRoles.length < 1) return interaction.replyErrorMessage(`No mods roles on this server`)
+				const embed = new MessageEmbed()
+					.setTitle(`List of moderators roles on the guild **${interaction.guild!.name}** | ${settings.modRoles.length} in total`)
+				if (interaction.guild!.iconURL()) embed.setThumbnail(interaction.guild!.iconURL()!)
+				embed.setColor(this.colors.embed)
+				embed.setDescription('<@&' + settings.modRoles.join('>, <@&') + '>');
 				interaction.reply({ embeds: [embed] });
 				break;
 			case 'add':

@@ -39,7 +39,7 @@ export default class extends Command {
 		if (interactionMember.roles.highest.comparePositionTo(user.roles.highest) <= 0 && interaction.guild!.ownerID !== interaction.user.id) return interaction.replyErrorMessage(`You don't have the permission for this.`)
 		const embed = new MessageEmbed()
 			.setAuthor(`${user.user.username} (${user.id})`)
-			.setColor(`${this.spiritus.colors.orange}`)
+			.setColor(this.colors.orange)
 			.setDescription(`**Action**: kick\n**Reason**: ${reason}`)
 			.setThumbnail(user.user.displayAvatarURL())
 			.setTimestamp()

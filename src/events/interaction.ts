@@ -15,7 +15,7 @@ export default class {
 		if (!command) return;
 		/* --------------IGNORE-CHANNEL------------- */
 		if (settings.ignoreChannel) {
-			if (settings.ignoreChannel.includes(interaction.channel.id)) return interaction.replyErrorMessage('This is a ignored channel.');
+			if (settings.ignoreChannel.includes(interaction.channel?.id)) return interaction.replyErrorMessage('This is a ignored channel.');
 		}
 		/* ---------------PERMISSIONS--------------- */
 		if (command.userPermissions.includes('MODERATOR')) {
