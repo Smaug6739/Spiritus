@@ -123,6 +123,7 @@ class Spiritus {
 		webhook.send(options)
 	}
 	private connectDB() {
+		console.log(`Trying to connect on : ${this.privateConfig.mongoose.connection}`)
 		mongoose.connect(this.privateConfig.mongoose.connection, {
 			useNewUrlParser: true,
 			useUnifiedTopology: true,
@@ -133,7 +134,7 @@ class Spiritus {
 			serverSelectionTimeoutMS: 5000, // Keep trying to send operations for 5 seconds
 			socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity  //45000
 			family: 4 // Use IPv4, skip trying IPv6
-		});
+		}).then(() => console.log('Mongodb is connected'))
 		mongoose.connection.on("connected", () => {
 			console.log("Mongoose is connected")
 			const embed = new MessageEmbed()
@@ -147,6 +148,10 @@ class Spiritus {
 				embeds: [embed]
 			})
 		});
+		mongoose.connection.on('error', () => {
+			console.log('Connection failed. Try reconecting in 5 seconds...');
+			setTimeout(() => this.connectDB(), 5000);
+		})
 	}
 }
 const spiritus = new Spiritus();

@@ -1,0 +1,13 @@
+services:
+  mongo:
+    image: mongo
+    restart: always
+    volumes:
+      - ./data/db:/data/db
+  app:
+    container_name: spiritus
+    restart: always
+    build: .
+    environment:
+      - CUSTOMERS_HOST=mongo
+      - CUSTOMERS_PORT=27017

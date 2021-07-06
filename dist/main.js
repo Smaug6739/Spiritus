@@ -128,6 +128,7 @@ class Spiritus {
         webhook.send(options);
     }
     connectDB() {
+        console.log(`Trying to connect on : ${this.privateConfig.mongoose.connection}`);
         mongoose_1.default.connect(this.privateConfig.mongoose.connection, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
@@ -138,7 +139,7 @@ class Spiritus {
             serverSelectionTimeoutMS: 5000,
             socketTimeoutMS: 45000,
             family: 4 // Use IPv4, skip trying IPv6
-        });
+        }).then(() => console.log('Mongodb is connected'));
         mongoose_1.default.connection.on("connected", () => {
             console.log("Mongoose is connected");
             const embed = new discord_js_1.MessageEmbed()
@@ -151,6 +152,10 @@ class Spiritus {
                 avatar: this.privateConfig.mongoose.avatar || '',
                 embeds: [embed]
             });
+        });
+        mongoose_1.default.connection.on('error', () => {
+            console.log('Connection failed. Try reconecting in 5 seconds...');
+            setTimeout(() => this.connectDB(), 5000);
         });
     }
 }

@@ -22,3 +22,6 @@ config.private.dev.js
 
 config.private.prod.ts
 config.private.prod.js
+
+# Database
+data
