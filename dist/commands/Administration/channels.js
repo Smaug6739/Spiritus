@@ -98,7 +98,7 @@ class default_1 extends CommandClass_1.default {
                     const channelName = args.get('name').value;
                     const channelType = args.get('type').value.toLowerCase();
                     const allowedTypes = ['text', 'voice', 'category', 'news', 'store', 'stage'];
-                    const channel = await this.util.reolveChannel(interaction.guild, interaction.channelID);
+                    const channel = await this.util.reolveChannel(interaction.guild, interaction.channelId);
                     if (!allowedTypes.includes(channelType))
                         return interaction.replyErrorMessage(`Invalid channel type. Allowed types are : ${allowedTypes.join(', ')}`);
                     if (channelName.length > 99)

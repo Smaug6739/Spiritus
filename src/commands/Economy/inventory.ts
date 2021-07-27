@@ -66,7 +66,7 @@ export default class extends Command {
 				const dbUser = await this.db.getUser(interaction.user, interaction.guild!.id);
 				if (!dbUser) {
 					await this.db.createUser({
-						guildID: interaction.guildID,
+						guildID: interaction.guildId,
 						guildName: interaction.guild!.name,
 						userID: interaction.user.id,
 						username: interaction.user.tag,
@@ -75,7 +75,7 @@ export default class extends Command {
 					})
 					interaction.reply(`You have **0** ${this.emojis.coins} and you don't have items ${interaction.user}.`)
 				} else {
-					if (!dbUser.coins) this.db.updateUser(interaction.guildID, interaction.user.id, { coins: 0 })
+					if (!dbUser.coins) this.db.updateUser(interaction.guildId, interaction.user.id, { coins: 0 })
 					const embed = new MessageEmbed()
 					embed.setTitle(`Inventory of **${interaction.user.username}**`)
 					embed.setColor(this.colors.embed)

@@ -41,7 +41,7 @@ class Spiritus {
 	public colors: IColors;
 	constructor() {
 		this.client = new Client({
-			intents: Intents.ALL,
+			intents: ['GUILDS', 'GUILD_MESSAGES', 'GUILD_MEMBERS', Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS, 'GUILD_MESSAGE_REACTIONS'],
 			partials: ['CHANNEL', 'REACTION', 'USER', 'MESSAGE']
 		})
 		this.config = config;

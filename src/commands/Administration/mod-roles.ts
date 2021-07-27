@@ -53,7 +53,7 @@ export default class extends Command {
 				if (!roleToAdd) return interaction.replyErrorMessage(`Role not found.`);
 				if (settings.modRoles.includes(roleToAdd.id)) return interaction.replyErrorMessage(`This role is already a moderator.`);
 				else {
-					await this.db.updateGuild(interaction.guildID, { $push: { modRoles: roleToAdd.id } })
+					await this.db.updateGuild(interaction.guildId, { $push: { modRoles: roleToAdd.id } })
 					interaction.replySuccessMessage(`This role is now a moderator.`);
 				}
 				break;
@@ -61,7 +61,7 @@ export default class extends Command {
 				const roleToRemove = this.util.resolveRole(interaction.guild, args.get('role').value);
 				if (!roleToRemove) return interaction.replyErrorMessage(`Role not found.`);
 				if (!settings.modRoles.includes(roleToRemove.id)) return interaction.replyErrorMessage(`This role is not a moderator.`);
-				await this.db.updateGuild(interaction.guildID, { $pull: { modRoles: roleToRemove.id } })
+				await this.db.updateGuild(interaction.guildId, { $pull: { modRoles: roleToRemove.id } })
 				interaction.replySuccessMessage(`The role \`${roleToRemove.name}\` no longer moderator.`);
 				break;
 		}

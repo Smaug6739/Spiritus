@@ -94,13 +94,13 @@ export default class extends Command {
 						if (!emoteRRAdd && this.util.isUnicode(args.get('emoji').value)) emoteRRAdd = args.get('emoji').value;
 						if (!emoteRRAdd) return interaction.replyErrorMessage(`Emoji not found.`);
 						const role = this.util.resolveRole(interaction.guild, args.get('role').value);
-						if (!role || role.id == interaction.guildID) return interaction.replyErrorMessage(`Role not found.`);
+						if (!role || role.id == interaction.guildId) return interaction.replyErrorMessage(`Role not found.`);
 						let existingReactionRole = await settings.reactionroles.find(r => r.emoji == emoteRRAdd.id ? emoteRRAdd.id : emoteRRAdd && r.interactionID == messageRRAdd.id && r.roleID == role.id)
 						if (existingReactionRole) return interaction.replyErrorMessage(`Emoji already use for this interaction.`);
 						await messageRRAdd.react(emoteRRAdd.id ? `${emoteRRAdd.name}:${emoteRRAdd.id}` : emoteRRAdd);
 						let arrayRRAdd = settings.reactionroles
 						arrayRRAdd.push({ channelID: channelRRAdd.id, messageID: messageRRAdd.id, emoji: emoteRRAdd.id ? emoteRRAdd.id : emoteRRAdd, roleID: role.id })
-						await this.db.updateGuild(interaction.guildID, { reactionroles: arrayRRAdd });
+						await this.db.updateGuild(interaction.guildId, { reactionroles: arrayRRAdd });
 						interaction.replySuccessMessage(`Role-reaction have been created.`);
 					} catch (e: any) {
 						if (e.message.match('Unknown interaction')) return interaction.replyErrorMessage(`interaction not found`);
@@ -120,8 +120,8 @@ export default class extends Command {
 					if (!emojiToRemove && this.util.isUnicode(args.get('emoji').value)) emojiToRemove = args.get('emoji').value;
 					if (!emojiToRemove) return interaction.replyErrorMessage(`Emoji not found.`);
 					const role = this.util.resolveRole(interaction.guild, args.get('role').value);
-					if (!role || role.id == interaction.guildID) return interaction.replyErrorMessage(` Impossible de trouver ce rôle.`);
-					this.db.updateGuild(interaction.guildID, { $pull: { reactionroles: { channelID: channel, messageID: messageRR.id, emoji: emojiToRemove, roleID: role.id } } });
+					if (!role || role.id == interaction.guildId) return interaction.replyErrorMessage(` Impossible de trouver ce rôle.`);
+					this.db.updateGuild(interaction.guildId, { $pull: { reactionroles: { channelID: channel, messageID: messageRR.id, emoji: emojiToRemove, roleID: role.id } } });
 					interaction.replySuccessMessage(`I have deleted this role-reaction.`);
 				} catch (e: any) {
 					if (e.interaction.match('Unknown interaction')) return interaction.replyErrorMessage(`interaction not found`);
@@ -129,7 +129,7 @@ export default class extends Command {
 				}
 				break;
 			case 'rem-all':
-				await this.db.updateGuild(interaction.guildID, { reactionroles: [] })
+				await this.db.updateGuild(interaction.guildId, { reactionroles: [] })
 				interaction.replySuccessMessage(`All guild roles-reactions have been deleted`);
 				break;
 		}

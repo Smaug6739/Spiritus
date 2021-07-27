@@ -1,5 +1,4 @@
-import type { Client, Guild, GuildMember, Role, GuildEmoji, GuildChannel, User } from "discord.js";
-import { ThreadChannel } from "discord.js";
+import type { Client, Guild, GuildMember, Role, GuildEmoji, GuildChannel, User, ThreadChannel } from "discord.js";
 import type { IGuildDB } from '../typescript/interfaces';
 
 export default class Util {

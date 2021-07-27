@@ -168,7 +168,6 @@ export default class extends Command {
 				const role = this.util.resolveRole(interaction.guild, args.get('position').value)
 				if (!role) return interaction.replyErrorMessage(`Role not found`)
 				const newPosition = args.get('position').value
-				console.log(newPosition)
 				if (interaction.guild!.me!.roles.highest.comparePositionTo(role) <= 0) return interaction.replyErrorMessage(`I do not have a role sufficient to modify this role.`)
 				if (interaction.guild!.me!.roles.highest.rawPosition <= newPosition) return interaction.replyErrorMessage(`I do not have a role sufficient to put this role so high.`)
 				if (interaction.member!.roles.highest.comparePositionTo(role) <= 0) return interaction.replyErrorMessage(`You do not have a role sufficient to modify this role.`)

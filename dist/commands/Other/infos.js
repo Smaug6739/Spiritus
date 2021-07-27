@@ -134,7 +134,7 @@ class default_1 extends CommandClass_1.default {
                 break;
             case 'server':
                 const guild_name = interaction.guild.name;
-                const owner = `<@${interaction.guild.ownerID}>`;
+                const owner = `<@${interaction.guild.ownerId}>`;
                 const boost = interaction.guild.premiumSubscriptionCount;
                 let boostMsg = '';
                 if (!boost)
@@ -147,9 +147,9 @@ class default_1 extends CommandClass_1.default {
                 // const idle = fetchedMembers.filter(member => member.presence.status === 'idle').size;
                 // const dnd = fetchedMembers.filter(member => member.presence.status === 'dnd').size;
                 // const off = fetchedMembers.filter(member => member.presence.status === 'offline').size;
-                const channel_t = interaction.guild.channels.cache.filter(channel => channel.type === "text").size;
-                const channel_v = interaction.guild.channels.cache.filter(channel => channel.type === "voice").size;
-                const channel_c = interaction.guild.channels.cache.filter(channel => channel.type === "category").size;
+                const channel_t = interaction.guild.channels.cache.filter(channel => channel.type === "GUILD_TEXT").size;
+                const channel_v = interaction.guild.channels.cache.filter(channel => channel.type === "GUILD_VOICE").size;
+                const channel_c = interaction.guild.channels.cache.filter(channel => channel.type === "GUILD_CATEGORY").size;
                 const roles = interaction.guild.roles.cache.size;
                 const salons = interaction.guild.channels.cache.size;
                 const embedInfoGuild = new discord_js_1.MessageEmbed();

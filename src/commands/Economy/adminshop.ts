@@ -84,13 +84,13 @@ export default class extends Command {
 			case 'rem':
 				if (settings.shop) {
 					if (args.get('item').value === 'all') {
-						await this.db.updateGuild(interaction.guildID, { shop: [] });
+						await this.db.updateGuild(interaction.guildId, { shop: [] });
 						return interaction.replySuccessMessage(`Every items have been deleted.`);
 					} else {
 						const title = args.get('item').value
 						let objet = settings.shop.find(e => e.name === title)
 						if (objet) {
-							this.db.updateGuild(interaction.guildID, { $pull: { shop: { name: title } } });
+							this.db.updateGuild(interaction.guildId, { $pull: { shop: { name: title } } });
 							interaction.replySuccessMessage(`Item deleted.`)
 						} else return interaction.replyErrorMessage(`Item not found.`)
 					}

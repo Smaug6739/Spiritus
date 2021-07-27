@@ -6,6 +6,7 @@ export default class {
 		this.spiritus = spiritus;
 	}
 	async run(interaction: ICommandInteraction) {
+
 		if (!interaction.isCommand()) return;
 		const settings = await this.spiritus.db.getGuild(interaction.guild!.id);
 		let member = interaction.guild!.members.cache.get(interaction.user.id);
@@ -25,7 +26,6 @@ export default class {
 		if (command.userPermissions.includes('BOT_ADMIN') && !this.spiritus.admins.includes(interaction.user.id)) {
 			return interaction.replyErrorMessage(`You don't have permissions for use this command.`);
 		}
-
 		if (command.userPermissions.length) {
 			for (const permission of command.userPermissions) {
 				if (!interaction.guild?.members.cache.get(interaction.user.id)!.permissions.has(permission))
@@ -55,13 +55,11 @@ export default class {
 			tStamps.set(interaction.user.id, timeNow);
 			setTimeout(() => tStamps.delete(interaction.user.id), cdAmount);
 		}
+
 		/* ---------------SUB-COMMAND--------------- */
-		if (interaction.options?.first()) {
-			interaction.options.each((o: any) => {
-				if (o.type === 'SUB_COMMAND') interaction.subcommand = o.name
-			})
-		}
-		if (!interaction.subcommand) interaction.subcommand = null;
+		interaction.subcommand = interaction.options.getSubCommand(false);
+
+		//interaction.subcommand = interaction.options
 		/* ---------------OPTIONS--------------- */
 		let args = null;
 		if (!interaction.subcommand) args = interaction.options;

@@ -44,7 +44,7 @@ class default_1 extends CommandClass_1.default {
         else {
             dbUser = await this.spiritus.db.getUser(interaction.guild.id, interaction.user.id);
             if (!dbUser)
-                return interaction.replyErrorMessage('User not found');
+                return interaction.replyErrorMessage('You don\'t have experience yet.');
             user = interaction.user;
         }
         let progress = dbUser.experience;

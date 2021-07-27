@@ -180,7 +180,6 @@ class default_1 extends CommandClass_1.default {
                 if (!role)
                     return interaction.replyErrorMessage(`Role not found`);
                 const newPosition = args.get('position').value;
-                console.log(newPosition);
                 if (interaction.guild.me.roles.highest.comparePositionTo(role) <= 0)
                     return interaction.replyErrorMessage(`I do not have a role sufficient to modify this role.`);
                 if (interaction.guild.me.roles.highest.rawPosition <= newPosition)

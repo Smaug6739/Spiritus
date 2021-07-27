@@ -39,7 +39,6 @@ class default_1 extends CommandClass_1.default {
                 evaled = `(async () => { ${args.get('eval').value.trim()} })()`;
             }
             evaled = await eval(evaled);
-            console.log(evaled);
             if (typeof evaled === 'object') {
                 evaled = util_1.default.inspect(evaled, { depth: 0, showHidden: true });
             }

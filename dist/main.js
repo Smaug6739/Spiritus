@@ -40,7 +40,7 @@ discord_js_1.CommandInteraction.prototype.replyErrorMessage = function (content)
 class Spiritus {
     constructor() {
         this.client = new discord_js_1.Client({
-            intents: discord_js_1.Intents.ALL,
+            intents: ['GUILDS', 'GUILD_MESSAGES', 'GUILD_MEMBERS', discord_js_1.Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS, 'GUILD_MESSAGE_REACTIONS'],
             partials: ['CHANNEL', 'REACTION', 'USER', 'MESSAGE']
         });
         this.config = config_1.default;

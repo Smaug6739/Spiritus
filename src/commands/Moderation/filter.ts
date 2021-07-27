@@ -59,13 +59,13 @@ export default class extends Command {
 			case 'add':
 				const wordToAdd = args.get('word').value
 				settings.filter.push(wordToAdd);
-				await this.spiritus.db.updateGuild(interaction.guildID, { $push: { filter: wordToAdd } })
+				await this.spiritus.db.updateGuild(interaction.guildId, { $push: { filter: wordToAdd } })
 				interaction.replySuccessMessage(`This word is now forbidden on the server.`);
 				break;
 			case 'rem':
 				const wordToRemove = args.get('word').value
 				if (!settings.filter.includes(wordToRemove)) return interaction.replyErrorMessage(`This word is not in the list.`);
-				await this.spiritus.db.updateGuild(interaction.guildID, { $pull: { filter: wordToRemove } })
+				await this.spiritus.db.updateGuild(interaction.guildId, { $pull: { filter: wordToRemove } })
 				interaction.replySuccessMessage(`The word \`${wordToRemove}\` is now allowed.`);
 				break;
 

@@ -39,8 +39,6 @@ export default class extends Command {
 			}
 
 			evaled = await eval(evaled!);
-			console.log(evaled);
-
 			if (typeof evaled === 'object') {
 				evaled = util.inspect(evaled, { depth: 0, showHidden: true });
 			} else {

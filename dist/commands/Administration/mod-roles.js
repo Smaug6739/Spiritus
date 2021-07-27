@@ -61,7 +61,7 @@ class default_1 extends CommandClass_1.default {
                 if (settings.modRoles.includes(roleToAdd.id))
                     return interaction.replyErrorMessage(`This role is already a moderator.`);
                 else {
-                    await this.db.updateGuild(interaction.guildID, { $push: { modRoles: roleToAdd.id } });
+                    await this.db.updateGuild(interaction.guildId, { $push: { modRoles: roleToAdd.id } });
                     interaction.replySuccessMessage(`This role is now a moderator.`);
                 }
                 break;
@@ -71,7 +71,7 @@ class default_1 extends CommandClass_1.default {
                     return interaction.replyErrorMessage(`Role not found.`);
                 if (!settings.modRoles.includes(roleToRemove.id))
                     return interaction.replyErrorMessage(`This role is not a moderator.`);
-                await this.db.updateGuild(interaction.guildID, { $pull: { modRoles: roleToRemove.id } });
+                await this.db.updateGuild(interaction.guildId, { $pull: { modRoles: roleToRemove.id } });
                 interaction.replySuccessMessage(`The role \`${roleToRemove.name}\` no longer moderator.`);
                 break;
         }

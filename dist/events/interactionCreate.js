@@ -61,14 +61,8 @@ class default_1 {
             setTimeout(() => tStamps.delete(interaction.user.id), cdAmount);
         }
         /* ---------------SUB-COMMAND--------------- */
-        if (interaction.options?.first()) {
-            interaction.options.each((o) => {
-                if (o.type === 'SUB_COMMAND')
-                    interaction.subcommand = o.name;
-            });
-        }
-        if (!interaction.subcommand)
-            interaction.subcommand = null;
+        interaction.subcommand = interaction.options.getSubCommand(false);
+        //interaction.subcommand = interaction.options
         /* ---------------OPTIONS--------------- */
         let args = null;
         if (!interaction.subcommand)

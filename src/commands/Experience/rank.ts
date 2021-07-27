@@ -37,7 +37,7 @@ export default class extends Command {
 			if (!dbUser) return interaction.replyErrorMessage('User not found.');
 		} else {
 			dbUser = await this.spiritus.db.getUser(interaction.guild!.id, interaction.user.id);
-			if (!dbUser) return interaction.replyErrorMessage('User not found');
+			if (!dbUser) return interaction.replyErrorMessage('You don\'t have experience yet.');
 			user = interaction.user;
 		}
 		let progress = dbUser.experience

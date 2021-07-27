@@ -73,7 +73,7 @@ class default_1 extends CommandClass_1.default {
                 const dbUser = await this.db.getUser(interaction.user, interaction.guild.id);
                 if (!dbUser) {
                     await this.db.createUser({
-                        guildID: interaction.guildID,
+                        guildID: interaction.guildId,
                         guildName: interaction.guild.name,
                         userID: interaction.user.id,
                         username: interaction.user.tag,
@@ -84,7 +84,7 @@ class default_1 extends CommandClass_1.default {
                 }
                 else {
                     if (!dbUser.coins)
-                        this.db.updateUser(interaction.guildID, interaction.user.id, { coins: 0 });
+                        this.db.updateUser(interaction.guildId, interaction.user.id, { coins: 0 });
                     const embed = new discord_js_1.MessageEmbed();
                     embed.setTitle(`Inventory of **${interaction.user.username}**`);
                     embed.setColor(this.colors.embed);

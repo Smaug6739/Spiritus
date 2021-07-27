@@ -1,7 +1,7 @@
+import type { ICommandInteraction, ICommandArgs, IGuildDB } from '../../typescript/interfaces';
 import { MessageEmbed } from 'discord.js';
 import ms from 'ms';
 import Command from '../CommandClass';
-import type { ICommandInteraction, ICommandArgs, IGuildDB } from '../../typescript/interfaces';
 
 export default class extends Command {
 
@@ -44,9 +44,9 @@ export default class extends Command {
 				color: '#2f3136',
 				permissions: []
 			});
-			interaction.guild!.channels.cache.forEach(async (channel) => {
+			interaction.guild!.channels.cache.forEach(async (channel: any) => {
 				if (channel.isThread()) return;
-				await channel.updateOverwrite(muteRole!, {
+				await channel.updateOverwrite!(muteRole!, {
 					SEND_MESSAGES: false,
 					ADD_REACTIONS: false,
 					CONNECT: false
