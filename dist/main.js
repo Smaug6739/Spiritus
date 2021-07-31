@@ -24,11 +24,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const config_private_1 = __importDefault(require("./config.private"));
 const config_1 = __importDefault(require("./config"));
-const functions_1 = __importDefault(require("./utils/functions"));
 const databaseFunctions_1 = __importDefault(require("./utils/databaseFunctions"));
+const functions = __importStar(require("./utils/functions"));
 const mongoose_1 = __importDefault(require("mongoose"));
+const discord_resolve_1 = require("discord-resolve");
 const discord_js_1 = require("discord.js");
-// const { CommandInteraction } = require('discord.js');
 const fs_1 = require("fs");
 const path_1 = require("path");
 discord_js_1.CommandInteraction.prototype.replySuccessMessage = function (content) {
@@ -46,11 +46,12 @@ class Spiritus {
         this.config = config_1.default;
         this.privateConfig = config_private_1.default;
         this.token = config_private_1.default.tokens.discord;
-        this.errorHook = new discord_js_1.WebhookClient(this.privateConfig.logs.error.id, this.privateConfig.logs.error.token);
+        this.errorHook = new discord_js_1.WebhookClient({ url: this.privateConfig.logs });
         this.owner = config_1.default.owner.username;
         this.commands = new Map();
         this.cooldowns = new Map();
-        this.util = new functions_1.default(this.client);
+        this.util = new discord_resolve_1.DiscordResolve(this.client);
+        this.functions = functions;
         this.models = { Guild: require('./models/guild').default, User: require('./models/user').default };
         this.db = new databaseFunctions_1.default(this);
         this.emojis = config_1.default.emojis;
@@ -113,18 +114,8 @@ class Spiritus {
             this.errorHook.send({ content: "```js" + warning.toString() + "```" });
         });
     }
-    log(type, options) {
-        let id;
-        let token;
-        if (type === 'error') {
-            id = this.privateConfig.logs.error.id;
-            token = this.privateConfig.logs.error.token;
-        }
-        else {
-            id = this.privateConfig.logs.info.id;
-            token = this.privateConfig.logs.info.token;
-        }
-        const webhook = new discord_js_1.WebhookClient(id, token);
+    log(options) {
+        const webhook = new discord_js_1.WebhookClient({ url: this.privateConfig.logs });
         webhook.send(options);
     }
     connectDB() {
@@ -147,7 +138,7 @@ class Spiritus {
                 .setColor('#0099ff')
                 .setTimestamp()
                 .setFooter(`Mongoose connection`);
-            this.log('info', {
+            this.log({
                 username: 'Mongoose',
                 avatar: this.privateConfig.mongoose.avatar || '',
                 embeds: [embed]

@@ -8,7 +8,7 @@ export default class extends Command {
 		super(spiritus, {
 			name: 'ignore',
 			aliases: [],
-			args: [],
+			options: [],
 			description: 'Ignore channel for the bot.',
 			category: 'Other',
 			cooldown: 5,
@@ -18,7 +18,7 @@ export default class extends Command {
 				{
 					name: 'add',
 					description: 'Ignore a channel for bot commands.',
-					args: [{
+					options: [{
 						name: 'channel',
 						description: 'The channel',
 						type: 'STRING',
@@ -28,7 +28,7 @@ export default class extends Command {
 				{
 					name: 'rem',
 					description: 'Enable ignored channel for bot commands.',
-					args: [{
+					options: [{
 						name: 'channel',
 						description: 'The channel',
 						type: 'STRING',
@@ -39,7 +39,6 @@ export default class extends Command {
 					name: 'list',
 					description: 'View ignore channels for bot commands.',
 					usage: '',
-					args: [],
 				},
 			],
 		})

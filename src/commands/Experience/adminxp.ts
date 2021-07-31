@@ -7,7 +7,7 @@ export default class extends Command {
 		super(spiritus, {
 			name: 'adminxp',
 			aliases: [],
-			args: [],
+			options: [],
 			description: 'Manage experience of users.',
 			category: 'Experience',
 			cooldown: 5,
@@ -17,7 +17,7 @@ export default class extends Command {
 				{
 					name: 'add',
 					description: 'Add exp to a user.',
-					args: [
+					options: [
 						{
 							name: 'user',
 							description: 'User to add experience',
@@ -35,7 +35,7 @@ export default class extends Command {
 				{
 					name: 'rem',
 					description: 'Remove exp to a user.',
-					args: [
+					options: [
 						{
 							name: 'user',
 							description: 'User to add experience',

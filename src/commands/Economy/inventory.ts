@@ -8,7 +8,7 @@ export default class extends Command {
 		super(spiritus, {
 			name: 'inventory',
 			aliases: [],
-			args: [
+			options: [
 				{
 					name: 'user',
 					description: 'View invertory of user',

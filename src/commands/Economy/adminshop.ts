@@ -7,7 +7,7 @@ export default class extends Command {
 		super(spiritus, {
 			name: 'admin-shop',
 			aliases: [],
-			args: [],
+			options: [],
 			description: 'Give coins to a user.',
 			category: 'Economy',
 			cooldown: 5,
@@ -17,7 +17,7 @@ export default class extends Command {
 				{
 					name: 'add',
 					description: 'Add item to the shop.',
-					args: [
+					options: [
 						{
 							name: 'name',
 							description: 'Name of object',
@@ -41,7 +41,7 @@ export default class extends Command {
 				{
 					name: 'rem',
 					description: 'Remove item to the shop or remove all items.',
-					args: [
+					options: [
 						{
 							name: 'item',
 							description: 'Remove object of shop',

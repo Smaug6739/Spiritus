@@ -9,7 +9,7 @@ class Command {
         this.db = this.spiritus.db;
         this.name = options.name;
         this.aliases = options.aliases;
-        this.args = options.args;
+        this.options = options.options;
         this.category = options.category;
         this.description = options.description;
         this.cooldown = options.cooldown;

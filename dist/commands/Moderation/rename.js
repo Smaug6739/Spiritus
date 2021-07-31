@@ -9,7 +9,7 @@ class default_1 extends CommandClass_1.default {
         super(spiritus, {
             name: 'rename',
             aliases: [],
-            args: [
+            options: [
                 {
                     name: 'user',
                     description: 'User to change',

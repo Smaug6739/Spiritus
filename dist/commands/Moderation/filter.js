@@ -10,14 +10,7 @@ class default_1 extends CommandClass_1.default {
         super(spiritus, {
             name: 'filter',
             aliases: [],
-            args: [
-                {
-                    name: 'A',
-                    description: 'D',
-                    type: 'STRING',
-                    required: true
-                },
-            ],
+            options: [],
             description: 'Add word to the blacklist',
             category: 'Moderation',
             cooldown: 5,
@@ -27,7 +20,7 @@ class default_1 extends CommandClass_1.default {
                 {
                     name: 'add',
                     description: 'Add word to the blacklist',
-                    args: [
+                    options: [
                         {
                             name: 'word',
                             description: 'Word to add to the blacklist',
@@ -39,7 +32,7 @@ class default_1 extends CommandClass_1.default {
                 {
                     name: 'rem',
                     description: 'Remove word to the blacklist',
-                    args: [
+                    options: [
                         {
                             name: 'word',
                             description: 'Word to remove to the blacklist',
@@ -51,7 +44,7 @@ class default_1 extends CommandClass_1.default {
                 {
                     name: 'list',
                     description: 'View blacklist',
-                    args: [],
+                    options: [],
                 },
             ],
         });

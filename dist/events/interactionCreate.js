@@ -22,7 +22,7 @@ class default_1 {
         }
         /* ---------------PERMISSIONS--------------- */
         if (command.userPermissions.includes('MODERATOR')) {
-            const isMod = await this.spiritus.util.checkMod(interaction.member, settings);
+            const isMod = await this.spiritus.functions.checkMod(interaction.member, settings);
             if (!isMod || isMod == false)
                 return interaction.replyErrorMessage(`You don't have permissions for use this command.`);
         }
@@ -61,14 +61,11 @@ class default_1 {
             setTimeout(() => tStamps.delete(interaction.user.id), cdAmount);
         }
         /* ---------------SUB-COMMAND--------------- */
-        interaction.subcommand = interaction.options.getSubCommand(false);
+        interaction.subcommand = interaction.options.getSubcommand(false);
         //interaction.subcommand = interaction.options
         /* ---------------OPTIONS--------------- */
-        let args = null;
-        if (!interaction.subcommand)
-            args = interaction.options;
-        else
-            args = interaction.options.get(interaction.subcommand)?.options;
+        let args = interaction.options;
+        // if (interaction.subcommand) args = interaction.options.get(interaction.subcommand)?.options;
         /* ---------------COMMAND--------------- */
         try {
             await command.execute(interaction, args, settings);

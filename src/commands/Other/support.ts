@@ -7,7 +7,7 @@ export default class extends Command {
 		super(spiritus, {
 			name: 'support',
 			aliases: [],
-			args: [],
+			options: [],
 			description: 'Get link of support server.',
 			category: 'Other',
 			cooldown: 5,

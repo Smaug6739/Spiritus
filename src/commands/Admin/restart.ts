@@ -9,7 +9,7 @@ export default class extends Command {
 		super(spiritus, {
 			name: 'restart',
 			aliases: [],
-			args: [],
+			options: [],
 			description: 'Restart the bot.',
 			category: 'Admin',
 			cooldown: 5,

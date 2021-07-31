@@ -7,7 +7,7 @@ export default class extends Command {
 		super(spiritus, {
 			name: 'unlock',
 			aliases: [],
-			args: [
+			options: [
 				{
 					name: 'channel',
 					description: 'Channel to unlock',

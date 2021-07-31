@@ -10,7 +10,7 @@ class default_1 extends CommandClass_1.default {
         super(spiritus, {
             name: 'mod-roles',
             aliases: [],
-            args: [],
+            options: [],
             description: 'Manage roles from the server.',
             category: 'Administration',
             cooldown: 5,
@@ -20,22 +20,33 @@ class default_1 extends CommandClass_1.default {
                 {
                     name: 'list',
                     description: 'List of moderators roles on the guild.',
-                    usage: '',
-                    args: 0,
-                    exemples: []
                 },
                 {
                     name: 'add',
                     description: 'Add moderator role on the guild.',
                     usage: '<role>',
-                    args: 1,
+                    options: [
+                        {
+                            name: 'role',
+                            description: 'Role to add.',
+                            type: 'STRING',
+                            required: true
+                        },
+                    ],
                     exemples: ['@role']
                 },
                 {
                     name: 'rem',
                     description: 'Remove moderator role on the guild.',
                     usage: '<role>',
-                    args: 1,
+                    options: [
+                        {
+                            name: 'role',
+                            description: 'Role to remove.',
+                            type: 'STRING',
+                            required: true
+                        },
+                    ],
                     exemples: ['@role']
                 },
             ],

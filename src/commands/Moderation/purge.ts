@@ -8,7 +8,7 @@ export default class extends Command {
 		super(spiritus, {
 			name: 'purge',
 			aliases: [],
-			args: [],
+			options: [],
 			description: 'Purge messages from channel.',
 			category: 'Moderation',
 			cooldown: 5,
@@ -19,7 +19,7 @@ export default class extends Command {
 					name: 'channel',
 					description: 'Fully purge a channel.',
 					usage: '',
-					args: [
+					options: [
 						{
 							name: 'channel',
 							description: 'Channel to purge.',
@@ -31,7 +31,7 @@ export default class extends Command {
 				{
 					name: 'messages',
 					description: 'Delete messages in a channel.',
-					args: [
+					options: [
 						{
 							name: 'number',
 							description: 'Number of messages',
@@ -43,7 +43,7 @@ export default class extends Command {
 				{
 					name: 'user',
 					description: 'Purge messages from single user.',
-					args: [
+					options: [
 						{
 							name: 'user',
 							description: 'User',
@@ -97,10 +97,10 @@ export default class extends Command {
 				const channelTextUser: any = interaction.channel;
 				const user = await this.spiritus.util.resolveMember(interaction.guild, args.get('user').value)
 				if (isNaN(argNumber) || (argNumber < 1 || argNumber > 100)) return interaction.replyErrorMessage(`You must specify a number between 1 and 100.`);
-				const messagesOfUser = (await interaction.channel!.messages.fetch({
+				const messagesOfUser: any = (await interaction.channel!.messages.fetch({
 					limit: 100,
 					before: interaction.id,
-				})).filter(a => a.author.id === user.id).array();
+				})).filter(a => a.author.id === user.id);
 				messagesOfUser.length = Math.min(argNumber, messagesOfUser.length);
 				if (messagesOfUser.length === 0 || !user) return interaction.replyErrorMessage(`No message to delete`);
 				if (messagesOfUser.length === 1) await messagesOfUser[1].delete();

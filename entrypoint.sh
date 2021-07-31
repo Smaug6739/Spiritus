@@ -9,11 +9,14 @@
 
 echo "Waiting ..."
 
-while ! timeout 1 bash -c "echo > /dev/tcp/mongo/27017"; do   
+SERVICE = $1
+PORT = $2
+
+while ! timeout 1 bash -c "echo > /dev/tcp/$SERVICE/$PORT"; do   
   sleep 1
 done
 
-echo "Mongodb launched"
+echo "$SERVICE launched"
 
 # Run the main container command.
 exec "$@"

@@ -11,7 +11,7 @@ class default_1 extends CommandClass_1.default {
         super(spiritus, {
             name: 'emojis',
             aliases: [],
-            args: [],
+            options: [],
             description: 'Manage roles from the server.',
             category: 'Administration',
             cooldown: 5,
@@ -22,7 +22,7 @@ class default_1 extends CommandClass_1.default {
                     name: 'list',
                     description: 'List of moderators roles on the guild.',
                     usage: '',
-                    args: [
+                    options: [
                         {
                             name: 'emoji',
                             description: 'Emoji to create (url, server emoji...).',
@@ -41,7 +41,7 @@ class default_1 extends CommandClass_1.default {
                 {
                     name: 'create',
                     description: 'Create an emoji on the guild.',
-                    args: [
+                    options: [
                         {
                             name: 'emoji',
                             description: 'Emoji to view.',
@@ -53,7 +53,7 @@ class default_1 extends CommandClass_1.default {
                 {
                     name: 'update',
                     description: 'Update emoji on the guild.',
-                    args: [
+                    options: [
                         {
                             name: 'emoji',
                             description: 'Emoji to update.',
@@ -65,7 +65,7 @@ class default_1 extends CommandClass_1.default {
                 {
                     name: 'delete',
                     description: 'Delete emoji on the guild.',
-                    args: [
+                    options: [
                         {
                             name: 'emoji',
                             description: 'Emoji to delete.',
@@ -77,7 +77,7 @@ class default_1 extends CommandClass_1.default {
                 {
                     name: 'view',
                     description: 'View an emoji.',
-                    args: [
+                    options: [
                         {
                             name: 'emoji',
                             description: 'Emoji to view.',

@@ -8,7 +8,7 @@ export default class extends Command {
 		super(spiritus, {
 			name: 'leaderboard',
 			aliases: [],
-			args: [],
+			options: [],
 			description: 'View leaderboard of server.',
 			category: 'Experience',
 			cooldown: 5,

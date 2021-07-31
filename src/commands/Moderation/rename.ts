@@ -7,7 +7,7 @@ export default class extends Command {
 		super(spiritus, {
 			name: 'rename',
 			aliases: [],
-			args: [
+			options: [
 				{
 					name: 'user',
 					description: 'User to change',

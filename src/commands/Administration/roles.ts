@@ -6,7 +6,7 @@ export default class extends Command {
 		super(spiritus, {
 			name: 'role',
 			aliases: [],
-			args: [],
+			options: [],
 			description: 'Manage roles from the server.',
 			category: 'Administration',
 			cooldown: 5,
@@ -17,12 +17,12 @@ export default class extends Command {
 					name: 'list',
 					description: 'View roles of the guild.',
 					usage: '',
-					args: [],
+					options: [],
 				},
 				{
 					name: 'create',
 					description: 'Create role on the guild.',
-					args: [{
+					options: [{
 						name: 'name',
 						description: 'Name of role',
 						type: 'STRING',
@@ -32,7 +32,7 @@ export default class extends Command {
 				{
 					name: 'update',
 					description: 'Update role on the guild.',
-					args: [
+					options: [
 						{
 							name: 'role',
 							description: 'Role to update.',
@@ -50,7 +50,7 @@ export default class extends Command {
 				{
 					name: 'delete',
 					description: 'Delete role on the guild.',
-					args: [
+					options: [
 						{
 							name: 'role',
 							description: 'Role to update.',
@@ -62,7 +62,7 @@ export default class extends Command {
 				{
 					name: 'position',
 					description: 'Update position of role on the guild.',
-					args: [
+					options: [
 						{
 							name: 'role',
 							description: 'Role to update.',
@@ -80,7 +80,7 @@ export default class extends Command {
 				{
 					name: 'add',
 					description: 'Add role to a user.',
-					args: [
+					options: [
 						{
 							name: 'user',
 							description: 'User to add role.',

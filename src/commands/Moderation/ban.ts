@@ -8,7 +8,7 @@ export default class extends Command {
 		super(spiritus, {
 			name: 'ban',
 			aliases: [],
-			args: [
+			options: [
 				{
 					name: 'user',
 					description: 'User to be banned',

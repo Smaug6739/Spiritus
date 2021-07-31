@@ -1,12 +1,12 @@
 import type { IConfig, IEmojis, IColors, IWebhookSend } from './typescript/interfaces';
 import configPrivate from './config.private';
 import config from './config';
-import Util from './utils/functions';
 import DbFunctions from './utils/databaseFunctions';
+import * as functions from './utils/functions';
 
 import mongoose from 'mongoose';
+import { DiscordResolve } from 'discord-resolve';
 import { Client, Intents, WebhookClient, MessageEmbed, CommandInteraction } from 'discord.js';
-// const { CommandInteraction } = require('discord.js');
 import { readdirSync } from 'fs';
 import { join } from 'path';
 
@@ -37,6 +37,7 @@ class Spiritus {
 	public models: any;
 	public db: any;
 	public util: any;
+	public functions: any;
 	public emojis: IEmojis;
 	public colors: IColors;
 	constructor() {
@@ -47,11 +48,12 @@ class Spiritus {
 		this.config = config;
 		this.privateConfig = configPrivate;
 		this.token = configPrivate.tokens.discord;
-		this.errorHook = new WebhookClient(this.privateConfig.logs.error.id, this.privateConfig.logs.error.token);
+		this.errorHook = new WebhookClient({ url: this.privateConfig.logs });
 		this.owner = config.owner.username;
 		this.commands = new Map();
 		this.cooldowns = new Map();
-		this.util = new Util(this.client);
+		this.util = new DiscordResolve(this.client);
+		this.functions = functions
 		this.models = { Guild: require('./models/guild').default, User: require('./models/user').default }
 		this.db = new DbFunctions(this);
 		this.emojis = config.emojis;
@@ -109,17 +111,8 @@ class Spiritus {
 			this.errorHook.send({ content: "```js" + warning.toString() + "```" });
 		});
 	}
-	public log(type: string, options: IWebhookSend) {
-		let id;
-		let token;
-		if (type === 'error') {
-			id = this.privateConfig.logs.error.id
-			token = this.privateConfig.logs.error.token
-		} else {
-			id = this.privateConfig.logs.info.id
-			token = this.privateConfig.logs.info.token
-		}
-		const webhook = new WebhookClient(id, token);
+	public log(options: IWebhookSend) {
+		const webhook = new WebhookClient({ url: this.privateConfig.logs });
 		webhook.send(options)
 	}
 	private connectDB() {
@@ -142,7 +135,7 @@ class Spiritus {
 				.setColor('#0099ff')
 				.setTimestamp()
 				.setFooter(`Mongoose connection`);
-			this.log('info', {
+			this.log({
 				username: 'Mongoose',
 				avatar: this.privateConfig.mongoose.avatar || '',
 				embeds: [embed]

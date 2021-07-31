@@ -6,7 +6,7 @@ export default class extends Command {
 		super(spiritus, {
 			name: 'channel',
 			aliases: [],
-			args: [],
+			options: [],
 			description: 'Manage channels from the server.',
 			category: 'Administration',
 			cooldown: 5,
@@ -16,7 +16,7 @@ export default class extends Command {
 				{
 					name: 'create',
 					description: 'Create channel on the guild.',
-					args: [
+					options: [
 						{
 							name: 'type',
 							description: 'Type of channel.',
@@ -34,7 +34,7 @@ export default class extends Command {
 				{
 					name: 'update',
 					description: 'Update channel on the guild.',
-					args: [
+					options: [
 						{
 							name: 'channel',
 							description: 'Channel to update.',
@@ -52,7 +52,7 @@ export default class extends Command {
 				{
 					name: 'delete',
 					description: 'Delete channel on the guild.',
-					args: [
+					options: [
 						{
 							name: 'channel',
 							description: 'Channel to delete.',
@@ -64,7 +64,7 @@ export default class extends Command {
 				{
 					name: 'clone',
 					description: 'Clone an channel of the guild.',
-					args: [
+					options: [
 						{
 							name: 'channel',
 							description: 'Channel to clone.',
@@ -76,7 +76,7 @@ export default class extends Command {
 				{
 					name: 'sync',
 					description: 'Synchronize the permissions of a channel.',
-					args: [
+					options: [
 						{
 							name: 'synchro',
 							description: 'Channel to sync.',

@@ -10,7 +10,7 @@ class default_1 extends CommandClass_1.default {
         super(spiritus, {
             name: 'commands',
             aliases: [],
-            args: [],
+            options: [],
             description: 'Manage custom commands from the server.',
             category: 'Administration',
             cooldown: 5,
@@ -20,14 +20,11 @@ class default_1 extends CommandClass_1.default {
                 {
                     name: 'list',
                     description: 'View commands custom on the guild.',
-                    usage: '',
-                    args: [],
-                    exemples: []
                 },
                 {
                     name: 'add',
                     description: 'Create command on the guild.',
-                    args: [
+                    options: [
                         {
                             name: 'name',
                             description: 'Name of command.',
@@ -45,7 +42,7 @@ class default_1 extends CommandClass_1.default {
                 {
                     name: 'rem',
                     description: 'Remove command of the guild.',
-                    args: [
+                    options: [
                         {
                             name: 'name',
                             description: 'Name of command.',

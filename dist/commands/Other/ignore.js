@@ -10,7 +10,7 @@ class default_1 extends CommandClass_1.default {
         super(spiritus, {
             name: 'ignore',
             aliases: [],
-            args: [],
+            options: [],
             description: 'Ignore channel for the bot.',
             category: 'Other',
             cooldown: 5,
@@ -20,7 +20,7 @@ class default_1 extends CommandClass_1.default {
                 {
                     name: 'add',
                     description: 'Ignore a channel for bot commands.',
-                    args: [{
+                    options: [{
                             name: 'channel',
                             description: 'The channel',
                             type: 'STRING',
@@ -30,7 +30,7 @@ class default_1 extends CommandClass_1.default {
                 {
                     name: 'rem',
                     description: 'Enable ignored channel for bot commands.',
-                    args: [{
+                    options: [{
                             name: 'channel',
                             description: 'The channel',
                             type: 'STRING',
@@ -41,7 +41,6 @@ class default_1 extends CommandClass_1.default {
                     name: 'list',
                     description: 'View ignore channels for bot commands.',
                     usage: '',
-                    args: [],
                 },
             ],
         });

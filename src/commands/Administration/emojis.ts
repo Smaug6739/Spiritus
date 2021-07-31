@@ -8,7 +8,7 @@ export default class extends Command {
 		super(spiritus, {
 			name: 'emojis',
 			aliases: [],
-			args: [],
+			options: [],
 			description: 'Manage roles from the server.',
 			category: 'Administration',
 			cooldown: 5,
@@ -19,7 +19,7 @@ export default class extends Command {
 					name: 'list',
 					description: 'List of moderators roles on the guild.',
 					usage: '',
-					args: [
+					options: [
 						{
 							name: 'emoji',
 							description: 'Emoji to create (url, server emoji...).',
@@ -38,7 +38,7 @@ export default class extends Command {
 				{
 					name: 'create',
 					description: 'Create an emoji on the guild.',
-					args: [
+					options: [
 						{
 							name: 'emoji',
 							description: 'Emoji to view.',
@@ -50,7 +50,7 @@ export default class extends Command {
 				{
 					name: 'update',
 					description: 'Update emoji on the guild.',
-					args: [
+					options: [
 						{
 							name: 'emoji',
 							description: 'Emoji to update.',
@@ -62,7 +62,7 @@ export default class extends Command {
 				{
 					name: 'delete',
 					description: 'Delete emoji on the guild.',
-					args: [
+					options: [
 						{
 							name: 'emoji',
 							description: 'Emoji to delete.',
@@ -74,7 +74,7 @@ export default class extends Command {
 				{
 					name: 'view',
 					description: 'View an emoji.',
-					args: [
+					options: [
 						{
 							name: 'emoji',
 							description: 'Emoji to view.',

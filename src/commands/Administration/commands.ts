@@ -7,7 +7,7 @@ export default class extends Command {
 		super(spiritus, {
 			name: 'commands',
 			aliases: [],
-			args: [],
+			options: [],
 			description: 'Manage custom commands from the server.',
 			category: 'Administration',
 			cooldown: 5,
@@ -17,14 +17,11 @@ export default class extends Command {
 				{
 					name: 'list',
 					description: 'View commands custom on the guild.',
-					usage: '',
-					args: [],
-					exemples: []
 				},
 				{
 					name: 'add',
 					description: 'Create command on the guild.',
-					args: [
+					options: [
 						{
 							name: 'name',
 							description: 'Name of command.',
@@ -42,7 +39,7 @@ export default class extends Command {
 				{
 					name: 'rem',
 					description: 'Remove command of the guild.',
-					args: [
+					options: [
 						{
 							name: 'name',
 							description: 'Name of command.',

@@ -7,7 +7,7 @@ export default class extends Command {
 		super(spiritus, {
 			name: 'daily',
 			aliases: [],
-			args: [],
+			options: [],
 			description: 'Give your money every day.',
 			category: 'Economy',
 			cooldown: 5,

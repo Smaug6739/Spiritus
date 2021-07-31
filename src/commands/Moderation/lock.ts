@@ -7,7 +7,7 @@ export default class extends Command {
 		super(spiritus, {
 			name: 'lock',
 			aliases: [],
-			args: [
+			options: [
 				{
 					name: 'channel',
 					description: 'Channel to lock',

@@ -11,7 +11,7 @@ class default_1 extends CommandClass_1.default {
         super(spiritus, {
             name: 'infos',
             aliases: [],
-            args: [],
+            options: [],
             description: 'Get informations',
             category: 'Other',
             cooldown: 5,
@@ -21,7 +21,7 @@ class default_1 extends CommandClass_1.default {
                 {
                     name: 'user',
                     description: 'Allows to have information about a user.',
-                    args: [
+                    options: [
                         {
                             name: 'user',
                             description: 'User to get infos',
@@ -33,17 +33,15 @@ class default_1 extends CommandClass_1.default {
                 {
                     name: 'bot',
                     description: 'Allows to have information about bot.',
-                    args: null,
                 },
                 {
                     name: 'server',
                     description: 'Allows to have information about server.',
-                    args: null,
                 },
                 {
                     name: 'role',
                     description: 'Allows to have information about role.',
-                    args: [
+                    options: [
                         {
                             name: 'role',
                             description: 'Role to get infos',
@@ -55,7 +53,7 @@ class default_1 extends CommandClass_1.default {
                 {
                     name: 'channel',
                     description: 'Allows to have information about channel.',
-                    args: [
+                    options: [
                         {
                             name: 'channel',
                             description: 'Channel to get infos',

@@ -8,7 +8,7 @@ export default class extends Command {
 		super(spiritus, {
 			name: 'shop',
 			aliases: [],
-			args: [
+			options: [
 				{
 					name: 'buy',
 					description: 'Buy an object in shop',

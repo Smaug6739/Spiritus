@@ -8,7 +8,7 @@ export default class Command {
 	public db;
 	protected name: string;
 	protected aliases: string[];
-	protected args: Array<ICommandInfosArgs>;
+	protected options: Array<ICommandInfosArgs> | undefined;
 	protected category: string;
 	protected description: string;
 	protected cooldown: number;
@@ -23,7 +23,7 @@ export default class Command {
 		this.db = this.spiritus.db;
 		this.name = options.name
 		this.aliases = options.aliases
-		this.args = options.args
+		this.options = options.options
 		this.category = options.category
 		this.description = options.description
 		this.cooldown = options.cooldown

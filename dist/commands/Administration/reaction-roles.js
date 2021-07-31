@@ -9,7 +9,7 @@ class default_1 extends CommandClass_1.default {
         super(spiritus, {
             name: 'reaction-role',
             aliases: [],
-            args: [],
+            options: [],
             description: 'Manage roles from the server.',
             category: 'Administration',
             cooldown: 5,
@@ -19,7 +19,7 @@ class default_1 extends CommandClass_1.default {
                 {
                     name: 'add',
                     description: 'Add role-reaction in the guild.',
-                    args: [
+                    options: [
                         {
                             name: 'channel',
                             description: 'Channel to add message reaction.',
@@ -49,7 +49,7 @@ class default_1 extends CommandClass_1.default {
                 {
                     name: 'rem',
                     description: 'Remove role-reaction in the guild.',
-                    args: [
+                    options: [
                         {
                             name: 'channel',
                             description: 'Channel to remove message reaction.',
@@ -79,7 +79,7 @@ class default_1 extends CommandClass_1.default {
                 {
                     name: 'rem-all',
                     description: 'Remove all role-reaction of the guild.',
-                    args: [],
+                    options: [],
                 }
             ],
         });

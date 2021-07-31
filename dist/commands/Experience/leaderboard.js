@@ -10,7 +10,7 @@ class default_1 extends CommandClass_1.default {
         super(spiritus, {
             name: 'leaderboard',
             aliases: [],
-            args: [],
+            options: [],
             description: 'View leaderboard of server.',
             category: 'Experience',
             cooldown: 5,

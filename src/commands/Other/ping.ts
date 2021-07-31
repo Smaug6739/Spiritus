@@ -7,7 +7,7 @@ export default class extends Command {
 		super(spiritus, {
 			name: 'ping',
 			aliases: [],
-			args: [],
+			options: [],
 			description: 'Get ping of the bot',
 			category: 'Other',
 			cooldown: 5,

@@ -10,7 +10,7 @@ class default_1 extends CommandClass_1.default {
         super(spiritus, {
             name: 'execute',
             aliases: [],
-            args: [
+            options: [
                 {
                     name: 'command',
                     description: 'command.',

@@ -9,7 +9,7 @@ class default_1 extends CommandClass_1.default {
         super(spiritus, {
             name: 'daily',
             aliases: [],
-            args: [],
+            options: [],
             description: 'Give your money every day.',
             category: 'Economy',
             cooldown: 5,

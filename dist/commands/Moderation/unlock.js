@@ -9,7 +9,7 @@ class default_1 extends CommandClass_1.default {
         super(spiritus, {
             name: 'unlock',
             aliases: [],
-            args: [
+            options: [
                 {
                     name: 'channel',
                     description: 'Channel to unlock',

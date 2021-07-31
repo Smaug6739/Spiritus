@@ -10,7 +10,7 @@ export default class extends Command {
 		super(spiritus, {
 			name: 'infos',
 			aliases: [],
-			args: [],
+			options: [],
 			description: 'Get informations',
 			category: 'Other',
 			cooldown: 5,
@@ -20,7 +20,7 @@ export default class extends Command {
 				{
 					name: 'user',
 					description: 'Allows to have information about a user.',
-					args: [
+					options: [
 						{
 							name: 'user',
 							description: 'User to get infos',
@@ -32,17 +32,15 @@ export default class extends Command {
 				{
 					name: 'bot',
 					description: 'Allows to have information about bot.',
-					args: null,
 				},
 				{
 					name: 'server',
 					description: 'Allows to have information about server.',
-					args: null,
 				},
 				{
 					name: 'role',
 					description: 'Allows to have information about role.',
-					args: [
+					options: [
 						{
 							name: 'role',
 							description: 'Role to get infos',
@@ -54,7 +52,7 @@ export default class extends Command {
 				{
 					name: 'channel',
 					description: 'Allows to have information about channel.',
-					args: [
+					options: [
 						{
 							name: 'channel',
 							description: 'Channel to get infos',

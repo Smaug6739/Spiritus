@@ -8,7 +8,7 @@ export default class extends Command {
 		super(spiritus, {
 			name: 'unmute',
 			aliases: [],
-			args: [
+			options: [
 				{
 					name: 'user',
 					description: 'User for unmute',

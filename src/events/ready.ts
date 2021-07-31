@@ -11,7 +11,7 @@ export default class {
 		for (const [_, command] of this.spiritus.commands) {
 			if (command.category.toLowerCase() === 'admin') continue;
 			if (!categories.includes(command.category)) categories.push(command.category);
-			const options: any[] = []
+			let options: any[] = []
 			if (command.subCommands) {
 				command.subCommands.forEach((sub: any) => {
 					options.push({
@@ -24,6 +24,18 @@ export default class {
 					})
 				})
 			}
+			if (command.options) {
+				command.options.forEach((op: any) => {
+					options.push({
+						type: 'STRING',
+						name: op.name,
+						description: op.description,
+						required: op.required,
+						choices: op.choices,
+						options: op.options,
+					})
+				})
+			}
 			allData.push({
 				name: command.name,
 				description: command.description,
@@ -31,7 +43,11 @@ export default class {
 				defaultPermission: command.defaultPermission,
 			})
 		}
-		this.spiritus.client.guilds.cache.get('809702809196560405')!.commands.set(allData);
+		// Dev
+		//this.spiritus.client.guilds.cache.get('809702809196560405')!.commands.set(allData);
+		// Prod
+		this.spiritus.client.application!.commands.set(allData);
+
 		console.log(`Logged in as ${this.spiritus.client.user?.tag}!`);
 
 	}

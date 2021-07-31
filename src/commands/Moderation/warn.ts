@@ -8,7 +8,7 @@ export default class extends Command {
 		super(spiritus, {
 			name: 'warn',
 			aliases: [],
-			args: [
+			options: [
 				{
 					name: 'user',
 					description: 'The user to warn',

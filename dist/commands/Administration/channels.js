@@ -9,7 +9,7 @@ class default_1 extends CommandClass_1.default {
         super(spiritus, {
             name: 'channel',
             aliases: [],
-            args: [],
+            options: [],
             description: 'Manage channels from the server.',
             category: 'Administration',
             cooldown: 5,
@@ -19,7 +19,7 @@ class default_1 extends CommandClass_1.default {
                 {
                     name: 'create',
                     description: 'Create channel on the guild.',
-                    args: [
+                    options: [
                         {
                             name: 'type',
                             description: 'Type of channel.',
@@ -37,7 +37,7 @@ class default_1 extends CommandClass_1.default {
                 {
                     name: 'update',
                     description: 'Update channel on the guild.',
-                    args: [
+                    options: [
                         {
                             name: 'channel',
                             description: 'Channel to update.',
@@ -55,7 +55,7 @@ class default_1 extends CommandClass_1.default {
                 {
                     name: 'delete',
                     description: 'Delete channel on the guild.',
-                    args: [
+                    options: [
                         {
                             name: 'channel',
                             description: 'Channel to delete.',
@@ -67,7 +67,7 @@ class default_1 extends CommandClass_1.default {
                 {
                     name: 'clone',
                     description: 'Clone an channel of the guild.',
-                    args: [
+                    options: [
                         {
                             name: 'channel',
                             description: 'Channel to clone.',
@@ -79,7 +79,7 @@ class default_1 extends CommandClass_1.default {
                 {
                     name: 'sync',
                     description: 'Synchronize the permissions of a channel.',
-                    args: [
+                    options: [
                         {
                             name: 'synchro',
                             description: 'Channel to sync.',

@@ -10,7 +10,7 @@ class default_1 extends CommandClass_1.default {
         super(spiritus, {
             name: 'kick',
             aliases: [],
-            args: [
+            options: [
                 {
                     name: 'user',
                     description: 'User to be banned',

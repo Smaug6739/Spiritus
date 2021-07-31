@@ -17,6 +17,18 @@ const guildSchema = new Schema({
     "type": String,
     "default": defaults.welcomeMessage
   },
+  welcomeChannel: {
+    "type": String,
+    "default": null
+  },
+  byeMessage: {
+    "type": String,
+    "default": '{User} just left the server {Guild}'
+  },
+  byeChannel: {
+    "type": String,
+    "default": null
+  },
   expsysteme: {
     "type": Boolean,
     "default": false

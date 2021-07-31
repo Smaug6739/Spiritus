@@ -9,7 +9,7 @@ class default_1 extends CommandClass_1.default {
         super(spiritus, {
             name: 'role',
             aliases: [],
-            args: [],
+            options: [],
             description: 'Manage roles from the server.',
             category: 'Administration',
             cooldown: 5,
@@ -20,12 +20,12 @@ class default_1 extends CommandClass_1.default {
                     name: 'list',
                     description: 'View roles of the guild.',
                     usage: '',
-                    args: [],
+                    options: [],
                 },
                 {
                     name: 'create',
                     description: 'Create role on the guild.',
-                    args: [{
+                    options: [{
                             name: 'name',
                             description: 'Name of role',
                             type: 'STRING',
@@ -35,7 +35,7 @@ class default_1 extends CommandClass_1.default {
                 {
                     name: 'update',
                     description: 'Update role on the guild.',
-                    args: [
+                    options: [
                         {
                             name: 'role',
                             description: 'Role to update.',
@@ -53,7 +53,7 @@ class default_1 extends CommandClass_1.default {
                 {
                     name: 'delete',
                     description: 'Delete role on the guild.',
-                    args: [
+                    options: [
                         {
                             name: 'role',
                             description: 'Role to update.',
@@ -65,7 +65,7 @@ class default_1 extends CommandClass_1.default {
                 {
                     name: 'position',
                     description: 'Update position of role on the guild.',
-                    args: [
+                    options: [
                         {
                             name: 'role',
                             description: 'Role to update.',
@@ -83,7 +83,7 @@ class default_1 extends CommandClass_1.default {
                 {
                     name: 'add',
                     description: 'Add role to a user.',
-                    args: [
+                    options: [
                         {
                             name: 'user',
                             description: 'User to add role.',

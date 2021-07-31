@@ -10,7 +10,7 @@ class default_1 extends CommandClass_1.default {
         super(spiritus, {
             name: 'inventory',
             aliases: [],
-            args: [
+            options: [
                 {
                     name: 'user',
                     description: 'View invertory of user',

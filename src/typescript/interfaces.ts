@@ -6,6 +6,9 @@ export interface IGuildDB {
 	prefix: string
 	logChannel: string;
 	welcomeMessage: string;
+	welcomeChannel: string;
+	byeMessage: string;
+	byeChannel: string;
 	expsysteme: boolean;
 	serveurstats: boolean;
 	invitations: boolean;
@@ -58,7 +61,8 @@ export interface IObject {
 export interface ICommandOptions {
 	name: string;
 	aliases: string[];
-	args: Array<ICommandInfosArgs>;
+	args?: Array<ICommandInfosArgs>;
+	options?: Array<ICommandInfosArgs>;
 	category: string;
 	description: string;
 	cooldown: number;

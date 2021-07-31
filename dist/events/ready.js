@@ -12,7 +12,7 @@ class default_1 {
                 continue;
             if (!categories.includes(command.category))
                 categories.push(command.category);
-            const options = [];
+            let options = [];
             if (command.subCommands) {
                 command.subCommands.forEach((sub) => {
                     options.push({
@@ -25,6 +25,18 @@ class default_1 {
                     });
                 });
             }
+            if (command.options) {
+                command.options.forEach((op) => {
+                    options.push({
+                        type: 'STRING',
+                        name: op.name,
+                        description: op.description,
+                        required: op.required,
+                        choices: op.choices,
+                        options: op.options,
+                    });
+                });
+            }
             allData.push({
                 name: command.name,
                 description: command.description,
@@ -32,7 +44,10 @@ class default_1 {
                 defaultPermission: command.defaultPermission,
             });
         }
-        this.spiritus.client.guilds.cache.get('809702809196560405').commands.set(allData);
+        // Dev
+        //this.spiritus.client.guilds.cache.get('809702809196560405')!.commands.set(allData);
+        // Prod
+        this.spiritus.client.application.commands.set(allData);
         console.log(`Logged in as ${this.spiritus.client.user?.tag}!`);
     }
 }

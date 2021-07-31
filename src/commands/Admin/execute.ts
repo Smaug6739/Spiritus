@@ -10,7 +10,7 @@ export default class extends Command {
 		super(spiritus, {
 			name: 'execute',
 			aliases: [],
-			args: [
+			options: [
 				{
 					name: 'command',
 					description: 'command.',

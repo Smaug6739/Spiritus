@@ -9,7 +9,7 @@ export default class extends Command {
 		super(spiritus, {
 			name: 'rank',
 			aliases: [],
-			args: [
+			options: [
 				{
 					name: 'user',
 					description: 'User to be banned',

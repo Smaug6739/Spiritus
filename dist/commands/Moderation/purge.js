@@ -10,7 +10,7 @@ class default_1 extends CommandClass_1.default {
         super(spiritus, {
             name: 'purge',
             aliases: [],
-            args: [],
+            options: [],
             description: 'Purge messages from channel.',
             category: 'Moderation',
             cooldown: 5,
@@ -21,7 +21,7 @@ class default_1 extends CommandClass_1.default {
                     name: 'channel',
                     description: 'Fully purge a channel.',
                     usage: '',
-                    args: [
+                    options: [
                         {
                             name: 'channel',
                             description: 'Channel to purge.',
@@ -33,7 +33,7 @@ class default_1 extends CommandClass_1.default {
                 {
                     name: 'messages',
                     description: 'Delete messages in a channel.',
-                    args: [
+                    options: [
                         {
                             name: 'number',
                             description: 'Number of messages',
@@ -45,7 +45,7 @@ class default_1 extends CommandClass_1.default {
                 {
                     name: 'user',
                     description: 'Purge messages from single user.',
-                    args: [
+                    options: [
                         {
                             name: 'user',
                             description: 'User',
@@ -105,7 +105,7 @@ class default_1 extends CommandClass_1.default {
                 const messagesOfUser = (await interaction.channel.messages.fetch({
                     limit: 100,
                     before: interaction.id,
-                })).filter(a => a.author.id === user.id).array();
+                })).filter(a => a.author.id === user.id);
                 messagesOfUser.length = Math.min(argNumber, messagesOfUser.length);
                 if (messagesOfUser.length === 0 || !user)
                     return interaction.replyErrorMessage(`No message to delete`);

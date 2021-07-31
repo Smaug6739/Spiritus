@@ -10,7 +10,7 @@ class default_1 extends CommandClass_1.default {
         super(spiritus, {
             name: 'shop',
             aliases: [],
-            args: [
+            options: [
                 {
                     name: 'buy',
                     description: 'Buy an object in shop',
