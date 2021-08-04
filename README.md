@@ -114,9 +114,10 @@ You can invite the hosted version [here](https://discord.com/oauth2/authorize?cl
 ## How to install
 
 1. Clone the repo
-2. Clone `configuration.template.js` into the main directory and rename it to `configuration.js`
+2. Clone `config.template.ts` from src directory into the src directory and rename it to `config.ts`
 3. Install the dependencies: `npm install`
-4. Start the bot: `node main.js`
+4. Compile typescript : `npm run build`
+5. Start the bot: `npm run start`
 
 ## Contributions/Licence
 
@@ -124,4 +125,4 @@ This project has an MIT license. And you are welcome to contribute.
 
 ## Need help
 
-If you have question or need help, open issue.
+If you have question or need help, open issue or join [support server](https://discord.gg/TC7Qjfs).

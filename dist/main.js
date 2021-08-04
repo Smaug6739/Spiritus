@@ -22,7 +22,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const config_private_1 = __importDefault(require("./config.private"));
 const config_1 = __importDefault(require("./config"));
 const databaseFunctions_1 = __importDefault(require("./utils/databaseFunctions"));
 const functions = __importStar(require("./utils/functions"));
@@ -44,9 +43,8 @@ class Spiritus {
             partials: ['CHANNEL', 'REACTION', 'USER', 'MESSAGE']
         });
         this.config = config_1.default;
-        this.privateConfig = config_private_1.default;
-        this.token = config_private_1.default.tokens.discord;
-        this.errorHook = new discord_js_1.WebhookClient({ url: this.privateConfig.logs });
+        this.token = config_1.default.tokens.discord;
+        this.errorHook = new discord_js_1.WebhookClient({ url: this.config.logs });
         this.owner = config_1.default.owner.username;
         this.commands = new Map();
         this.cooldowns = new Map();
@@ -61,7 +59,7 @@ class Spiritus {
         this.loadEvents();
         this.handleErrors();
         this.connectDB();
-        this.client.login(this.privateConfig.tokens.discord);
+        this.client.login(this.config.tokens.discord);
     }
     async loadCommands(dir = path_1.join(__dirname, './commands')) {
         fs_1.readdirSync(dir).filter(f => !f.endsWith('.js')).forEach(async (dirs) => {
@@ -115,12 +113,12 @@ class Spiritus {
         });
     }
     log(options) {
-        const webhook = new discord_js_1.WebhookClient({ url: this.privateConfig.logs });
+        const webhook = new discord_js_1.WebhookClient({ url: this.config.logs });
         webhook.send(options);
     }
     connectDB() {
-        console.log(`Trying to connect on : ${this.privateConfig.mongoose.connection}`);
-        mongoose_1.default.connect(this.privateConfig.mongoose.connection, {
+        console.log(`Trying to connect on : ${this.config.mongoose.connection}`);
+        mongoose_1.default.connect(this.config.mongoose.connection, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
             useCreateIndex: true,
@@ -140,7 +138,7 @@ class Spiritus {
                 .setFooter(`Mongoose connection`);
             this.log({
                 username: 'Mongoose',
-                avatar: this.privateConfig.mongoose.avatar || '',
+                avatar: this.config.mongoose.avatar || '',
                 embeds: [embed]
             });
         });

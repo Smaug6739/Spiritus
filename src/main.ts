@@ -45,7 +45,7 @@ class Spiritus {
 		})
 		this.config = config;
 		this.token = config.tokens.discord;
-		this.errorHook = new WebhookClient({ url: this.privateConfig.logs });
+		this.errorHook = new WebhookClient({ url: this.config.logs });
 		this.owner = config.owner.username;
 		this.commands = new Map();
 		this.cooldowns = new Map();
@@ -60,7 +60,7 @@ class Spiritus {
 		this.loadEvents();
 		this.handleErrors();
 		this.connectDB();
-		this.client.login(this.privateConfig.tokens.discord)
+		this.client.login(this.config.tokens.discord)
 	}
 	private async loadCommands(dir = join(__dirname, './commands')) {
 		readdirSync(dir).filter(f => !f.endsWith('.js')).forEach(async dirs => {
@@ -109,12 +109,12 @@ class Spiritus {
 		});
 	}
 	public log(options: IWebhookSend) {
-		const webhook = new WebhookClient({ url: this.privateConfig.logs });
+		const webhook = new WebhookClient({ url: this.config.logs });
 		webhook.send(options)
 	}
 	private connectDB() {
-		console.log(`Trying to connect on : ${this.privateConfig.mongoose.connection}`)
-		mongoose.connect(this.privateConfig.mongoose.connection, {
+		console.log(`Trying to connect on : ${this.config.mongoose.connection}`)
+		mongoose.connect(this.config.mongoose.connection, {
 			useNewUrlParser: true,
 			useUnifiedTopology: true,
 			useCreateIndex: true,
@@ -134,7 +134,7 @@ class Spiritus {
 				.setFooter(`Mongoose connection`);
 			this.log({
 				username: 'Mongoose',
-				avatar: this.privateConfig.mongoose.avatar || '',
+				avatar: this.config.mongoose.avatar || '',
 				embeds: [embed]
 			})
 		});

@@ -4,21 +4,23 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "start": "node dist/main.js"
+    "start": "node dist/main.js",
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/ms": "^0.7.31",
-    "@types/node": "^15.12.2"
+    "@types/node": "^15.12.2",
+    "typescript": "^4.3.5"
   },
   "dependencies": {
     "@discordjs/voice": "^0.4.0",
     "axios": "^0.21.1",
     "canvas": "^2.8.0",
     "discord-resolve": "^1.2.0-beta.0",
-    "discord.js": "^13.0.0-dev.t1627732975.331a9d3",
+    "discord.js": "^13.0.0-dev.t1628035429.00d5cee",
     "moment": "^2.29.1",
     "mongoose": "^5.13.1",
     "ms": "^2.1.2"
