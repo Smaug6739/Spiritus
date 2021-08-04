@@ -1,5 +1,4 @@
 import type { IConfig, IEmojis, IColors, IWebhookSend } from './typescript/interfaces';
-import configPrivate from './config.private';
 import config from './config';
 import DbFunctions from './utils/databaseFunctions';
 import * as functions from './utils/functions';
@@ -32,7 +31,6 @@ class Spiritus {
 	public commands: Map<string, any>;
 	public cooldowns: Map<string, any>;
 	protected config: IConfig;
-	private privateConfig: IConfig;
 	public token: string;
 	public models: any;
 	public db: any;
@@ -46,8 +44,7 @@ class Spiritus {
 			partials: ['CHANNEL', 'REACTION', 'USER', 'MESSAGE']
 		})
 		this.config = config;
-		this.privateConfig = configPrivate;
-		this.token = configPrivate.tokens.discord;
+		this.token = config.tokens.discord;
 		this.errorHook = new WebhookClient({ url: this.privateConfig.logs });
 		this.owner = config.owner.username;
 		this.commands = new Map();
