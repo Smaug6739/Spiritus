@@ -44,7 +44,7 @@ class default_1 {
                 });
             }
         }
-        this.spiritus.client.application.commands.set(data, '809702809196560405');
+        this.spiritus.client.application.commands.set(data);
         console.log(`Logged in as ${this.spiritus.client.user?.tag}!`);
     }
 }
