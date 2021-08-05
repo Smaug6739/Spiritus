@@ -5,80 +5,47 @@ class default_1 {
         this.spiritus = spiritus;
     }
     run() {
-        const allData = [];
-        const categories = [];
-        for (const [_, command] of this.spiritus.commands) {
-            if (command.category.toLowerCase() === 'admin')
-                continue;
-            if (!categories.includes(command.category))
-                categories.push(command.category);
-            let options = [];
-            if (command.subCommands) {
-                command.subCommands.forEach((sub) => {
-                    options.push({
-                        type: 'SUB_COMMAND',
-                        name: sub.name,
-                        description: sub.description,
-                        required: sub.required,
-                        choices: sub.choices,
-                        options: sub.options,
+        const data = [];
+        const commandsCategories = [];
+        this.spiritus.commands.forEach((c) => commandsCategories.push(c.category));
+        const categories = [...new Set(commandsCategories)];
+        for (const category of categories) {
+            const commandsCategory = [...this.spiritus.commands].filter(([_, c]) => c.category === category);
+            for (const c of commandsCategory) {
+                const commandOptions = [];
+                if (c[1].subCommands?.length) {
+                    c[1].subCommands.forEach((sc) => {
+                        commandOptions.push({
+                            type: 'SUB_COMMAND',
+                            name: sc.name,
+                            description: sc.description,
+                            required: sc.required,
+                            choices: sc.choices,
+                            options: sc.options
+                        });
                     });
+                }
+                if (c[1].options && c[1].options.length) {
+                    c[1].options.forEach((a) => {
+                        commandOptions.push({
+                            type: 'STRING',
+                            name: a.name,
+                            description: a.description,
+                            required: a.required,
+                            choices: a.choices,
+                            options: a.options
+                        });
+                    });
+                }
+                data.push({
+                    name: c[1].name,
+                    description: c[1].description,
+                    options: commandOptions
                 });
             }
-            if (command.options) {
-                command.options.forEach((op) => {
-                    options.push({
-                        type: 'STRING',
-                        name: op.name,
-                        description: op.description,
-                        required: op.required,
-                        choices: op.choices,
-                        options: op.options,
-                    });
-                });
-            }
-            allData.push({
-                name: command.name,
-                description: command.description,
-                options: options,
-                defaultPermission: command.defaultPermission,
-            });
         }
-        // Dev
-        //this.spiritus.client.guilds.cache.get('809702809196560405')!.commands.set(allData);
-        // Prod
-        this.spiritus.client.application.commands.set(allData);
+        this.spiritus.client.application.commands.set(data, '809702809196560405');
         console.log(`Logged in as ${this.spiritus.client.user?.tag}!`);
     }
 }
 exports.default = default_1;
-/*
-if (command.subCommands.length) {
-                const subCommands = []
-                for (const subc of command.subCommands) {
-                    const optionsOfSub = [];
-                    if (subc.args && subc.args.length) {
-                        for (const s of subc.args) {
-                            optionsOfSub.push({
-                                name: s.name || 'default_name',
-                                description: s.description || 'default description',
-                                type: s.type || 'STRING',
-                                required: s.required || false
-                            })
-                        }
-                    }
-                    subCommands.push({
-                        name: subc.name,
-                        description: subc.description,
-                        type: 1,
-                        options: optionsOfSub
-                    })
-                }
-                allData.push({
-                    name: command.name,
-                    type: 'SUB_COMMAND_GROUP',
-                    description: command.description,
-                    options: subCommands
-                })
-            }
-            */ 

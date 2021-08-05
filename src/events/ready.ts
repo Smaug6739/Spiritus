@@ -6,141 +6,79 @@ export default class {
 	}
 	run() {
 
-		const allData = []
-		const categories: string[] = [];
-		for (const [_, command] of this.spiritus.commands) {
-			if (command.category.toLowerCase() === 'admin') continue;
-			if (!categories.includes(command.category)) categories.push(command.category);
-			let options: any[] = []
-			if (command.subCommands) {
-				command.subCommands.forEach((sub: any) => {
-					options.push({
-						type: 'SUB_COMMAND',
-						name: sub.name,
-						description: sub.description,
-						required: sub.required,
-						choices: sub.choices,
-						options: sub.options,
-					})
-				})
-			}
-			if (command.options) {
-				command.options.forEach((op: any) => {
-					options.push({
-						type: 'STRING',
-						name: op.name,
-						description: op.description,
-						required: op.required,
-						choices: op.choices,
-						options: op.options,
-					})
-				})
-			}
-			allData.push({
-				name: command.name,
-				description: command.description,
-				options: options,
-				defaultPermission: command.defaultPermission,
-			})
-		}
-		// Dev
-		//this.spiritus.client.guilds.cache.get('809702809196560405')!.commands.set(allData);
-		// Prod
-		this.spiritus.client.application!.commands.set(allData);
-
-		console.log(`Logged in as ${this.spiritus.client.user?.tag}!`);
-
-	}
-
-
-
-
-
-
-
-	//	this.spiritus.client.guilds.cache.get('809702809196560405')!.commands.set(allData);
-	// --------------------ADMIN-COMMANDS-------------------- //
-	// 	const allDataAdmin = []
-	// 	for (const [_, command] of this.spiritus.commands) {
-	// 		if (command.subCommands.length) {
-	// 			const subCommands = []
-	// 			for (const subc of command.subCommands) {
-	// 				const optionsOfSub = [];
-	// 				if (subc.args && subc.args.length) {
-	// 					for (const s of subc.args) {
-	// 						optionsOfSub.push({
-	// 							name: s.name || 'default_name',
-	// 							description: s.description || 'default description',
-	// 							type: s.type || 'STRING',
-	// 							required: s.required || false
-	// 						})
-	// 					}
-	// 				}
-	// 				subCommands.push({
-	// 					name: subc.name,
-	// 					description: subc.description,
-	// 					type: 1,
-	// 					options: optionsOfSub
-	// 				})
-	// 			}
-	// 			allDataAdmin.push({
-	// 				name: command.name,
-	// 				type: 'SUB_COMMAND_GROUP',
-	// 				description: command.description,
-	// 				options: subCommands
-	// 			})
-	// 		}
-	// 		else {
-	// 			const options: any[] = [];
-	// 			if (command.args && command.args.length) {
-	// 				command.args.map((arg: any) => {
-	// 					options.push({
-	// 						name: arg.name || 'default_name',
-	// 						description: arg.description || 'default description',
-	// 						type: arg.type || 'STRING',
-	// 						required: arg.required || false
-	// 					})
-	// 				})
-	// 			}
-	// 			allDataAdmin.push({
-	// 				name: command.name,
-	// 				description: command.description,
-	// 				options: options
-	// 			})
-	// 		}
-	// 	}
-	// 	this.spiritus.client.guilds.cache.get('809702809196560405')!.commands.set(allDataAdmin);
-	// 	console.log(`Logged in as ${this.spiritus.client.user?.tag}!`);
-	// }
-}
-
-/*
-if (command.subCommands.length) {
-				const subCommands = []
-				for (const subc of command.subCommands) {
-					const optionsOfSub = [];
-					if (subc.args && subc.args.length) {
-						for (const s of subc.args) {
-							optionsOfSub.push({
-								name: s.name || 'default_name',
-								description: s.description || 'default description',
-								type: s.type || 'STRING',
-								required: s.required || false
-							})
-						}
-					}
-					subCommands.push({
-						name: subc.name,
-						description: subc.description,
-						type: 1,
-						options: optionsOfSub
+		const data: any = [];
+		const commandsCategories: string[] = [];
+		this.spiritus.commands.forEach((c: any) => commandsCategories.push(c.category))
+		const categories = [... new Set(commandsCategories)];
+		for (const category of categories) {
+			const commandsCategory = [...this.spiritus.commands].filter(([_, c]) => c.category === category);
+			for (const c of commandsCategory) {
+				const commandOptions: any = [];
+				if (c[1].subCommands?.length) {
+					c[1].subCommands.forEach((sc: any) => {
+						commandOptions.push({
+							type: 'SUB_COMMAND',
+							name: sc.name,
+							description: sc.description,
+							required: sc.required,
+							choices: sc.choices,
+							options: sc.options
+						})
 					})
 				}
-				allData.push({
-					name: command.name,
-					type: 'SUB_COMMAND_GROUP',
-					description: command.description,
-					options: subCommands
+				if (c[1].options && c[1].options.length) {
+					c[1].options.forEach((a: any) => {
+						commandOptions.push({
+							type: 'STRING',
+							name: a.name,
+							description: a.description,
+							required: a.required,
+							choices: a.choices,
+							options: a.options
+						})
+					})
+
+				}
+				data.push({
+					name: c[1].name,
+					description: c[1].description,
+					options: commandOptions
 				})
 			}
-			*/
+		}
+		this.spiritus.client.application!.commands.set(data, '809702809196560405');
+		console.log(`Logged in as ${this.spiritus.client.user?.tag}!`);
+	}
+
+	// Sub command group
+
+	/*
+		const data: any = [];
+		const commandsCategories: string[] = [];
+
+		this.spiritus.commands.forEach((c: any) => commandsCategories.push(c.category))
+		const categories = [... new Set(commandsCategories)];
+		for (const category of categories) {
+			const commandsCategory = [...this.spiritus.commands].filter(([_, c]) => c.category === category);
+			const commandsData: any = [];
+			commandsCategory.forEach((c: any) => {
+				commandsData.push({
+					type: 'SUB_COMMAND',
+					name: c[1].name,
+					description: c[1].description,
+					required: c[1].required,
+					choices: c[1].choices,
+					options: c[1].options
+				})
+			})
+			data.push({
+				type: 'SUB_COMMAND_GROUP',
+				name: category.toLocaleLowerCase(),
+				description: `The commands of category ${category.toLocaleLowerCase()}.`,
+				options: commandsData
+
+			})
+		}
+		this.spiritus.client.application!.commands.set(data, '809702809196560405');
+	*/
+}
