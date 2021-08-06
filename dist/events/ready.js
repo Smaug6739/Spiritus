@@ -12,8 +12,8 @@ class default_1 {
         for (const category of categories) {
             const commandsCategory = [...this.spiritus.commands].filter(([_, c]) => c.category === category);
             for (const c of commandsCategory) {
-                const commandOptions = [];
                 if (c[1].subCommands?.length) {
+                    const commandOptions = [];
                     c[1].subCommands.forEach((sc) => {
                         commandOptions.push({
                             type: 'SUB_COMMAND',
@@ -24,8 +24,15 @@ class default_1 {
                             options: sc.options
                         });
                     });
+                    data.push({
+                        type: 'SUB_COMMAND_GROUP',
+                        name: c[1].name,
+                        description: c[1].description,
+                        options: commandOptions
+                    });
                 }
-                if (c[1].options && c[1].options.length) {
+                else if (c[1].options && c[1].options.length) {
+                    const commandOptions = [];
                     c[1].options.forEach((a) => {
                         commandOptions.push({
                             type: 'STRING',
@@ -36,12 +43,19 @@ class default_1 {
                             options: a.options
                         });
                     });
+                    data.push({
+                        name: c[1].name,
+                        description: c[1].description,
+                        options: commandOptions
+                    });
                 }
-                data.push({
-                    name: c[1].name,
-                    description: c[1].description,
-                    options: commandOptions
-                });
+                else {
+                    // No commands args and no subcommands
+                    data.push({
+                        name: c[1].name,
+                        description: c[1].description,
+                    });
+                }
             }
         }
         this.spiritus.client.application.commands.set(data);

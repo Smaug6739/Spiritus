@@ -13,8 +13,8 @@ export default class {
 		for (const category of categories) {
 			const commandsCategory = [...this.spiritus.commands].filter(([_, c]) => c.category === category);
 			for (const c of commandsCategory) {
-				const commandOptions: any = [];
 				if (c[1].subCommands?.length) {
+					const commandOptions: any = [];
 					c[1].subCommands.forEach((sc: any) => {
 						commandOptions.push({
 							type: 'SUB_COMMAND',
@@ -25,8 +25,15 @@ export default class {
 							options: sc.options
 						})
 					})
+					data.push({
+						type: 'SUB_COMMAND_GROUP',
+						name: c[1].name,
+						description: c[1].description,
+						options: commandOptions
+					})
 				}
-				if (c[1].options && c[1].options.length) {
+				else if (c[1].options && c[1].options.length) {
+					const commandOptions: any = [];
 					c[1].options.forEach((a: any) => {
 						commandOptions.push({
 							type: 'STRING',
@@ -37,13 +44,20 @@ export default class {
 							options: a.options
 						})
 					})
-
+					data.push({
+						name: c[1].name,
+						description: c[1].description,
+						options: commandOptions
+					})
 				}
-				data.push({
-					name: c[1].name,
-					description: c[1].description,
-					options: commandOptions
-				})
+				else {
+					// No commands args and no subcommands
+					data.push({
+						name: c[1].name,
+						description: c[1].description,
+					})
+				}
+
 			}
 		}
 		this.spiritus.client.application!.commands.set(data);
