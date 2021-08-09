@@ -47,7 +47,7 @@ class default_1 extends CommandClass_1.default {
         if (settings.modLogs) {
             const channel = this.spiritus.util.resolveChannel(interaction.guild, settings.modLogs);
             if (channel && channel.permissionsFor(interaction.guild.me).has('SEND_MESSAGES'))
-                channel.send(embed);
+                channel.send({ embeds: [embed] });
         }
     }
 }

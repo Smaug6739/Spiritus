@@ -2,13 +2,13 @@
 	"version": "2.4.2",
 	"compilerOptions": {
 		"lib": [
-			"ES2020"
+			"ES2021"
 		],
 		"esModuleInterop": true,
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
 		"module": "CommonJS",
-		"moduleResolution": "node",
+		"moduleResolution": "Node",
 		"noEmitOnError": true,
 		"noImplicitAny": true,
 		"noUnusedLocals": true, /* Report errors on unused locals. */
@@ -18,8 +18,8 @@
 		"removeComments": false,
 		"sourceMap": false,
 		"strict": true,
-		"target": "ES2020",
-		"skipLibCheck": true
+		"target": "ES2021",
+		"skipLibCheck": false
 	},
 	"exclude": [
 		"node_modules",

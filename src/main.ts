@@ -124,7 +124,7 @@ class Spiritus {
 			serverSelectionTimeoutMS: 5000, // Keep trying to send operations for 5 seconds
 			socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity  //45000
 			family: 4 // Use IPv4, skip trying IPv6
-		}).then(() => console.log('Mongodb is connected'))
+		});
 		mongoose.connection.on("connected", () => {
 			console.log("Mongoose is connected")
 			const embed = new MessageEmbed()

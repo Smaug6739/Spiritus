@@ -47,7 +47,7 @@ class default_1 extends CommandClass_1.default {
             .setFooter(interaction.user.username, interaction.user.displayAvatarURL());
         if (user.bannable) {
             try {
-                await user.send(embed);
+                await user.send({ embeds: [embed] });
             }
             finally {
                 user.ban({ reason: argReason }).then(() => {

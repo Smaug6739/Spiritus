@@ -128,7 +128,7 @@ class Spiritus {
             serverSelectionTimeoutMS: 5000,
             socketTimeoutMS: 45000,
             family: 4 // Use IPv4, skip trying IPv6
-        }).then(() => console.log('Mongodb is connected'));
+        });
         mongoose_1.default.connection.on("connected", () => {
             console.log("Mongoose is connected");
             const embed = new discord_js_1.MessageEmbed()

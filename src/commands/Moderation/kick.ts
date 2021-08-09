@@ -46,13 +46,13 @@ export default class extends Command {
 			.setFooter(interaction.user.username, interaction.user.displayAvatarURL());
 		if (user.kickable) {
 			try {
-				await user.send(embed)
+				await user.send({ embeds: [embed] })
 			} finally {
 				user.kick(reason).then(() => {
 					interaction.reply({ embeds: [embed] })
 					if (settings.modLogs) {
 						const channel = this.spiritus.util.resolveChannel(interaction.guild, settings.modLogs)
-						if (channel && channel.permissionsFor(interaction.guild!.me).has('SEND_MESSAGES')) channel.send(embed)
+						if (channel && channel.permissionsFor(interaction.guild!.me).has('SEND_MESSAGES')) channel.send({ embeds: [embed] })
 					}
 				})
 			}
