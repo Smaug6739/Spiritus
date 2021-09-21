@@ -13,3 +13,18 @@ package-lock.json
 configuration.js
 configurationdev.js
 configurationbot.js
+
+config.private.ts
+config.private.js
+
+config.private.dev.ts
+config.private.dev.js
+
+config.private.prod.ts
+config.private.prod.js
+
+config.ts
+config.js
+
+# Database
+data
