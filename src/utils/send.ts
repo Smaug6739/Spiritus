@@ -14,7 +14,11 @@ export async function sendLogsChannel(
   infos: Infos,
   sendOptions: any
 ) {
-  const channel = client.util.resolveChannel(infos.guild, infos.cha);
+  if (!infos.settings || (infos.settings && !infos.settings.modLogs)) return;
+  const channel = client.util.resolveChannel(
+    infos.guild,
+    infos.settings.modLogs
+  );
   if (!channel) return;
   if (!channel.isText()) return;
   if (
