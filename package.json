@@ -25,10 +25,10 @@
   },
   "homepage": "https://github.com/Smaug6739/Spiritus#readme",
   "dependencies": {
-    "discord.js": "^13.1.0",
+    "discord.js": "^13.2.0",
     "mongoose": "^6.0.7",
     "ms": "^3.0.0-canary.1",
-    "sheweny": "^2.0.4",
+    "sheweny": "^2.1.0",
     "toml": "^3.0.0"
   }
 }

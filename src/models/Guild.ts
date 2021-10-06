@@ -77,6 +77,10 @@ const guildSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  users: {
+    type: Array,
+    default: [],
+  },
 });
 
 export default model("Guild", guildSchema);

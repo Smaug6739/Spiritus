@@ -1,4 +1,4 @@
-import type { Schema } from "mongoose";
+import type { ColorResolvable } from "discord.js/typings/index.js";
 
 export interface Config {
   DISCORD_TOKEN: string;
@@ -19,10 +19,10 @@ export interface Config {
     kickauto: boolean;
   };
   colors: {
-    embed: string;
-    red: string;
-    orange: string;
-    green: string;
+    embed: ColorResolvable;
+    red: ColorResolvable;
+    orange: ColorResolvable;
+    green: ColorResolvable;
   };
   emojis: {
     boost: string;
@@ -38,7 +38,6 @@ export interface Config {
 }
 
 export interface GuildDB {
-  _id: Schema.Types.ObjectId;
   byeMessage: string;
   byeChannel: string;
   commands: Array<any>;
@@ -55,6 +54,17 @@ export interface GuildDB {
   modRoles: Array<string>;
   premium: boolean;
   reactionRoles: Array<any>;
+  users: Array<UserDB>;
   welcomeMessage: string;
   welcomeChannel: string;
+}
+export interface UserDB {
+  guildId: string;
+  name: string;
+  userId: string;
+  experience: number;
+}
+export interface GuildCreateDB {
+  guildId: string;
+  name?: string;
 }

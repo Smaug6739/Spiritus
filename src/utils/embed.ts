@@ -20,10 +20,7 @@ export function embedMod(
 ) {
   let description = `**Action**: ${action}`;
   if (options?.reason) description += `\n**Reason**: ${options.reason}`;
-  if (options?.time)
-    description += `\n**Time**: ${
-      options.time !== "ever" ? ms(ms(options.time)) : "ever"
-    }`;
+  if (options?.time) description += `\n**Time**: ${ms(ms(options.time))}`;
   if (options?.messages)
     description += `\n**Messages**: ${options.messages} messages`;
   if (options?.guild) description += `\n**Guild**: ${options.guild.name}`;

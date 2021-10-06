@@ -1,5 +1,6 @@
 import { Intents } from "discord.js";
 import { ShewenyClient } from "sheweny";
+import { DatabaseProvider } from "../providers";
 
 import type { Config } from "../../index";
 
@@ -44,5 +45,6 @@ export default class Spiritus extends ShewenyClient {
       },
     });
     this.config = config;
+    this.db = new DatabaseProvider();
   }
 }
