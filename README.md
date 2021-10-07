@@ -29,27 +29,6 @@ You can invite the hosted version [here](https://discord.com/oauth2/authorize?cl
 
 ### Admin
 
-| Name    | Description                 | Usage                   | Cd    |
-| ------- | --------------------------- | ----------------------- | ----- |
-| charge  | Loads guilds in database    | none                    | 5secs |
-| eval    | Execute javascript code     | <js_code>               | 5secs |
-| exe     | Execute command in terminal | \<command>              | 5secs |
-| premium | Update premium guild        | \<add / rem> <guild_id> | 5secs |
-| pull    | Pull github repository      | none                    | 5secs |
-| reload  | Reload command of bot       | \<directory> \<file>    | 5secs |
-| restart | Restart the bot             | none                    | 5secs |
-
-### Administration
-
-| Name          | Description                          | Sub-commands                                                    | Usage                 | Cd     |
-| ------------- | ------------------------------------ | --------------------------------------------------------------- | --------------------- | ------ |
-| channel       | Manage channels of the guild         | create, update, delete, clone, synchro, position, parent, topic | \<action> \<args>     | 5secs  |
-| commands      | Manage custom commands.              | list, add, rem                                                  | \<action> \<valeur>   | 10secs |
-| emojis        | Manage emojis of the guild.          | list, create, update, delete, view                              | \<action> \<args>     | 5secs  |
-| modroles      | Manage moderator roles.              | list, add, rem                                                  | \<action> \<args>     | 5secs  |
-| reactionroles | Manage roles-reactions in the guild. | add, rem                                                        | [paramètre] \(valeur) | 10secs |
-| roles         | Manage and add/rem roles.            | list, create, update, delete, position, add, rem                | \<action> \<args>     | 5secs  |
-| server        | Commands for manage server settings. | icon, name, moderation, invite-create, webhook-create           | \<action> \<value>    | 5secs  |
 
 ### Bot
 
