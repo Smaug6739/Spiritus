@@ -27,8 +27,6 @@ You can invite the hosted version [here](https://discord.com/oauth2/authorize?cl
 
 ## Commands
 
-### Admin
-
 
 ### Bot
 
