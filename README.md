@@ -25,25 +25,6 @@ You can invite the hosted version [here](https://discord.com/oauth2/authorize?cl
 -Economy module  
 -Fun commands
 
-## Commands
-
-
-### Moderation
-
-| Name   | Description                    | Usage                        | Cd     |
-| ------ | ------------------------------ | ---------------------------- | ------ |
-| ban    | Ban a user.                    | \<@​user> \<reason>          | 10secs |
-| filter | Forbidden words on the server. | \<word>                      | 10secs |
-| kick   | Kick a user.                   | \<@​user> \<raison>          | 10secs |
-| lock   | Lock a channel.                | \<#channel> or \<channel_id> | 10secs |
-| mute   | Mute a user.                   | \<@​user> \<time>            | 10secs |
-| purge  | Delete messages.               | \<nb_messages>               | 10secs |
-| rename | Change nickname of user.       | \<user> \<new_name>          | 10secs |
-| unban  | Unban a user.                  | \<user_id>                   | 10secs |
-| unlock | Unlock a channel.              | \<channel>                   | 5secs  |
-| unmute | Unmute a user.                 | \<@​user>                    | 10secs |
-| warn   | Warn a user.                   | \<user> \<reason>            | 10secs |
-
 ## How to install
 
 1. Clone the repo
