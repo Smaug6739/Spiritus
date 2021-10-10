@@ -111,16 +111,17 @@ export class ReactionRolesCommand extends Command {
             return interaction.replyErrorMessage(`interaction not found`);
           if (
             !settings.reactionroles.find(
-              (r) => r.interactionID === messageRR.id
+              (r: ReactionRole) => r.messageId === messageRR.id
             )
           )
             return interaction.replyErrorMessage(
               `There is no role-reaction under this interaction.`
             );
-          let emojiToRemove = await this.client.util.resolveGuildEmoji(
-            interaction.guild!,
-            interaction.options.getString("emoji")!
-          );
+          let emojiToRemove: GuildEmoji | string =
+            await this.client.util.resolveGuildEmoji(
+              interaction.guild!,
+              interaction.options.getString("emoji")!
+            );
           if (
             !emojiToRemove &&
             isUnicode(interaction.options.getString("emoji")!)
@@ -136,7 +137,7 @@ export class ReactionRolesCommand extends Command {
             return interaction.replyErrorMessage(
               ` Impossible de trouver ce rôle.`
             );
-          this.db.updateGuild(interaction.guildId, {
+          this.client.db.update(interaction.guildId!, {
             $pull: {
               reactionroles: {
                 channelID: channel,
