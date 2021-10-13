@@ -2,11 +2,11 @@ module.exports = {
   PREFIX: ";",
   IDOFFITIEL: "689210215488684044",
   owner: {
-    id: "611468402263064577",
-    username: "Smaug#6739"
+    id: "801807945166880808",
+    username: "GamEOvEr#9707"
   },
 
-  ADMIN: ["611468402263064577"],
+  ADMIN: ["801807945166880808"],
 
   CHANNELCONSOLE: '725251200660013136',
 
