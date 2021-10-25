@@ -1,31 +1,101 @@
 import { Command } from "sheweny";
-import type { ShewenyClient } from "sheweny";
-import type { CommandInteraction, GuildEmoji } from "discord.js";
+import { CommandInteraction, GuildEmoji, TextChannel } from "discord.js";
+import { embed } from "../../utils";
 import type { ReactionRole } from "../../../index";
+import type { ShewenyClient } from "sheweny";
+import type { rr } from "../../../index";
 export class ReactionRolesCommand extends Command {
   constructor(client: ShewenyClient) {
     super(client, {
       name: "reaction-roles",
       description: "Manage reaction-roles of the server.",
       type: "SLASH_COMMAND",
+      options: [
+        {
+          name: "add",
+          description: "Add a reaction-role to a message.",
+          type: "SUB_COMMAND",
+          options: [
+            {
+              name: "channel",
+              description: "Channel to add message reaction.",
+              type: "CHANNEL",
+              required: true,
+              channel_types: [0],
+            },
+            {
+              name: "message",
+              description: "ID of message to react.",
+              type: "STRING",
+              required: true,
+            },
+            {
+              name: "emoji",
+              description: "The emoji.",
+              type: "STRING",
+              required: true,
+            },
+            {
+              name: "role",
+              description: "The role.",
+              type: "ROLE",
+              required: true,
+            },
+          ],
+        },
+        {
+          name: "rem",
+          description: "Remove role-reaction in the guild.",
+          type: "SUB_COMMAND",
+          options: [
+            {
+              name: "channel",
+              description: "Channel to remove message reaction.",
+              type: "STRING",
+              required: true,
+            },
+            {
+              name: "message",
+              description: "ID of message remove react.",
+              type: "STRING",
+              required: true,
+            },
+            {
+              name: "emoji",
+              description: "The emoji.",
+              type: "STRING",
+              required: true,
+            },
+            {
+              name: "role",
+              description: "The role.",
+              type: "STRING",
+              required: true,
+            },
+          ],
+        },
+        {
+          name: "list",
+          description: "List the roles reactions of the guild.",
+          type: "SUB_COMMAND",
+        },
+      ],
     });
   }
   async execute(interaction: CommandInteraction) {
     const settings = await this.client.db.get(interaction.guildId!);
+
     switch (interaction.options.getSubcommand(false)) {
       case "add":
         if (settings.reactionroles) {
           try {
-            const channelRRAdd = this.client.util.resolveChannel(
-              interaction.guild!,
-              interaction.options.getString("channel")!
-            );
+            const channelRRAdd = interaction.options.getChannel(
+              "channel",
+              false
+            ) as TextChannel;
             if (!channelRRAdd)
               return interaction.replyErrorMessage(`Channel not found.`);
-            if (!channelRRAdd.isText())
-              return interaction.replyErrorMessage(
-                "The type of the channel must be text."
-              );
+
             const messageRRAdd = await channelRRAdd.messages.fetch(
               interaction.options.getString("message")!
             );
@@ -43,10 +113,7 @@ export class ReactionRolesCommand extends Command {
               emoteRRAdd = interaction.options.getString("emoji")!;
             if (!emoteRRAdd)
               return interaction.replyErrorMessage(`Emoji not found.`);
-            const role = this.client.util.resolveRole(
-              interaction.guild!,
-              interaction.options.getString("role")!
-            );
+            const role = interaction.options.getRole("role");
             if (!role || role.id == interaction.guildId!)
               return interaction.replyErrorMessage(`Role not found.`);
             const existingReactionRole = await settings.reactionroles.find(
@@ -158,6 +225,29 @@ export class ReactionRolesCommand extends Command {
         }
         break;
       case "list":
+        let content = "No reaction-role in this guild";
+        if (settings && settings.reactionroles) {
+          content = `Emoji | Channel | Role | Message\n${settings.reactionroles
+            .map(
+              (r: rr) =>
+                r.emoji +
+                " : <#" +
+                r.channelID +
+                "> <@&" +
+                r.roleID +
+                "> " +
+                r.messageID
+            )
+            .join("\n")}`;
+        }
+        if (content.length > 4096) content = "Too much data for a message";
+        interaction.reply({
+          embeds: [
+            embed()
+              .setTitle("List of reaction-roles :")
+              .setDescription(content),
+          ],
+        });
         break;
     }
   }

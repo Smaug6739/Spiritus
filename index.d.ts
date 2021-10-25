@@ -53,10 +53,15 @@ export interface GuildDB {
   modLogs: string;
   modRoles: Array<string>;
   premium: boolean;
-  reactionRoles: Array<any>;
-  users: Array<UserDB>;
+  reactionRoles: Array<rr>;
   welcomeMessage: string;
   welcomeChannel: string;
+}
+export interface rr {
+  emoji: string;
+  messageID: string;
+  channelID: string;
+  roleID: string;
 }
 export interface UserDB {
   guildId: string;

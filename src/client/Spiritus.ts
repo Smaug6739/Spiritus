@@ -31,11 +31,11 @@ export default class Spiritus extends ShewenyClient {
       handlers: {
         commands: {
           directory: "./commands",
-          guildId: "809702809196560405",
+          guildId: "900408085800157185",
         },
-        // events: {
-        //   directory: "./events",
-        // },
+        events: {
+          directory: "./events",
+        },
         // buttons: {
         //   directory: "./interactions/buttons",
         // },

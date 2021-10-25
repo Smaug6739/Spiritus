@@ -20,7 +20,7 @@ const guildSchema = new Schema({
     type: String,
     default: null,
   },
-  expSysteme: {
+  expSystem: {
     type: Boolean,
     default: false,
   },
@@ -76,10 +76,6 @@ const guildSchema = new Schema({
   kickauto: {
     type: Boolean,
     default: false,
-  },
-  users: {
-    type: Array,
-    default: [],
   },
 });
 
