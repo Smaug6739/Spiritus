@@ -3,7 +3,7 @@ import type { ShewenyClient } from "sheweny";
 import type { CommandInteraction } from "discord.js";
 import Canvas from "canvas";
 import { MessageAttachment } from "discord.js";
-
+import { progression, level, applyText } from "../../utils";
 export class PingCommand extends Command {
   constructor(client: ShewenyClient) {
     super(client, {
@@ -53,42 +53,26 @@ export class PingCommand extends Command {
     }
 
     await interaction.deferReply();
-    let progress = dbUser.experience;
-    progress = 0.1 * Math.sqrt(dbUser.experience);
-    progress = progress.toFixed(2);
-    progress = progress.split(".");
-    progress.shift();
+    const progress = progression(dbUser.experience);
+    const lvl = level(dbUser.experience);
 
-    const applyText = (canvas: any, text: any) => {
-      const ctx = canvas.getContext("2d");
-      let fontSize = 60;
-      do {
-        ctx.font = `${(fontSize -= 10)}px sans-serif`;
-      } while (ctx.measureText(text).width > canvas.width - 350);
-      return ctx.font;
-    };
     const canvas = Canvas.createCanvas(700, 220);
     const ctx = canvas.getContext("2d");
 
     const background = await Canvas.loadImage(settings.expCard);
-
     ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
     ctx.strokeStyle = "#74037b";
     ctx.strokeRect(0, 0, canvas.width, canvas.height);
     ctx.font = "30px sans-serif";
     ctx.fillStyle = "#ffffff";
-    ctx.fillText(
-      `Level : ${dbUser.level}`,
-      canvas.width / 2.5,
-      canvas.height / 2
-    );
+    ctx.fillText(`Level : ${lvl}`, canvas.width / 2.5, canvas.height / 2);
     ctx.fillText(
       `Experience : ${dbUser.experience}xp`,
       canvas.width / 2.5,
       canvas.height / 1.57
     );
     ctx.fillText(
-      `Votre progression : ${progress}%`,
+      `Progression : ${progress}%`,
       canvas.width / 2.5,
       canvas.height / 1.27
     );

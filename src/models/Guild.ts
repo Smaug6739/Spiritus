@@ -20,14 +20,19 @@ const guildSchema = new Schema({
     type: String,
     default: null,
   },
-  expSystem: {
-    type: Boolean,
-    default: false,
-  },
+
   expCard: {
     type: String,
     default:
       "https://cdn.discordapp.com/attachments/734318123510923324/745575310216658954/rank_1.png",
+  },
+  expSystem: {
+    type: Boolean,
+    default: false,
+  },
+  expMessage: {
+    type: String,
+    default: "Congradulation {{User}}, you are now to the level {{Level}}",
   },
   serveurstats: {
     type: Boolean,

@@ -27,12 +27,11 @@
   "homepage": "https://github.com/Smaug6739/Spiritus#readme",
   "dependencies": {
     "canvas": "^2.8.0",
+    "data-replacer": "^1.0.1",
     "discord.js": "^13.2.0",
     "mongoose": "^6.0.7",
     "ms": "^3.0.0-canary.1",
-    "pretty-ms": "^7.0.1",
     "sheweny": "^2.1.0",
-    "timestamp-conv": "^2.1.0",
     "toml": "^3.0.0"
   }
 }

@@ -1,5 +1,5 @@
 import type { ColorResolvable } from "discord.js/typings/index.js";
-
+import type { Document } from "mongoose";
 export interface Config {
   DISCORD_TOKEN: string;
   MONGOOSE_URI: string;
@@ -37,12 +37,13 @@ export interface Config {
   };
 }
 
-export interface GuildDB {
+export interface GuildData {
   byeMessage: string;
   byeChannel: string;
   commands: Array<any>;
   expSystem: boolean;
   expChannel: string;
+  expMessage: string;
   expCard: string;
   filter: Array<string>;
   guildId: string;
@@ -57,18 +58,14 @@ export interface GuildDB {
   welcomeMessage: string;
   welcomeChannel: string;
 }
+export interface GuildDB extends GuildData, Document {}
 export interface rr {
   emoji: string;
   messageID: string;
   channelID: string;
   roleID: string;
 }
-export interface UserDB {
-  guildId: string;
-  name: string;
-  userId: string;
-  experience: number;
-}
+
 export interface GuildCreateDB {
   guildId: string;
   name?: string;
@@ -79,3 +76,12 @@ export interface ReactionRole {
   emoji: string;
   roles: Array<string>;
 }
+
+export interface UserData {
+  guildId: string;
+  userId: string;
+  experience: number;
+  level: number;
+  warns: number;
+}
+export interface UserDB extends UserData, Document {}
