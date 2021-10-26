@@ -1,15 +1,17 @@
 name: deploy to dev
 on:
   push:
-    branches: [ dev ]
+    branches: [dev]
 jobs:
   build:
     runs-on: self-hosted
     steps:
-    - name: Deploy to developement
-      run: |
-        cd /home/smaug/Spiritus/dev
-        git stash
-        git pull origin dev
-        npm install
-        pm2 reload beta.ecosystem.config.js
+      - name: Deploy to developement
+        run: |
+          cd /home/smaug/Spiritus/dev
+          git stash
+          git pull origin dev
+          npm install --production
+          npm prune --production
+          npm run build
+          pm2 reload beta.ecosystem.config.js

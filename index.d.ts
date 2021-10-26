@@ -3,6 +3,8 @@ import type { Document } from "mongoose";
 export interface Config {
   DISCORD_TOKEN: string;
   MONGOOSE_URI: string;
+  mode: "development" | "production";
+  guildId: string;
   admins: string[];
   logs: string;
   owner: {

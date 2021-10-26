@@ -8,6 +8,8 @@ export default class Spiritus extends ShewenyClient {
   public config: Config;
   constructor(config: Config) {
     super({
+      admins: config.admins,
+      mode: config.mode,
       allowedMentions: {
         parse: ["roles", "users"],
       },
@@ -32,17 +34,11 @@ export default class Spiritus extends ShewenyClient {
       handlers: {
         commands: {
           directory: "./commands",
-          guildId: "900408085800157185",
+          guildId: config.guildId ? config.guildId : undefined,
         },
         events: {
           directory: "./events",
         },
-        // buttons: {
-        //   directory: "./interactions/buttons",
-        // },
-        // selectMenus: {
-        //   directory: "./interactions/selectMenus",
-        // },
       },
     });
     this.config = config;

@@ -2,6 +2,8 @@ DISCORD_TOKEN = ""
 MONGOOSE_URI = "mongodb://localhost:27017/spirituslocal"
 
 admins = ["611468402263064577"]
+mode = "development"
+guildId = "900408085800157185"
 logs = "https://ptb.discord.com/api/webhooks/871073221405978694/2SZAYezWCkhF0uGPIE3hWmSRvM1TQT1rU3tCqow4RTOcAwbo28kxbaDbBBn-x1hhbgYh"
 
 [owner]

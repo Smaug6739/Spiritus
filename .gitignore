@@ -1,5 +1,7 @@
 # Config
 config.toml
+beta.config.toml
+prod.config.toml
 ### Node ###
 # Logs
 logs

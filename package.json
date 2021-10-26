@@ -4,8 +4,8 @@
   "description": "A multi-function Discord bot. Leveling | Economy | Custom Commands | Reactions-Roles | Moderation | Fun",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc",
-    "start": "node dist/main"
+    "start": "node dist/main",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
