@@ -9,18 +9,31 @@ const Replacer = new DataReplacer({
   required: false,
 });
 
+/**
+ * Return the level with experience.
+ * @param exp
+ * @returns {number} - The level corresponding of experience
+ */
 export function level(exp: number) {
   return Math.floor(Math.sqrt(exp) * 0.1) + 1;
 }
-
-export function expForLevel(level: number) {
+/**
+ * Return the experience of level.
+ * @param level
+ * @returns {number} - The experience corresponding of level
+ */
+export function experience(level: number) {
   const e = Math.pow((level - 1) / 0.1, 2);
   return e;
 }
 
-export function progression(exp: number) {
-  const nextLevelExp = expForLevel(level(exp) + 1);
-  return (exp / nextLevelExp) * 100;
+export function progression(exp: number): number {
+  const actualLevel = level(exp);
+  const actualLevelExp = experience(actualLevel);
+  const nextLevelExp = experience(actualLevel + 1);
+  const diff = nextLevelExp - actualLevelExp;
+  const progressExp = exp - actualLevelExp;
+  return (progressExp / diff) * 100;
 }
 
 export function addExperience(
@@ -29,15 +42,16 @@ export function addExperience(
   dbUser: UserDB,
   exp: number,
   settings: GuildDB
-) {
+): number {
   dbUser.experience += exp;
   const lvl = level(dbUser.experience);
   if (dbUser.level !== lvl) {
     dbUser.level = lvl;
     if (settings.expChannel && settings.expMessage) {
       const channel = client.util.resolveChannel(guild, settings.expChannel);
-      if (!channel || !channel.isText()) return;
-      if (!channel.permissionsFor(guild.me!).has("SEND_MESSAGES")) return;
+      if (!channel || !channel.isText()) return dbUser.experience;
+      if (!channel.permissionsFor(guild.me!).has("SEND_MESSAGES"))
+        return dbUser.experience;
       const replace = {
         "{{User}}": `<@${dbUser.id}>`,
         "{{Experience}}": dbUser.experience.toString(),
@@ -48,12 +62,14 @@ export function addExperience(
     }
   }
   dbUser.save();
+  return dbUser.experience;
 }
 
-export function removeExperience(dbUser: UserDB, exp: number) {
+export function removeExperience(dbUser: UserDB, exp: number): number {
   dbUser.experience -= exp;
   const lvl = level(dbUser.experience);
   if (dbUser.level !== lvl) dbUser.level = lvl;
 
   dbUser.save();
+  return dbUser.experience;
 }

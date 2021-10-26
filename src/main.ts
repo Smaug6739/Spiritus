@@ -18,8 +18,8 @@ declare module "sheweny" {
 
 declare module "discord.js" {
   interface CommandInteraction {
-    replySuccessMessage(content: string): any;
-    replyErrorMessage(content: string): any;
+    replySuccessMessage(content: string): Promise<void>;
+    replyErrorMessage(content: string): Promise<void>;
   }
 }
 

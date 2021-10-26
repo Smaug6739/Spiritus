@@ -1,4 +1,5 @@
 import { Command } from "sheweny";
+import { addExperience, removeExperience } from "../../utils";
 import type { ShewenyClient } from "sheweny";
 import type { CommandInteraction } from "discord.js";
 
@@ -69,18 +70,22 @@ export class PingCommand extends Command {
     const dbUser = await this.client.db.getUser(interaction.guild!.id, user.id);
     switch (interaction.options.getSubcommand(false)) {
       case "add":
-        dbUser.experience += expChange;
-        interaction.replySuccessMessage(
-          `User experience is now \`${dbUser.experience}\`.`
+        const newExpAdd = await addExperience(
+          this.client,
+          interaction.guild!,
+          dbUser,
+          expChange,
+          settings
         );
-        await dbUser.save();
+        interaction.replySuccessMessage(
+          `User experience is now \`${newExpAdd}\`.`
+        );
         break;
       case "rem":
-        dbUser.experience -= expChange;
+        const newExpRemove = await removeExperience(dbUser, expChange);
         interaction.replySuccessMessage(
-          `User experience is now \`${dbUser.experience}\`.`
+          `User experience is now \`${newExpRemove}\`.`
         );
-        await dbUser.save();
         break;
     }
   }

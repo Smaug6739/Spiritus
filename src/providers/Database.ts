@@ -15,13 +15,9 @@ class DatabaseProvider {
     }
     return data;
   }
-  async update(guildId: string, settings: any): Promise<boolean> {
+  async update(guildId: string, settings: any): Promise<any | null> {
     let data: any = await this.get(guildId);
-    if (!data) return false;
-    if (typeof data !== "object") data = {};
-    for (const key in settings) {
-      if (data[key] !== settings[key]) data[key] = settings[key];
-    }
+    if (!data || typeof data !== "object") return null;
     return await data.updateOne(settings);
   }
   async delete(guildId: string) {
@@ -59,8 +55,8 @@ class DatabaseProvider {
   }
   async updateUser(guildID: string, userID: string, settings: any) {
     let data = await this.getUser(guildID, userID);
-    if (!data) return null;
-    return data.updateOne(settings);
+    if (!data || typeof data !== "object") return null;
+    return await data.updateOne(settings);
   }
   async deleteUser(guildID: string, userID: string) {
     const data = await this.getUser(guildID, userID);

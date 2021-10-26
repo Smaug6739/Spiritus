@@ -2,6 +2,7 @@ import { Command } from "sheweny";
 import type { ShewenyClient } from "sheweny";
 import type { CommandInteraction } from "discord.js";
 import { embed } from "../../utils";
+import type { UserDB } from "../../../index";
 export class PingCommand extends Command {
   constructor(client: ShewenyClient) {
     super(client, {
@@ -25,7 +26,7 @@ export class PingCommand extends Command {
         .setTitle("TOP 10 ranking of guild users")
         .setColor(this.client.config.colors.embed);
     const users = await this.client.db.getUsers(interaction.guild!.id);
-    const sorted = users.sort((a: any, b: any) =>
+    const sorted = users.sort((a: UserDB, b: UserDB) =>
       a.experience < b.experience ? 1 : -1
     );
 

@@ -1,7 +1,7 @@
 import { Command } from "sheweny";
 import type { ShewenyClient } from "sheweny";
 import type { CommandInteraction } from "discord.js";
-import Canvas from "canvas";
+import { createCanvas, loadImage } from "canvas";
 import { MessageAttachment } from "discord.js";
 import { progression, level, applyText } from "../../utils";
 export class PingCommand extends Command {
@@ -56,10 +56,10 @@ export class PingCommand extends Command {
     const progress = progression(dbUser.experience);
     const lvl = level(dbUser.experience);
 
-    const canvas = Canvas.createCanvas(700, 220);
+    const canvas = createCanvas(700, 220);
     const ctx = canvas.getContext("2d");
 
-    const background = await Canvas.loadImage(settings.expCard);
+    const background = await loadImage(settings.expCard);
     ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
     ctx.strokeStyle = "#74037b";
     ctx.strokeRect(0, 0, canvas.width, canvas.height);
@@ -83,9 +83,7 @@ export class PingCommand extends Command {
     ctx.arc(106, 106, 83, 0, 2 * Math.PI);
     ctx.closePath();
     ctx.clip();
-    const avatar = await Canvas.loadImage(
-      user.displayAvatarURL({ format: "jpg" })
-    );
+    const avatar = await loadImage(user.displayAvatarURL({ format: "jpg" }));
     ctx.drawImage(avatar, 22, 22, 165, 165);
     const attachment = new MessageAttachment(
       canvas.toBuffer(),

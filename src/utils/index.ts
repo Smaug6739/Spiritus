@@ -1,4 +1,5 @@
 export { sendLogsChannel } from "./send";
 export { embed, embedMod } from "./embed";
-export { expForLevel, level, progression } from "./levels";
+export { experience, level, progression } from "./levels";
 export { applyText } from "./canvas";
+export { addExperience, removeExperience } from "./levels";

@@ -1,4 +1,5 @@
-export function applyText(canvas: any, text: any) {
+import type { Canvas } from "canvas";
+export function applyText(canvas: Canvas, text: string) {
   const ctx = canvas.getContext("2d");
   let fontSize = 60;
   do {

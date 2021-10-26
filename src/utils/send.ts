@@ -1,6 +1,6 @@
 import { Permissions } from "discord.js";
 
-import type { Guild } from "discord.js";
+import type { Guild, MessageOptions } from "discord.js";
 import type Spiritus from "../client/Spiritus";
 import type { GuildDB } from "../../index";
 
@@ -12,7 +12,7 @@ interface Infos {
 export async function sendLogsChannel(
   client: Spiritus,
   infos: Infos,
-  sendOptions: any
+  sendOptions: string | MessageOptions
 ) {
   if (!infos.settings || (infos.settings && !infos.settings.modLogs)) return;
   const channel = client.util.resolveChannel(
