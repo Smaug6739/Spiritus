@@ -74,42 +74,43 @@ export class DbCmdCommand extends Command {
           );
         break;
       case "add":
+        await interaction.deferReply();
         try {
           const commandsOfGuild = await interaction.guild!.commands.fetch();
           if (commandsOfGuild && commandsOfGuild.size >= 100)
-            return interaction.replyErrorMessage(
+            return interaction.editErrorMessage(
               "The application can have at most 100 commands."
             );
           const name = interaction.options.getString("name")!.toLowerCase();
           const description = interaction.options.getString("description")!;
           const content = interaction.options.getString("value")!;
           if (this.client.collections.commands!.get(name))
-            return interaction.replyErrorMessage(
+            return interaction.editErrorMessage(
               "This name is a reserved name."
             );
           if (settings.commands) {
             if (settings.commands.length > 19)
-              return interaction.replyErrorMessage(
+              return interaction.editErrorMessage(
                 `You have reached the maximum number of custom commands for this guild`
               );
             const customCommand = settings.commands.find(
               (e: CommandDB) => e.name == name
             );
             if (customCommand)
-              return interaction.replyErrorMessage(
+              return interaction.editErrorMessage(
                 `This command already exist on this guild.`
               );
           }
           if (name.length > 32)
-            return interaction.replyErrorMessage(
+            return interaction.editErrorMessage(
               `name of command is too long. `
             );
           if (description.length > 100)
-            return interaction.replyErrorMessage(
+            return interaction.editErrorMessage(
               `Description of command is too long. `
             );
           if (content.length > 2000)
-            return interaction.replyErrorMessage(
+            return interaction.editErrorMessage(
               `Content of command is too long. `
             );
           const cg = await interaction.guild!.commands.create({
