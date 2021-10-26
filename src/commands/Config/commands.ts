@@ -129,14 +129,15 @@ export class DbCmdCommand extends Command {
         }
         break;
       case "rem":
+        await interaction.deferReply();
         const name = interaction.options.getString("name")!.toLowerCase();
         const cmdDB = settings.commands.find((e: CommandDB) => e.name == name);
         const cmd = await interaction.guild!.commands.fetch(cmdDB.id);
 
         if (cmd) {
           cmd.delete();
-          interaction.replySuccessMessage(`Command succefuly deleted.`);
-        } else interaction.replyErrorMessage(`Command not found.`);
+          interaction.editSuccessMessage(`Command succefuly deleted.`);
+        } else interaction.editErrorMessage(`Command not found.`);
 
         if (!settings.commands) return;
         if (!cmdDB) return;

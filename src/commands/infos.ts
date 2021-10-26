@@ -60,6 +60,8 @@ export class InfosCommand extends Command {
           interaction.guild!,
           argUser
         );
+        console.log(argUser);
+
         if (!userInfo) {
           const u = await this.client.util.resolveUser(argUser);
           let BOTSTATUS;
