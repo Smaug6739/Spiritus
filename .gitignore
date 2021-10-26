@@ -2,6 +2,7 @@
 config.toml
 beta.config.toml
 prod.config.toml
+package-lock.json
 ### Node ###
 # Logs
 logs
