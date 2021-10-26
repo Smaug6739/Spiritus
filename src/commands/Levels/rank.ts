@@ -27,7 +27,7 @@ export class PingCommand extends Command {
     const settings = await this.client.db.get(interaction.guildId!);
     if (!settings.expSystem)
       return interaction.replyErrorMessage(
-        `The experience system is not activated on this server. To activate it use the command \`/config experience\`.`
+        `The experience system is not activated on this server. To activate it use the command \`/config exp-system\`.`
       );
 
     let dbUser;

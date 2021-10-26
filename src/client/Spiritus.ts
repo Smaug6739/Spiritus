@@ -17,6 +17,7 @@ export default class Spiritus extends ShewenyClient {
         Intents.FLAGS.GUILD_MEMBERS,
         Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS,
         Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
+        Intents.FLAGS.GUILD_MEMBERS,
       ],
       partials: ["CHANNEL", "MESSAGE", "REACTION", "USER", "GUILD_MEMBER"],
       presence: {

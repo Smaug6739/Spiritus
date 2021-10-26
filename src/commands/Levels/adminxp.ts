@@ -1,7 +1,7 @@
 import { Command } from "sheweny";
 import { addExperience, removeExperience } from "../../utils";
 import type { ShewenyClient } from "sheweny";
-import type { CommandInteraction } from "discord.js";
+import type { CommandInteraction, TextChannel } from "discord.js";
 
 export class PingCommand extends Command {
   constructor(client: ShewenyClient) {
@@ -58,7 +58,7 @@ export class PingCommand extends Command {
     const settings = await this.client.db.get(interaction.guildId!);
     if (!settings.expSystem)
       return interaction.replyErrorMessage(
-        `The experience system is not activated on this server. To activate it use the command \`/config experience\`.`
+        `The experience system is not activated on this server. To activate it use the command \`/config exp-system\`.`
       );
     const user = await this.client.util.resolveUser(
       interaction.options.get("user")!.value as string
@@ -72,7 +72,7 @@ export class PingCommand extends Command {
       case "add":
         const newExpAdd = await addExperience(
           this.client,
-          interaction.guild!,
+          interaction.channel as TextChannel,
           dbUser,
           expChange,
           settings

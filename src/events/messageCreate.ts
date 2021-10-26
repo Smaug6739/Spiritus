@@ -1,6 +1,6 @@
 import { Event } from "sheweny";
 import type { ShewenyClient } from "sheweny";
-import type { Message } from "discord.js";
+import type { Message, TextChannel } from "discord.js";
 import { addExperience } from "../utils";
 export class MessageCreate extends Event {
   constructor(client: ShewenyClient) {
@@ -10,7 +10,7 @@ export class MessageCreate extends Event {
   }
 
   async execute(message: Message) {
-    if (message.author.bot || message.author.system) return;
+    if (message.author.bot || message.system) return;
     if (!message.guild) return;
     const settings = await this.client.db.get(message.guildId!);
     if (!settings || !settings.expSystem) return;
@@ -21,7 +21,13 @@ export class MessageCreate extends Event {
         message.guildId!,
         message.author.id
       );
-      addExperience(this.client, message.guild, dbUser, expToAdd, settings);
+      addExperience(
+        this.client,
+        message.channel as TextChannel,
+        dbUser,
+        expToAdd,
+        settings
+      );
     }
   }
 }

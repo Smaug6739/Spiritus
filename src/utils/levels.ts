@@ -1,6 +1,6 @@
 import type { GuildDB, UserData } from "../../index";
 import type { ShewenyClient } from "sheweny";
-import type { Guild } from "discord.js";
+import type { TextChannel } from "discord.js";
 import { DataReplacer } from "data-replacer";
 
 const Replacer = new DataReplacer({
@@ -38,19 +38,25 @@ export function progression(exp: number): number {
 
 export function addExperience(
   client: ShewenyClient,
-  guild: Guild,
+  channel: TextChannel,
   dbUser: UserData,
   exp: number,
   settings: GuildDB
 ): number {
+  const guild = channel.guild;
+
   dbUser.experience += exp;
   const lvl = level(dbUser.experience);
   if (dbUser.level !== lvl) {
     dbUser.level = lvl;
-    if (settings.expChannel && settings.expMessage) {
-      const channel = client.util.resolveChannel(guild, settings.expChannel);
-      if (!channel || !channel.isText()) return dbUser.experience;
-      if (!channel.permissionsFor(guild.me!).has("SEND_MESSAGES"))
+    if (settings.expMessage) {
+      let cha = client.util.resolveChannel(
+        guild,
+        settings.expChannel
+      ) as TextChannel;
+      if (cha && !cha.isText()) return dbUser.experience;
+      if (cha) cha = channel;
+      if (!cha.permissionsFor(guild.me!).has("SEND_MESSAGES"))
         return dbUser.experience;
       const replace = {
         "{{User}}": `<@${dbUser.userID}>`,
@@ -58,7 +64,7 @@ export function addExperience(
         "{{Level}}": level(dbUser.experience).toString(),
       };
       const content = Replacer.replace(settings.expMessage, replace);
-      channel.send({ content });
+      cha.send({ content });
     }
   }
   client.db.updateUser(guild.id, dbUser.userID, dbUser);

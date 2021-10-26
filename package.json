@@ -29,6 +29,7 @@
     "canvas": "^2.8.0",
     "data-replacer": "^1.0.1",
     "discord.js": "^13.2.0",
+    "moment": "^2.29.1",
     "mongoose": "^6.0.7",
     "ms": "^3.0.0-canary.1",
     "sheweny": "^2.1.0",
