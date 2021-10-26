@@ -82,7 +82,11 @@ export class PingCommand extends Command {
         );
         break;
       case "rem":
-        const newExpRemove = await removeExperience(dbUser, expChange);
+        const newExpRemove = await removeExperience(
+          this.client,
+          dbUser,
+          expChange
+        );
         interaction.replySuccessMessage(
           `User experience is now \`${newExpRemove}\`.`
         );

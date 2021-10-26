@@ -20,6 +20,8 @@ declare module "discord.js" {
   interface CommandInteraction {
     replySuccessMessage(content: string): Promise<void>;
     replyErrorMessage(content: string): Promise<void>;
+    editSuccessMessage(content: string): any;
+    editErrorMessage(content: string): any;
   }
 }
 
@@ -28,6 +30,12 @@ CommandInteraction.prototype.replySuccessMessage = function (content: string) {
 };
 CommandInteraction.prototype.replyErrorMessage = function (content: string) {
   return this.reply(`${config.emojis.error} ${content}`);
+};
+CommandInteraction.prototype.editSuccessMessage = function (content: string) {
+  return this.editReply(`${config.emojis.success} ${content}`);
+};
+CommandInteraction.prototype.editErrorMessage = function (content: string) {
+  return this.editReply(`${config.emojis.error} ${content}`);
 };
 
 import Spiritus from "./client/Spiritus";

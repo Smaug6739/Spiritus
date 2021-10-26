@@ -35,7 +35,8 @@ class DatabaseProvider {
       { guildID: guildID, userID: userID, ...data }
     );
     const createdUser = new User(merged);
-    return await createdUser.save();
+    await createdUser.save();
+    return merged;
   }
   async getUser(guildID: string, userID: string) {
     if (!guildID) return null;

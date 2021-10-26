@@ -1,4 +1,4 @@
-import type { GuildDB, UserDB } from "../../index";
+import type { GuildDB, UserData } from "../../index";
 import type { ShewenyClient } from "sheweny";
 import type { Guild } from "discord.js";
 import { DataReplacer } from "data-replacer";
@@ -33,13 +33,13 @@ export function progression(exp: number): number {
   const nextLevelExp = experience(actualLevel + 1);
   const diff = nextLevelExp - actualLevelExp;
   const progressExp = exp - actualLevelExp;
-  return (progressExp / diff) * 100;
+  return Math.floor((progressExp / diff) * 100);
 }
 
 export function addExperience(
   client: ShewenyClient,
   guild: Guild,
-  dbUser: UserDB,
+  dbUser: UserData,
   exp: number,
   settings: GuildDB
 ): number {
@@ -53,7 +53,7 @@ export function addExperience(
       if (!channel.permissionsFor(guild.me!).has("SEND_MESSAGES"))
         return dbUser.experience;
       const replace = {
-        "{{User}}": `<@${dbUser.id}>`,
+        "{{User}}": `<@${dbUser.userID}>`,
         "{{Experience}}": dbUser.experience.toString(),
         "{{Level}}": level(dbUser.experience).toString(),
       };
@@ -61,15 +61,19 @@ export function addExperience(
       channel.send({ content });
     }
   }
-  dbUser.save();
+  client.db.updateUser(guild.id, dbUser.userID, dbUser);
   return dbUser.experience;
 }
 
-export function removeExperience(dbUser: UserDB, exp: number): number {
+export function removeExperience(
+  client: ShewenyClient,
+  dbUser: UserData,
+  exp: number
+): number {
   dbUser.experience -= exp;
   const lvl = level(dbUser.experience);
   if (dbUser.level !== lvl) dbUser.level = lvl;
 
-  dbUser.save();
+  client.db.updateUser(dbUser.guildID, dbUser.userID, dbUser);
   return dbUser.experience;
 }

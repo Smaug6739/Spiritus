@@ -1,0 +1,27 @@
+import { Event } from "sheweny";
+import type { ShewenyClient } from "sheweny";
+import type { Message } from "discord.js";
+import { addExperience } from "../utils";
+export class MessageCreate extends Event {
+  constructor(client: ShewenyClient) {
+    super(client, "messageCreate", {
+      description: "Client is logged in",
+    });
+  }
+
+  async execute(message: Message) {
+    if (message.author.bot || message.author.system) return;
+    if (!message.guild) return;
+    const settings = await this.client.db.get(message.guildId!);
+    if (!settings || !settings.expSystem) return;
+    const expCd = Math.floor(Math.random() * 19) + 1;
+    const expToAdd = Math.floor(Math.random() * 25) + 10;
+    if (expCd >= 10 && expCd <= 15) {
+      const dbUser = await this.client.db.getUser(
+        message.guildId!,
+        message.author.id
+      );
+      addExperience(this.client, message.guild, dbUser, expToAdd, settings);
+    }
+  }
+}

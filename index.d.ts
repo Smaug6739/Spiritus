@@ -76,10 +76,14 @@ export interface ReactionRole {
   emoji: string;
   roles: Array<string>;
 }
-
+export interface CommandDB {
+  id: string;
+  name: string;
+  content: string;
+}
 export interface UserData {
-  guildId: string;
-  userId: string;
+  guildID: string;
+  userID: string;
   experience: number;
   level: number;
   warns: number;
