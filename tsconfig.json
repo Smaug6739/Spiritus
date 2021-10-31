@@ -16,7 +16,7 @@
     "sourceMap": false,
     "strict": true,
     "target": "ES2021",
-    "skipLibCheck": false
+    "skipLibCheck": true
   },
   "exclude": ["node_modules", "ignore"]
 }

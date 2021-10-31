@@ -1,11 +1,12 @@
-import { Intents } from "discord.js";
+import { Intents, WebhookClient } from "discord.js";
 import { ShewenyClient } from "sheweny";
 import { DatabaseProvider } from "../providers";
-
 import type { Config } from "../../index";
 
 export default class Spiritus extends ShewenyClient {
   public config: Config;
+  public db: DatabaseProvider;
+  public logs: WebhookClient;
   constructor(config: Config) {
     super({
       admins: config.admins,
@@ -43,5 +44,6 @@ export default class Spiritus extends ShewenyClient {
     });
     this.config = config;
     this.db = new DatabaseProvider();
+    this.logs = new WebhookClient({ url: config.logs });
   }
 }

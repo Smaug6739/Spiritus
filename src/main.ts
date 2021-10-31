@@ -5,6 +5,7 @@ import { CommandInteraction } from "discord.js";
 import mongoose from "mongoose";
 import type { Config } from "../index";
 import type { DatabaseProvider } from "./providers/Database";
+import type { WebhookClient } from "discord.js";
 const config = toml.parse(
   readFileSync(join(__dirname, "../config.toml")).toString()
 );
@@ -13,6 +14,7 @@ declare module "sheweny" {
   interface ShewenyClient {
     config: Config;
     db: DatabaseProvider;
+    logs: WebhookClient;
   }
 }
 
