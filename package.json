@@ -1,6 +1,6 @@
 {
   "name": "Spiritus",
-  "version": "3.0.0",
+  "version": "3.2.0",
   "description": "A multi-function Discord bot. Leveling | Economy | Custom Commands | Reactions-Roles | Moderation | Fun",
   "main": "dist/index.js",
   "scripts": {
