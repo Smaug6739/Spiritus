@@ -1,11 +1,11 @@
 import { readFileSync } from "fs";
 import { join } from "path";
 import toml from "toml";
-import { CommandInteraction } from "discord.js";
+import { CommandInteraction, Message } from "discord.js";
 import mongoose from "mongoose";
 import type { Config } from "../index";
 import type { DatabaseProvider } from "./providers/Database";
-import type { WebhookClient } from "discord.js";
+import type { WebhookClient, ContextMenuInteraction } from "discord.js";
 const config = toml.parse(
   readFileSync(join(__dirname, "../config.toml")).toString()
 );
@@ -61,4 +61,27 @@ mongoose.connection.on("error", () => {
   console.log("Connection failed. Try reconecting in 5 seconds...");
   setTimeout(() => connectDB(), 5000);
 });
+client.handlers
+  .commands!.on(
+    "cooldownLimit",
+    (interaction: CommandInteraction | ContextMenuInteraction | Message) => {
+      interaction.reply({
+        content: "Please slow down",
+        ephemeral: true,
+      });
+    }
+  )
+  .on(
+    "userMissingPermissions",
+    (
+      interaction: CommandInteraction | ContextMenuInteraction | Message,
+      missing: string
+    ) => {
+      interaction.reply({
+        content: `You don't have ${missing} permissions`,
+        ephemeral: true,
+      });
+    }
+  );
+
 connectDB();
