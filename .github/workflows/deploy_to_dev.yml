@@ -3,33 +3,15 @@ on:
   push:
     branches: [dev]
 jobs:
-  pull:
+  build:
     runs-on: self-hosted
     steps:
-      - name: Pull repo
+      - name: Deploy to developement
         run: |
           cd /home/smaug/Spiritus/dev
           git stash
           git pull origin dev
-  install:
-    runs-on: self-hosted
-    steps:
-      - name: Install dependencies
-        run: |
-          cd /home/smaug/Spiritus/dev
           npm install --production
           npm prune --production
-  build:
-    runs-on: self-hosted
-    steps:
-      - name: Build project
-        run: |
-          cd /home/smaug/Spiritus/dev
           npm run build
-  reload:
-    runs-on: self-hosted
-    steps:
-      - name: Restart the bot
-        run: |
-          cd /home/smaug/Spiritus/dev
           pm2 reload beta.ecosystem.config.js

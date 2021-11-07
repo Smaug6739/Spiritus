@@ -54,7 +54,7 @@ export function addExperience(
         guild,
         settings.expChannel
       ) as TextChannel;
-      if (cha && !cha.isText()) return dbUser.experience;
+      if (!cha || (cha && !cha.isText())) return dbUser.experience;
       if (cha) cha = channel;
       if (!cha.permissionsFor(guild.me!).has("SEND_MESSAGES"))
         return dbUser.experience;
