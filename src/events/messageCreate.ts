@@ -5,7 +5,7 @@ import { addExperience } from "../utils";
 export class MessageCreate extends Event {
   constructor(client: ShewenyClient) {
     super(client, "messageCreate", {
-      description: "Client is logged in",
+      description: "A message is created",
     });
   }
 
