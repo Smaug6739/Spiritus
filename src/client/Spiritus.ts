@@ -32,13 +32,16 @@ export default class Spiritus extends ShewenyClient {
           },
         ],
       },
-      handlers: {
+      managers: {
         commands: {
           directory: "./commands",
-          guildId: config.guildId ? config.guildId : undefined,
+          guildId: config.guildId?.length ? config.guildId : undefined,
+          autoRegisterApplicationCommands: true,
+          loadAll: true,
         },
         events: {
           directory: "./events",
+          loadAll: true,
         },
       },
     });

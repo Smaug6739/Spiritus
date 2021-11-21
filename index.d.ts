@@ -73,8 +73,8 @@ export interface GuildCreateDB {
   name?: string;
 }
 export interface ReactionRole {
-  channelId: string;
-  messageId: string;
+  channelID: string;
+  messageID: string;
   emoji: string;
   roles: Array<string>;
 }

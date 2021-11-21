@@ -61,27 +61,14 @@ mongoose.connection.on("error", () => {
   console.log("Connection failed. Try reconecting in 5 seconds...");
   setTimeout(() => connectDB(), 5000);
 });
-client.handlers
-  .commands!.on(
-    "cooldownLimit",
-    (interaction: CommandInteraction | ContextMenuInteraction | Message) => {
-      interaction.reply({
-        content: "Please slow down",
-        ephemeral: true,
-      });
-    }
-  )
-  .on(
-    "userMissingPermissions",
-    (
-      interaction: CommandInteraction | ContextMenuInteraction | Message,
-      missing: string
-    ) => {
-      interaction.reply({
-        content: `You don't have ${missing} permissions`,
-        ephemeral: true,
-      });
-    }
-  );
+client.managers.commands!.on(
+  "cooldownLimit",
+  (interaction: CommandInteraction | ContextMenuInteraction | Message) => {
+    interaction.reply({
+      content: "Please slow down",
+      ephemeral: true,
+    });
+  }
+);
 
 connectDB();

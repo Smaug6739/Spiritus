@@ -1,8 +1,8 @@
 module.exports = {
   apps: [
     {
-      name: "spiritus-prod",
-      script: "./main.js",
+      name: "spiritus-production",
+      script: "./dist/main.js",
     },
   ],
 };

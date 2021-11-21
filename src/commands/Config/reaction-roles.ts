@@ -21,7 +21,7 @@ export class ReactionRolesCommand extends Command {
               description: "Channel to add message reaction.",
               type: "CHANNEL",
               required: true,
-              channel_types: [0],
+              channelTypes: ["GUILD_TEXT"],
             },
             {
               name: "message",
@@ -51,8 +51,9 @@ export class ReactionRolesCommand extends Command {
             {
               name: "channel",
               description: "Channel to remove message reaction.",
-              type: "STRING",
+              type: "CHANNEL",
               required: true,
+              channelTypes: ["GUILD_TEXT"],
             },
             {
               name: "message",
@@ -69,7 +70,7 @@ export class ReactionRolesCommand extends Command {
             {
               name: "role",
               description: "The role.",
-              type: "STRING",
+              type: "ROLE",
               required: true,
             },
           ],
@@ -122,7 +123,7 @@ export class ReactionRolesCommand extends Command {
                   (typeof emoteRRAdd !== "string" && emoteRRAdd.id
                     ? emoteRRAdd.id
                     : emoteRRAdd) &&
-                r.messageId == messageRRAdd.id &&
+                r.messageID == messageRRAdd.id &&
                 r.roles.includes(role.id)
             );
             if (existingReactionRole)
@@ -137,7 +138,7 @@ export class ReactionRolesCommand extends Command {
             let arrayRRAdd = settings.reactionroles;
             arrayRRAdd.push({
               channelID: channelRRAdd.id,
-              messageID: messageRRAdd.id,
+              D: messageRRAdd.id,
               emoji:
                 typeof emoteRRAdd !== "string" && emoteRRAdd.id
                   ? emoteRRAdd.id
@@ -149,7 +150,7 @@ export class ReactionRolesCommand extends Command {
             });
             interaction.replySuccessMessage(`Reaction-role have been created.`);
           } catch (e: any) {
-            if (e.message.match("Unknown message"))
+            if (e.message?.match("Unknown message"))
               return interaction.replyErrorMessage(`Message not found`);
             else
               return interaction.replyErrorMessage(
@@ -161,10 +162,9 @@ export class ReactionRolesCommand extends Command {
         break;
       case "rem":
         try {
-          const channel = this.client.util.resolveChannel(
-            interaction.guild!,
-            interaction.options.getString("channel")!
-          );
+          const channel = interaction.options.getChannel(
+            "channel"
+          ) as TextChannel;
           if (!channel.isText())
             return interaction.replyErrorMessage(
               "The type of the channel must be text."
@@ -175,10 +175,10 @@ export class ReactionRolesCommand extends Command {
             interaction.options.getString("message")!
           );
           if (!messageRR)
-            return interaction.replyErrorMessage(`interaction not found`);
+            return interaction.replyErrorMessage(`Message not found`);
           if (
             !settings.reactionroles.find(
-              (r: ReactionRole) => r.messageId === messageRR.id
+              (r: ReactionRole) => r.messageID === messageRR.id
             )
           )
             return interaction.replyErrorMessage(
@@ -196,14 +196,9 @@ export class ReactionRolesCommand extends Command {
             emojiToRemove = interaction.options.getString("emoji")!;
           if (!emojiToRemove)
             return interaction.replyErrorMessage(`Emoji not found.`);
-          const role = this.client.util.resolveRole(
-            interaction.guild!,
-            interaction.options.getString("role")!
-          );
+          const role = interaction.options.getRole("role");
           if (!role || role.id == interaction.guildId)
-            return interaction.replyErrorMessage(
-              ` Impossible de trouver ce rôle.`
-            );
+            return interaction.replyErrorMessage(`Role not found.`);
           this.client.db.update(interaction.guildId!, {
             $pull: {
               reactionroles: {
@@ -216,8 +211,10 @@ export class ReactionRolesCommand extends Command {
           });
           interaction.replySuccessMessage(`I have deleted this role-reaction.`);
         } catch (e: any) {
-          if (e.interaction.match("Unknown interaction"))
-            return interaction.replyErrorMessage(`interaction not found`);
+          console.log(e);
+
+          if (e.message?.match("Unknown message"))
+            return interaction.replyErrorMessage(`Message not found`);
           else
             return interaction.replyErrorMessage(
               `An error occurred. Please try again.`

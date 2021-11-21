@@ -1,16 +1,17 @@
 name: deploy to production
 on:
-  release:
-    types: [published]
+  relase:
+    type: [published]
 jobs:
   build:
     runs-on: self-hosted
     steps:
-    - name: pull
-      run: |
-        cd /home/smaug/Spiritus/prod
-        git stash
-        git pull origin master
-        npm install
-        npm run build
-        pm2 reload prod.ecosystem.config.js
+      - name: Deploy to developement
+        run: |
+          cd /home/smaug/Spiritus/prod
+          git stash
+          git pull origin master
+          npm install --production
+          npm prune --production
+          npm run build
+          pm2 reload prod.ecosystem.config.js
