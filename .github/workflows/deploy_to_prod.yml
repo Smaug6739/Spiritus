@@ -1,6 +1,6 @@
 name: deploy to production
 on:
-  relase:
+  release:
     type: [published]
 jobs:
   build:
