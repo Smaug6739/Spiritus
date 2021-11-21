@@ -7,7 +7,7 @@ export class Ready extends Event {
   constructor(client: ShewenyClient) {
     super(client, "guildDelete", {
       description: "Bot left a guild",
-      once: true,
+      once: false,
     });
   }
 

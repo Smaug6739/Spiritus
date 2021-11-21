@@ -7,7 +7,7 @@ export class Ready extends Event {
   constructor(client: ShewenyClient) {
     super(client, "guildCreate", {
       description: "Bot added to a guild",
-      once: true,
+      once: false,
     });
   }
 
