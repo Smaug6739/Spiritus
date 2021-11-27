@@ -20,10 +20,10 @@ export class ReactionRemove extends Event {
     if (!settings) return;
     settings.reactionroles.forEach((element: rr) => {
       if (
-        element.messageID === `${message.id}` &&
-        element.channelID === `${message.channel.id}`
+        element.messageID === message.id &&
+        element.channelID === message.channel.id
       ) {
-        if (element.emoji == `${emojiID}` || element.emoji == `${emoji}`) {
+        if (element.emoji == emojiID || element.emoji == emoji) {
           const roleToAdd = message.guild!.roles.cache.get(`${element.roleID}`);
           if (!roleToAdd) return;
           if (
