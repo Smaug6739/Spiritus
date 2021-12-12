@@ -15,15 +15,49 @@
 Spiritus has all the tools you will need for your Discord server, Spiritus is a multi-function Discord bot.
 You can invite the hosted version [here](https://discord.com/oauth2/authorize?client_id=689210215488684044&scope=bot&permissions=1946446974)
 
-## Functions
+## Commands
 
--Reactions-roles  
--Moderation  
--Leveling  
--Admins commands  
--Customs commands  
--Economy module  
--Fun commands
+### Administration
+
+| Name          | Description                          | Sub-commands   | Usage                 | Cd     |
+| ------------- | ------------------------------------ | -------------- | --------------------- | ------ |
+| commands      | Manage custom commands.              | list, add, rem | \<action> \<valeur>   | 10secs |
+| reactionroles | Manage roles-reactions in the guild. | add, rem       | [paramètre] \(valeur) | 10secs |
+
+### Bot
+
+| Name   | Description                   | Sub-commands                                                                             | Usage               | Cd     |
+| ------ | ----------------------------- | ---------------------------------------------------------------------------------------- | ------------------- | ------ |
+| config | Config the bot.               | prefix, log-channel, welcome-message, experience, admin-invites, rank-card, rank-channel | [parameter] (value) | 10secs |
+| invite | Send link invite for the bot. | none                                                                                     | none                | 10secs |
+| ping   | Ping the bot.                 | none                                                                                     | none                | 3secs  |
+
+### Experience
+
+| Name        | Description                       | Sub-commands | Usage                      | Cd     |
+| ----------- | --------------------------------- | ------------ | -------------------------- | ------ |
+| adminxp     | Manage exp of users.              | add, rem     | \<@​user> \<nb_experience> | 10secs |
+| leaderboard | Ranking of users on the guild.    | none         | none                       | 10secs |
+| rank        | View your rank or rank of member. | none         | \<@​user>                  | 10secs |
+
+### Fun
+
+| Name | Description        | Sub-commands                     | Usage              | Cd    |
+| ---- | ------------------ | -------------------------------- | ------------------ | ----- |
+| info | Send informations. | user, bot, server, role, channel | \<action> \<value> | 5secs |
+
+### Moderation
+
+| Name   | Description              | Usage               | Cd     |
+| ------ | ------------------------ | ------------------- | ------ |
+| ban    | Ban a user.              | \<@​user> \<reason> | 10secs |
+| kick   | Kick a user.             | \<@​user> \<raison> | 10secs |
+| mute   | Mute a user.             | \<@​user> \<time>   | 10secs |
+| purge  | Delete messages.         | \<nb_messages>      | 10secs |
+| rename | Change nickname of user. | \<user> \<new_name> | 10secs |
+| unban  | Unban a user.            | \<user_id>          | 10secs |
+| unmute | Unmute a user.           | \<@​user>           | 10secs |
+| warn   | Warn a user.             | \<user> \<reason>   | 10secs |
 
 ## How to install
 
