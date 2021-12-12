@@ -138,7 +138,7 @@ export class ReactionRolesCommand extends Command {
             let arrayRRAdd = settings.reactionroles;
             arrayRRAdd.push({
               channelID: channelRRAdd.id,
-              D: messageRRAdd.id,
+              messageID: messageRRAdd.id,
               emoji:
                 typeof emoteRRAdd !== "string" && emoteRRAdd.id
                   ? emoteRRAdd.id
