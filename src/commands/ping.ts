@@ -15,6 +15,6 @@ export class PingCommand extends Command {
   execute(interaction: CommandInteraction) {
     const start = Date.now();
 		interaction.reply('Pong !')
-			.then(async () => await interaction.editReply(`Pong  BOT : \`${Date.now() - start}ms\` API : \`${this.spiritus.client.ws.ping}ms\``));
+			.then(async () => await interaction.editReply(`Pong  BOT : \`${Date.now() - start}ms\` API : \`${this.client.ws.ping}ms\``));
   }
 }
