@@ -8,7 +8,7 @@ updates:
 # Fetch and update latest `npm` packages
 - package-ecosystem: npm
   directory: '/'
-  target-branch: "master"
+  target-branch: "dev"
   schedule:
     interval: daily
   reviewers:
