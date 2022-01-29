@@ -11,7 +11,6 @@ jobs:
           cd /home/smaug/Spiritus/dev
           git stash
           git pull origin dev
-          npm install --production
-          npm prune --production
-          npm run build
+          yarn install --production --frozen-lockfile
+          yarn build
           pm2 reload beta.ecosystem.config.js
