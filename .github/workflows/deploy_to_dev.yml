@@ -6,7 +6,7 @@ jobs:
   build:
     runs-on: self-hosted
     steps:
-      - name: Deploy to developement
+      - name: Deploy to dev
         run: |
           cd /home/smaug/Spiritus/dev
           git stash
