@@ -38,6 +38,11 @@ export default class Spiritus extends ShewenyClient {
           guildId: config.guildId?.length ? config.guildId : undefined,
           autoRegisterApplicationCommands: true,
           loadAll: true,
+          default: {
+            category: "Other",
+            channel: "GUILD",
+            cooldown: 3,
+          },
         },
         events: {
           directory: "./events",
