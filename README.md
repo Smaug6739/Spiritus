@@ -69,7 +69,7 @@ You can invite the hosted version [here](https://discord.com/oauth2/authorize?cl
 
 ## Contributions/Licence
 
-This project has an MIT license. And you are welcome to contribute.
+This project has an MIT license. And you are welcome to contribue. To contribute, please open a pull request on dev branch.
 
 ## Need help
 
