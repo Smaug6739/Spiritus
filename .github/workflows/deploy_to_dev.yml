@@ -8,6 +8,7 @@ jobs:
     steps:
       - name: Deploy to dev
         run: |
+          eval "$(ssh-agent -s)"
           cd /home/smaug/Spiritus/dev
           git stash
           git pull origin dev
