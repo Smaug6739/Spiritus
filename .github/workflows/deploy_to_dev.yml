@@ -8,9 +8,9 @@ jobs:
     steps:
       - name: Deploy to dev
         run: |
-          working-directory: /home/smaug/Spiritus/dev
           git stash
           git pull origin dev
           yarn install --production --frozen-lockfile
           yarn build
           pm2 reload beta.ecosystem.config.js
+          working-directory: /home/smaug/Spiritus/dev
