@@ -8,7 +8,7 @@ jobs:
     steps:
       - name: Deploy to dev
         run: |
-          cd /home/smaug/Spiritus/dev
+          working-directory: /home/smaug/Spiritus/dev
           git stash
           git pull origin dev
           yarn install --production --frozen-lockfile
