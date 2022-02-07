@@ -8,8 +8,7 @@ jobs:
     steps:
       - name: Deploy to dev
         run: |
-          #cd /home/smaug/Spiritus/dev
+          cd /home/smaug/Spiritus/dev
           git remote -v
-          working-directory: /home/smaug/Spiritus/dev
-          #git pull origin dev
+          git pull origin dev
 
