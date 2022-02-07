@@ -9,8 +9,6 @@ jobs:
       - name: Deploy to dev
         run: |
           cd /home/smaug/Spiritus/dev
-          git stash
+          git remote -v
           git pull origin dev
-          yarn install --production --frozen-lockfile
-          yarn build
-          pm2 reload beta.ecosystem.config.js
+
