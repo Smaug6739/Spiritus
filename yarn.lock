@@ -576,10 +576,10 @@ set-blocking@^2.0.0:
   resolved "https://registry.yarnpkg.com/set-blocking/-/set-blocking-2.0.0.tgz#045f9782d011ae9a6803ddd382b24392b3d890f7"
   integrity sha1-BF+XgtARrppoA93TgrJDkrPYkPc=
 
-sheweny@^3.4.0:
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/sheweny/-/sheweny-3.4.0.tgz#3b170b4cde42ae0423fb47008b480e8a2ed648d5"
-  integrity sha512-kBDrD5XIMTFVptI4WndDulxgZleTlaGwT6kE5dS80VGPbdsS7KE4yKHc/nHXKRjnehD5FT3IErO6cPShcJwFHw==
+sheweny@^3.4.1:
+  version "3.4.1"
+  resolved "https://registry.yarnpkg.com/sheweny/-/sheweny-3.4.1.tgz#bd94ebf462862e0543ef44959555edf145745ac9"
+  integrity sha512-NcnUYjBXre4t3Lp01uehAdM1pkbozocFPHa2dVKF1HKWGo2fmoKTfwoCDEPG7gavLHMTsOCNkNzdMj/98Sv8FQ==
   dependencies:
     "@sheweny/resolve" "^1.3.2"
 
