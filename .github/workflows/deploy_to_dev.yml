@@ -11,4 +11,3 @@ jobs:
           cd /home/smaug/Spiritus/dev
           git remote -v
           git pull origin dev
-
