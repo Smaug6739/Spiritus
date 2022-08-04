@@ -587,12 +587,13 @@ set-blocking@^2.0.0:
   resolved "https://registry.yarnpkg.com/set-blocking/-/set-blocking-2.0.0.tgz#045f9782d011ae9a6803ddd382b24392b3d890f7"
   integrity sha1-BF+XgtARrppoA93TgrJDkrPYkPc=
 
-sheweny@^3.5.0:
-  version "3.5.0"
-  resolved "https://registry.yarnpkg.com/sheweny/-/sheweny-3.5.0.tgz#61efa2c8209f8b15be5703c5d19b42c1850a797d"
-  integrity sha512-ONUAx6eCZHbOZkTOjSMnOym3W+QkIod8N0aCicZmAKqYWpC8Ke8vRCSUDLX9Q8ivTlyUjS0j392iyPvXSLrAtg==
+sheweny@^4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/sheweny/-/sheweny-4.0.2.tgz#7f363e32379d18d9f2df563d73732369fcd7883c"
+  integrity sha512-luEx5Sr5EQ1Kzox71oROK9pY5sXd1UQe//8s/L8uHSP5wQlTYKTt+ar1DVmKJeIIkV6iV1pyPoo9lQyftXZN6Q==
   dependencies:
     "@sheweny/resolve" "^1.3.2"
+    tslib "^2.4.0"
 
 sift@16.0.0:
   version "16.0.0"
