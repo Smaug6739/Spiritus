@@ -28,9 +28,9 @@
   "dependencies": {
     "canvas": "^2.9.3",
     "data-replacer": "^1.0.1",
-    "discord.js": "^14.1.2",
+    "discord.js": "^14.3.0",
     "moment": "^2.29.4",
-    "mongoose": "^6.5.1",
+    "mongoose": "^6.5.4",
     "ms": "^3.0.0-canary.1",
     "sheweny": "^4.0.2",
     "toml": "^3.0.0"
