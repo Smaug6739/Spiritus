@@ -26,13 +26,13 @@
   },
   "homepage": "https://github.com/Smaug6739/Spiritus#readme",
   "dependencies": {
-    "canvas": "^2.9.3",
+    "canvas": "^2.10.2",
     "data-replacer": "^1.0.1",
-    "discord.js": "^14.3.0",
+    "discord.js": "^14.6.0",
     "moment": "^2.29.4",
-    "mongoose": "^6.5.4",
+    "mongoose": "^6.7.2",
     "ms": "^3.0.0-canary.1",
-    "sheweny": "^4.0.2",
+    "sheweny": "^4.1.1",
     "toml": "^3.0.0"
   }
 }
