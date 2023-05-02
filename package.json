@@ -28,7 +28,7 @@
   "dependencies": {
     "canvas": "^2.11.2",
     "data-replacer": "^1.0.1",
-    "discord.js": "^14.9.0",
+    "discord.js": "^14.10.2",
     "moment": "^2.29.4",
     "mongoose": "^7.0.5",
     "ms": "^3.0.0-canary.1",
