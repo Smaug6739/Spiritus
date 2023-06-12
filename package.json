@@ -30,7 +30,7 @@
     "data-replacer": "^1.0.1",
     "discord.js": "^14.9.0",
     "moment": "^2.29.4",
-    "mongoose": "^7.0.5",
+    "mongoose": "^7.2.4",
     "ms": "^3.0.0-canary.1",
     "sheweny": "^4.2.1",
     "toml": "^3.0.0"
